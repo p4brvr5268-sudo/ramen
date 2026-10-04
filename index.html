@@ -438,6 +438,8 @@ body.healing .st{cursor:pointer}
 #introOv.scene{backdrop-filter:none;-webkit-backdrop-filter:none}
 .sceneIcon{display:flex;align-items:center;justify-content:center;font-size:2.6rem;background:#2A1A3A}
 #introLine.chatline{background:#2A1A3A;color:#FFF;border-color:#7B3FA0;font-weight:700}
+.mkst u.rule{text-decoration:none;font-size:.66rem;font-weight:700;color:#7B3FA0;line-height:1.2;text-align:center}
+.mkgoal{margin:6px 0 2px;padding:8px 10px;border-radius:10px;background:#F1E6FA;color:#4A1F6B;font-weight:700;font-size:.85rem;text-align:center}
 </style>
 </head>
 
@@ -1304,6 +1306,7 @@ body.healing .st{cursor:pointer}
     <p class="how">🎬 신인 먹방러가 되어 무대를 하나씩 정복하고, 전설의 <b>면치기왕 쭈욱</b>을 넘어 최고의 먹방 스타가 되어 봐요!</p>
     <div class="lbl" style="display:flex;justify-content:space-between;gap:6px"><span>퀘스트 (깨면 다음 무대가 열려요)</span><span class="notr" id="mkStarTot"></span></div>
     <div class="mkstages" id="mkStages"></div>
+    <p class="mkgoal notr" id="mkGoal"></p>
     <p class="how" style="font-size:.8rem">정확도 70% 이상이면 클리어 ★ · 85% ★★ · 95% ★★★</p>
     <div id="mkFree" hidden><div class="lbl">곡 고르기</div>
     <div class="seg" id="mkSongSeg" style="grid-template-columns:repeat(2,1fr)"></div>
@@ -1342,6 +1345,16 @@ body.healing .st{cursor:pointer}
   const nrm = a => { while(a > Math.PI) a -= 2*Math.PI; while(a < -Math.PI) a += 2*Math.PI; return a; };
   // order: en | ja | zh (简) | zt (繁) | es | fr | de | pt | vi | th
   const I18N_RAW = {
+'빠름':'Fast|速い|快速|快速|Rápido|Rapide|Schnell|Rápido|Nhanh|เร็ว',
+'거꾸로':'Mirror|反転|镜像|鏡像|Espejo|Miroir|Spiegel|Espelho|Đảo ngược|กลับด้าน',
+'안 보임':'Hidden|見えない|隐藏|隱藏|Oculto|Caché|Versteckt|Oculto|Ẩn|ซ่อน',
+'콤보':'Combo|コンボ|连击|連擊|Combo|Combo|Combo|Combo|Combo|คอมโบ',
+'최대 콤보':'Max combo|最大コンボ|最大连击|最大連擊|Combo máx.|Combo max|Max. Combo|Combo máx.|Combo cao nhất|คอมโบสูงสุด',
+'최대':'max|最大|最多|最多|máx.|max|max.|máx.|tối đa|สูงสุด',
+'목표':'Goal|目標|目标|目標|Objetivo|Objectif|Ziel|Objetivo|Mục tiêu|เป้าหมาย',
+'정확도 70% 이상':'Accuracy 70%+|正確度70%以上|准确度70%以上|準確度70%以上|Precisión 70%+|Précision 70 %+|Genauigkeit 70 %+|Precisão 70%+|Chính xác 70%+|แม่น 70%+',
+'시즌 2':'Season 2|シーズン2|第2季|第2季|Temporada 2|Saison 2|Staffel 2|Temporada 2|Mùa 2|ซีซัน 2',
+'목표 실패':'Goal missed|目標失敗|目标未达成|目標未達成|Objetivo fallido|Objectif raté|Ziel verfehlt|Objetivo falhou|Chưa đạt mục tiêu|ไม่ผ่านเป้าหมาย',
 '이야기가 이어져요!':'The story continues!|物語が続くよ！|故事继续！|故事繼續！|¡La historia continúa!|L’histoire continue !|Die Geschichte geht weiter!|A história continua!|Câu chuyện tiếp tục!|เรื่องราวดำเนินต่อ!',
 '다음 무대로':'Next stage|次の舞台へ|前往下一个舞台|前往下一個舞台|Siguiente escenario|Scène suivante|Nächste Bühne|Próximo palco|Sân khấu tiếp|เวทีถัดไป',
 '엔딩 보기':'See the ending|エンディングを見る|观看结局|觀看結局|Ver el final|Voir la fin|Ende ansehen|Ver o final|Xem kết thúc|ดูตอนจบ',
@@ -8081,12 +8094,39 @@ Reply as JSON only: {"name":"...","why":"..."}`;
   const MK_STAGES = [
     ['lofi','easy'], ['hiphop','easy'], ['blues','easy'], ['samba','easy'], ['funk','easy'],
     ['march','normal'], ['kpop','normal'], ['trot','normal'], ['edm','normal'], ['chip','normal'],
-    ['funk','hard'], ['kpop','hard'], ['trot','hard'], ['edm','hard'], ['chip','hard']
+    ['funk','hard'], ['kpop','hard'], ['trot','hard'], ['edm','hard'], ['chip','hard'],
+    ['lofi','normal'],
+    ['hiphop','normal'],
+    ['blues','normal'],
+    ['samba','normal'],
+    ['funk','normal'],
+    ['march','hard'],
+    ['kpop','hard'],
+    ['trot','hard'],
+    ['edm','hard'],
+    ['chip','hard'],
+    ['lofi','hard'],
+    ['samba','hard'],
+    ['funk','hard'],
+    ['blues','hard'],
+    ['edm','hard']
   ];
+  // special rules for quests (season 2): combo / no-miss / perfect goals and fast / mirror / hidden twists
+  const MK_RULE = [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,{"combo": 40},{"mirror": 1},{"nomiss": 5},{"fast": 1},{"hidden": 1},{"combo": 60},{"perfect": 60},{"nomiss": 8},{"hidden": 1},{"fast": 1},{"mirror": 1},{"combo": 80},{"perfect": 70},{"hidden": 1, "mirror": 1},{"fast": 1, "combo": 50}];
+  const ruleBadge = r => !r ? '' : [r.fast ? '⚡' + tr('빠름') : '', r.mirror ? '🔁' + tr('거꾸로') : '', r.hidden ? '🙈' + tr('안 보임') : '', r.combo ? '🔗' + tr('콤보') + ' ' + r.combo : '', r.nomiss != null ? '🛡️' + tr('MISS') + ' ≤' + r.nomiss : '', r.perfect ? '🎯PERFECT ' + r.perfect + '%' : ''].filter(Boolean).join(' ');
+  function ruleCheck(r){
+    if(!r) return '';
+    const c = MK.cnt, tot = Math.max(1, MK.chart.notes.length);
+    if(r.combo && MK.maxCombo < r.combo) return tr('최대 콤보') + ' ' + MK.maxCombo + ' / ' + r.combo;
+    if(r.nomiss != null && c.m > r.nomiss) return 'MISS ' + c.m + ' / ' + tr('최대') + ' ' + r.nomiss;
+    if(r.perfect && c.p/tot*100 < r.perfect) return 'PERFECT ' + Math.round(c.p/tot*100) + '% / ' + r.perfect + '%';
+    return '';
+  }
   // ---------- quest names for each stage ----------
   const MK_QUEST = ['새벽 첫 방송','골목 랩 배틀 먹방','재즈바 야식 라이브','여름 축제 노점','디스코 면치기 파티',
     '운동회 응원 먹방','아이돌 대기실 잠입','경로당 노래자랑','매운맛 클럽 나이트','레트로 오락실 결투',
-    '미러볼 아래 결승','월드투어 앙코르','전국 노래자랑 본선','불꽃 축제 피날레','최종 보스: 면치기 왕'];
+    '미러볼 아래 결승','월드투어 앙코르','전국 노래자랑 본선','불꽃 축제 피날레','최종 보스: 면치기 왕',
+    '새벽 라디오 생방송','거꾸로 랩 배틀','재즈바 노 미스 챌린지','번개 축제 퍼레이드','깜깜이 디스코','운동회 계주 결승','음악방송 1위 앵콜','트로트 메들리 노 미스','정전된 클럽','8비트 스피드런','새벽 3시 거꾸로 방송','카니발 콤보 행진','미러볼 퍼펙트쇼','눈 감고 재즈','전설의 면치기 페스티벌'];
   // ---------- mukbang story: from a rookie streamer to the mukbang legend ----------
   Object.assign(SP, {
     pd:{name:'김 PD (매니저)', pp:{g:'f', age:'adult', sk:'#F6D3B3', hc:'#3B2A20', st:'bob', sh:'#2F3E5C', bg:'#EADCFF', t:'busy'}},
@@ -8114,6 +8154,22 @@ Reply as JSON only: {"name":"...","why":"..."}`;
     {intro:[["pd", "불꽃 축제 피날레예요. …저 고백할 게 있어요."], ["pd", "쭈욱이 떠난 뒤로 먹방 PD 그만두려고 했어요. 그런데 당신을 만났죠."], ["me", "PD님 덕분에 제가 여기까지 왔는걸요."], ["pd", "마지막 무대 전에, 하늘에 불꽃 한번 크게 터뜨려 봐요!"]], win:[["pd", "구독자 100만 돌파! 골드 버튼이 도착했어요!"], ["chat", "100만 축하해요!!! 🎉🎉🎉"], ["king", "(문자) …축하한다. 마지막 무대에서 기다리겠다."]]},
     {intro:[["king", "드디어 여기까지 왔군. 나도 처음엔 너 같았지."], ["king", "저 PD가… 내 첫 매니저였어. 그때 난 혼자 잘난 줄 알았지."], ["pd", "쭈욱, 오랜만이야. 잘 지냈어?"], ["king", "…인사는 나중에. 이기는 쪽이 진짜 면치기 왕이다!"], ["me", "PD님과 함께라면 누구도 안 무서워요. 갑니다!"]], win:[["king", "…네가 새로운 면치기 왕이다."], ["king", "PD, 좋은 사람 만났네. 그때 미안했어."], ["pd", "(눈물) 이제 다 괜찮아."]]}
   ];
+  MK_STORY.push({intro:[["pd", "면치기 왕님, 시즌 2 시작이에요! 이번엔 라디오 생방송 섭외예요."], ["king", "왕이 됐다고 쉬면 안 되지. 진짜 왕은 매일 증명하는 거다."], ["pd", "라디오는 끊기면 안 돼요. 콤보 40을 이어 가요!"]], win:[["chat", "라디오로 듣는데도 후루룩 소리가 들려요 ㅋㅋ"], ["pd", "시즌 2 첫 방송 대성공!"]]},
+    {intro:[["pd", "래퍼들이 이번엔 거울 무대를 준비했대요. 면발이 반대쪽에서 떨어져요!"], ["me", "거울 속 리듬… 헷갈려도 해 볼게요!"]], win:[["chat", "거꾸로인데도 다 받네 ㄷㄷ"], ["pd", "래퍼들이 \"리스펙 x2\"를 외쳐요!"]]},
+    {intro:[["pd", "재즈바 사장님의 도전장이에요. 실수는 다섯 번까지만!"], ["grandma", "손주야, 침착하게. 천천히 꼭꼭!"]], win:[["pd", "사장님이 기립박수를 쳐요!"], ["grandma", "우리 손주, 이제 실수도 안 하네!"]]},
+    {intro:[["emma", "Hi again! 이번 퍼레이드는 엄청 빨라요!"], ["pd", "면발이 평소보다 빠르게 떨어져요. 눈을 크게 떠요!"]], win:[["emma", "Super fast! 최고예요!"], ["chat", "손이 안 보여요 ㅋㅋㅋ"]]},
+    {intro:[["pd", "디스코장이 정전됐어요! 면발이 중간부터 안 보여요."], ["king", "소리를 들어. 박자는 거짓말을 안 한다."]], win:[["king", "…눈 감고도 받다니. 역시 내 라이벌이다."], ["pd", "불 켜지자마자 관객들이 환호해요!"]]},
+    {intro:[["pd", "운동회 계주 결승! 바통처럼 콤보를 이어 가야 해요. 60콤보!"], ["chat", "계주 먹방이라니 ㅋㅋ 응원합니다!"]], win:[["pd", "결승선 통과! 운동장이 들썩여요!"]]},
+    {intro:[["lumi", "우리 노래가 음악방송 1위 했어요! 앵콜 무대에 같이 서 줘요!"], ["pd", "앵콜은 완벽해야 해요. PERFECT 60% 이상!"]], win:[["lumi", "앵콜 무대 레전드 됐어요! 팬들이 난리 났어요!"], ["chat", "직캠 조회수 폭발 중"]]},
+    {intro:[["grandma", "할미 칠순 잔치에 트로트 메들리 부탁한다~"], ["pd", "메들리는 쉬지 않고 이어져요. 실수 8번까지만!"]], win:[["grandma", "아이고 장하다! 잔치가 최고였다!"], ["chat", "할머니 칠순 축하드려요!!"]]},
+    {intro:[["king", "클럽이 또 정전이군. 이번엔 내가 디제잉한다. 따라올 수 있겠나?"], ["me", "박자만 들리면 충분해요!"]], win:[["king", "…좋아. 넌 진짜다."], ["chat", "어둠 속 면치기 장인 탄생"]]},
+    {intro:[["pd", "오락실 세계 기록 도전! 이번엔 엄청 빠른 모드예요."], ["chat", "스피드런 가즈아!!"]], win:[["pd", "세계 기록 갱신! 오락실 명예의 전당에 올랐어요!"]]},
+    {intro:[["pd", "새벽 3시 특별 방송! 졸려서 화면이 거꾸로 보이는 콘셉트래요."], ["me", "졸려도 면발은 놓치지 않아요!"]], win:[["chat", "새벽 감성 + 거꾸로 = 레전드"], ["pd", "시청자들이 잠 못 들고 있어요 ㅋㅋ"]]},
+    {intro:[["emma", "브라질 카니발에 초대받았어요! 콤보 80, 끝까지 춤춰요!"], ["pd", "세계 최대 축제예요. 끊기지 말고!"]], win:[["emma", "Carnival champion! 리우가 들썩여요!"], ["chat", "카니발 1등이라니 ㄷㄷ"]]},
+    {intro:[["king", "미러볼 아래에서 다시 붙자. 이번엔 퍼펙트로만 승부한다."], ["pd", "PERFECT 70% 이상! 쭈욱도 진심이에요."]], win:[["king", "…완벽하다. 이번엔 깨끗하게 졌다."], ["pd", "두 사람 다 최고예요!"]]},
+    {intro:[["pd", "재즈 거장의 마지막 시험이래요. 안 보이고, 거꾸로예요."], ["grandma", "할미가 손뼉으로 박자 맞춰 줄게!"], ["me", "할머니 박수 소리만 믿고 갈게요!"]], win:[["pd", "재즈 거장이 \"진짜 음악가\"라고 인정했어요!"], ["grandma", "눈물 난다, 우리 손주…"]]},
+    {intro:[["pd", "시즌 2 최종 무대, 전설의 면치기 페스티벌이에요!"], ["king", "오늘은 라이벌이 아니라 동료로 함께 무대에 선다."], ["lumi", "저도 왔어요! 엠마랑 할머니도 맨 앞줄이에요!"], ["pd", "빠른 템포에 콤보 50! 모두의 응원을 받아 가요!"]], win:[["king", "…전설 완성이다."], ["pd", "시즌 2 완주! 우리 정말 대단해요."]]});
+  const MK_END2 = [["pd", "시즌 2까지 모두 클리어! 이제 진짜 전설의 먹방러예요."], ["king", "다음엔 내가 도전자다. 기다려라."], ["lumi", "다음 컴백도 꼭 같이 해요!"], ["emma", "전 세계 투어 기다릴게요!"], ["grandma", "밥은 꼭 챙겨 먹고 방송해라~"], ["chat", "전설!!! 전설!!! 전설!!!"], ["me", "모두 고마워요. 앞으로도 맛있게, 신나게!"]];
   const MK_END = [["king", "왕관은 네 거다. 대신 다음 대회 때 나랑 합동 먹방 한 번 하자."], ["lumi", "저도 끼워 주세요! 셋이서 면치기 콘서트!"], ["grandma", "할미는 김치 한 통 들고 갈게~"], ["emma", "전 세계 팬들도 기다릴 거예요!"], ["chat", "면치기 왕 등극 축하!!! 레전드 탄생"], ["pd", "신인 먹방러에서 면치기 왕까지… 우리 진짜 해냈어요."], ["me", "시작이 반이었죠. 앞으로도 맛있게, 신나게!"]];
   const mkSeen = () => { PROFILE.mkSeen = PROFILE.mkSeen || {}; return PROFILE.mkSeen; };
   const mkSubs = () => { let st = 0, cl = 0; MK_STAGES.forEach((_, i) => { const b = mkBest(i); st += b; if(b) cl++; }); return Math.round(st*7000 + cl*3000 + (PROFILE && PROFILE.mkst ? 0 : 0)); };
@@ -8129,14 +8185,16 @@ Reply as JSON only: {"name":"...","why":"..."}`;
       const S = MK_SONGS[song], open = mkOpen(i), st = mkBest(i);
       return `<button class="mkst ${diff} ${pickStage === i ? 'on' : ''}" data-i="${i}" ${open ? '' : 'disabled'}>
         <b>${i + 1}</b><span class="mke">${open ? S.e : '🔒'}</span><small>${open ? esc(tr(MK_QUEST[i])) : '???'}</small>
-        <em>${esc(tr(D[diff]))}</em><i class="notr">${'★'.repeat(st)}<u>${'★'.repeat(3 - st)}</u></i></button>`; }).join('');
+        <em>${esc(tr(D[diff]))}</em>${MK_RULE[i] && open ? `<u class="rule notr">${esc(ruleBadge(MK_RULE[i]))}</u>` : ''}<i class="notr">${'★'.repeat(st)}<u>${'★'.repeat(3 - st)}</u></i></button>`; }).join('');
     const total = MK_STAGES.reduce((a, _, i) => a + mkBest(i), 0);
+    const R = MK_RULE[pickStage];
+    $('mkGoal').textContent = '🎯 ' + tr('목표') + ': ' + tr('정확도 70% 이상') + (R ? ' + ' + ruleBadge(R) : '') + (pickStage >= 15 ? ' · ' + tr('시즌 2') : '');
     $('mkStarTot').textContent = '📺 ' + tr('구독자') + ' ' + fmtSubs(mkSubs()) + ' · ⭐ ' + total + '/' + MK_STAGES.length*3;
   }
   $('mkStages').addEventListener('click', e => { const b = e.target.closest('.mkst'); if(!b || b.disabled) return; pickStage = +b.dataset.i; pickSong = MK_STAGES[pickStage][0]; pickDiff = MK_STAGES[pickStage][1]; renderStages(); previewSong(pickSong); });
   function startStageMk(i){
     pickStage = i; const [song, diff] = MK_STAGES[i]; pickSong = song; pickDiff = diff; $('mkSetOv').hidden = true;
-    const go = () => startMk({song, diff, seed:Math.floor(Math.random()*1e9), stage:i});
+    const go = () => startMk({song, diff, seed:Math.floor(Math.random()*1e9), stage:i, rule:MK_RULE[i] || null});
     const seen = mkSeen();
     const B = MK_BG[song] || MK_BG.lofi, bg = `radial-gradient(circle at 50% 25%, ${B.n1}55 0%, transparent 45%), linear-gradient(${B.top}, ${B.bot})`;
     if(!seen[i] && MK_STORY[i]){ seen[i] = 1; saveProfile(); playScene(MK_STORY[i].intro, go, '🎬 ' + tr('방송 시작!'), bg); }
@@ -8381,6 +8439,7 @@ Reply as JSON only: {"name":"...","why":"..."}`;
         }
         if(n.j || di >= MK3.drops.length) continue;
         const y = noteY(n.t, now); if(y < ST) continue;
+        if(MK.hidden && y > 290) continue;
         const g = MK3.drops[di++]; g.visible = true; g.position.copy(W(n.x, y, 60)); g.rotation.z = Math.sin(now*9 + n.t*7)*.12;
       }
       for(;di < MK3.drops.length;di++) MK3.drops[di].visible = false;
@@ -8422,9 +8481,11 @@ Reply as JSON only: {"name":"...","why":"..."}`;
   function mk3Leave(){ MK3.on = false; if($('mksvg')) $('mksvg').classList.remove('mk3d'); if($('mk3d')) $('mk3d').style.display = 'none'; }
   function startMk(cfg){
     SFX.unlock();
-    MK = {cfg, chart:mkChart(cfg.song, cfg.diff, cfg.seed), music:mkMusic(cfg.song), mi:0, running:false, audio:false, t0:0, p0:0, lead:MK_DIFF[cfg.diff].lead,
+    const mir = !!(cfg.rule && cfg.rule.mirror);
+    MK = {cfg, chart:mkChart(cfg.song, cfg.diff, cfg.seed), music:mkMusic(cfg.song), mi:0, running:false, audio:false, t0:0, p0:0, lead:MK_DIFF[cfg.diff].lead*(cfg.rule && cfg.rule.fast ? .72 : 1), hidden:!!(cfg.rule && cfg.rule.hidden),
       score:0, combo:0, maxCombo:0, cnt:{p:0, g:0, o:0, m:0}, judgeT:-9, judge:'', px:200, ptrs:{}, bend:null, lastCatch:null,
       ai: cfg.ai ? {lv:cfg.ai, score:0, combo:0, idx:0, last:''} : null, net:!!cfg.net, mid:cfg.mid, lastPush:0, beatI:-1, slurpT:-9};
+    if(mir) MK.chart.notes.forEach(n => { n.x = 400 - n.x; if(n.x2 != null) n.x2 = 400 - n.x2; });
     ['startOv','lobbyOv','mkEndOv','mkSetOv'].forEach(id => $(id).hidden = true);
     $('mk').hidden = false; setTimeout(mk3Enter, 40);
     { const B = MK_BG[MK.cfg.song] || MK_BG.lofi, st = document.querySelectorAll('#mkbg stop'); if(st.length >= 2){ st[0].setAttribute('stop-color', B.top); st[1].setAttribute('stop-color', B.bot); }
@@ -8582,6 +8643,7 @@ Reply as JSON only: {"name":"...","why":"..."}`;
       if(n.j) continue;
       const y = noteY(n.t, now);
       if(y < ST) continue;
+      if(MK.hidden && y > 290) continue;
       // a short falling noodle: two wiggly strands, the bottom tip is where it lands
       const ph = now*10 + n.t*7;
       if(!MK3.on) h += noodle(strand(n.x - 4, y - 44, n.x - 2, y, 4.5, ph), 7) + noodle(strand(n.x + 5, y - 38, n.x + 3, y - 2, 4, ph + 1.5), 5);
@@ -8690,12 +8752,13 @@ Reply as JSON only: {"name":"...","why":"..."}`;
     MK.base = base; MK.verdict = false; MK.rank = rank;
     MK.stageRes = null;
     if(!MK.net && MK.cfg.stage != null){
-      const i = MK.cfg.stage, st = mkStars(acc), had = mkBest(i), opened = st > 0 && had === 0 && i + 1 < MK_STAGES.length;
+      const i = MK.cfg.stage, fail = ruleCheck(MK.cfg.rule), st = fail ? 0 : mkStars(acc), had = mkBest(i), opened = st > 0 && had === 0 && i + 1 < MK_STAGES.length;
+      MK.ruleFail = fail;
       PROFILE.mkst = PROFILE.mkst || {}; if(st > had) PROFILE.mkst[i] = st; saveProfile();
-      MK.stageRes = {i, st, next: st > 0 && i + 1 < MK_STAGES.length, ending: st > 0 && had === 0 && i === MK_STAGES.length - 1};
+      MK.stageRes = {i, st, next: st > 0 && i + 1 < MK_STAGES.length, ending: st > 0 && had === 0 && (i === 14 || i === MK_STAGES.length - 1)};
       if(st > 0 && had === 0 && MK_STORY[i]){ MK.storyWin = '🎬 ' + tr('이야기가 이어져요!') + ' (📺 ' + tr('구독자') + ' ' + fmtSubs(mkSubs()) + ')'; MK.stageRes.winScene = true; }
       else MK.storyWin = '';
-      $('mkEndRows').innerHTML = `<div class="mkres ${st ? 'ok' : 'no'}"><b>${esc(tr('스테이지'))} ${i + 1} ${st ? esc(tr('클리어!')) : esc(tr('다시 도전!'))}</b><span class="notr">${'★'.repeat(st)}<u>${'★'.repeat(3 - st)}</u></span>${MK.storyWin ? `<small class="mkstory">${esc(MK.storyWin)}</small>` : ''}${opened ? `<small>🔓 ${esc(tr('다음 스테이지가 열렸어요!'))}</small>` : !st ? `<small>${esc(tr('정확도 70% 이상이면 클리어예요'))}</small>` : ''}</div>` + $('mkEndRows').innerHTML;
+      $('mkEndRows').innerHTML = `<div class="mkres ${st ? 'ok' : 'no'}"><b>${esc(tr('스테이지'))} ${i + 1} ${st ? esc(tr('클리어!')) : esc(tr('다시 도전!'))}</b><span class="notr">${'★'.repeat(st)}<u>${'★'.repeat(3 - st)}</u></span>${MK.storyWin ? `<small class="mkstory">${esc(MK.storyWin)}</small>` : ''}${opened ? `<small>🔓 ${esc(tr('다음 스테이지가 열렸어요!'))}</small>` : !st ? `<small>${esc(MK.ruleFail ? '🎯 ' + tr('목표 실패') + ': ' + MK.ruleFail : tr('정확도 70% 이상이면 클리어예요'))}</small>` : ''}</div>` + $('mkEndRows').innerHTML;
     }
     $('mkEndAgain').textContent = MK.net ? '재대결 준비' : MK.stageRes && MK.stageRes.next ? tr('다음 스테이지') + ' ▶' : tr('다시 도전');
     $('mkEndMenu').textContent = MK.net ? '방 나가기' : '메뉴로';
@@ -8743,7 +8806,7 @@ Reply as JSON only: {"name":"...","why":"..."}`;
   function closeMk(){ mk3Leave(); if(MK){ MK.running = false; cancelAnimationFrame(mkraf); } const net = MK && MK.net; MK = null; $('mk').hidden = true; $('mkEndOv').hidden = true; return net; }
   $('mkEndAgain').onclick = () => { const res = MK && MK.stageRes; const net = closeMk(); if(net){ onlineRematch(); return; }
     if(res && res.winScene && MK_STORY[res.i]){ const B0 = MK_BG[MK_STAGES[res.i][0]] || MK_BG.lofi; const nxt = res.ending ? null : res;
-      playScene(MK_STORY[res.i].win, () => { if(res.ending) playScene(MK_END, () => openMkSetup(), '👑 ' + tr('면치기 왕!'), `radial-gradient(circle at 50% 25%, #FFD23F66 0%, transparent 50%), linear-gradient(#3A1240, #C2186B)`); else startStageMk(res.next ? res.i + 1 : res.i); },
+      playScene(MK_STORY[res.i].win, () => { if(res.ending) playScene(res.i === 14 ? MK_END : MK_END2, () => openMkSetup(), '👑 ' + tr('면치기 왕!'), `radial-gradient(circle at 50% 25%, #FFD23F66 0%, transparent 50%), linear-gradient(#3A1240, #C2186B)`); else startStageMk(res.next ? res.i + 1 : res.i); },
         res.ending ? '👑 ' + tr('엔딩 보기') : '▶ ' + tr('다음 무대로'), `radial-gradient(circle at 50% 25%, ${B0.n1}55 0%, transparent 45%), linear-gradient(${B0.top}, ${B0.bot})`); return; }
     if(res && res.ending){ const B = MK_BG.chip; playScene(MK_END, () => openMkSetup(), '👑 ' + tr('면치기 왕!'), `radial-gradient(circle at 50% 25%, #FFD23F66 0%, transparent 50%), linear-gradient(#3A1240, #C2186B)`); return; }
     if(res) startStageMk(res.next ? res.i + 1 : res.i); else openMkSetup(); };
