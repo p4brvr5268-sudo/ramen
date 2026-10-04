@@ -363,16 +363,26 @@ body.healing .st{cursor:pointer}
 @keyframes spPop{from{transform:scale(.3);opacity:0}to{transform:none;opacity:1}}
 @keyframes spFade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @keyframes spSteam{0%{opacity:0;transform:translateY(10px)}40%{opacity:.9}100%{opacity:0;transform:translateY(-14px)}}
-.mkstages{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:6px 0 4px}
-.mkst{appearance:none;border:2.5px solid var(--line);border-radius:12px;background:var(--panel);font:inherit;padding:6px 5px 5px;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;min-width:0}
-.mkst b{font-size:.78rem;color:var(--muted)}
-.mkst .mke{font-size:1.35rem;line-height:1.15}
-.mkst small{font-size:.8rem;font-weight:700;line-height:1.25;max-width:100%;text-align:center;word-break:keep-all;overflow-wrap:anywhere;min-height:2.5em;display:flex;align-items:center;justify-content:center}
-.mkst em{font-style:normal;font-size:.72rem;font-weight:700;border-radius:6px;padding:1px 6px}
+.mkcar{position:relative;display:flex;align-items:center;gap:4px;margin:6px -6px 2px}
+.mkstages{flex:1;min-width:0;display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:6px 14%;scrollbar-width:none}
+.mkstages::-webkit-scrollbar{display:none}
+.mkarr{appearance:none;flex:none;width:30px;height:46px;border:2px solid var(--line);border-radius:10px;background:var(--panel);font:inherit;font-size:1.4rem;font-weight:700;cursor:pointer;padding:0}
+.mkst{appearance:none;flex:0 0 100%;scroll-snap-align:center;border:3px solid var(--line);border-radius:16px;background:var(--panel);font:inherit;padding:12px 10px 10px;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;min-height:176px;justify-content:center;transition:transform .15s,opacity .15s}
+.mkst:not(.on){transform:scale(.92);opacity:.75}
+.mkst::before{content:"";position:absolute;inset:0 0 auto 0;height:38px;border-radius:13px 13px 0 0;background:linear-gradient(90deg,var(--sc1),var(--sc2));opacity:.9}
+.mkst{position:relative;overflow:hidden}
+.mkst > *{position:relative}
+.mkst b{color:#FFF !important;text-shadow:0 1px 2px #000}
+.mkst b{font-size:.85rem;color:var(--muted)}
+.mkst .mke{font-size:2.2rem;line-height:1.15}
+.mkst small{font-size:1.05rem;font-weight:700;line-height:1.3;max-width:100%;text-align:center;word-break:keep-all;overflow-wrap:anywhere}
+.mkst em{font-style:normal;font-size:.8rem;font-weight:700;border-radius:6px;padding:2px 8px}
+.mkhow{margin:6px 0;border:2px dashed var(--line);border-radius:12px;padding:6px 10px}
+.mkhow summary{cursor:pointer;font-weight:700}
 .mkst.easy em{background:#CDEFD9;color:#1E6B40}.mkst.normal em{background:#FFE9A8;color:#8C5A00}.mkst.hard em{background:#FFD0CC;color:#A1150D}
-.mkst i{font-style:normal;font-size:.85rem;color:#E8A800;letter-spacing:0}.mkst i u{text-decoration:none;color:#D8D2C4}
+.mkst i{font-style:normal;font-size:1.1rem;color:#E8A800;letter-spacing:1px}.mkst i u{text-decoration:none;color:#D8D2C4}
 .mkst.on{background:#FFD23F;box-shadow:0 0 0 3px #E2231A inset}
-.mkst:disabled{opacity:.45;cursor:default}
+.mkst.locked{filter:grayscale(.7)}
 .mkres{border:2.5px solid var(--line);border-radius:14px;padding:8px 10px;margin-bottom:8px;text-align:center;display:flex;flex-direction:column;gap:2px}
 .mkres.ok{background:#EAF7EE}.mkres.no{background:#FFF0EE}
 .mkres span{font-size:1.5rem;color:#E8A800;letter-spacing:2px}.mkres span u{text-decoration:none;color:#D8D2C4}
@@ -438,7 +448,7 @@ body.healing .st{cursor:pointer}
 #introOv.scene{backdrop-filter:none;-webkit-backdrop-filter:none}
 .sceneIcon{display:flex;align-items:center;justify-content:center;font-size:2.6rem;background:#2A1A3A}
 #introLine.chatline{background:#2A1A3A;color:#FFF;border-color:#7B3FA0;font-weight:700}
-.mkst u.rule{text-decoration:none;font-size:.66rem;font-weight:700;color:#7B3FA0;line-height:1.2;text-align:center}
+.mkst u.rule{text-decoration:none;font-size:.8rem;font-weight:700;color:#7B3FA0;line-height:1.25;text-align:center}
 .mkgoal{margin:6px 0 2px;padding:8px 10px;border-radius:10px;background:#F1E6FA;color:#4A1F6B;font-weight:700;font-size:.85rem;text-align:center}
 </style>
 </head>
@@ -1295,29 +1305,30 @@ body.healing .st{cursor:pointer}
 
 <div class="overlay" id="mkSetOv" hidden>
   <div class="card">
-    <h2>🎵 면치기 리듬 먹방 대결</h2>
-    <p class="how">젓가락에 걸린 면발이 박자에 맞춰 툭툭 떨어져요. 반주는 꿀꺽·후룩·쓰읍 <b>면치기 비트</b>!</p>
-    <div class="rows" style="font-size:.9rem;margin-top:4px">
-      <div><span>😋 화면 아래 <b>얼굴 원 하나</b>만 움직여요. 손가락을 화면 아무 데나 대고 <b>좌우로</b>!</span></div>
-      <div><span>🍜 떨어지는 <b>면발 끝에 얼굴 원을 갖다 대면</b> 후루룩! 가운데에 가까울수록 PERFECT</span></div>
-      <div><span>🍜 <b>"쭉" 긴 면발</b>은 다 들어갈 때까지 얼굴 원을 면발 밑에 계속 붙여 둬요</span></div>
-    </div>
-    <p class="how">노란 줄 위 점선 자리가 다음 면발이 떨어질 곳이에요. 반주는 <b>꿀꺽·후룩·쓰읍</b> 면치기 비트에 <b>보글보글</b> 국물 방울 멜로디예요. 면발을 받을 때마다 나는 "퐁" 소리가 멜로디가 돼요!</p>
-    <p class="how">🎬 신인 먹방러가 되어 무대를 하나씩 정복하고, 전설의 <b>면치기왕 쭈욱</b>을 넘어 최고의 먹방 스타가 되어 봐요!</p>
-    <div class="lbl" style="display:flex;justify-content:space-between;gap:6px"><span>퀘스트 (깨면 다음 무대가 열려요)</span><span class="notr" id="mkStarTot"></span></div>
-    <div class="mkstages" id="mkStages"></div>
+    <h2>🎵 면치기 리듬 먹방</h2>
+    <div class="lbl" style="display:flex;justify-content:space-between;gap:6px"><span>퀘스트 고르기 (옆으로 넘겨요)</span><span class="notr" id="mkStarTot"></span></div>
+    <div class="mkcar"><button class="mkarr" id="mkPrev" aria-label="이전">‹</button><div class="mkstages" id="mkStages"></div><button class="mkarr" id="mkNext" aria-label="다음">›</button></div>
     <p class="mkgoal notr" id="mkGoal"></p>
-    <p class="how" style="font-size:.8rem">정확도 70% 이상이면 클리어 ★ · 85% ★★ · 95% ★★★</p>
+    <button class="btn" id="mkGoSolo">🎬 이 퀘스트 시작</button>
+    <button class="btn alt" id="mkReplay">📖 이 퀘스트 이야기 다시 보기</button>
+    <p class="how" style="font-size:.8rem;text-align:center">정확도 70% 이상이면 클리어 ★ · 85% ★★ · 95% ★★★</p>
+    <details class="mkhow"><summary>🍜 하는 법</summary>
+      <div class="rows" style="font-size:.9rem;margin-top:4px">
+        <div><span>😋 화면 아래 <b>얼굴 원 하나</b>만 움직여요. 손가락을 화면 아무 데나 대고 <b>좌우로</b>!</span></div>
+        <div><span>🍜 떨어지는 <b>면발 끝에 얼굴 원을 갖다 대면</b> 후루룩! 가운데에 가까울수록 PERFECT</span></div>
+        <div><span>🍜 <b>"쭉" 긴 면발</b>은 다 들어갈 때까지 얼굴 원을 면발 밑에 계속 붙여 둬요</span></div>
+      </div>
+      <p class="how">🎬 신인 먹방러가 되어 무대를 하나씩 정복하고, 전설의 <b>면치기왕 쭈욱</b>을 넘어 최고의 먹방 스타가 되어 봐요!</p>
+    </details>
     <div id="mkFree" hidden><div class="lbl">곡 고르기</div>
     <div class="seg" id="mkSongSeg" style="grid-template-columns:repeat(2,1fr)"></div>
     <div class="lbl">난이도</div>
     <div class="seg" id="mkDiffSeg" style="grid-template-columns:repeat(3,1fr)"></div></div>
-    <button class="btn" id="mkGoSolo">🎬 이 퀘스트 시작</button>
-    <button class="btn alt" id="mkReplay">📖 이 퀘스트 이야기 다시 보기</button>
     <button class="btn alt" id="mkGoOnline">⚔️ 친구와 먹방 대결 (온라인)</button>
     <button class="btn alt" id="mkBack">돌아가기</button>
   </div>
 </div>
+
 
 <div class="overlay" id="mkEndOv" hidden>
   <div class="card">
@@ -1345,6 +1356,9 @@ body.healing .st{cursor:pointer}
   const nrm = a => { while(a > Math.PI) a -= 2*Math.PI; while(a < -Math.PI) a += 2*Math.PI; return a; };
   // order: en | ja | zh (简) | zt (繁) | es | fr | de | pt | vi | th
   const I18N_RAW = {
+'퀘스트 고르기 (옆으로 넘겨요)':'Pick a quest (swipe sideways)|クエストを選ぶ（横にスワイプ）|选择任务（左右滑动）|選擇任務（左右滑動）|Elige misión (desliza)|Choisis une quête (glisse)|Quest wählen (wischen)|Escolha a missão (deslize)|Chọn nhiệm vụ (vuốt ngang)|เลือกเควสต์ (ปัดด้านข้าง)',
+'앞 퀘스트를 깨면 열려요':'Clear the previous quest to unlock|前のクエストをクリアで開放|通关前一个任务后解锁|通關前一個任務後解鎖|Supera la anterior para abrirla|Réussis la précédente pour l’ouvrir|Vorherige Quest schaffen|Passe a anterior para liberar|Qua nhiệm vụ trước để mở|ผ่านเควสต์ก่อนหน้าเพื่อปลดล็อก',
+'하는 법':'How to play|遊び方|玩法|玩法|Cómo jugar|Comment jouer|So geht’s|Como jogar|Cách chơi|วิธีเล่น',
 '빠름':'Fast|速い|快速|快速|Rápido|Rapide|Schnell|Rápido|Nhanh|เร็ว',
 '거꾸로':'Mirror|反転|镜像|鏡像|Espejo|Miroir|Spiegel|Espelho|Đảo ngược|กลับด้าน',
 '안 보임':'Hidden|見えない|隐藏|隱藏|Oculto|Caché|Versteckt|Oculto|Ẩn|ซ่อน',
@@ -7987,13 +8001,14 @@ Reply as JSON only: {"name":"...","why":"..."}`;
   let pickSong = 'funk', pickDiff = 'normal';
   let MK = null, mkraf = 0;
 
-  function mkChart(songKey, diffKey, seed){
-    const S = MK_SONGS[songKey], D = MK_DIFF[diffKey], r = mulberry32(seed + 31337);
+  function mkChart(songKey, diffKey, seed, ramp){
+    const S = MK_SONGS[songKey], D = MK_DIFF[diffKey], r = mulberry32(seed + 31337), ramp0 = clamp(+ramp || 0, 0, 1);
+    const harder = MK_DIFF[diffKey === 'easy' ? 'normal' : 'hard'];   // later quests in a tier borrow a few busier bars
     const spb = 60/S.bpm, s16 = spb/4, notes = [];
     let x = 200, busyUntil = -1;
-    const maxStep = {easy:110, normal:170, hard:230}[diffKey];
+    const maxStep = {easy:110, normal:170, hard:230}[diffKey] + 50*ramp0;
     for(let bar = 2; bar < S.bars; bar++){
-      const pat = D.pats[Math.floor(r()*D.pats.length)];
+      const P = r() < ramp0*.45 ? harder.pats : D.pats, pat = P[Math.floor(r()*P.length)];
       pat.forEach(slot => {
         const t = (bar*16 + slot)*s16;
         if(t < busyUntil) return;
@@ -8001,7 +8016,7 @@ Reply as JSON only: {"name":"...","why":"..."}`;
         let step = (40 + r()*(maxStep - 40))*(r() < .5 ? -1 : 1);
         if(x + step < XMIN || x + step > XMAX) step = -step;
         x = clamp(x + step, XMIN, XMAX);
-        if(slot % 4 === 0 && r() < D.bend){
+        if(slot % 4 === 0 && r() < D.bend + .05*ramp0){
           const len = (2 + Math.floor(r()*3))*2*s16;
           const x2 = clamp(x + (r() - .5)*160, XMIN, XMAX);
           notes.push({type:'b', t, end:t + len, x, x2});
@@ -8092,9 +8107,21 @@ Reply as JSON only: {"name":"...","why":"..."}`;
 
   // ---------- stage mode: clear songs one by one, from the easiest to the hardest ----------
   const MK_STAGES = [
-    ['lofi','easy'], ['hiphop','easy'], ['blues','easy'], ['samba','easy'], ['funk','easy'],
-    ['march','normal'], ['kpop','normal'], ['trot','normal'], ['edm','normal'], ['chip','normal'],
-    ['funk','hard'], ['kpop','hard'], ['trot','hard'], ['edm','hard'], ['chip','hard'],
+    ['lofi','easy'],
+    ['hiphop','easy'],
+    ['blues','easy'],
+    ['samba','easy'],
+    ['funk','easy'],
+    ['march','easy'],
+    ['kpop','easy'],
+    ['trot','easy'],
+    ['edm','easy'],
+    ['chip','easy'],
+    ['funk','normal'],
+    ['kpop','normal'],
+    ['trot','normal'],
+    ['edm','normal'],
+    ['chip','normal'],
     ['lofi','normal'],
     ['hiphop','normal'],
     ['blues','normal'],
@@ -8183,7 +8210,7 @@ Reply as JSON only: {"name":"...","why":"..."}`;
     const D = {easy:'쉬움', normal:'보통', hard:'어려움'};
     $('mkStages').innerHTML = MK_STAGES.map(([song, diff], i) => {
       const S = MK_SONGS[song], open = mkOpen(i), st = mkBest(i);
-      return `<button class="mkst ${diff} ${pickStage === i ? 'on' : ''}" data-i="${i}" ${open ? '' : 'disabled'}>
+      return `<button class="mkst ${diff} ${pickStage === i ? 'on' : ''} ${open ? '' : 'locked'}" data-i="${i}" style="--sc1:${(MK_BG[MK_SCENE[i]] || {}).top || '#FFF'};--sc2:${(MK_BG[MK_SCENE[i]] || {}).bot || '#FFF'}">
         <b>${i + 1}</b><span class="mke">${open ? S.e : '🔒'}</span><small>${open ? esc(tr(MK_QUEST[i])) : '???'}</small>
         <em>${esc(tr(D[diff]))}</em>${MK_RULE[i] && open ? `<u class="rule notr">${esc(ruleBadge(MK_RULE[i]))}</u>` : ''}<i class="notr">${'★'.repeat(st)}<u>${'★'.repeat(3 - st)}</u></i></button>`; }).join('');
     const total = MK_STAGES.reduce((a, _, i) => a + mkBest(i), 0);
@@ -8191,20 +8218,34 @@ Reply as JSON only: {"name":"...","why":"..."}`;
     $('mkGoal').textContent = '🎯 ' + tr('목표') + ': ' + tr('정확도 70% 이상') + (R ? ' + ' + ruleBadge(R) : '') + (pickStage >= 15 ? ' · ' + tr('시즌 2') : '');
     $('mkStarTot').textContent = '📺 ' + tr('구독자') + ' ' + fmtSubs(mkSubs()) + ' · ⭐ ' + total + '/' + MK_STAGES.length*3;
   }
-  $('mkStages').addEventListener('click', e => { const b = e.target.closest('.mkst'); if(!b || b.disabled) return; pickStage = +b.dataset.i; pickSong = MK_STAGES[pickStage][0]; pickDiff = MK_STAGES[pickStage][1]; renderStages(); previewSong(pickSong); });
+  let mkScrollT = 0;
+  function mkCenter(i, smooth){ const el = document.querySelector(`.mkst[data-i="${i}"]`), box = $('mkStages'); if(!el) return; box.scrollTo({left:el.offsetLeft - (box.clientWidth - el.offsetWidth)/2, behavior:smooth ? 'smooth' : 'auto'}); }
+  function mkPick(i){ if(i < 0 || i >= MK_STAGES.length) return; pickStage = i; pickSong = MK_STAGES[i][0]; pickDiff = MK_STAGES[i][1];
+    document.querySelectorAll('.mkst').forEach(b => b.classList.toggle('on', +b.dataset.i === i));
+    const R = MK_RULE[i]; $('mkGoal').textContent = mkOpen(i) ? '🎯 ' + tr('목표') + ': ' + tr('정확도 70% 이상') + (R ? ' + ' + ruleBadge(R) : '') + (i >= 15 ? ' · ' + tr('시즌 2') : '') : '🔒 ' + tr('앞 퀘스트를 깨면 열려요');
+    $('mkGoSolo').disabled = !mkOpen(i); $('mkReplay').disabled = !mkOpen(i); }
+  $('mkStages').addEventListener('scroll', () => { clearTimeout(mkScrollT); mkScrollT = setTimeout(() => {
+    const box = $('mkStages'), mid = box.scrollLeft + box.clientWidth/2; let best = 0, bd = 1e9;
+    document.querySelectorAll('.mkst').forEach(b => { const d = Math.abs(b.offsetLeft + b.offsetWidth/2 - mid); if(d < bd){ bd = d; best = +b.dataset.i; } });
+    if(best !== pickStage) mkPick(best); }, 90); });
+  $('mkPrev').onclick = () => { mkPick(Math.max(0, pickStage - 1)); mkCenter(pickStage, true); };
+  $('mkNext').onclick = () => { mkPick(Math.min(MK_STAGES.length - 1, pickStage + 1)); mkCenter(pickStage, true); };
+  $('mkStages').addEventListener('click', e => { const b = e.target.closest('.mkst'); if(!b || b.classList.contains('locked')) { if(b){ mkPick(+b.dataset.i); mkCenter(+b.dataset.i, true); } return; } const i = +b.dataset.i; mkPick(i); mkCenter(i, true); previewSong(MK_STAGES[i][0]); });
   function startStageMk(i){
     pickStage = i; const [song, diff] = MK_STAGES[i]; pickSong = song; pickDiff = diff; $('mkSetOv').hidden = true;
-    const go = () => startMk({song, diff, seed:Math.floor(Math.random()*1e9), stage:i, rule:MK_RULE[i] || null});
+    const go = () => startMk({song, diff, seed:Math.floor(Math.random()*1e9), stage:i, rule:MK_RULE[i] || null, ramp:(i % 10)/9});
     const seen = mkSeen();
-    const B = MK_BG[song] || MK_BG.lofi, bg = `radial-gradient(circle at 50% 25%, ${B.n1}55 0%, transparent 45%), linear-gradient(${B.top}, ${B.bot})`;
+    const B = MK_BG[MK_SCENE[i]] || MK_BG[song] || MK_BG.lofi, bg = `radial-gradient(circle at 50% 25%, ${B.n1}55 0%, transparent 45%), linear-gradient(${B.top}, ${B.bot})`;
     if(!seen[i] && MK_STORY[i]){ seen[i] = 1; saveProfile(); playScene(MK_STORY[i].intro, go, '🎬 ' + tr('방송 시작!'), bg); }
     else go();
   }
   function openMkSetup(){
     $('mkSongSeg').innerHTML = Object.entries(MK_SONGS).map(([k, s]) => `<button data-v="${k}" class="${pickSong === k ? 'on' : ''}">${s.e} ${s.n}<small>${s.g} · BPM ${s.bpm}</small></button>`).join('');
     $('mkDiffSeg').innerHTML = Object.entries(MK_DIFF).map(([k, d]) => `<button data-v="${k}" class="${pickDiff === k ? 'on' : ''}">${d.n}<small>${d.d}</small></button>`).join('');
+    { let last = 0; for(let i=0;i<MK_STAGES.length;i++) if(mkOpen(i)) last = i; if(!mkOpen(pickStage) || pickStage < last) pickStage = last; }
     renderStages();
     $('startOv').hidden = true; $('mkSetOv').hidden = false;
+    requestAnimationFrame(() => { mkPick(pickStage); mkCenter(pickStage, false); });
   }
   $('mkSongSeg').addEventListener('click', e => { const b = e.target.closest('button'); if(b){ pickSong = b.dataset.v; openMkSetup(); previewSong(pickSong); } });
   // a two-bar taste of the song when you pick it
@@ -8219,7 +8260,7 @@ Reply as JSON only: {"name":"...","why":"..."}`;
   $('mkDiffSeg').addEventListener('click', e => { const b = e.target.closest('button'); if(b){ pickDiff = b.dataset.v; openMkSetup(); SFX.pick(); } });
   $('mkBack').onclick = () => { $('mkSetOv').hidden = true; $('startOv').hidden = false; };
   $('mkGoSolo').onclick = () => startStageMk(pickStage);
-  $('mkReplay').onclick = () => { const i = pickStage, st = MK_STORY[i]; if(!st) return; const B = MK_BG[MK_STAGES[i][0]] || MK_BG.lofi;
+  $('mkReplay').onclick = () => { const i = pickStage, st = MK_STORY[i]; if(!st) return; const B = MK_BG[MK_SCENE[i]] || MK_BG[MK_STAGES[i][0]] || MK_BG.lofi;
     $('mkSetOv').hidden = true;
     const lines = st.intro.concat(mkBest(i) ? st.win : []);
     playScene(lines, () => { $('mkSetOv').hidden = false; renderStages(); }, '↩ ' + tr('돌아가기'), `radial-gradient(circle at 50% 25%, ${B.n1}55 0%, transparent 45%), linear-gradient(${B.top}, ${B.bot})`); };
@@ -8362,6 +8403,154 @@ Reply as JSON only: {"name":"...","why":"..."}`;
     }
     return {g, ticks};
   }
+  // ---------- every quest has its own stage (30 different backdrops) ----------
+  const MK_SCENE = ['lofi','hiphop','blues','samba','funk','march','kpop','trot','edm','chip',
+    'contest','stadium','tvshow','fireworks','boss','radio','subway','rainjazz','parade','blackout',
+    'trackfinal','award','banquet','strobe','space','store','carnival','mirrorhall','moonlake','festival'];
+  Object.assign(MK_BG, {
+    contest:{top:'#2A0F0F', bot:'#6B1A1A', dots:['#FFD23F','#FFF3C4'], n1:'#FFD23F', n2:'#FF5A4E', ring:'#FFD23F', motif:'none'},
+    stadium:{top:'#0B1030', bot:'#2A1A5E', dots:['#FFB3E6','#7AD3FF'], n1:'#FF6FB5', n2:'#7AD3FF', ring:'#FFFFFF', motif:'none'},
+    tvshow:{top:'#1E6BD1', bot:'#7FC3FF', dots:['#FFFFFF','#FFE45C'], n1:'#FFE45C', n2:'#FF5A4E', ring:'#FFFFFF', motif:'none'},
+    fireworks:{top:'#050818', bot:'#1A2050', dots:['#FFD23F','#FF6FB5'], n1:'#FFD23F', n2:'#7AD3FF', ring:'#FFF3C4', motif:'none'},
+    boss:{top:'#1A0505', bot:'#7A1E05', dots:['#FF5A1E','#FFD23F'], n1:'#FF5A1E', n2:'#FFD23F', ring:'#FF5A1E', motif:'none'},
+    radio:{top:'#2A2A33', bot:'#3E3E4A', dots:['#FF5A4E','#FFFFFF'], n1:'#FF5A4E', n2:'#FFFFFF', ring:'#FFE7A3', motif:'none'},
+    subway:{top:'#C9D6DF', bot:'#8A9BA8', dots:['#FFFFFF','#2BB673'], n1:'#2BB673', n2:'#FFFFFF', ring:'#FFFFFF', motif:'none'},
+    rainjazz:{top:'#0A1220', bot:'#1F2F45', dots:['#7AB8FF','#FFD23F'], n1:'#7AB8FF', n2:'#F2C14E', ring:'#F2C14E', motif:'none'},
+    parade:{top:'#4A2A7A', bot:'#E05A2A', dots:['#FFE45C','#36E0C0'], n1:'#FFE45C', n2:'#36E0C0', ring:'#FFE45C', motif:'none'},
+    blackout:{top:'#020205', bot:'#0A0A18', dots:['#7CFF6B','#B04CFF'], n1:'#7CFF6B', n2:'#B04CFF', ring:'#7CFF6B', motif:'none'},
+    trackfinal:{top:'#F28C28', bot:'#FFD9A0', dots:['#FFFFFF','#FFE45C'], n1:'#FFFFFF', n2:'#E2231A', ring:'#FFFFFF', motif:'none'},
+    award:{top:'#2A0F33', bot:'#6B1F5A', dots:['#FFD23F','#FFB3E6'], n1:'#FFD23F', n2:'#FFB3E6', ring:'#FFD23F', motif:'none'},
+    banquet:{top:'#7A1E1E', bot:'#C2622E', dots:['#FFD23F','#FFF3C4'], n1:'#FFD23F', n2:'#FFF3C4', ring:'#FFD23F', motif:'none'},
+    strobe:{top:'#000000', bot:'#0A1A0A', dots:['#36FF7A','#FFFFFF'], n1:'#36FF7A', n2:'#FFFFFF', ring:'#36FF7A', motif:'none'},
+    space:{top:'#02020A', bot:'#140A30', dots:['#FFFFFF','#7AD3FF'], n1:'#7CFF6B', n2:'#7AD3FF', ring:'#FFFFFF', motif:'none'},
+    store:{top:'#1A1F2A', bot:'#2E3A4A', dots:['#B3E5FF','#FFFFFF'], n1:'#B3E5FF', n2:'#FFFFFF', ring:'#B3E5FF', motif:'none'},
+    carnival:{top:'#1A0A3A', bot:'#5A0A6B', dots:['#FFE45C','#FF6FB5'], n1:'#FFE45C', n2:'#36E0C0', ring:'#FF6FB5', motif:'none'},
+    mirrorhall:{top:'#1A0A2A', bot:'#3A1A5A', dots:['#FFFFFF','#FF6FB5'], n1:'#FFFFFF', n2:'#FF6FB5', ring:'#FFFFFF', motif:'none'},
+    moonlake:{top:'#06102A', bot:'#14305A', dots:['#FFF3C4','#B3FFB3'], n1:'#B3E5FF', n2:'#FFF3C4', ring:'#FFF3C4', motif:'none'},
+    festival:{top:'#0A0418', bot:'#3A0A4A', dots:['#FFD23F','#36E0FF'], n1:'#36E0FF', n2:'#FF6FB5', ring:'#FFD23F', motif:'none'}
+  });
+  function mkBuildScene(key){
+    const T = window.THREE, W = MK3.W, g = new T.Group(), ticks = [];
+    const M = (c, o) => new T.MeshStandardMaterial(Object.assign({color:c, roughness:.55}, o || {}));
+    const B = c => new T.MeshBasicMaterial({color:c});
+    const BT = (c, op) => new T.MeshBasicMaterial({color:c, transparent:true, opacity:op, side:T.DoubleSide, depthWrite:false});
+    const add = (geo, mat, x, y, z, f) => { const m = new T.Mesh(geo, mat); m.position.copy(W(x, y, z)); if(f) f(m); g.add(m); return m; };
+    const floor = (col, h) => add(new T.BoxGeometry(440, h || 70, 160), M(col, {roughness:.8}), 200, 600 - (h || 70)/2 + 6, -80);
+    const crowd = (y, cols, sticks) => { const heads = []; for(let i=0;i<22;i++){ const x = 8 + i*18 + (i % 2)*6, h = add(new T.SphereGeometry(9, 10, 8), B(cols[i % cols.length]), x, y + (i % 3)*6, -60); heads.push(h);
+        if(sticks){ const s = add(new T.BoxGeometry(3, 26, 3), B(sticks[i % sticks.length]), x + 6, y - 22, -58); heads.push(s); } } return heads; };
+    const stars = (n, col) => { for(let i=0;i<n;i++) add(new T.SphereGeometry(1.2 + (i % 3)*.6, 6, 4), B(col || '#FFFFFF'), (i*97) % 400, 30 + (i*61) % 300, -390); };
+    const confetti = (n, cols) => { const ps = []; for(let i=0;i<n;i++) ps.push(add(new T.PlaneGeometry(6, 9), new T.MeshBasicMaterial({color:cols[i % cols.length], side:T.DoubleSide}), (i*37) % 400, (i*53) % 600, -40));
+      ticks.push(t => ps.forEach((p, i) => { const y = ((i*53 + t*60*(1 + (i % 3)*.3)) % 620) - 10; p.position.copy(W((i*37 + Math.sin(t + i)*20) % 400, y, -40)); p.rotation.set(t*2 + i, t*3 + i, 0); })); };
+    const fireworks = (n, cols) => { const fw = []; for(let k=0;k<n;k++){ const grp = new T.Group(); grp.position.copy(W(60 + k*(280/Math.max(1, n - 1)), 110 + (k % 2)*60, -300)); g.add(grp);
+        for(let j=0;j<16;j++){ const d = new T.Mesh(new T.SphereGeometry(3, 6, 4), new T.MeshBasicMaterial({color:cols[(k + j) % cols.length], transparent:true})); d.userData.a = j/16*Math.PI*2; grp.add(d); } fw.push(grp); }
+      ticks.push(t => fw.forEach((grp, k) => { const ph = ((t*.5 + k*.37) % 1); grp.children.forEach(d => { d.position.set(Math.cos(d.userData.a)*ph*70, Math.sin(d.userData.a)*ph*70 - ph*ph*20, 0); d.material.opacity = 1 - ph; }); })); };
+    switch(key){
+      case 'contest':   // grand final hall: gold arch, judges' table, trophy
+        add(new T.TorusGeometry(170, 10, 10, 40, Math.PI), M('#D4A017', {metalness:.8, roughness:.3}), 200, 330, -300);
+        [30, 370].forEach(x => { for(let i=0;i<3;i++) add(new T.CylinderGeometry(10, 13, 480, 10), M('#8E1B1B', {roughness:.8}), x + (x < 200 ? i*16 : -i*16), 290, -200 + i); });
+        add(new T.BoxGeometry(240, 30, 30), M('#5A3E2B'), 200, 470, -90); [140, 200, 260].forEach(x => add(new T.SphereGeometry(10, 12, 10), B('#2B2522'), x, 448, -95));
+        add(new T.CylinderGeometry(18, 10, 36, 16), M('#FFD23F', {metalness:.9, roughness:.2}), 200, 150, -250); add(new T.TorusGeometry(10, 3, 8, 16), M('#FFD23F', {metalness:.9}), 222, 145, -250);
+        floor('#3A1010', 60); break;
+      case 'stadium': { // world-tour stadium: crowd with lightsticks, big screens
+        [70, 330].forEach(x => add(new T.BoxGeometry(110, 70, 4), B('#FF6FB5'), x, 140, -300));
+        const c = crowd(520, ['#1A1030','#2A1A40'], ['#FF6FB5','#7AD3FF','#FFE45C']); floor('#140A28', 40);
+        ticks.push((t, beat) => c.forEach((m, i) => { if(i % 2) m.rotation.z = Math.sin(t*4 + i)*.5; })); stars(30, '#7AD3FF'); break; }
+      case 'tvshow': {  // TV talent-show studio: colour panels, bell stand, camera
+        for(let i=0;i<8;i++) add(new T.BoxGeometry(46, 160, 4), B(['#FF5A4E','#FFE45C','#36E0C0','#7AB8FF'][i % 4]), 25 + i*50, 220, -320);
+        const bells = []; for(let i=0;i<7;i++) bells.push(add(new T.BoxGeometry(14, 34 - i*3, 8), M(['#E2231A','#FF8A3D','#FFD23F','#2BB673','#2F6FD1','#7B3FA0','#FF6FB5'][i], {metalness:.4}), 260 + i*16, 470, -60));
+        add(new T.BoxGeometry(50, 34, 30), M('#2B2B2B'), 70, 450, -60); add(new T.CylinderGeometry(10, 10, 20, 12), M('#111'), 98, 450, -60, m => m.rotation.z = Math.PI/2);
+        floor('#E8E2D6', 50); ticks.push((t, beat) => bells.forEach((b, i) => b.position.y = W(0, 470, 0).y + (Math.floor(t*4) % 7 === i ? 4 : 0))); break; }
+      case 'fireworks': // night river with fireworks
+        add(new T.PlaneGeometry(440, 90), B('#0E1A3A'), 200, 470, -200); stars(40);
+        for(let i=0;i<10;i++) add(new T.BoxGeometry(22, 30 + (i*17 % 40), 4), B('#05070F'), 20 + i*40, 420 - (i*17 % 40)/2, -250);
+        fireworks(3, ['#FFD23F','#FF6FB5','#7AD3FF','#FFFFFF']); floor('#1A1A2A', 50); break;
+      case 'boss': {    // boss arena: lava, a giant crown
+        const lava = add(new T.BoxGeometry(440, 60, 160), new T.MeshBasicMaterial({color:'#FF5A1E'}), 200, 575, -80);
+        add(new T.CylinderGeometry(60, 70, 40, 5, 1, true), M('#FFD23F', {metalness:.9, roughness:.2, side:T.DoubleSide}), 200, 150, -300);
+        for(let i=0;i<5;i++) add(new T.ConeGeometry(12, 30, 4), M('#FFD23F', {metalness:.9}), 200 + Math.cos(i/5*Math.PI*2)*62, 118, -300 + Math.sin(i/5*Math.PI*2)*20);
+        [40, 360].forEach(x => add(new T.ConeGeometry(30, 160, 5), M('#3A1010', {roughness:.9}), x, 440, -200));
+        ticks.push((t, beat) => lava.material.color.setHSL(.04 + Math.sin(t*2)*.01, 1, .45 + beat*.12)); break; }
+      case 'radio': {   // late-night radio booth: ON AIR sign, big mic, foam wall
+        for(let i=0;i<10;i++) for(let j=0;j<7;j++) add(new T.BoxGeometry(36, 36, 8), M(j % 2 === i % 2 ? '#3E3E4A' : '#34343F', {roughness:1}), 20 + i*40, 100 + j*40, -330);
+        const sign = add(new T.BoxGeometry(110, 34, 6), B('#FF2A2A'), 200, 70, -300);
+        add(new T.CylinderGeometry(14, 14, 50, 16), M('#9AA2AA', {metalness:.8}), 330, 400, -80); add(new T.CylinderGeometry(3, 3, 110, 8), M('#555'), 330, 470, -80);
+        add(new T.BoxGeometry(440, 50, 120), M('#2A2A33'), 200, 575, -80);
+        ticks.push(t => sign.material.color.set(Math.sin(t*3) > 0 ? '#FF2A2A' : '#8A1A1A')); break; }
+      case 'subway': {  // subway platform: tiles, a train rushing past
+        for(let i=0;i<10;i++) for(let j=0;j<6;j++) add(new T.BoxGeometry(38, 18, 2), B((i + j) % 2 ? '#E8EEF2' : '#DCE4EA'), 20 + i*40, 120 + j*20, -340);
+        add(new T.BoxGeometry(440, 8, 4), B('#2BB673'), 200, 240, -335);
+        const train = add(new T.BoxGeometry(380, 90, 40), M('#C9CED4', {metalness:.6, roughness:.3}), 200, 330, -260);
+        for(let i=0;i<6;i++) train.add(Object.assign(new T.Mesh(new T.BoxGeometry(40, 30, 2), B('#1A2A3A')), {position:new T.Vector3(-150 + i*60, 10, 21)}));
+        floor('#8A9BA8', 70); add(new T.BoxGeometry(440, 6, 4), B('#FFD23F'), 200, 532, 2);
+        ticks.push(t => { train.position.x = ((t*240) % 1400) - 700; }); break; }
+      case 'rainjazz': { // rooftop jazz in the rain: city lights, falling rain
+        for(let i=0;i<10;i++) add(new T.BoxGeometry(34, 120 + (i*29 % 90), 4), B('#0F1A2A'), 20 + i*40, 400 - (i*29 % 90)/2, -320);
+        for(let i=0;i<40;i++) add(new T.BoxGeometry(4, 5, 1), B(i % 3 ? '#FFD23F' : '#7AB8FF'), 10 + (i*47) % 380, 300 + (i*31) % 110, -315);
+        const rain = []; for(let i=0;i<40;i++) rain.push(add(new T.BoxGeometry(1.2, 16, 1), BT('#B3D4FF', .5), (i*53) % 400, (i*41) % 600, -30));
+        add(new T.CylinderGeometry(60, 60, 4, 24), M('#1A1A1A', {roughness:.3}), 330, 520, -60, m => m.rotation.x = .3); floor('#1A222E', 60);
+        ticks.push(t => rain.forEach((r, i) => r.position.copy(W((i*53) % 400, ((i*41 + t*500) % 620) - 10, -30)))); break; }
+      case 'parade': {  // parade street: floats, confetti, lightning flashes
+        const sky = add(new T.PlaneGeometry(440, 640), BT('#FFFFFF', 0), 200, 300, -395);
+        [[80, '#FF6FB5'], [320, '#36E0C0']].forEach(([x, c]) => { add(new T.BoxGeometry(130, 60, 50), M(c), x, 470, -100); add(new T.SphereGeometry(30, 16, 12), M('#FFE45C'), x, 420, -100); });
+        confetti(30, ['#FFE45C','#FF6FB5','#36E0C0','#FFFFFF']); floor('#C2622E', 50);
+        ticks.push((t, beat) => sky.material.opacity = Math.random() < .015 ? .6 : Math.max(0, sky.material.opacity - .08)); break; }
+      case 'blackout': { // power cut: glowing UV objects and sweeping flashlights
+        for(let i=0;i<12;i++) add(new T.TorusGeometry(10 + (i % 3)*6, 2, 8, 20), B(['#7CFF6B','#B04CFF','#36E0FF'][i % 3]), 20 + (i*71) % 360, 120 + (i*53) % 300, -300);
+        const beams = [0, 1].map(k => add(new T.ConeGeometry(50, 500, 16, 1, true), BT('#FFFFE0', .1), 100 + k*200, 300, -150));
+        floor('#050508', 50); ticks.push(t => beams.forEach((b, k) => b.rotation.z = Math.sin(t*.9 + k*2)*.6)); break; }
+      case 'trackfinal': { // relay final at sunset: stands, finish line, flags
+        add(new T.CircleGeometry(60, 32), B('#FFE7A3'), 300, 200, -390);
+        for(let r=0;r<3;r++) add(new T.BoxGeometry(440, 22, 10), M(['#8C8C8C','#9C9C9C','#ACACAC'][r]), 200, 300 + r*24, -250 + r*10);
+        crowd(285, ['#E2231A','#2F6FD1','#FFE45C','#2BB673']);
+        add(new T.BoxGeometry(440, 70, 160), M('#C8462E', {roughness:.85}), 200, 571, -80);
+        for(let i=0;i<10;i++) add(new T.BoxGeometry(20, 20, 2), B(i % 2 ? '#FFFFFF' : '#111111'), 110 + i*20, 545, 2); break; }
+      case 'award': {   // music-show #1: trophy, gold confetti, pink lights
+        add(new T.CylinderGeometry(30, 14, 60, 20), M('#FFD23F', {metalness:.9, roughness:.2}), 200, 170, -280); add(new T.BoxGeometry(50, 16, 30), M('#5A3E2B'), 200, 210, -280);
+        const beams = [0, 1, 2].map(k => add(new T.ConeGeometry(30, 520, 16, 1, true), BT(k === 1 ? '#FFD23F' : '#FFB3E6', .12), 80 + k*120, 300, -200));
+        confetti(26, ['#FFD23F','#FFF3C4','#FFB3E6']); floor('#3A0F33', 60);
+        ticks.push(t => beams.forEach((b, k) => b.rotation.z = Math.sin(t + k)*.4)); break; }
+      case 'banquet': { // 70th birthday banquet hall: banner, lanterns, round tables
+        add(new T.BoxGeometry(300, 50, 4), B('#E2231A'), 200, 90, -320); add(new T.BoxGeometry(290, 40, 2), B('#FFD23F'), 200, 90, -317);
+        const lan = []; for(let i=0;i<6;i++) lan.push(add(new T.SphereGeometry(14, 14, 10), B('#FF5A1E'), 40 + i*64, 160, -250, m => m.scale.y = 1.3));
+        [80, 320].forEach(x => { add(new T.CylinderGeometry(55, 55, 10, 24), M('#FFFFFF'), x, 480, -100); add(new T.SphereGeometry(10, 10, 8), M('#FFD23F'), x, 468, -100); });
+        floor('#8C3A1E', 60); ticks.push(t => lan.forEach((l, i) => l.rotation.z = Math.sin(t*1.5 + i)*.15)); break; }
+      case 'strobe': {  // dark club: strobe flashes, green lasers, smoke
+        const flash = add(new T.PlaneGeometry(440, 640), BT('#FFFFFF', 0), 200, 300, -395);
+        const las = []; for(let i=0;i<8;i++) las.push(add(new T.BoxGeometry(2, 700, 1), new T.MeshBasicMaterial({color:'#36FF7A', transparent:true, opacity:.5}), 200, 120, -120));
+        for(let i=0;i<6;i++) add(new T.SphereGeometry(40, 10, 8), BT('#6B7A6B', .1), 30 + i*70, 520, -60);
+        floor('#050A05', 50); ticks.push((t, beat) => { flash.material.opacity = beat > .8 ? .35 : 0; las.forEach((l, i) => l.rotation.z = -1.2 + i*.34 + Math.sin(t*2)*.2); }); break; }
+      case 'space': {   // 8-bit outer space: stars, pixel planets, a little ship
+        stars(70);
+        add(new T.BoxGeometry(70, 70, 70), M('#B04CFF', {roughness:.6}), 300, 160, -320, m => m.rotation.set(.4, .6, 0));
+        const ship = new T.Group(); ship.position.copy(W(80, 260, -200)); g.add(ship);
+        [[0,0,'#7AD3FF'],[-14,10,'#FFFFFF'],[14,10,'#FFFFFF'],[0,-14,'#FF5A4E']].forEach(([x, y, c]) => { const b = new T.Mesh(new T.BoxGeometry(14, 14, 14), B(c)); b.position.set(x, y, 0); ship.add(b); });
+        floor('#14143A', 50); ticks.push(t => { ship.position.x = W(80 + ((t*60) % 300), 0, 0).x; ship.position.y = W(0, 260 + Math.sin(t*2)*20, 0).y; }); break; }
+      case 'store': {   // 3 a.m. convenience store: glowing fridges, ramen shelves
+        for(let i=0;i<4;i++){ add(new T.BoxGeometry(90, 220, 20), M('#DDE4EA', {metalness:.3}), 50 + i*100, 230, -320); add(new T.BoxGeometry(80, 200, 2), BT('#B3E5FF', .6), 50 + i*100, 230, -308); }
+        for(let r=0;r<3;r++) for(let i=0;i<12;i++) add(new T.BoxGeometry(16, 20, 14), M(['#E2231A','#FFD23F','#2F6FD1','#FF8A3D'][(i + r) % 4]), 20 + i*33, 400 + r*28, -150);
+        floor('#C9D1D9', 50); break; }
+      case 'carnival': { // Rio carnival at night: feather fans, balloons
+        [60, 200, 340].forEach((x, k) => { for(let i=0;i<7;i++) add(new T.ConeGeometry(8, 70, 6), M(['#FF6FB5','#FFE45C','#36E0C0'][k]), x + Math.cos(-1.4 + i*.47)*30, 380 - Math.sin(-1.4 + i*.47 + Math.PI/2)*30 - 40, -150, m => m.rotation.z = 1.4 - i*.47); });
+        const bal = []; for(let i=0;i<8;i++) bal.push(add(new T.SphereGeometry(14, 12, 10), M(['#FF6FB5','#FFE45C','#36E0C0','#B04CFF'][i % 4]), 25 + i*50, 120, -250, m => m.scale.y = 1.2));
+        floor('#3A0A4A', 50); ticks.push(t => bal.forEach((b, i) => b.position.y = W(0, 120 + Math.sin(t*1.5 + i)*12, 0).y)); break; }
+      case 'mirrorhall': { // mirror-ball hall: three mirror balls and spotlights
+        const balls = [[90, 110, 26], [200, 80, 40], [310, 110, 26]].map(([x, y, r]) => add(new T.SphereGeometry(r, 18, 12), M('#D7DDE3', {metalness:1, roughness:.15, flatShading:true}), x, y, -220));
+        const beams = [0, 1, 2, 3].map(k => add(new T.ConeGeometry(26, 520, 12, 1, true), BT(['#FFFFFF','#FF6FB5'][k % 2], .1), 50 + k*100, 330, -180));
+        floor('#1A0A2A', 60); ticks.push(t => { balls.forEach((b, i) => b.rotation.y = t*(.6 + i*.2)); beams.forEach((b, k) => b.rotation.z = Math.sin(t*1.3 + k)*.5); }); break; }
+      case 'moonlake': { // moonlit lake: piano silhouette, fireflies
+        add(new T.CircleGeometry(40, 32), B('#FFF3C4'), 300, 120, -390); add(new T.PlaneGeometry(440, 140), B('#0A1A3A'), 200, 450, -300);
+        add(new T.BoxGeometry(70, 6, 2), BT('#FFF3C4', .4), 300, 420, -290);
+        add(new T.BoxGeometry(120, 50, 40), M('#0A0A0A', {roughness:.3}), 100, 470, -120); add(new T.BoxGeometry(110, 8, 30), B('#EDEDED'), 100, 445, -100);
+        const flies = []; for(let i=0;i<14;i++) flies.push(add(new T.SphereGeometry(2.5, 6, 4), B('#D4FF7A'), 20 + (i*29) % 360, 200 + (i*37) % 200, -150));
+        floor('#0A140A', 50); ticks.push(t => flies.forEach((f, i) => { f.position.copy(W(20 + (i*29) % 360 + Math.sin(t*.8 + i)*15, 200 + (i*37) % 200 + Math.cos(t*.6 + i)*12, -150)); f.visible = Math.sin(t*3 + i*2) > -.3; })); break; }
+      case 'festival': { // legendary festival main stage: LED arch, fireworks, crowd
+        const arch = []; for(let i=0;i<14;i++){ const a = Math.PI*(i/13); arch.push(add(new T.BoxGeometry(18, 18, 6), new T.MeshBasicMaterial({color:'#36E0FF'}), 200 + Math.cos(a)*170, 330 - Math.sin(a)*200, -260)); }
+        fireworks(2, ['#FFD23F','#FF6FB5','#36E0FF']); const c = crowd(520, ['#140820','#1E0C2E'], ['#36E0FF','#FF6FB5','#FFD23F']); floor('#0A0418', 40);
+        ticks.push((t, beat) => { arch.forEach((b, i) => b.material.color.set(['#36E0FF','#FF6FB5','#FFD23F'][(i + Math.floor(t*4)) % 3])); c.forEach((m, i) => { if(i % 2) m.rotation.z = Math.sin(t*5 + i)*.6; }); }); break; }
+      default: return mkBuildSet(key);
+    }
+    return {g, ticks};
+  }
   const MK3 = {r:null, on:false, raf:0};
   function mk3Init(){
     const T = window.THREE, stage = $('mksvg').parentNode;
@@ -8462,12 +8651,13 @@ Reply as JSON only: {"name":"...","why":"..."}`;
     try{ await load3(); }catch(e){ return mk3Leave(); }
     if(!MK3.r && !mk3Init()) return mk3Leave();
     if(!MK) return;
-    const T = window.THREE, B = MK_BG[MK.cfg.song] || MK_BG.lofi;
+    const sceneKey = MK.cfg.stage != null ? MK_SCENE[MK.cfg.stage] : MK.cfg.song;
+    const T = window.THREE, B = MK_BG[sceneKey] || MK_BG[MK.cfg.song] || MK_BG.lofi;
     // the 3D set already brings the moon / mirror ball / palms / flags / horizon, so the wall keeps only the rest
     mkWallPaint(MK3.wallCv.getContext('2d'), ['moon','disco','palms','flags','grid'].includes(B.motif) ? Object.assign({}, B, {motif:'none'}) : B); MK3.wallTex.needsUpdate = true;
     MK3.neons[0].material.color.set(B.n1); MK3.neons[1].material.color.set(B.n2); MK3.ringL.material.color.set(B.ring);
     if(MK3.set){ MK3.sc.remove(MK3.set.g); MK3.set = null; }
-    MK3.set = mkBuildSet(MK.cfg.song); MK3.sc.add(MK3.set.g);
+    MK3.set = mkBuildScene(sceneKey); MK3.sc.add(MK3.set.g);
     // the generic studio pieces only show where a set doesn't bring its own
     const own = MK3.set.g.children.length > 0;
     MK3.neons.forEach(n => n.visible = !own); MK3.ringL.visible = !own; MK3.table.visible = !own;
@@ -8482,13 +8672,13 @@ Reply as JSON only: {"name":"...","why":"..."}`;
   function startMk(cfg){
     SFX.unlock();
     const mir = !!(cfg.rule && cfg.rule.mirror);
-    MK = {cfg, chart:mkChart(cfg.song, cfg.diff, cfg.seed), music:mkMusic(cfg.song), mi:0, running:false, audio:false, t0:0, p0:0, lead:MK_DIFF[cfg.diff].lead*(cfg.rule && cfg.rule.fast ? .72 : 1), hidden:!!(cfg.rule && cfg.rule.hidden),
+    MK = {cfg, chart:mkChart(cfg.song, cfg.diff, cfg.seed, cfg.ramp), music:mkMusic(cfg.song), mi:0, running:false, audio:false, t0:0, p0:0, lead:MK_DIFF[cfg.diff].lead*(1 - .16*(cfg.ramp || 0))*(cfg.rule && cfg.rule.fast ? .72 : 1), hidden:!!(cfg.rule && cfg.rule.hidden),
       score:0, combo:0, maxCombo:0, cnt:{p:0, g:0, o:0, m:0}, judgeT:-9, judge:'', px:200, ptrs:{}, bend:null, lastCatch:null,
       ai: cfg.ai ? {lv:cfg.ai, score:0, combo:0, idx:0, last:''} : null, net:!!cfg.net, mid:cfg.mid, lastPush:0, beatI:-1, slurpT:-9};
     if(mir) MK.chart.notes.forEach(n => { n.x = 400 - n.x; if(n.x2 != null) n.x2 = 400 - n.x2; });
     ['startOv','lobbyOv','mkEndOv','mkSetOv'].forEach(id => $(id).hidden = true);
     $('mk').hidden = false; setTimeout(mk3Enter, 40);
-    { const B = MK_BG[MK.cfg.song] || MK_BG.lofi, st = document.querySelectorAll('#mkbg stop'); if(st.length >= 2){ st[0].setAttribute('stop-color', B.top); st[1].setAttribute('stop-color', B.bot); }
+    { const B = MK_BG[MK.cfg.stage != null ? MK_SCENE[MK.cfg.stage] : MK.cfg.song] || MK_BG[MK.cfg.song] || MK_BG.lofi, st = document.querySelectorAll('#mkbg stop'); if(st.length >= 2){ st[0].setAttribute('stop-color', B.top); st[1].setAttribute('stop-color', B.bot); }
       const hd = $('mkHead'); [...hd.children].forEach(c => { if(c.id !== 'mkPf') c.style.display = 'none'; });
       let pf = $('mkPf'); if(!pf){ pf = document.createElementNS(NS, 'g'); pf.id = 'mkPf'; hd.appendChild(pf); }
       pf.innerHTML = `<circle cx="200" cy="104" r="50" fill="#FFF8E7" stroke="#1A1410" stroke-width="3"/>` + avatarSVG(PROFILE && PROFILE.av, 200, 104, 46); }
@@ -8805,7 +8995,7 @@ Reply as JSON only: {"name":"...","why":"..."}`;
   function mkOnPeers(){ if(MK && !MK.running && !MK.verdict) mkVerdict(); }
   function closeMk(){ mk3Leave(); if(MK){ MK.running = false; cancelAnimationFrame(mkraf); } const net = MK && MK.net; MK = null; $('mk').hidden = true; $('mkEndOv').hidden = true; return net; }
   $('mkEndAgain').onclick = () => { const res = MK && MK.stageRes; const net = closeMk(); if(net){ onlineRematch(); return; }
-    if(res && res.winScene && MK_STORY[res.i]){ const B0 = MK_BG[MK_STAGES[res.i][0]] || MK_BG.lofi; const nxt = res.ending ? null : res;
+    if(res && res.winScene && MK_STORY[res.i]){ const B0 = MK_BG[MK_SCENE[res.i]] || MK_BG[MK_STAGES[res.i][0]] || MK_BG.lofi; const nxt = res.ending ? null : res;
       playScene(MK_STORY[res.i].win, () => { if(res.ending) playScene(res.i === 14 ? MK_END : MK_END2, () => openMkSetup(), '👑 ' + tr('면치기 왕!'), `radial-gradient(circle at 50% 25%, #FFD23F66 0%, transparent 50%), linear-gradient(#3A1240, #C2186B)`); else startStageMk(res.next ? res.i + 1 : res.i); },
         res.ending ? '👑 ' + tr('엔딩 보기') : '▶ ' + tr('다음 무대로'), `radial-gradient(circle at 50% 25%, ${B0.n1}55 0%, transparent 45%), linear-gradient(${B0.top}, ${B0.bot})`); return; }
     if(res && res.ending){ const B = MK_BG.chip; playScene(MK_END, () => openMkSetup(), '👑 ' + tr('면치기 왕!'), `radial-gradient(circle at 50% 25%, #FFD23F66 0%, transparent 50%), linear-gradient(#3A1240, #C2186B)`); return; }
