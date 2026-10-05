@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="라면 공방">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
   --red:#E2231A; --yellow:#FFD23F; --green:#2BB673; --ink:#1A1410; --bg:#FFF6DC; --panel:#FFFFFF; --muted:#7A6A55; --line:#1A1410;
@@ -20,7 +20,7 @@
 :root[data-theme="dark"]{ --bg:#2A1512; --panel:#3A1E19; --muted:#D7BFA6; --line:#0E0907; --ink:#FFF3DE; }
 *,*::before,*::after{box-sizing:inherit}
 html,body{height:100%;margin:0}
-body{background:var(--bg);color:var(--ink);font-family:"Gowun Dodum","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+body{background:var(--bg);color:var(--ink);font-family:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
   -webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;overscroll-behavior:none;overflow:hidden}
 .app{height:100%;max-width:520px;margin:0 auto;display:flex;flex-direction:column;padding:8px 10px 6px;gap:6px}
 header{display:flex;align-items:center;justify-content:space-between;gap:8px}
@@ -460,10 +460,236 @@ body.healing .st{cursor:pointer}
 .mkgoal{margin:6px 0 2px;padding:8px 10px;border-radius:10px;background:#F1E6FA;color:#4A1F6B;font-weight:700;font-size:.85rem;text-align:center}
 html, body{touch-action:manipulation;-webkit-text-size-adjust:100%;text-size-adjust:100%}
 input, textarea, select{font-size:16px}
+/* ===================== Liquid Glass theme (body.lg) ===================== */
+body.lg{
+  --gl-bg:rgba(255,255,255,.26); --gl-bg2:rgba(255,255,255,.4); --gl-bd:rgba(255,255,255,.62);
+  --gl-hl:inset 0 1px 0 rgba(255,255,255,.85), inset 0 -1px 1px rgba(255,255,255,.22), inset 0 0 0 .5px rgba(255,255,255,.25);
+  --gl-sh:0 10px 30px rgba(40,20,60,.18), 0 2px 6px rgba(40,20,60,.1);
+  --gl-blur:blur(22px) saturate(185%);
+  font-family:-apple-system, BlinkMacSystemFont, "SF Pro Text", "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif;
+  background:
+    radial-gradient(120% 70% at 10% 0%, #FFB27A 0%, transparent 55%),
+    radial-gradient(90% 60% at 100% 15%, #FF7EB6 0%, transparent 55%),
+    radial-gradient(110% 70% at 50% 100%, #7CC8FF 0%, transparent 60%),
+    linear-gradient(160deg, #FFE3C2, #F6C6E6 55%, #BFE2FF) fixed;
+  color:#1C1C1E;
+}
+/* the glass recipe, shared by every floating surface */
+body.lg .card, body.lg .msg, body.lg .tog, body.lg .clock, body.lg .steps .st, body.lg .who, body.lg .shopsign,
+body.lg .mtile, body.lg .util button, body.lg .mkst, body.lg .mksel, body.lg .mkgoal, body.lg .mkarr, body.lg .ledger,
+body.lg .storybox, body.lg .farmbox, body.lg .healgrid button, body.lg .seg button, body.lg .langbtn, body.lg .idin,
+body.lg .paltoast, body.lg .tutbox, body.lg .bscore, body.lg .chip, body.lg .rows > div, body.lg .cc, body.lg .shop > *,
+body.lg .chatin input, body.lg .mkhow, body.lg .hunthud, body.lg .who button, body.lg .mkres{
+  background:var(--gl-bg); -webkit-backdrop-filter:var(--gl-blur); backdrop-filter:var(--gl-blur);
+  border:1px solid var(--gl-bd) !important; box-shadow:var(--gl-hl), var(--gl-sh) !important; color:#1C1C1E;
+}
+body.lg .card{background:var(--gl-bg2); border-radius:30px; position:relative; overflow:auto}
+body.lg .overlay{background:rgba(30,20,50,.18); -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px)}
+/* a soft specular sheen on the big panels */
+body.lg .card{background-image:linear-gradient(140deg, rgba(255,255,255,.55) 0%, rgba(255,255,255,.08) 38%, rgba(255,255,255,0) 60%, rgba(255,255,255,.18) 100%)}
+/* buttons: tinted glass capsules */
+body.lg .btn{border-radius:999px; border:1px solid rgba(255,255,255,.55) !important; color:#FFF; font-weight:700; letter-spacing:.2px;
+  background-color:rgba(226,48,38,.86);
+  background-image:linear-gradient(180deg, rgba(255,255,255,.42) 0%, rgba(255,255,255,.08) 48%, rgba(0,0,0,.04) 100%) !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.75), inset 0 -2px 6px rgba(0,0,0,.12), 0 8px 22px rgba(120,20,30,.22) !important;
+  -webkit-backdrop-filter:var(--gl-blur); backdrop-filter:var(--gl-blur); text-shadow:0 1px 1px rgba(0,0,0,.18); transition:transform .12s, filter .12s}
+body.lg .btn:active{transform:scale(.97); filter:brightness(1.06)}
+body.lg .btn.alt{background-color:var(--gl-bg2); color:#1C1C1E; text-shadow:none; box-shadow:var(--gl-hl), var(--gl-sh) !important}
+body.lg .btn:disabled{filter:saturate(.3) opacity(.6)}
+body.lg .tog{border-radius:999px}
+body.lg .msg{border-radius:22px; font-weight:600}
+body.lg .steps .st{border-radius:18px}
+body.lg .steps .st.on, body.lg .steps .st.cur{background:rgba(255,214,90,.55)}
+body.lg .scene, body.lg .bstage{border:1px solid rgba(255,255,255,.7) !important; border-radius:28px; box-shadow:0 14px 40px rgba(40,20,60,.22), inset 0 1px 0 rgba(255,255,255,.6)}
+body.lg .who{border-style:solid; border-radius:22px}
+body.lg .who .pts{color:#E2231A}
+body.lg .shopsign{border-radius:22px; box-shadow:var(--gl-hl), var(--gl-sh) !important; background:rgba(255,236,200,.42)}
+body.lg .shopsign b{color:#9A2A14}
+body.lg .opendoor{border:1px solid rgba(255,255,255,.6); border-radius:26px; background-color:rgba(200,38,30,.84);
+  background-image:linear-gradient(180deg, rgba(255,255,255,.45), rgba(255,255,255,.06) 55%); box-shadow:inset 0 1px 0 rgba(255,255,255,.8), 0 12px 30px rgba(140,20,20,.3); -webkit-backdrop-filter:var(--gl-blur); backdrop-filter:var(--gl-blur)}
+body.lg .opendoor:active{transform:scale(.98)}
+body.lg .menuboard{background:rgba(255,255,255,.14); background-image:none; border:1px solid rgba(255,255,255,.55); border-radius:26px; box-shadow:var(--gl-hl); -webkit-backdrop-filter:var(--gl-blur); backdrop-filter:var(--gl-blur)}
+body.lg .mbt{color:#3A2A4A}
+body.lg .mtile{border-radius:20px; color:#1C1C1E}
+body.lg .mtile small{color:#4A4A55}
+body.lg .mtile:active{transform:scale(.97)}
+body.lg .util button{border-radius:18px}
+body.lg .util button small{color:#3A3A44}
+body.lg .noren span{background:rgba(196,40,32,.82); border-radius:0 0 16px 16px; box-shadow:inset 0 1px 0 rgba(255,255,255,.55), inset 0 -8px 14px rgba(0,0,0,.12), 0 6px 16px rgba(120,20,20,.25); -webkit-backdrop-filter:var(--gl-blur); backdrop-filter:var(--gl-blur)}
+body.lg .noren{background:linear-gradient(rgba(70,40,30,.75) 0 7px, transparent 7px)}
+body.lg .card.home{background-color:rgba(255,255,255,.34)}
+body.lg .mkst{border-radius:16px}
+body.lg .mkst.on{background:rgba(255,214,90,.6); box-shadow:inset 0 0 0 2px rgba(226,35,26,.8), var(--gl-sh) !important}
+body.lg .mksel, body.lg .mkgoal, body.lg .ledger, body.lg .storybox, body.lg .farmbox, body.lg .mkhow{border-radius:20px}
+body.lg .mkgoal{background:rgba(200,170,255,.3); color:#3A1F5B}
+body.lg .seg button{border-radius:16px}
+body.lg .seg button.on{background:rgba(255,214,90,.62)}
+body.lg .idin, body.lg .chatin input{border-radius:16px}
+body.lg .cm.pal p{background:rgba(220,255,232,.55); border:1px solid rgba(255,255,255,.6); -webkit-backdrop-filter:var(--gl-blur); backdrop-filter:var(--gl-blur)}
+body.lg .cm.me p{background:rgba(255,226,140,.6); border:1px solid rgba(255,255,255,.6)}
+body.lg .paltoast, body.lg .tutbox{border-radius:22px}
+body.lg .lbl{color:#3A3A44}
+body.lg .how{color:#3A3A44}
+body.lg #introLine, body.lg .cline{background:rgba(255,255,255,.4); border:1px solid rgba(255,255,255,.6); border-radius:18px}
+/* ---- floating bottom tab bar + settings sheet ---- */
+#startOv{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 92px)}
+.setgroup{border:2px solid var(--line);border-radius:16px;overflow:hidden;margin:10px 0}
+.setrow{appearance:none;width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 14px;border:0;border-bottom:1px solid rgba(0,0,0,.08);background:transparent;font:inherit;font-size:.98rem;color:inherit;cursor:pointer;text-align:left}
+.setrow:last-child{border-bottom:0}
+.setrow[hidden]{display:none}
+.setrow .go{font-size:1.3rem;opacity:.5}
+.sw{position:relative;flex:none;width:50px;height:30px;border-radius:999px;background:#C9C9CE;transition:background .2s}
+.sw::after{content:"";position:absolute;top:2px;left:2px;width:26px;height:26px;border-radius:50%;background:#FFF;box-shadow:0 2px 5px rgba(0,0,0,.25);transition:transform .2s}
+.setrow.on .sw{background:#34C759}
+.setrow.on .sw::after{transform:translateX(20px)}
+body.lg .setgroup{border:1px solid rgba(255,255,255,.6);background:rgba(255,255,255,.35);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);box-shadow:inset 0 1px 0 rgba(255,255,255,.8)}
+
+/* ===== Liquid Glass tab bar v3 — clear lens glass, spring-physics drop, iOS 26 layout ===== */
+@property --spec{syntax:'<angle>';inherits:true;initial-value:-35deg}
+.lgbar{--spec:-35deg;position:fixed;left:16px;right:16px;bottom:calc(env(safe-area-inset-bottom,0px) + 6px);z-index:3;display:flex;align-items:center;gap:10px;
+  max-width:440px;margin:0 auto;transition:transform .45s cubic-bezier(.22,1.25,.36,1);animation:lgIn .9s cubic-bezier(.22,1.15,.36,1) both}
+@keyframes lgIn{from{opacity:0;transform:translateY(22px) scale(.92);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
+.lgbar.press{transform:scale(1.025)}
+/* clear glass: almost no frost, light gathers at the rims (thickness), faint chromatic fringe like a real lens */
+.lgcaps,.lgcirc{position:relative;isolation:isolate;background:rgba(255,255,255,.1);
+  -webkit-backdrop-filter:blur(1.5px) saturate(175%) brightness(1.08) contrast(1.06);backdrop-filter:blur(1.5px) saturate(175%) brightness(1.08) contrast(1.06);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.32),inset 0 1.5px 0 rgba(255,255,255,.95),inset 0 -1.5px 0 rgba(255,255,255,.4),
+    inset 7px 0 12px -9px rgba(255,255,255,.85),inset -7px 0 12px -9px rgba(255,255,255,.85),
+    inset 0 12px 16px -14px rgba(255,255,255,.95),inset 0 -12px 16px -14px rgba(255,255,255,.6),
+    inset 1.5px 0 0 -0.5px rgba(255,80,80,.18),inset -1.5px 0 0 -0.5px rgba(80,150,255,.2),
+    0 20px 40px -18px rgba(0,0,0,.38),0 3px 10px -4px rgba(0,0,0,.18)}
+.lgcaps{flex:1 1 100%;display:flex;height:62px;padding:4px;border-radius:31px;transition:flex-basis .55s cubic-bezier(.22,1.1,.36,1)}
+.lgcirc{appearance:none;flex:none;width:62px;height:62px;border-radius:50%;border:0;display:grid;place-items:center;cursor:pointer;color:#1C1C1E;-webkit-tap-highlight-color:transparent;transition:transform .5s cubic-bezier(.22,1.4,.36,1)}
+.lgcirc:active{transform:scale(1.14)}
+/* specular rim that turns with device tilt */
+.lgcaps::after,.lgcirc::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;padding:1.2px;
+  background:conic-gradient(from var(--spec),rgba(255,255,255,1) 0deg,rgba(255,255,255,.3) 45deg,rgba(255,255,255,.08) 110deg,rgba(255,255,255,.7) 180deg,rgba(255,255,255,.12) 235deg,rgba(255,255,255,.06) 300deg,rgba(255,255,255,1) 360deg);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+/* a glint that slides across the top as the light moves, plus a caustic glow at the bottom edge */
+.lgsheen{position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;
+  background:radial-gradient(60% 55% at calc(30% + var(--sx,0) * 45%) 0%,rgba(255,255,255,.55),rgba(255,255,255,0) 70%),
+    radial-gradient(50% 40% at calc(70% - var(--sx,0) * 35%) 100%,rgba(255,255,255,.3),rgba(255,255,255,0) 75%)}
+/* the drop: a soft clear capsule at rest; while pressed it swells past the bar like a lens */
+.lgdrop{position:absolute;top:4px;bottom:4px;left:0;width:25%;border-radius:27px;z-index:0;pointer-events:none;will-change:transform;backface-visibility:hidden;
+  background:rgba(255,255,255,.22);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),inset 0 0 0 .5px rgba(255,255,255,.5),inset 0 -6px 10px -8px rgba(255,255,255,.7);
+  transition:top .42s cubic-bezier(.22,1.3,.36,1),bottom .42s cubic-bezier(.22,1.3,.36,1),background .35s ease,box-shadow .35s ease,border-radius .42s ease}
+.lgdrop.drag{z-index:2;top:-9px;bottom:-9px;border-radius:40px;background:rgba(255,255,255,.08);
+  -webkit-backdrop-filter:blur(.5px) brightness(1.14) saturate(190%) contrast(1.08);backdrop-filter:blur(.5px) brightness(1.14) saturate(190%) contrast(1.08);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.45),inset 0 2px 0 rgba(255,255,255,1),inset 0 -2px 0 rgba(255,255,255,.5),
+    inset 8px 0 12px -9px rgba(255,255,255,.9),inset -8px 0 12px -9px rgba(255,255,255,.9),
+    inset 2px 0 0 -1px rgba(255,80,80,.25),inset -2px 0 0 -1px rgba(80,150,255,.28),0 14px 30px -10px rgba(0,0,0,.35)}
+.lgbar .tab{appearance:none;position:relative;z-index:1;flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border:0;background:transparent;padding:0;cursor:pointer;
+  color:#1C1C1E;font:500 10px/1.1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Apple SD Gothic Neo",system-ui,sans-serif;-webkit-tap-highlight-color:transparent;
+  text-shadow:0 0 6px rgba(255,255,255,.9),0 0 2px rgba(255,255,255,.9);transition:color .35s ease,opacity .35s ease}
+.lgbar .tab svg{width:26px;height:26px;filter:drop-shadow(0 0 3px rgba(255,255,255,.95))}
+.lgbar .tab small{font:inherit}
+.lgbar .tab.on{color:#E8231A}
+.lgbar .tab.on svg path,.lgbar .tab.on svg circle{fill:currentColor;fill-opacity:.2}
+.lgbar .tab svg,.lgbar .tab small{transform:scale(var(--mag,1));transform-origin:50% 60%;will-change:transform}
+.lgcirc svg{width:26px;height:26px;filter:drop-shadow(0 0 3px rgba(255,255,255,.95))}
+/* minimized while scrolling down */
+.lgbar.min .lgcaps{flex:0 0 62px}
+.lgbar .tab{transition:color .35s ease,opacity .3s ease,flex-grow .55s cubic-bezier(.22,1.1,.36,1)}
+.lgbar.min .tab:not(.on){flex-grow:0;flex-basis:0;width:0;opacity:0;pointer-events:none;overflow:hidden}
+.lgbar.min .tab.on small{display:none}
+.lgbar.min .lgdrop{opacity:0}
+.lgbar.min{justify-content:flex-start}
+@media (prefers-reduced-motion: reduce){.lgbar,.lgdrop,.lgcaps,.lgbar .tab{transition:none;animation:none}}
+body:not(.lg) .lgcaps,body:not(.lg) .lgcirc{background:var(--panel);-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:0 5px 0 rgba(0,0,0,.18);border:2.5px solid var(--line)}
+body:not(.lg) .lgcaps::after,body:not(.lg) .lgcirc::after,body:not(.lg) .lgsheen{display:none}
+body:not(.lg) .lgdrop{background:#FFD23F;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+body:not(.lg) .lgbar .tab{text-shadow:none}
+
+/* readable type: Noto Sans KR for all UI text; the brush font stays only for the logo, noren and splash */
+body, body.lg{font-family:"Noto Sans KR", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", system-ui, sans-serif}
+.card h2{font-family:"Noto Sans KR", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", system-ui, sans-serif !important;font-weight:800;letter-spacing:-.3px}
+.mtile b,.mbt,.shopsign b,.opendoor .od1,.mkch,.total,.who .pts{font-family:"Noto Sans KR", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", system-ui, sans-serif !important;font-weight:800;letter-spacing:-.3px}
+.lgbar .tab{font-family:"Noto Sans KR", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", system-ui, sans-serif !important;font-weight:600}
+.scene{position:relative}
+.nowdo{display:flex;align-items:center;gap:8px;min-height:34px;padding:5px 12px;border-radius:12px;background:#FFF8E1;border:2px solid #F2C14E;color:#1C1C1E;text-align:left}
+.nowdo small{flex:none;font-size:.66rem;font-weight:800;color:#8C2A14;white-space:nowrap}
+.nowdo b{flex:1;min-width:0;font-size:.9rem;line-height:1.25;word-break:keep-all}
+.nowdo .nd{flex:none;display:flex;gap:3px}
+.nowdo .nd i{width:6px;height:6px;border-radius:50%;background:rgba(0,0,0,.15)}
+.nowdo .nd i.done{background:#34C759}
+.nowdo .nd i.cur{background:#E8231A;width:12px;border-radius:4px}
+.nowdo .ok{color:#13804A;font-size:1rem;text-align:center}
+.nowdo.pop{animation:nowPop .4s cubic-bezier(.22,1.4,.36,1)}
+.nowdo.yay{animation:nowYay .55s cubic-bezier(.22,1.5,.36,1)}
+@keyframes nowPop{0%{transform:scale(.96);opacity:.4}100%{transform:none;opacity:1}}
+@keyframes nowYay{0%{transform:scale(.94)}50%{transform:scale(1.04)}100%{transform:none}}
+.nowdo[hidden]{display:none}
+.nowdo.idle{visibility:hidden}
+body.lg .nowdo{background:rgba(255,248,225,.7);border:1px solid rgba(255,255,255,.7);-webkit-backdrop-filter:blur(16px) saturate(180%);backdrop-filter:blur(16px) saturate(180%);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 4px 14px rgba(0,0,0,.1)}
+body.lg .nowdo{background:rgba(255,255,255,.55);-webkit-backdrop-filter:blur(16px) saturate(180%);backdrop-filter:blur(16px) saturate(180%);border:1px solid rgba(255,255,255,.7);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 8px 22px rgba(0,0,0,.16)}
+.lesson{margin:6px 0;padding:9px 12px;border-radius:14px;background:#EAF7EE;color:#14532D;font-size:.88rem;line-height:1.4}
+.lesson b{display:block;font-size:.8rem;color:#13804A}
+.lesson[hidden]{display:none}
+details.more{margin-top:2px}
+details.more summary{cursor:pointer;font-size:.78rem;font-weight:700;color:#5B4636;list-style:none}
+details.more summary::before{content:"▸ "}
+details.more[open] summary::before{content:"▾ "}
+details.more small{display:block}
+.mtile.locked{filter:grayscale(.85);opacity:.6}
+.mtile .lock{position:absolute;right:8px;bottom:7px;font-style:normal;font-size:.62rem;font-weight:700;color:#5B4636;background:rgba(255,255,255,.75);border-radius:8px;padding:1px 6px}
+.mtile.shake{animation:tileShake .4s}
+@keyframes tileShake{20%{transform:translateX(-5px)}40%{transform:translateX(5px)}60%{transform:translateX(-3px)}80%{transform:translateX(3px)}}
+.minitoast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 90px);transform:translate(-50%,20px);z-index:60;max-width:88vw;padding:10px 16px;border-radius:999px;background:rgba(28,28,30,.86);color:#FFF;font-size:.85rem;font-weight:600;opacity:0;pointer-events:none;transition:opacity .3s,transform .4s cubic-bezier(.22,1.3,.36,1)}
+.minitoast.show{opacity:1;transform:translate(-50%,0)}
+#items .drag{transition:opacity .35s ease, filter .35s ease}
+#items .drag.dim{opacity:.38;filter:saturate(.4)}
+/* brand-new players: one clear path */
+.welcome{display:none;margin:0 0 10px;padding:10px 12px;border-radius:16px;background:#EAF7EE;color:#14532D;font-size:.9rem;line-height:1.45}
+.home.day0 .welcome{display:block}
+.home.day0 .shopsign{display:none}
+.opendoor{position:relative}
+.startHere{display:none;position:absolute;right:10px;top:-14px;font-style:normal;font-size:.75rem;font-weight:800;background:#FFD23F;color:#1C1C1E;border-radius:999px;padding:3px 9px;box-shadow:0 3px 8px rgba(0,0,0,.2);animation:hereBob 1.2s ease-in-out infinite}
+.home.newbie .startHere{display:block}
+@keyframes hereBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.home.newbie .mtile.locked{display:none}
+.locksum{grid-column:1/-1;margin-bottom:8px;padding:9px 12px;border-radius:12px;background:rgba(255,255,255,.75);color:#3A2A1A;text-align:center}
+.locksum b{display:block;font-size:.88rem}
+.locksum small{font-size:.74rem;color:#5B4636}
+.home:not(.newbie) .locksum{display:none}
+.locksum[hidden]{display:none}
+body.lg .welcome{background:rgba(234,247,238,.7);border:1px solid rgba(255,255,255,.7);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
+.chzcard{text-align:center}
+.chzt{display:block;font-size:1.05rem;margin-top:-4px}
+.chzdots{display:flex;justify-content:center;gap:5px;margin:6px 0}
+.chzdots i{width:8px;height:8px;border-radius:50%;background:rgba(0,0,0,.15)}.chzdots i.done{background:#34C759}.chzdots i.cur{background:#F2A33D;width:18px;border-radius:5px}
+.chzsvg{width:100%;max-width:330px;height:auto;display:block;margin:4px auto;touch-action:none;background:linear-gradient(#FFF8E7,#F4E9D3);border-radius:16px}
+.chzhow{font-weight:700;margin:6px 0 2px}
+.chzmsg{min-height:1.3em;margin:0;font-weight:700;font-size:.88rem}.chzmsg.good{color:#13804A}.chzmsg.bad{color:#E2231A}
+.chzctl .btn{margin:6px 0}
+.chzctl .btn.held{transform:scale(.97);filter:brightness(1.1)}
+#chzTest.ready{animation:glow .7s infinite alternate}
+.chzfact{font-size:.78rem;color:#6B5A44;margin:6px 0 0}
+.tapme{animation:tapBob 1s ease-in-out infinite}
+@keyframes tapBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.hutroom{position:fixed;inset:0;z-index:40;background:#2A140A;overflow:hidden;touch-action:none}
+.hutroom[hidden]{display:none}
+.hutroom svg{width:100%;height:100%;display:block}
+.hutroom.enter svg{animation:hutIn .9s cubic-bezier(.22,1,.36,1) both}
+@keyframes hutIn{0%{transform:scale(1.35);filter:brightness(.2) blur(6px)}60%{filter:brightness(1) blur(0)}100%{transform:none}}
+.hutroom .hspot{cursor:pointer}
+.hutroom .hutTag{cursor:pointer;animation:tagFloat 2.4s ease-in-out infinite}
+@keyframes tagFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.hutexit{position:absolute;left:14px;top:calc(env(safe-area-inset-top,0px) + 14px);padding:10px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.6);background:rgba(255,255,255,.28);color:#FFF;font:inherit;font-weight:800;font-size:.92rem;-webkit-backdrop-filter:blur(18px) saturate(180%);backdrop-filter:blur(18px) saturate(180%);box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 6px 18px rgba(0,0,0,.3);text-shadow:0 1px 2px rgba(0,0,0,.4)}
+.hutsheet{position:absolute;left:12px;right:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 12px);max-height:55%;overflow:auto;padding:14px;border-radius:24px;background:rgba(255,248,235,.82);border:1px solid rgba(255,255,255,.7);-webkit-backdrop-filter:blur(22px) saturate(180%);backdrop-filter:blur(22px) saturate(180%);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 12px 30px rgba(0,0,0,.35);animation:sheetUp .45s cubic-bezier(.22,1.2,.36,1)}
+.hutsheet[hidden]{display:none}
+@keyframes sheetUp{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+.hsht{display:block;font-size:1.05rem;margin-bottom:6px}
+.hutlist{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 12px}
+.hutlist span{padding:7px 10px;border-radius:12px;background:rgba(255,255,255,.8);border:1px solid rgba(0,0,0,.08);font-size:.9rem}
+.napfx{position:fixed;inset:0;z-index:70;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:rgba(10,15,40,.82);color:#FFF;animation:napIn 1.6s ease both}
+.napfx b{font-size:2.2rem}.napfx[hidden]{display:none}
+@keyframes napIn{0%{opacity:0}20%{opacity:1}80%{opacity:1}100%{opacity:0}}
 </style>
 </head>
 
 <body>
+<script>(function(){ var ui = 'glass'; try{ ui = localStorage.getItem('ramen-ui') || 'glass'; }catch(e){} if(ui === 'glass') document.body.classList.add('lg'); })();</script>
 <script>(function(){
   // no accidental zooming while playing: block pinch (iOS gesture events + two-finger moves) and double-tap zoom
   ['gesturestart', 'gesturechange', 'gestureend'].forEach(function(n){ document.addEventListener(n, function(e){ e.preventDefault(); }, {passive:false}); });
@@ -504,6 +730,7 @@ input, textarea, select{font-size:16px}
   <div class="steps" id="steps"></div>
   <div class="chip" id="opp" hidden></div>
   <div class="msg" id="msg">씨앗부터 한 그릇까지!</div>
+  <div class="nowdo notr" id="nowDo" hidden></div>
   <div class="scene" id="scene">
     <svg id="svg" viewBox="0 0 400 560" preserveAspectRatio="xMidYMax meet" aria-label="라면 공방">
       <defs>
@@ -534,9 +761,10 @@ input, textarea, select{font-size:16px}
           <ellipse cx="72" cy="190" rx="66" ry="30" fill="transparent"/>
         </g>
         <!-- coop + hen -->
-        <g class="g2d"><path d="M322 118 L357 92 L392 118 Z" fill="#8E2A1E" stroke="#1A1410" stroke-width="3" stroke-linejoin="round"/>
+        <g id="hut" class="tap"><g class="g2d"><path d="M322 118 L357 92 L392 118 Z" fill="#8E2A1E" stroke="#1A1410" stroke-width="3" stroke-linejoin="round"/>
         <rect x="328" y="118" width="58" height="46" fill="#C0392B" stroke="#1A1410" stroke-width="3"/>
         <rect x="348" y="134" width="18" height="30" rx="9" fill="#5A1E14"/></g>
+        <g id="hutTag" class="tapme"><rect x="327" y="70" width="60" height="18" rx="9" fill="#FFD23F" stroke="#1A1410" stroke-width="1.5"/><text x="357" y="83" font-size="10.5" font-weight="800" text-anchor="middle" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">🏠 농막 톡!</text></g></g>
         <g class="bobbing g2d">
           <ellipse cx="300" cy="166" rx="17" ry="13" fill="#FFFFFF" stroke="#1A1410" stroke-width="2.5"/>
           <circle cx="313" cy="152" r="8" fill="#FFFFFF" stroke="#1A1410" stroke-width="2.5"/>
@@ -568,17 +796,17 @@ input, textarea, select{font-size:16px}
         <g id="seedTabs">
           <rect x="96" y="401" width="124" height="22" rx="11" fill="#FFFFFF" stroke="#5E8F2E" stroke-width="2"/>
           <g id="seedPrev" class="tap"><rect x="96" y="401" width="34" height="22" fill="transparent"/><path d="M118 406 L108 412 L118 418" fill="none" stroke="#1A1410" stroke-width="3" stroke-linecap="round"/></g>
-          <text id="seedTabT" x="158" y="417" font-size="12" font-weight="700" fill="#2E5A12" text-anchor="middle" font-family="Gowun Dodum, sans-serif">1 / 2</text>
+          <text id="seedTabT" x="158" y="417" font-size="12" font-weight="700" fill="#2E5A12" text-anchor="middle" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">1 / 2</text>
           <g id="seedNext" class="tap"><rect x="186" y="401" width="34" height="22" fill="transparent"/><path d="M198 406 L208 412 L198 418" fill="none" stroke="#1A1410" stroke-width="3" stroke-linecap="round"/></g>
         </g>
 
 
         <rect x="6" y="498" width="388" height="54" rx="14" fill="#E9C98E" stroke="#9C7234" stroke-width="2.5"/>
         <path d="M16 506 H384 M16 520 H384 M16 534 H384" stroke="#D2AE6E" stroke-width="2"/>
-        <text id="basketT" x="200" y="530" font-size="15" font-weight="700" fill="#5A3A12" text-anchor="middle" font-family="Gowun Dodum, sans-serif">🧺 바구니</text>
+        <text id="basketT" x="200" y="530" font-size="15" font-weight="700" fill="#5A3A12" text-anchor="middle" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">🧺 바구니</text>
         <g id="gDone" class="tap">
           <rect x="12" y="12" width="118" height="34" rx="17" fill="#E2231A" stroke="#1A1410" stroke-width="3"/>
-          <text id="gDoneT" x="71" y="34" font-size="14" font-weight="700" fill="#fff" text-anchor="middle" font-family="Gowun Dodum, sans-serif">다음 단계 ▶</text>
+          <text id="gDoneT" x="71" y="34" font-size="14" font-weight="700" fill="#fff" text-anchor="middle" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">다음 단계 ▶</text>
         </g>
       </g>
 
@@ -587,15 +815,15 @@ input, textarea, select{font-size:16px}
         <rect class="b2d" width="400" height="340" fill="url(#tiles)"/>
         <rect class="b2d" y="330" width="400" height="230" fill="url(#wood)"/>
         <rect class="b2d" y="328" width="400" height="6" fill="#B07C42"/>
-        <text x="40" y="104" font-size="11" font-weight="700" fill="#1A1410" font-family="Gowun Dodum, sans-serif">⚖️ 반죽 정량</text>
-        <text id="scaleGoal" x="40" y="120" font-size="11" font-weight="700" fill="#6B4A22" font-family="Gowun Dodum, sans-serif"></text>
+        <text x="40" y="104" font-size="11" font-weight="700" fill="#1A1410" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">⚖️ 반죽 정량</text>
+        <text id="scaleGoal" x="40" y="120" font-size="11" font-weight="700" fill="#6B4A22" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif"></text>
         <rect x="40" y="140" width="160" height="18" rx="6" fill="#FFFFFF" stroke="#1A1410" stroke-width="2.5"/>
         <rect id="gF" x="41.5" y="141.5" width="0" height="15" fill="#E9D8B0"/>
         <rect id="gW" x="41.5" y="141.5" width="0" height="15" fill="#7CC4E2"/>
         <line id="gTF" x1="120" x2="120" y1="136" y2="162" stroke="#13804A" stroke-width="2.5" stroke-dasharray="3 2"/>
         <line id="gTW" x1="155.2" x2="155.2" y1="136" y2="162" stroke="#2F6FD1" stroke-width="2.5" stroke-dasharray="3 2"/>
-        <text id="gTFt" x="118" y="176" font-size="11" font-weight="700" fill="#13804A" text-anchor="end" font-family="Gowun Dodum, sans-serif">밀가루까지▲</text>
-        <text id="gTWt" x="158" y="176" font-size="11" font-weight="700" fill="#2F6FD1" font-family="Gowun Dodum, sans-serif">▲물까지</text>
+        <text id="gTFt" x="118" y="176" font-size="11" font-weight="700" fill="#13804A" text-anchor="end" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">밀가루까지▲</text>
+        <text id="gTWt" x="158" y="176" font-size="11" font-weight="700" fill="#2F6FD1" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">▲물까지</text>
         <!-- digital kitchen scale under the bowl -->
         <rect class="b2d" x="34" y="318" width="172" height="20" rx="6" fill="#5E656C" stroke="#1A1410" stroke-width="2.5"/>
         <rect x="88" y="321" width="64" height="14" rx="3" fill="#13261A"/>
@@ -605,7 +833,7 @@ input, textarea, select{font-size:16px}
         <g clip-path="url(#bowlClip)"><g id="bowlIn"></g></g>
         <ellipse cx="120" cy="230" rx="80" ry="15" fill="none" stroke="#1A1410" stroke-width="3"/></g>
         <rect id="bowlHit" x="38" y="205" width="164" height="122" fill="transparent"/>
-        <text id="bowlHint" x="120" y="268" font-size="16" font-weight="700" fill="#E2231A" text-anchor="middle" stroke="#fff" stroke-width="4" paint-order="stroke" opacity="0" pointer-events="none" font-family="Gowun Dodum, sans-serif">👆 문질러 반죽!</text>
+        <text id="bowlHint" x="120" y="268" font-size="16" font-weight="700" fill="#E2231A" text-anchor="middle" stroke="#fff" stroke-width="4" paint-order="stroke" opacity="0" pointer-events="none" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">👆 문질러 반죽!</text>
         <path id="nStream" class="b2d" d="" stroke-width="7" stroke-linecap="round" opacity="0"/>
         <!-- machine -->
         <g class="b2d"><path d="M252 112 H348 L322 170 H278 Z" fill="#AEB4BA" stroke="#1A1410" stroke-width="3" stroke-linejoin="round"/>
@@ -613,7 +841,7 @@ input, textarea, select{font-size:16px}
         <rect x="242" y="168" width="116" height="132" rx="12" fill="#C9CED3" stroke="#1A1410" stroke-width="3"/></g>
         <!-- noodle thickness dial: thin / medium / thick -->
         <g id="thickSel">
-          <text x="300" y="36" font-size="11" font-weight="700" fill="#1A1410" text-anchor="middle" font-family="Gowun Dodum, sans-serif">면 굵기</text>
+          <text x="300" y="36" font-size="11" font-weight="700" fill="#1A1410" text-anchor="middle" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">면 굵기</text>
           <g class="tk tap" data-k="thin"><rect x="226" y="42" width="46" height="26" rx="8"/><line x1="236" x2="262" y1="55" y2="55" stroke="#C8962E" stroke-width="2"/></g>
           <g class="tk tap" data-k="medium"><rect x="277" y="42" width="46" height="26" rx="8"/><line x1="287" x2="313" y1="55" y2="55" stroke="#C8962E" stroke-width="3.4"/></g>
           <g class="tk tap" data-k="thick"><rect x="328" y="42" width="46" height="26" rx="8"/><line x1="338" x2="364" y1="55" y2="55" stroke="#C8962E" stroke-width="5.5"/></g>
@@ -651,9 +879,9 @@ input, textarea, select{font-size:16px}
         <circle id="crankHit" cx="300" cy="240" r="74" fill="transparent"/>
         <g pointer-events="none">
           <rect id="crankLblBg" x="200" y="80" width="196" height="26" rx="13" fill="#FFFFFF" stroke="#1A1410" stroke-width="2.5" opacity="0"/>
-          <text id="crankLbl" x="298" y="98" font-size="12.5" font-weight="700" fill="#1A1410" text-anchor="middle" opacity="0" font-family="Gowun Dodum, sans-serif"></text>
+          <text id="crankLbl" x="298" y="98" font-size="12.5" font-weight="700" fill="#1A1410" text-anchor="middle" opacity="0" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif"></text>
         </g>
-        <text id="crankHint" x="300" y="400" font-size="13" font-weight="700" fill="#5A3A12" text-anchor="middle" opacity="0" pointer-events="none" font-family="Gowun Dodum, sans-serif"></text>
+        <text id="crankHint" x="300" y="400" font-size="13" font-weight="700" fill="#5A3A12" text-anchor="middle" opacity="0" pointer-events="none" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif"></text>
       </g>
 
       <!-- ===== Stage 2: soup ===== -->
@@ -662,7 +890,7 @@ input, textarea, select{font-size:16px}
         <rect class="b2d" y="350" width="400" height="210" fill="url(#wood)"/>
         <rect class="b2d" y="348" width="400" height="6" fill="#B07C42"/>
         <rect x="10" y="10" width="380" height="36" rx="10" fill="#FFF8E7" stroke="#1A1410" stroke-width="2.5"/>
-        <text id="recipeT" x="200" y="33" font-size="13" font-weight="700" fill="#1A1410" text-anchor="middle" font-family="Gowun Dodum, sans-serif"></text>
+        <text id="recipeT" x="200" y="33" font-size="13" font-weight="700" fill="#1A1410" text-anchor="middle" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif"></text>
         <g id="bars"></g>
         <!-- mortar -->
         <g class="b2d"><ellipse cx="200" cy="340" rx="96" ry="10" fill="#000" opacity=".15"/>
@@ -672,12 +900,18 @@ input, textarea, select{font-size:16px}
         <ellipse id="powder" cx="200" cy="244" rx="0" ry="8" fill="#C0392B"/></g>
         <g id="pestle" class="b2d"><rect x="-8" y="-66" width="16" height="66" rx="8" fill="#C9A27A" stroke="#1A1410" stroke-width="2.5"/><ellipse cx="0" cy="-2" rx="11" ry="6" fill="#B08A62" stroke="#1A1410" stroke-width="2"/></g>
         <rect id="mortarHit" x="104" y="170" width="192" height="170" fill="transparent"/>
-        <text id="grindT" x="200" y="296" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle" stroke="#1A1410" stroke-width="3" paint-order="stroke" pointer-events="none" font-family="Gowun Dodum, sans-serif"></text>
+        <text id="grindT" x="200" y="296" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle" stroke="#1A1410" stroke-width="3" paint-order="stroke" pointer-events="none" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif"></text>
         <g id="soupDone" class="tap" style="display:none">
           <rect x="300" y="190" width="92" height="40" rx="20" fill="#E2231A" stroke="#1A1410" stroke-width="3"/>
-          <text x="346" y="215" font-size="14" font-weight="700" fill="#fff" text-anchor="middle" font-family="Gowun Dodum, sans-serif">완성 ✓</text>
+          <text x="346" y="215" font-size="14" font-weight="700" fill="#fff" text-anchor="middle" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">완성 ✓</text>
         </g>
         <rect x="8" y="396" width="384" height="160" rx="12" fill="#EBCB98" stroke="#A9773E" stroke-width="3"/>
+        <g id="ingTabs">
+          <rect x="138" y="401" width="124" height="22" rx="11" fill="#FFFFFF" stroke="#A9773E" stroke-width="2"/>
+          <g id="ingPrev" class="tap"><rect x="138" y="401" width="38" height="22" fill="transparent"/><path d="M160 406 L150 412 L160 418" fill="none" stroke="#1A1410" stroke-width="3" stroke-linecap="round"/></g>
+          <text id="ingTabT" x="200" y="417" font-size="12" font-weight="700" fill="#6B4220" text-anchor="middle" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">1 / 3</text>
+          <g id="ingNext" class="tap"><rect x="224" y="401" width="38" height="22" fill="transparent"/><path d="M240 406 L250 412 L240 418" fill="none" stroke="#1A1410" stroke-width="3" stroke-linecap="round"/></g>
+        </g>
       </g>
 
       <!-- ===== Stage 3: cook ===== -->
@@ -697,7 +931,7 @@ input, textarea, select{font-size:16px}
         <g id="knob" class="tap" role="button" aria-label="불 켜기">
           <rect x="130" y="280" width="140" height="44" fill="transparent"/>
           <rect id="knobBg" x="146" y="285" width="108" height="30" rx="15" fill="#ECE7E1" stroke="#1A1410" stroke-width="3"/>
-          <text id="knobT" x="200" y="305" font-size="14" font-weight="700" fill="#1A1410" text-anchor="middle" font-family="Gowun Dodum, sans-serif">🔥 불 켜기</text>
+          <text id="knobT" x="200" y="305" font-size="14" font-weight="700" fill="#1A1410" text-anchor="middle" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">🔥 불 켜기</text>
         </g>
         <g id="steam" class="k2d" opacity="0" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round">
           <path class="stm" d="M160 104 q-8 -12 0 -24 q8 -12 0 -24"/><path class="stm" d="M200 100 q-8 -12 0 -24 q8 -12 0 -24" style="animation-delay:.7s"/><path class="stm" d="M240 104 q-8 -12 0 -24 q8 -12 0 -24" style="animation-delay:1.4s"/>
@@ -720,9 +954,9 @@ input, textarea, select{font-size:16px}
           <path d="M115 128 H285 V245 Q285 262 268 262 H132 Q115 262 115 245 Z" fill="none" stroke="#1A1410" stroke-width="4"/>
           <rect x="108" y="121" width="184" height="11" rx="5" fill="#B9BFC6" stroke="#1A1410" stroke-width="3"/>
         </g>
-        <text id="targetT" x="290" y="0" font-size="13" font-weight="700" fill="#13804A" stroke="#FFFFFF" stroke-width="4" paint-order="stroke" font-family="Gowun Dodum, sans-serif">◀ 여기까지</text>
+        <text id="targetT" x="290" y="0" font-size="13" font-weight="700" fill="#13804A" stroke="#FFFFFF" stroke-width="4" paint-order="stroke" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">◀ 여기까지</text>
         <g id="bar" opacity="0">
-          <text id="barT" x="200" y="22" font-size="13" font-weight="700" fill="#1A1410" text-anchor="middle" stroke="#EAF2EE" stroke-width="4" paint-order="stroke" font-family="Gowun Dodum, sans-serif"></text>
+          <text id="barT" x="200" y="22" font-size="13" font-weight="700" fill="#1A1410" text-anchor="middle" stroke="#EAF2EE" stroke-width="4" paint-order="stroke" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif"></text>
           <rect x="110" y="30" width="180" height="18" rx="9" fill="#FFFFFF" stroke="#1A1410" stroke-width="3"/>
           <rect id="barZone" x="0" y="31.5" width="0" height="15" fill="#7EDBA9"/>
           <rect id="barFill" x="111.5" y="31.5" width="0" height="15" rx="7" fill="#FFC400" opacity=".85"/>
@@ -730,15 +964,15 @@ input, textarea, select{font-size:16px}
         </g>
         <g id="warn" opacity="0">
           <rect x="292" y="84" width="96" height="30" rx="15" fill="#E2231A" stroke="#1A1410" stroke-width="3"/>
-          <text x="340" y="104" font-size="14" font-weight="700" fill="#fff" text-anchor="middle" font-family="Gowun Dodum, sans-serif">넘쳐요! 저어요</text>
+          <text x="340" y="104" font-size="14" font-weight="700" fill="#fff" text-anchor="middle" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">넘쳐요! 저어요</text>
         </g>
         <rect x="8" y="428" width="384" height="128" rx="12" fill="#EBCB98" stroke="#A9773E" stroke-width="3"/>
-        <text x="20" y="444" font-size="11" font-weight="700" fill="#6B4A22" font-family="Gowun Dodum, sans-serif">🧺 내가 거둔 토핑 (⭐ 추천)</text>
+        <text x="20" y="444" font-size="11" font-weight="700" fill="#6B4A22" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">🧺 내가 거둔 토핑 (⭐ 추천)</text>
         <g id="topLabels"></g>
         <g id="shelfTabs" style="display:none">
           <rect x="262" y="432" width="124" height="22" rx="11" fill="#FFFFFF" stroke="#A9773E" stroke-width="2"/>
           <g id="shelfPrev" class="tap"><rect x="262" y="432" width="34" height="22" fill="transparent"/><path d="M284 437 L274 443 L284 449" fill="none" stroke="#1A1410" stroke-width="3" stroke-linecap="round"/></g>
-          <text id="shelfTabT" x="324" y="448" font-size="12" font-weight="700" fill="#6B4A22" text-anchor="middle" font-family="Gowun Dodum, sans-serif">1 / 2</text>
+          <text id="shelfTabT" x="324" y="448" font-size="12" font-weight="700" fill="#6B4A22" text-anchor="middle" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">1 / 2</text>
           <g id="shelfNext" class="tap"><rect x="352" y="432" width="34" height="22" fill="transparent"/><path d="M364 437 L374 443 L364 449" fill="none" stroke="#1A1410" stroke-width="3" stroke-linecap="round"/></g>
         </g>
         <rect id="cStream" x="0" y="0" width="7" height="0" rx="3.5" fill="#7CC4E2" opacity="0"/>
@@ -748,7 +982,7 @@ input, textarea, select{font-size:16px}
           <path d="M22 106 Q53 84 84 106 Z" fill="#E2231A" stroke="#1A1410" stroke-width="3"/>
           <rect x="42" y="124" width="22" height="10" rx="3" fill="#2B2522"/>
           <circle id="ckLed" cx="76" cy="138" r="3.5" fill="#9AA2AA"/>
-          <text x="53" y="160" font-size="10" font-weight="700" fill="#5A3A12" text-anchor="middle" font-family="Gowun Dodum, sans-serif">밥솥</text>
+          <text x="53" y="160" font-size="10" font-weight="700" fill="#5A3A12" text-anchor="middle" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">밥솥</text>
           <circle id="ckRing" cx="53" cy="80" r="11" fill="none" stroke="#FFC400" stroke-width="4" stroke-dasharray="69" stroke-dashoffset="69" transform="rotate(-90 53 80)" opacity="0"/>
           <g id="ckSteam" opacity="0" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"><path class="stm" d="M44 88 q-4 -6 0 -12 q4 -6 0 -12"/><path class="stm" d="M60 88 q-4 -6 0 -12 q4 -6 0 -12" style="animation-delay:.8s"/></g>
           <g id="ckBowl" opacity="0" transform="translate(53 80)"><path d="M-16 -2 H16 Q15 12 0 13 Q-15 12 -16 -2 Z" fill="#FFF" stroke="#1A1410" stroke-width="2"/><ellipse cy="-3" rx="15" ry="6" fill="#FBFAF4" stroke="#1A1410" stroke-width="2"/><path d="M-8 -5 q3 -2 6 0 M2 -4 q3 -2 6 0" stroke="#E6E2D6" stroke-width="1.5" fill="none"/></g>
@@ -814,10 +1048,12 @@ input, textarea, select{font-size:16px}
     <div class="who"><div class="wl"><button class="avbtn" id="bAv" aria-label="프로필 사진"><span id="whoAv"></span></button><div><b id="whoName" class="notr"></b><small>나의 총 점수</small><span class="pts" id="whoPts">0</span><small class="coins notr" id="whoCoins"></small></div></div>
       <div class="whob"><button id="bRank">🏅 랭킹</button><button id="bLogout">로그아웃</button></div></div>
     <button class="shopsign notr" id="shopSign"></button>
-    <button class="opendoor" id="bStart"><span class="od1">🏮 내 가게 영업하기</span><small>오늘의 손님이 기다리고 있어요</small></button>
+    <p class="welcome notr" id="welcome">👋 <b>라면 공방에 온 걸 환영해요!</b><br>아래 빨간 버튼 하나만 누르면 돼요. 나머지는 하나씩 알려 줄게요.</p>
+    <button class="opendoor" id="bStart"><span class="od1" id="odMain">🏮 내 가게 영업하기</span><small id="odSub">오늘의 손님이 기다리고 있어요</small><em class="startHere">👆 여기부터!</em></button>
     <p class="best" id="bestStart"></p>
     <div class="menuboard">
       <b class="mbt">놀이 메뉴판</b>
+      <div class="locksum notr" id="lockSum" hidden></div>
       <div class="mgrid">
         <button class="mtile heal" id="bHeal"><i>🌿</i><b>힐링 농장</b><small>시간 제한 없이 농사짓고 끓이기</small></button>
         <button class="mtile ai" id="bAI"><i>🤖</i><b>AI 셰프와 대결</b><small>같은 주문, 전문가 심사</small></button>
@@ -827,14 +1063,50 @@ input, textarea, select{font-size:16px}
         <button class="mtile coop" id="bCoop"><i>🤝</i><b>합동 라면집</b><small>친구와 둘이서 가게 운영</small></button>
       </div>
     </div>
-    <div class="util">
-      <button id="bShop">🛒<small>상점</small></button>
-      <button id="bTro">🏆<small>트로피</small></button>
-      <button id="bTut">📖<small>튜토리얼</small></button>
-      <button id="b3D">🧊<small>3D</small></button>
-      <button id="bInstall" hidden>📲<small>앱 설치</small></button>
-    </div>
     <div class="rgrid" id="rGrid" hidden></div>
+  </div>
+  <nav class="lgbar" id="tabbar" aria-label="메뉴">
+    <div class="lgcaps" id="lgcaps">
+      <span class="lgsheen"></span>
+      <span class="lgdrop" id="lgdrop"></span>
+      <button class="tab on" id="tabHome" data-t="0"><svg viewBox="0 0 28 28" aria-hidden="true"><path d="M4.5 12.6 14 5l9.5 7.6V22a1.8 1.8 0 0 1-1.8 1.8h-4.6v-6.2a1.2 1.2 0 0 0-1.2-1.2h-3.8a1.2 1.2 0 0 0-1.2 1.2v6.2H6.3A1.8 1.8 0 0 1 4.5 22z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><small>홈</small></button>
+      <button class="tab" id="bShop" data-t="1"><svg viewBox="0 0 28 28" aria-hidden="true"><path d="M6.2 9.5h15.6l-1.1 12.3a2 2 0 0 1-2 1.8H9.3a2 2 0 0 1-2-1.8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M10.2 11.5V8.6a3.8 3.8 0 0 1 7.6 0v2.9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><small>상점</small></button>
+      <button class="tab" id="bTro" data-t="2"><svg viewBox="0 0 28 28" aria-hidden="true"><path d="M9 5h10v6.2a5 5 0 0 1-10 0z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 7.2H5.8v1.6A3.6 3.6 0 0 0 9.4 12.4M19 7.2h3.2v1.6a3.6 3.6 0 0 1-3.6 3.6M14 16.2v3.6M9.8 23h8.4M11 23l.8-3.2h4.4L17 23" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><small>트로피</small></button>
+      <button class="tab" id="bSet" data-t="3"><svg viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="3.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M14 3.8v2.6M14 21.6v2.6M24.2 14h-2.6M6.4 14H3.8M21.2 6.8l-1.8 1.8M8.6 19.4l-1.8 1.8M21.2 21.2l-1.8-1.8M8.6 8.6 6.8 6.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="14" cy="14" r="7.2" fill="none" stroke="currentColor" stroke-width="2"/></svg><small>설정</small></button>
+    </div>
+  </nav>
+</div>
+<div class="hutroom" id="hutRoom" hidden>
+  <svg id="hutSvg" viewBox="0 0 420 760" preserveAspectRatio="xMidYMid slice"></svg>
+  <button class="hutexit" id="hutExit">🚪 밖으로 나가기</button>
+  <div class="hutsheet notr" id="hutSheet" hidden></div>
+</div>
+<div class="napfx" id="napFx" hidden><b>💤 Zzz…</b><small>낮잠 자는 중</small></div>
+<div class="overlay" id="cheeseOv" hidden>
+  <div class="card chzcard">
+    <h2>🧀 치즈 공방</h2>
+    <b class="chzt notr" id="chzT"></b>
+    <div class="chzdots notr" id="chzDots"></div>
+    <svg id="chzSvg" viewBox="0 0 300 200" class="chzsvg"></svg>
+    <p class="chzhow notr" id="chzHow"></p>
+    <p class="chzmsg notr" id="chzMsg"></p>
+    <div class="chzctl" id="chzCtl"></div>
+    <p class="chzfact notr" id="chzFact"></p>
+  </div>
+</div>
+<div class="overlay" id="setOv" hidden>
+  <div class="card setcard">
+    <h2>⚙️ 설정</h2>
+    <div class="setgroup">
+      <button class="setrow" id="bUI"><span>✨ Liquid Glass 화면</span><span class="sw"></span></button>
+      <button class="setrow" id="b3D"><span>🧊 3D 화면</span><span class="sw"></span></button>
+    </div>
+    <div class="setgroup">
+      <button class="setrow" id="bLangSet"><span>🌐 언어</span><span class="go">›</span></button>
+      <button class="setrow" id="bTut"><span>📖 튜토리얼 다시 하기</span><span class="go">›</span></button>
+      <button class="setrow" id="bInstall" hidden><span>📲 앱으로 설치하기</span><span class="go">›</span></button>
+    </div>
+    <button class="btn" id="bSetClose">닫기</button>
   </div>
 </div>
 
@@ -936,7 +1208,7 @@ input, textarea, select{font-size:16px}
   <div class="card">
     <h2>🌿 힐링 모드</h2>
     <p class="how">시간 제한도, 점수도, 손님도 없어요. 만들고 싶은 라면을 고르고, 위쪽 단계 탭을 눌러 원하는 단계로 언제든 이동해요. 재료는 넉넉하게 준비해 둘게요.</p>
-    <p class="how">🐗 농사짓다 보면 가끔 숲에서 멧돼지나 꿩이 불쑥 튀어나와요. 재빨리 톡 눌러 잡으면 차슈를 얻어요!</p>
+    <p class="how">🐗 농사짓다 보면 가끔 숲에서 멧돼지나 꿩이 불쑥 튀어나와요. 재빨리 톡 눌러 잡으면 고기 고명(멧돼지고기·꿩고기·토끼고기)을 얻어요!</p>
     <p class="how">🐢 농장은 진짜 시간으로 자라요. 물을 주고 나가도 계속 자라고, 시들지 않아요. 거둔 재료는 창고에 모아 두었다가 라면을 끓일 때 써요.</p>
     <div class="lbl">만들고 싶은 라면</div>
     <div class="healgrid" id="healGrid"></div>
@@ -951,7 +1223,7 @@ input, textarea, select{font-size:16px}
       <small>🧺 창고: <span class="notr" id="pantryLine"></span></small>
     </div>
     <button class="btn" id="bHealGarden" style="background:#4CAF7A">🌾 농장 가기</button>
-    <button class="btn" id="bHealCook">🍳 창고 재료로 라면 끓이기</button>
+    <button class="btn" id="bHealCook" hidden>🍳 창고 재료로 라면 끓이기</button>
     <button class="btn" id="bHunt" style="background:#8C5A2B" hidden>🏹 숲으로 사냥 가기</button>
     <button class="btn alt" id="bHealMusic">🎵 잔잔한 음악: 켜짐</button>
     <button class="btn alt" id="bHealBack">돌아가기</button>
@@ -997,6 +1269,7 @@ input, textarea, select{font-size:16px}
   <div class="card">
     <h2>🛎️ 손님이 왔어요!</h2>
     <p class="how">이번 손님이 내 라면을 맛보고 별점과 점수를 줘요. 손님마다 성격과 기분이 달라요. 좋아하는 토핑은 키워서 올리고, 싫어하는 건 빼 주세요!</p>
+    <p class="lesson notr" id="custLesson" hidden></p>
     <div class="custs" id="custList"></div>
     <button class="btn" id="custGo">영업 시작!</button>
   </div>
@@ -1065,11 +1338,11 @@ input, textarea, select{font-size:16px}
       <circle cx="200" cy="44" r="27" fill="#FFF8E7" stroke="#1A1410" stroke-width="3"/>
       <text id="oFace" x="200" y="55" font-size="30" text-anchor="middle">🤖</text>
       <g id="oAvG"></g>
-      <text id="oName" x="200" y="88" font-size="13" font-weight="700" fill="#1A1410" text-anchor="middle" font-family="Gowun Dodum, sans-serif">상대</text>
+      <text id="oName" x="200" y="88" font-size="13" font-weight="700" fill="#1A1410" text-anchor="middle" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">상대</text>
       <g id="oBubble" opacity="0">
         <rect id="oBubbleR" x="236" y="18" width="150" height="34" rx="12" fill="#FFFFFF" stroke="#1A1410" stroke-width="2.5"/>
         <path d="M240 40 L226 46 L244 46 Z" fill="#FFFFFF" stroke="#1A1410" stroke-width="2"/>
-        <text id="oBubbleT" x="311" y="40" font-size="12" font-weight="700" fill="#1A1410" text-anchor="middle" font-family="Gowun Dodum, sans-serif"></text>
+        <text id="oBubbleT" x="311" y="40" font-size="12" font-weight="700" fill="#1A1410" text-anchor="middle" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif"></text>
       </g>
       <text id="oStatus" x="140" y="50" font-size="22" text-anchor="middle"></text>
       <!-- opponent bowl -->
@@ -1079,15 +1352,15 @@ input, textarea, select{font-size:16px}
       <ellipse id="oSoup" cx="200" cy="176" rx="112" ry="19" fill="#D9541E"/>
       <g clip-path="url(#oBowlClip)"><g id="oNoodles"></g></g></g>
       <g id="oLid" class="bt2d" opacity="0"><path d="M76 178 Q200 96 324 178 Z" fill="#C9CED3" stroke="#1A1410" stroke-width="3"/><circle cx="200" cy="128" r="9" fill="#7E858D" stroke="#1A1410" stroke-width="2.5"/></g>
-      <text id="oLeft" x="200" y="300" font-size="13" font-weight="700" fill="#5A3A12" text-anchor="middle" font-family="Gowun Dodum, sans-serif">상대 그릇 · 남은 면 60</text>
+      <text id="oLeft" x="200" y="300" font-size="13" font-weight="700" fill="#5A3A12" text-anchor="middle" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">상대 그릇 · 남은 면 60</text>
       <ellipse id="oRing" cx="200" cy="200" rx="138" ry="72" fill="none" stroke="#FFC400" stroke-width="5" stroke-dasharray="12 8" class="march" opacity="0"/>
-      <text id="oTapT" x="200" y="140" font-size="14" font-weight="700" fill="#1A1410" text-anchor="middle" stroke="#FFD23F" stroke-width="5" paint-order="stroke" opacity="0" pointer-events="none" font-family="Gowun Dodum, sans-serif">🥢 여기를 꾹!</text>
+      <text id="oTapT" x="200" y="140" font-size="14" font-weight="700" fill="#1A1410" text-anchor="middle" stroke="#FFD23F" stroke-width="5" paint-order="stroke" opacity="0" pointer-events="none" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">🥢 여기를 꾹!</text>
       <rect id="oHit" x="70" y="110" width="260" height="175" fill="transparent"/>
       <!-- divider -->
       <path d="M20 318 H380" stroke="#8C6239" stroke-width="2" stroke-dasharray="8 6"/>
       <circle cx="200" cy="318" r="16" fill="#E2231A" stroke="#1A1410" stroke-width="2.5"/>
       <text x="200" y="323" font-size="11" font-weight="700" fill="#fff" text-anchor="middle" font-family="Black Han Sans, sans-serif">VS</text>
-      <text id="bHint" x="200" y="350" font-size="14" font-weight="700" fill="#E2231A" text-anchor="middle" stroke="#fff" stroke-width="4" paint-order="stroke" opacity="0" font-family="Gowun Dodum, sans-serif"></text>
+      <text id="bHint" x="200" y="350" font-size="14" font-weight="700" fill="#E2231A" text-anchor="middle" stroke="#fff" stroke-width="4" paint-order="stroke" opacity="0" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif"></text>
       <!-- my bowl -->
       <g id="warn" opacity="0"><ellipse cx="200" cy="440" rx="138" ry="72" fill="none" stroke="#E2231A" stroke-width="5" stroke-dasharray="10 6" class="march"/></g>
       <g class="bt2d"><path d="M80 420 H320 Q314 520 200 524 Q86 520 80 420 Z" fill="#FFFFFF" stroke="#1A1410" stroke-width="3"/>
@@ -1096,11 +1369,11 @@ input, textarea, select{font-size:16px}
       <ellipse id="mSoup" cx="200" cy="421" rx="112" ry="19" fill="#D9541E"/>
       <g clip-path="url(#mBowlClip)"><g id="mNoodles"></g></g></g>
       <g id="mLid" class="bt2d" opacity="0"><path d="M76 423 Q200 341 324 423 Z" fill="#C9CED3" stroke="#1A1410" stroke-width="3"/><circle cx="200" cy="373" r="9" fill="#7E858D" stroke="#1A1410" stroke-width="2.5"/></g>
-      <text id="mLeft" x="200" y="548" font-size="13" font-weight="700" fill="#5A3A12" text-anchor="middle" font-family="Gowun Dodum, sans-serif">내 그릇 · 남은 면 60</text>
+      <text id="mLeft" x="200" y="548" font-size="13" font-weight="700" fill="#5A3A12" text-anchor="middle" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">내 그릇 · 남은 면 60</text>
       <rect id="mHit" x="60" y="330" width="280" height="210" fill="transparent"/>
       <g id="mBubble" opacity="0">
         <rect x="14" y="556" width="200" height="32" rx="12" fill="#FFF8E1" stroke="#1A1410" stroke-width="2.5"/>
-        <text id="mBubbleT" x="114" y="577" font-size="12" font-weight="700" fill="#1A1410" text-anchor="middle" font-family="Gowun Dodum, sans-serif"></text>
+        <text id="mBubbleT" x="114" y="577" font-size="12" font-weight="700" fill="#1A1410" text-anchor="middle" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif"></text>
       </g>
       <text id="mStatus" x="320" y="578" font-size="22" text-anchor="middle"></text>
       <!-- opponent chopsticks attacking my bowl -->
@@ -1123,7 +1396,7 @@ input, textarea, select{font-size:16px}
         <path d="M200 205 V430" stroke="#FFC400" stroke-width="6" stroke-dasharray="4 12" stroke-linecap="round" class="march"/>
         <path d="M186 418 L200 438 L214 418" fill="none" stroke="#FFC400" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
         <text id="bGuideHand" x="206" y="230" font-size="34" text-anchor="middle">👆</text>
-        <text id="bGuideT" x="290" y="330" font-size="13" font-weight="700" fill="#1A1410" text-anchor="middle" stroke="#fff" stroke-width="4" paint-order="stroke" font-family="Gowun Dodum, sans-serif">꾹 → 쭉!</text>
+        <text id="bGuideT" x="290" y="330" font-size="13" font-weight="700" fill="#1A1410" text-anchor="middle" stroke="#fff" stroke-width="4" paint-order="stroke" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">꾹 → 쭉!</text>
       </g>
       <rect id="spiceFx" width="400" height="600" fill="#E2231A" opacity="0" pointer-events="none"/>
       <g id="bfx" pointer-events="none"></g>
@@ -1195,18 +1468,18 @@ input, textarea, select{font-size:16px}
           <g data-drag="noodle" transform="translate(80 548)" style="cursor:grab"><rect x="-44" y="-34" width="88" height="68" fill="transparent"/>
             <rect x="-34" y="-20" width="68" height="40" rx="7" fill="#F2C14E" stroke="#B5862A" stroke-width="2.5"/>
             <path d="M-30 -10 q5 -4 10 0 t10 0 t10 0 t10 0 t10 0 t10 0 M-30 0 q5 -4 10 0 t10 0 t10 0 t10 0 t10 0 t10 0 M-30 10 q5 -4 10 0 t10 0 t10 0 t10 0 t10 0 t10 0" fill="none" stroke="#B5862A" stroke-width="1.8"/>
-            <text y="36" font-size="11" font-weight="700" text-anchor="middle" fill="#5A3A12" font-family="Gowun Dodum, sans-serif">면</text></g>
+            <text y="36" font-size="11" font-weight="700" text-anchor="middle" fill="#5A3A12" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">면</text></g>
           <g data-drag="soup:spicy" transform="translate(200 548)" style="cursor:grab"><rect x="-40" y="-34" width="80" height="68" fill="transparent"/>
             <rect x="-24" y="-18" width="48" height="36" rx="4" fill="#C8261C" stroke="#1A1410" stroke-width="2.5"/><text y="7" font-size="18" text-anchor="middle">🌶️</text>
-            <text y="36" font-size="11" font-weight="700" text-anchor="middle" fill="#5A3A12" font-family="Gowun Dodum, sans-serif">매운 스프</text></g>
+            <text y="36" font-size="11" font-weight="700" text-anchor="middle" fill="#5A3A12" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">매운 스프</text></g>
           <g data-drag="soup:bone" transform="translate(320 548)" style="cursor:grab"><rect x="-40" y="-34" width="80" height="68" fill="transparent"/>
             <rect x="-24" y="-18" width="48" height="36" rx="4" fill="#EFE4CC" stroke="#1A1410" stroke-width="2.5"/><text y="7" font-size="18" text-anchor="middle">🦴</text>
-            <text y="36" font-size="11" font-weight="700" text-anchor="middle" fill="#5A3A12" font-family="Gowun Dodum, sans-serif">사골 스프</text></g>
+            <text y="36" font-size="11" font-weight="700" text-anchor="middle" fill="#5A3A12" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">사골 스프</text></g>
         </g>
       </g>
       <!-- prep / serve station -->
       <g id="coPrep">
-        <text id="coPotMini" x="14" y="256" font-size="12" font-weight="700" fill="#5A3A12" font-family="Gowun Dodum, sans-serif"></text>
+        <text id="coPotMini" x="14" y="256" font-size="12" font-weight="700" fill="#5A3A12" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif"></text>
         <g id="coTrash" transform="translate(362 262)"><rect x="-26" y="-22" width="52" height="44" rx="10" fill="#9AA2AA" stroke="#1A1410" stroke-width="2.5"/><text y="8" font-size="22" text-anchor="middle">🗑️</text></g>
         <g data-tap="chop" style="cursor:pointer">
           <g class="co2d"><rect x="70" y="280" width="260" height="104" rx="14" fill="#E2B07A" stroke="#8C6239" stroke-width="3"/>
@@ -1219,7 +1492,7 @@ input, textarea, select{font-size:16px}
       </g>
       <g id="coBubble" opacity="0" pointer-events="none">
         <rect id="coBubbleR" x="60" y="238" width="280" height="30" rx="14" fill="#FFF8E1" stroke="#1A1410" stroke-width="2.5"/>
-        <text id="coBubbleT" x="200" y="258" font-size="13" font-weight="700" fill="#1A1410" text-anchor="middle" font-family="Gowun Dodum, sans-serif"></text>
+        <text id="coBubbleT" x="200" y="258" font-size="13" font-weight="700" fill="#1A1410" text-anchor="middle" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif"></text>
       </g>
       <g id="coGhost" pointer-events="none"></g>
       <g id="cofx" pointer-events="none"></g>
@@ -1273,7 +1546,7 @@ input, textarea, select{font-size:16px}
       <g id="mkBeat" opacity="0"><rect width="400" height="600" fill="#FFD23F" opacity=".05"/></g>
       <!-- opponent (small, top-left) -->
       <text id="mkOppFace" x="22" y="30" font-size="20" text-anchor="middle">🤖</text>
-      <text id="mkOppName" x="38" y="22" font-size="11" font-weight="700" fill="#FFF" font-family="Gowun Dodum, sans-serif">상대</text>
+      <text id="mkOppName" x="38" y="22" font-size="11" font-weight="700" fill="#FFF" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">상대</text>
       <rect id="mkOppBg" x="38" y="28" width="70" height="7" rx="3.5" fill="#FFFFFF" opacity=".2"/>
       <rect id="mkOppBar" x="38" y="28" width="70" height="7" rx="3.5" fill="#FFC400"/>
       <text id="mkOppJ" x="38" y="50" font-size="11" font-weight="700" fill="#FFD23F" font-family="Black Han Sans, sans-serif"></text>
@@ -1307,7 +1580,7 @@ input, textarea, select{font-size:16px}
       <path d="M40 470 q10 -7 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0" fill="none" stroke="#F2C14E" stroke-width="4"/></g>
       <path id="mkBowlNoodle" d="" fill="none"/>
       <line x1="22" x2="378" y1="486" y2="486" stroke="#FFD23F" stroke-width="3" stroke-dasharray="6 6" opacity=".7"/>
-      <text id="mkHintLine" x="200" y="596" font-size="13" font-weight="700" fill="#FFD23F" text-anchor="middle" font-family="Gowun Dodum, sans-serif">👈 손가락을 좌우로 → 얼굴 원을 떨어지는 면발 밑에 👉</text>
+      <text id="mkHintLine" x="200" y="596" font-size="13" font-weight="700" fill="#FFD23F" text-anchor="middle" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">👈 손가락을 좌우로 → 얼굴 원을 떨어지는 면발 밑에 👉</text>
       <rect x="22" y="574" width="356" height="5" rx="2.5" fill="#FFFFFF" opacity=".15"/>
       <rect id="mkProg" x="22" y="574" width="0" height="5" rx="2.5" fill="#FFC400"/>
       <g id="mkFx" pointer-events="none"></g>
@@ -1374,6 +1647,58 @@ input, textarea, select{font-size:16px}
   const nrm = a => { while(a > Math.PI) a -= 2*Math.PI; while(a < -Math.PI) a += 2*Math.PI; return a; };
   // order: en | ja | zh (简) | zt (繁) | es | fr | de | pt | vi | th
   const I18N_RAW = {
+'낮잠':'Nap|昼寝|午睡|午睡|Siesta|Sieste|Nickerchen|Cochilo|Ngủ trưa|งีบ',
+'차 한잔':'Tea|お茶|喝茶|喝茶|Té|Thé|Tee|Chá|Trà|ชา',
+'라면 끓이기':'Cook ramen|ラーメンを作る|煮拉面|煮拉麵|Cocinar ramen|Cuisiner|Kochen|Cozinhar|Nấu mì|ทำราเมง',
+'농막에 들어왔어요. 옆으로 밀어서 둘러보고, 물건을 톡 눌러 봐요':'You’re inside the hut. Swipe to look around and tap things|農小屋に入ったよ。横にスワイプして見回し、物をタップしてね|进了农舍。左右滑动看看，点点东西吧|進了農舍。左右滑動看看，點點東西吧|Estás en la cabaña. Desliza para mirar y toca cosas|Tu es dans la cabane. Glisse pour regarder et touche les objets|Du bist in der Hütte. Wische zum Umsehen und tippe Dinge an|Você está na cabana. Deslize para olhar e toque nas coisas|Bạn đang trong chòi. Vuốt để nhìn quanh và chạm vào đồ vật|เข้ามาในกระท่อมแล้ว ปัดเพื่อดูรอบ ๆ และแตะสิ่งของ',
+'멧돼지고기':'Boar meat|イノシシ肉|野猪肉|山豬肉|Carne de jabalí|Viande de sanglier|Wildschweinfleisch|Carne de javali|Thịt lợn rừng|เนื้อหมูป่า',
+'꿩고기':'Pheasant|キジ肉|野鸡肉|雉雞肉|Faisán|Faisan|Fasan|Faisão|Thịt gà lôi|เนื้อไก่ฟ้า',
+'토끼고기':'Rabbit meat|ウサギ肉|兔肉|兔肉|Conejo|Lapin|Kaninchen|Coelho|Thịt thỏ|เนื้อกระต่าย',
+'낮잠 자기':'Take a nap|昼寝する|睡午觉|睡午覺|Echar una siesta|Faire la sieste|Nickerchen|Tirar um cochilo|Ngủ trưa|งีบหลับ',
+'자는 동안 농장 시간이 3분 흘러요':'3 farm minutes pass while you sleep|寝ている間に農場の時間が3分進むよ|睡觉时农场时间过去3分钟|睡覺時農場時間過去3分鐘|Pasan 3 minutos en la granja|3 minutes passent à la ferme|3 Hof-Minuten vergehen|Passam 3 minutos na fazenda|Nông trại trôi qua 3 phút|เวลาฟาร์มผ่านไป 3 นาที',
+'아궁이에서 라면 끓이기':'Cook ramen on the stove|かまどでラーメンを作る|在灶台煮拉面|在灶台煮拉麵|Cocinar en el fogón|Cuisiner au fourneau|Am Herd kochen|Cozinhar no fogão|Nấu mì trên bếp|ทำราเมงที่เตา',
+'창고 재료로 끓여요':'with pantry ingredients|倉庫の材料で|用仓库食材|用倉庫食材|con la despensa|avec le garde-manger|aus dem Vorrat|com a despensa|bằng đồ trong kho|ด้วยของในคลัง',
+'창고 둘러보기':'Look in the pantry|倉庫を見る|看看仓库|看看倉庫|Ver la despensa|Voir le garde-manger|Vorrat ansehen|Ver a despensa|Xem kho|ดูคลัง',
+'라면 일기 읽기':'Read ramen diary|ラーメン日記を読む|读拉面日记|讀拉麵日記|Leer el diario|Lire le journal|Ramen-Tagebuch|Ler o diário|Đọc nhật ký mì|อ่านไดอารี่ราเมง',
+'한결이랑 차 한잔':'Tea with Hangyeol|ハンギョルとお茶|和韩洁喝茶|和韓潔喝茶|Té con Hangyeol|Thé avec Hangyeol|Tee mit Hangyeol|Chá com Hangyeol|Uống trà với Hangyeol|จิบชากับฮันกยอล',
+'밖으로 나가기':'Go outside|外に出る|出去|出去|Salir|Sortir|Rausgehen|Sair|Ra ngoài|ออกไปข้างนอก',
+'희석':'dilute|薄める|稀释|稀釋|diluir|diluer|verdünnen|diluir|pha loãng|เจือจาง',
+'너무 많아요':'Too much|多すぎ|太多了|太多了|Demasiado|Trop|Zu viel|Demais|Quá nhiều|มากไป',
+'딱 좋아요':'Just right|ちょうどいい|刚刚好|剛剛好|Perfecto|Parfait|Genau richtig|No ponto|Vừa đủ|พอดี',
+'조금 더':'A bit more|もう少し|再多一点|再多一點|Un poco más|Encore un peu|Etwas mehr|Um pouco mais|Thêm chút|อีกนิด',
+'톡!':'Tap!|タップ！|点！|點！|¡Toca!|Touche !|Tipp!|Toque!|Chạm!|แตะ!',
+'치즈 완성!':'Cheese done!|チーズ完成！|奶酪完成！|起司完成！|¡Queso listo!|Fromage prêt !|Käse fertig!|Queijo pronto!|Phô mai xong!|ชีสเสร็จแล้ว!',
+'꾹 눌러 데우기':'Hold to warm|長押しで温める|按住加热|按住加熱|Mantén para calentar|Maintiens pour chauffer|Halten zum Erwärmen|Segure para aquecer|Giữ để hâm nóng|กดค้างเพื่ออุ่น',
+'레닛 한 방울':'One drop of rennet|レンネットを1滴|一滴凝乳酶|一滴凝乳酶|Una gota de cuajo|Une goutte de présure|Ein Tropfen Lab|Uma gota de coalho|Một giọt men rennet|เรนเน็ต 1 หยด',
+'손가락 테스트':'Finger test|指テスト|手指测试|手指測試|Prueba del dedo|Test du doigt|Fingertest|Teste do dedo|Thử bằng ngón tay|ทดสอบด้วยนิ้ว',
+'꾹 누르기':'Press|ぎゅっと押す|用力压|用力壓|Prensar|Presser|Pressen|Prensar|Ép|กด',
+'바구니에 담기':'Put in basket|かごに入れる|放进篮子|放進籃子|A la cesta|Dans le panier|In den Korb|Na cesta|Bỏ vào giỏ|ใส่ตะกร้า',
+'유청 빼기':'Draining whey|ホエー抜き|排乳清|排乳清|Escurrir suero|Égoutter|Molke ablassen|Escorrer soro|Rút váng sữa|รีดเวย์',
+'새 놀이':'New modes|新しい遊び|新玩法|新玩法|Modos nuevos|Nouveaux modes|Neue Modi|Novos modos|Chế độ mới|โหมดใหม่',
+'개가 기다리고 있어요':' are waiting| 個が待ってるよ| 个等着你| 個等著你| te esperan| t’attendent| warten| esperam| đang chờ| รออยู่',
+'가게를 영업할수록 하나씩 열려요':'They open one by one as you run your shop|お店を営業すると一つずつ開くよ|营业越多，越多玩法开放|營業越多，越多玩法開放|Se abren uno a uno al abrir tu tienda|Ils s’ouvrent au fil des jours|Sie öffnen sich nach und nach|Abrem um a um conforme você trabalha|Mở dần khi bạn kinh doanh|จะเปิดทีละอย่างเมื่อเปิดร้าน',
+'다음은':'next:|次は|下一个|下一個|siguiente:|prochain :|nächster:|próximo:|tiếp theo:|ถัดไป:',
+'알바 하늘이 처음부터 차근차근 알려 줘요':'Haneul will show you everything step by step|ハヌルが一から教えてくれるよ|夏娜会一步步教你|夏娜會一步步教你|Haneul te lo enseña paso a paso|Haneul t’explique tout pas à pas|Haneul zeigt dir alles Schritt für Schritt|Haneul ensina passo a passo|Haneul sẽ hướng dẫn từng bước|ฮานึลจะสอนทีละขั้น',
+'오늘도 하나씩 배워 봐요':'Let’s learn one more thing today|今日も一つずつ覚えよう|今天也一点点学吧|今天也一點點學吧|Aprendamos algo más hoy|Apprenons encore un peu|Heute lernen wir etwas Neues|Vamos aprender mais um pouco|Hôm nay học thêm chút nhé|วันนี้มาเรียนเพิ่มอีกนิด',
+'첫 영업 시작하기':'Start your first day|初めての営業を始める|开始第一次营业|開始第一次營業|Empieza tu primer día|Commence ton premier jour|Ersten Tag starten|Comece o primeiro dia|Bắt đầu ngày đầu tiên|เริ่มวันแรก',
+'일차에 열려요':'(opens on day)|日目に開放|天后开放|天後開放|.º día|e jour|. Tag|.º dia|ngày mở|วันจะเปิด',
+'가게를 조금 더 운영하면 열려요':'Opens after a few more business days|もう少しお店を営業すると開くよ|再营业几天就会开放|再營業幾天就會開放|Se abre tras unos días más de negocio|S’ouvre après quelques jours de plus|Öffnet nach ein paar weiteren Tagen|Abre depois de mais alguns dias|Mở sau vài ngày kinh doanh nữa|จะเปิดหลังเปิดร้านอีกไม่กี่วัน',
+'잘했어요!':'Nice!|いいね！|做得好！|做得好！|¡Bien!|Bien !|Gut!|Boa!|Tốt lắm!|เยี่ยม!',
+'좋아요!':'Great!|いい感じ！|很好！|很好！|¡Genial!|Super !|Super!|Ótimo!|Hay lắm!|ดีมาก!',
+'완벽해요!':'Perfect!|完璧！|完美！|完美！|¡Perfecto!|Parfait !|Perfekt!|Perfeito!|Hoàn hảo!|สมบูรณ์แบบ!',
+'시간 제한 없음':'No time limit|時間制限なし|不限时|不限時|Sin límite de tiempo|Sans limite de temps|Ohne Zeitlimit|Sem limite de tempo|Không giới hạn thời gian|ไม่จำกัดเวลา',
+'잠깐 멈추면 손가락이 다음 동작을 보여 줘요':'Pause for a moment and a finger shows the next move|少し止まると指が次の動きを見せるよ|停一下，手指会示范下一步|停一下，手指會示範下一步|Si te detienes, un dedo te muestra el siguiente paso|Fais une pause : un doigt te montre la suite|Kurz warten – ein Finger zeigt den nächsten Schritt|Pare um pouco e um dedo mostra o próximo passo|Dừng lại một chút, ngón tay sẽ chỉ bước tiếp|หยุดสักครู่ นิ้วจะสาธิตขั้นต่อไป',
+'지금 할 일':'Do this now|今やること|现在要做|現在要做|Ahora haz esto|À faire maintenant|Jetzt zu tun|Faça agora|Việc cần làm|ทำตอนนี้',
+'취향 더 보기':'More preferences|好みをもっと見る|更多喜好|更多喜好|Más gustos|Plus de préférences|Mehr Vorlieben|Mais preferências|Thêm sở thích|ความชอบเพิ่มเติม',
+'하늘 준비':'Prepped by Haneul|ハヌル準備|夏娜准备|夏娜準備|Preparado|Préparé|Vorbereitet|Preparado|Hanl chuẩn bị|ฮานึลเตรียม',
+'홈':'Home|ホーム|首页|首頁|Inicio|Accueil|Start|Início|Trang chủ|หน้าแรก',
+'설정':'Settings|設定|设置|設定|Ajustes|Réglages|Einstellungen|Ajustes|Cài đặt|ตั้งค่า',
+'Liquid Glass 화면':'Liquid Glass look|Liquid Glass 画面|Liquid Glass 界面|Liquid Glass 介面|Aspecto Liquid Glass|Style Liquid Glass|Liquid-Glass-Look|Visual Liquid Glass|Giao diện Liquid Glass|หน้าตา Liquid Glass',
+'튜토리얼 다시 하기':'Replay tutorial|チュートリアルをもう一度|重玩教程|重玩教學|Repetir tutorial|Revoir le tutoriel|Tutorial wiederholen|Repetir tutorial|Chơi lại hướng dẫn|เล่นบทช่วยสอนอีกครั้ง',
+'언어':'Language|言語|语言|語言|Idioma|Langue|Sprache|Idioma|Ngôn ngữ|ภาษา',
+'닫기':'Close|閉じる|关闭|關閉|Cerrar|Fermer|Schließen|Fechar|Đóng|ปิด',
+'유리 UI':'Glass UI|ガラスUI|玻璃界面|玻璃介面|IU de cristal|UI verre|Glas-UI|UI de vidro|Giao diện kính|UI กระจก',
+'클래식':'Classic|クラシック|经典|經典|Clásica|Classique|Klassisch|Clássica|Cổ điển|คลาสสิก',
 '퀘스트 고르기 (옆으로 넘기면 다음 장)':'Pick a quest (swipe for the next chapter)|クエストを選ぶ（横で次の章）|选择任务（左右滑动换章）|選擇任務（左右滑動換章）|Elige misión (desliza: siguiente capítulo)|Choisis une quête (glisse : chapitre suivant)|Quest wählen (wischen: nächstes Kapitel)|Escolha a missão (deslize: próximo capítulo)|Chọn nhiệm vụ (vuốt: chương sau)|เลือกเควสต์ (ปัดเพื่อไปบทถัดไป)',
 '중상':'Hard-ish|やや難|中上|中上|Medio-alto|Assez dur|Mittelschwer|Médio-alto|Khá khó|ค่อนข้างยาก',
 '장':'Ch.|章|章|章|Cap.|Ch.|Kap.|Cap.|Ch.|บทที่',
@@ -2789,10 +3114,11 @@ ${JSON.stringify(part)}`;
     rice:{n:'벼', e:'🌾', pk:'#C9A227'}
   };
   const CROPK = Object.keys(CROPS);
-  const TOPN = {pa:'대파', chili:'고추', cabbage:'배추', onion:'양파', mushroom:'버섯', corn:'옥수수', sprout:'콩나물', perilla:'깻잎', zucchini:'애호박', carrot:'당근', egg:'달걀', cheese:'치즈', shrimp:'새우', squid:'오징어', chashu:'차슈'};
-  const TOPE = {pa:'🌿', chili:'🌶️', cabbage:'🥬', onion:'🧅', mushroom:'🍄', corn:'🌽', sprout:'🫘', perilla:'🍃', zucchini:'🥒', carrot:'🥕', egg:'🥚', cheese:'🧀', shrimp:'🦐', squid:'🦑', chashu:'🍖'};
+  const TOPN = {pa:'대파', chili:'고추', cabbage:'배추', onion:'양파', mushroom:'버섯', corn:'옥수수', sprout:'콩나물', perilla:'깻잎', zucchini:'애호박', carrot:'당근', egg:'달걀', cheese:'치즈', shrimp:'새우', squid:'오징어', chashu:'멧돼지고기', pheasant:'꿩고기', rabbit:'토끼고기'};
+  const TOPE = {pa:'🌿', chili:'🌶️', cabbage:'🥬', onion:'🧅', mushroom:'🍄', corn:'🌽', sprout:'🫘', perilla:'🍃', zucchini:'🥒', carrot:'🥕', egg:'🥚', cheese:'🧀', shrimp:'🦐', squid:'🦑', chashu:'🍖', pheasant:'🍗', rabbit:'🥩'};
   const ALLTOP = Object.keys(TOPN);
-  const GUESTTOP = ALLTOP.filter(k => k !== 'chashu');   // 차슈 only comes from hunting, so guests and rivals never ask for it
+  const MEATS = ['chashu', 'pheasant', 'rabbit'];   // hunted meat (멧돼지고기·꿩고기·토끼고기) — only from hunting
+  const GUESTTOP = ALLTOP.filter(k => !MEATS.includes(k));   // guests and rivals never ask for it
 
   // ramen menu: taste targets for the soup stage + recommended toppings
   const RAMEN = {
@@ -2826,6 +3152,8 @@ ${JSON.stringify(part)}`;
     chashu:`<g><ellipse cx="-5" cy="2" rx="15" ry="11" fill="#C9763E" stroke="#6B3A1A" stroke-width="2"/><ellipse cx="-5" cy="2" rx="9" ry="6" fill="#F0C9A0"/><path d="M-12 0 q7 -4 14 0" stroke="#C9763E" stroke-width="2" fill="none"/><ellipse cx="8" cy="-3" rx="13" ry="10" fill="#B9672F" stroke="#6B3A1A" stroke-width="2"/><ellipse cx="8" cy="-3" rx="7.5" ry="5" fill="#EBC092"/></g>`,
     squid:`<g fill="none"><circle cx="-6" cy="-2" r="9" stroke="#A88A70" stroke-width="7"/><circle cx="-6" cy="-2" r="9" stroke="#F7EAD9" stroke-width="4.5"/><circle cx="8" cy="5" r="8" stroke="#A88A70" stroke-width="7"/><circle cx="8" cy="5" r="8" stroke="#F7EAD9" stroke-width="4.5"/></g>`
   };
+  TOPART.pheasant = TOPART.chashu.split('#C9763E').join('#E3A86B').split('#6B3A1A').join('#8C5A2B');
+  TOPART.rabbit = TOPART.chashu.split('#C9763E').join('#D98C7A').split('#6B3A1A').join('#7A3A2A');
   const POTTOP = {
     chashu:`<g><ellipse cx="-5" rx="11" ry="4" fill="#C9763E" stroke="#6B3A1A" stroke-width="1.2"/><ellipse cx="7" cy="1" rx="10" ry="3.6" fill="#B9672F" stroke="#6B3A1A" stroke-width="1.2"/></g>`,
     cheese:`<path d="M-16 -5 H16 V1 Q12 9 7 2 Q2 11 -3 3 Q-9 10 -16 2 Z" fill="#FFC83A" stroke="#E0A20E" stroke-width="1.2"/>`,
@@ -2836,7 +3164,7 @@ ${JSON.stringify(part)}`;
     <rect x="-28" y="-34" width="56" height="68" rx="7" fill="${CROPS[k].pk}" ${L} stroke-width="2.5"/>
     <rect x="-23" y="-29" width="46" height="36" rx="5" fill="#FFF8E7"/>
     <text y="0" font-size="28" text-anchor="middle">${CROPS[k].e}</text>
-    <text y="25" font-size="13" font-weight="700" fill="#fff" text-anchor="middle" stroke="#1A1410" stroke-width="2.5" paint-order="stroke" ${tr(CROPS[k].n).length > 4 ? 'textLength="52" lengthAdjust="spacingAndGlyphs"' : ''} font-family="Gowun Dodum, sans-serif">${tr(CROPS[k].n)}</text>${star ? `<text x="24" y="-28" font-size="17" text-anchor="middle">⭐</text>` : ''}`;
+    <text y="25" font-size="13" font-weight="700" fill="#fff" text-anchor="middle" stroke="#1A1410" stroke-width="2.5" paint-order="stroke" ${tr(CROPS[k].n).length > 4 ? 'textLength="52" lengthAdjust="spacingAndGlyphs"' : ''} font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">${tr(CROPS[k].n)}</text>${star ? `<text x="24" y="-28" font-size="17" text-anchor="middle">⭐</text>` : ''}`;
   const CAN = `<rect class="hit" x="-44" y="-44" width="96" height="76" fill="transparent"/>
     <path d="M18 -4 L44 -24 L48 -19 L24 6" fill="#2BB673" ${L} stroke-width="2.5" stroke-linejoin="round"/>
     <ellipse cx="46" cy="-22" rx="6" ry="3.5" fill="#1F8A55" ${L} stroke-width="1.5" transform="rotate(-38 46 -22)"/>
@@ -2846,12 +3174,12 @@ ${JSON.stringify(part)}`;
   const FLOUR = `<rect class="hit" x="-34" y="-42" width="68" height="84" fill="transparent"/>
     <path d="M-26 34 Q-30 -10 -20 -28 L-12 -36 H12 L20 -28 Q30 -10 26 34 Z" fill="#F1E3C6" ${L} stroke-width="3"/>
     <path d="M-12 -36 Q0 -30 12 -36" stroke="#1A1410" stroke-width="2" fill="none"/>
-    <text y="6" font-size="11" font-weight="700" text-anchor="middle" fill="#7A5A2A" font-family="Gowun Dodum, sans-serif">밀가루</text>
+    <text y="6" font-size="11" font-weight="700" text-anchor="middle" fill="#7A5A2A" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">밀가루</text>
     <text y="24" font-size="14" text-anchor="middle">🌾</text>`;
   const CUP = `<rect class="hit" x="-28" y="-34" width="56" height="68" fill="transparent"/>
     <path d="M-18 -26 L-14 26 H14 L18 -26 Z" fill="#E8F4FA" ${L} stroke-width="3"/>
     <path d="M-16.5 -8 L-13.5 24 H13.5 L16.5 -8 Z" fill="#7CC4E2"/>
-    <text y="-30" font-size="10" font-weight="700" text-anchor="middle" fill="#1A1410" font-family="Gowun Dodum, sans-serif">물</text>`;
+    <text y="-30" font-size="10" font-weight="700" text-anchor="middle" fill="#1A1410" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">물</text>`;
   const DOUGH = `<rect class="hit" x="-34" y="-28" width="68" height="56" fill="transparent"/>
     <ellipse rx="28" ry="20" fill="#F3DFB8" stroke="#B8935A" stroke-width="2.5"/><ellipse cx="-8" cy="-7" rx="8" ry="4" fill="#FFF4DD" opacity=".85"/>`;
   const KETTLE = `<rect class="hit" x="-46" y="-36" width="94" height="66" fill="transparent"/>
@@ -3104,7 +3432,7 @@ ${JSON.stringify(part)}`;
       farm: (() => { const f = d && d.farm; if(!f || typeof f !== 'object') return undefined;
         const plots = Array.isArray(f.plots) ? f.plots.slice(0, 16).map(p => p && typeof p === 'object' && typeof p.c === 'string' && /^[a-z]{2,10}$/.test(p.c) ? {c:p.c, g:clamp(+p.g || 0, 0, 1), m:clamp(+p.m || 0, 0, 115)} : null) : [];
         const pantry = {}; Object.entries(obj(f.pantry)).forEach(([k, v]) => { if(/^[a-z]{2,10}$/.test(k)) pantry[k] = Math.max(0, Math.min(99, Math.floor(+v || 0))); });
-        return {plots, pantry, t:num(f.t), eggs:Math.min(3, num(f.eggs)), cheese:Math.min(2, num(f.cheese))}; })(),
+        return {plots, pantry, t:num(f.t), napT:num(f.napT), eggs:Math.min(3, num(f.eggs)), cheese:Math.min(2, num(f.cheese))}; })(),
       heal: (() => { const h = d && d.heal; if(!h || typeof h !== 'object') return undefined;
         const chat = Array.isArray(h.chat) ? h.chat.slice(-40).filter(m => m && (m.f === 'me' || m.f === 'pal') && typeof m.t === 'string').map(m => ({f:m.f, t:m.t.slice(0, 400)})) : [];
         return {ch:Math.max(0, Math.min(8, num(h.ch))), chat, intro:h.intro === true, unread:Math.min(9, num(h.unread))}; })()};
@@ -3176,6 +3504,7 @@ ${JSON.stringify(part)}`;
   function addPoints(n){ if(PROFILE && n > 0){ PROFILE.total += n; saveProfile(); } }
   function renderWho(){
     try{ renderShopSign(); }catch(e){}
+    try{ renderLocks(); }catch(e){}
     if(!PROFILE) return;
     $('whoName').textContent = PROFILE.name;
     $('whoAv').innerHTML = avatarHTML(PROFILE.av, 54);
@@ -3335,7 +3664,7 @@ ${JSON.stringify(part)}`;
   function renderSteps(){
     $('steps').innerHTML = STAGES.map((s, i) => {
       const cls = !G ? '' : G.results[i] ? 'done' : G.stage === i ? 'now' : '';
-      const sub = G && G.results[i] ? G.results[i].score + '점' : s.sub;
+      const sub = G && G.results[i] ? (G.results[i].prep ? '🧑‍🍳 ' + tr('하늘 준비') : G.results[i].score + '점') : s.sub;
       return `<div class="st ${cls}"><span class="e">${s.icon}</span>${s.name}<small>${sub}</small></div>`;
     }).join('');
   }
@@ -3349,6 +3678,290 @@ ${JSON.stringify(part)}`;
     if(RAMEN[key]) return key;
     const ks = Object.keys(RAMEN); return ks[Math.floor(mulberry32(seed + 777)()*ks.length)];
   }
+  // =================================================================
+  // 📚 GENTLE START for new shops: the first business days teach one part at a time.
+  // Day 1: only boiling (noodles, soup & toppings prepared by 하늘) · Day 2: soup + boiling
+  // Day 3: noodles + soup + boiling · Day 4+: the whole thing from the garden. Difficulty itself is unchanged.
+  // =================================================================
+  const LESSON = {
+    3:'오늘은 끓이기만 해 봐요! 면·스프·토핑은 제가 다 준비해 뒀어요',
+    2:'오늘은 스프 만들기부터! 면이랑 토핑은 제가 준비해 뒀어요',
+    1:'오늘은 면 뽑기부터 해 봐요! 토핑 재료는 제가 따 왔어요'
+  };
+  function lessonFrom(){
+    if(mode !== 'solo' || !PROFILE || (G && G.tut)) return 0;
+    const d = shopData().day; return d === 0 ? 3 : d === 1 ? 2 : d === 2 ? 1 : 0;
+  }
+  function lessonPrep(from){
+    const c = G.customers[0];
+    // skipped steps count as a solid job by 하늘, so learning days aren't punished
+    for(let i=0;i<from;i++) G.results[i] = {score:85, prep:true, rows:[]};
+    // toppings from the "garden": what the guest likes, plus a few others to choose from
+    const pool = ALLTOP.filter(k => k !== c.hate && !MEATS.includes(k));
+    c.likes.forEach(k => { if(G.basket[k]) G.basket[k].push(true, true); });
+    pool.sort(() => Math.random() - .5).slice(0, 4).forEach(k => G.basket[k].push(true));
+    G.basket.rice.push(true);
+    if(from >= 2) G.noodle = {q:85, label:tr('탱탱한'), col:'#F2C14E', thick:c.thickPref === 'any' ? 'medium' : c.thickPref, grams:c.size === 'large' ? 288 : 200};
+    if(from >= 3){ const R = G.ramen, sp = c.spice === 'hot' ? 72 : c.spice === 'mild' ? 18 : (R.t && R.t.spicy ? (R.t.spicy[0] + R.t.spicy[1])/2 : 35);
+      G.soup = {n:R.n, short:R.n, color:BROTH[G.rKey] || '#D9A35A', q:85}; G.stats.soup = {taste:{salt:55, spicy:sp, umami:60}}; }
+  }
+  // =================================================================
+  // 👉 "지금 할 일": one short line that always says the single next thing to do
+  // =================================================================
+  const NOWDO = [
+    [() => !(SG.plots && SG.plots.some(p => p.crop)), '🌱 씨앗 봉투를 빈 밭으로 끌어다 놓기'],
+    [() => SG.cheeses && SG.cheeses.length > 0, '🥛 젖소 옆 우유통을 톡! 눌러 치즈 만들기'],
+    [() => SG.eggs && SG.eggs.length > 0, '🥚 닭이 낳은 달걀을 톡! 눌러 줍기'],
+    [() => !(SG.harvested > 0), '💧 물 주며 키우고, 다 자라면 톡! 수확'],
+    [() => true, '🧺 재료를 다 모았으면 ▶ 다음 단계'],
+  ];
+  const NOWDO1 = [[() => SG.flour < FT - 5, '🌾 밀가루를 그릇에 붓기'], [() => SG.water < WT - 3, '💧 그릇에 물 붓기'], [() => !SG.dough, '👆 그릇 안을 문질러 반죽하기'],
+    [() => !SG.thick, '〰️ 제면기에서 면 굵기 고르기'], [() => !SG.loaded, '⬆️ 반죽을 깔때기에 넣기'], [() => true, '🔄 바퀴를 천천히 돌려 면 뽑기']];
+  const NOWDO2 = [[() => !!soupSuggest(), () => soupSuggest().txt], [() => SG.grind < 100, '🎯 맛이 딱 맞아요! 절구를 빙글빙글 갈기'], [() => true, '✓ "완성 ✓"을 눌러 스프 마무리']];
+  const NOWDO3 = [[() => SG.water < TW*.9, '💧 주전자로 냄비에 물 붓기'], [() => !SG.heat, '🔥 "불 켜기" 누르기'], [() => !SG.noodle, '🍜 물이 끓으면 면 넣기'],
+    [() => !SG.soup, '🧂 스프 넣기'], [() => SG.cook < CZ[0], '🥢 토핑 올리고, 거품이 오르면 젓기'], [() => true, '🥣 막대가 초록일 때 그릇을 냄비로!']];
+  function nowDoTick(){
+    const el = $('nowDo'); if(!el) return;
+    const beginner = G && (G.lesson > 0 || (mode === 'solo' && PROFILE && shopData().day < 6) || mode === 'heal');
+    const show = G && G.running && $('stageOv').hidden && $('custOv').hidden && !(TUT && TUT.on) && !(G.farm);
+    if(!beginner || (TUT && TUT.on)){ el.hidden = true; return; }
+    el.hidden = false; el.classList.toggle('idle', !show);
+    if(!show) return;
+    const list = [NOWDO, NOWDO1, NOWDO2, NOWDO3][G.stage] || [];
+    let txt = '', idx = 0; for(let i=0;i<list.length;i++){ const [f, t] = list[i]; let ok = false; try{ ok = f(); }catch(e){} if(ok){ try{ txt = typeof t === 'function' ? t() : t; }catch(e){ txt = ''; } idx = i; break; } }
+    if(!txt){ el.classList.add('idle'); return; }
+    const t2 = tr(txt), key = G.stage + ':' + idx + (G.stage === 2 && idx === 0 ? ':' + t2 : '');
+    if(el.dataset.k !== key){
+      const prev = el.dataset.k, advanced = prev && prev.split(':')[0] == G.stage && +prev.split(':')[1] < idx;
+      el.dataset.k = key;
+      const dots = list.map((_, i) => `<i class="${i < idx ? 'done' : i === idx ? 'cur' : ''}"></i>`).join('');
+      const paint = () => { el.innerHTML = `<small>👉 ${esc(tr('지금 할 일'))}<br>${idx + 1}/${list.length}</small><b>${esc(t2)}</b><span class="nd">${dots}</span>`; el.classList.remove('pop', 'yay'); void el.offsetWidth; el.classList.add('pop'); };
+      if(advanced){ el.innerHTML = `<b class="ok">✓ ${esc(tr(['잘했어요!', '좋아요!', '완벽해요!'][idx % 3]))}</b>`; el.classList.remove('pop', 'yay'); void el.offsetWidth; el.classList.add('yay'); try{ SFX.ding(); }catch(e){} clearTimeout(nowDoTick.t); nowDoTick.t = setTimeout(paint, 700); }
+      else paint();
+    }
+  }
+  // =================================================================
+  // 🔓 modes open one by one, so a new player sees only what they need
+  // =================================================================
+  const MODE_LOCK = {bAI:2, bMk:3, bBattle:4, bOnline:5, bCoop:5};   // shop day needed (healing farm is open from the start)
+  const modeOpen = id => { if(!PROFILE) return true; const need = MODE_LOCK[id]; if(!need) return true;
+    return (PROFILE.shop && PROFILE.shop.day >= need) || (PROFILE.played || 0) >= 15 || (PROFILE.unlockAll); };
+  function renderLocks(){
+    const sd = PROFILE && PROFILE.shop ? PROFILE.shop.day : 0, fresh = PROFILE && sd < 2 && (PROFILE.played || 0) < 15;
+    const home = document.querySelector('.card.home'); if(home){ home.classList.toggle('newbie', !!fresh); home.classList.toggle('day0', !!(PROFILE && sd === 0 && (PROFILE.played || 0) < 15)); }
+    const locked = Object.keys(MODE_LOCK).filter(id => !modeOpen(id));
+    $('lockSum').hidden = !locked.length;
+    if(locked.length){ const nxt = Math.min(...locked.map(id => MODE_LOCK[id]));
+      $('lockSum').innerHTML = `<b>🔒 ${esc(tr('새 놀이'))} ${locked.length}${esc(tr('개가 기다리고 있어요'))}</b><small>${esc(tr('가게를 영업할수록 하나씩 열려요'))} · ${esc(tr('다음은'))} ${esc(tr('영업'))} ${nxt}${esc(tr('일차'))}</small>`; }
+    $('odSub').textContent = tr(fresh ? (sd === 0 ? '알바 하늘이 처음부터 차근차근 알려 줘요' : '오늘도 하나씩 배워 봐요') : '오늘의 손님이 기다리고 있어요');
+    $('odMain').textContent = '🏮 ' + tr(sd === 0 && (PROFILE.played || 0) < 15 ? '첫 영업 시작하기' : '내 가게 영업하기');
+    Object.keys(MODE_LOCK).forEach(id => { const b = $(id); if(!b) return; const open = modeOpen(id); b.classList.toggle('locked', !open);
+      let tag = b.querySelector('.lock'); if(!open){ if(!tag){ tag = document.createElement('em'); tag.className = 'lock notr'; b.appendChild(tag); } tag.textContent = '🔒 ' + tr('영업') + ' ' + MODE_LOCK[id] + tr('일차에 열려요'); }
+      else if(tag) tag.remove(); });
+  }
+  document.querySelector('.mgrid') && document.querySelector('.mgrid').addEventListener('click', e => {
+    const b = e.target.closest('.mtile'); if(!b || modeOpen(b.id)) return;
+    e.stopImmediatePropagation(); e.preventDefault(); SFX.buzz && SFX.buzz(40);
+    b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake');
+    toast('🔒 ' + tr('가게를 조금 더 운영하면 열려요') + ' (' + tr('영업') + ' ' + MODE_LOCK[b.id] + tr('일차') + ')');
+  }, true);
+  function toast(t){ let el = $('miniToast'); if(!el){ el = document.createElement('div'); el.id = 'miniToast'; el.className = 'minitoast notr'; document.body.appendChild(el); }
+    el.textContent = t; el.classList.remove('show'); void el.offsetWidth; el.classList.add('show'); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove('show'), 2200); }
+  // =================================================================
+  // 🧀 CHEESE WORKSHOP — made the way real cheese is made:
+  // warm the milk (≈32°C) → add rennet → let it set and test for a "clean break" →
+  // cut the curd → stir & drain the whey → press into a mould.
+  // =================================================================
+  const CHZ = {on:false, step:0, q:100, cb:null, T:12, heat:false, zone:0, drops:0, set:0, cuts:[], drain:0, press:0, raf:0, last:0, over:false, lastP:null};
+  const CHZ_STEPS = [
+    {t:'우유 데우기', fact:'치즈는 우유를 따뜻하게(30~35℃) 데우는 것부터 시작해요', how:'🔥 버튼을 꾹 눌러 온도를 초록 칸에 잠깐 맞춰요'},
+    {t:'레닛 넣기', fact:'레닛(응유효소)이 우유 속 단백질을 엉기게 해요', how:'💧 레닛을 딱 3방울 떨어뜨려요'},
+    {t:'굳히기', fact:'우유가 두부처럼 굳으면 손가락으로 갈라 봐서 깨끗하게 갈라지면 준비 끝!', how:'⏳ 다 굳었을 때 "손가락 테스트"를 눌러요'},
+    {t:'커드 자르기', fact:'굳은 덩어리(커드)를 잘라야 유청이 잘 빠져요', how:'🔪 냄비 위를 가로·세로로 2번 쓱 그어요'},
+    {t:'저으며 유청 빼기', fact:'저어 주면 노란 물(유청)이 빠지고 커드가 단단해져요', how:'🥄 냄비 안을 빙글빙글 저어요'},
+    {t:'틀에 눌러 담기', fact:'틀에 담아 꾹꾹 누르면 동그란 치즈 모양이 돼요', how:'🗜️ "꾹 누르기"를 3번 눌러요'}
+  ];
+  function chzOpen(cb){
+    Object.assign(CHZ, {on:true, step:0, q:100, cb, T:12, heat:false, zone:0, drops:0, set:0, cuts:[], drain:0, press:0, over:false, lastP:null, early:false});
+    if(G){ G.paused = mode === 'solo' || mode === 'heal'; }
+    $('cheeseOv').hidden = false; chzStep(); CHZ.last = performance.now(); cancelAnimationFrame(CHZ.raf); CHZ.raf = requestAnimationFrame(chzLoop); SFX.pick();
+  }
+  function chzClose(){
+    CHZ.on = false; cancelAnimationFrame(CHZ.raf); $('cheeseOv').hidden = true; if(G) G.paused = false;
+  }
+  function chzStep(){
+    const S = CHZ_STEPS[CHZ.step];
+    $('chzT').textContent = S ? `${CHZ.step + 1}/6 · ${tr(S.t)}` : tr('치즈 완성!');
+    $('chzFact').textContent = S ? '📖 ' + tr(S.fact) : '';
+    $('chzHow').textContent = S ? tr(S.how) : '';
+    $('chzDots').innerHTML = CHZ_STEPS.map((_, i) => `<i class="${i < CHZ.step ? 'done' : i === CHZ.step ? 'cur' : ''}"></i>`).join('');
+    const c = $('chzCtl'); c.innerHTML = '';
+    const btn = (id, txt) => { const b = document.createElement('button'); b.className = 'btn'; b.id = id; b.textContent = txt; c.appendChild(b); return b; };
+    if(CHZ.step === 0){ const b = btn('chzHeat', '🔥 ' + tr('꾹 눌러 데우기'));
+      const on = e => { e.preventDefault(); CHZ.heat = true; b.classList.add('held'); }, off = () => { CHZ.heat = false; b.classList.remove('held'); };
+      b.addEventListener('pointerdown', on); ['pointerup', 'pointerleave', 'pointercancel'].forEach(n => b.addEventListener(n, off)); }
+    if(CHZ.step === 1){ const b = btn('chzDrop', '💧 ' + tr('레닛 한 방울'));
+      b.onclick = () => { if(CHZ.drops >= 3) return; CHZ.drops++; SFX.plop(); chzDraw(); if(CHZ.drops === 3) setTimeout(() => chzNext('딱 좋아요!'), 350); }; }
+    if(CHZ.step === 2){ const b = btn('chzTest', '👆 ' + tr('손가락 테스트'));
+      b.onclick = () => { if(CHZ.set >= .85){ SFX.ding(); chzNext('깨끗하게 갈라져요!'); } else { CHZ.q -= 8; SFX.nope(); chzSay('아직 물렁해요… 조금 더 기다려요', 'bad'); } }; }
+    if(CHZ.step === 5){ const b = btn('chzPress', '🗜️ ' + tr('꾹 누르기'));
+      b.onclick = () => { CHZ.press++; SFX.heavy(); chzDraw(); if(CHZ.press >= 3) setTimeout(() => chzNext('동그란 치즈 완성!'), 300); }; }
+    if(CHZ.step >= 6){
+      const n = CHZ.q >= 80 ? 2 : 1; CHZ.made = n;
+      $('chzHow').textContent = tr(n === 2 ? '정성 가득! 치즈가 2개나 나왔어요' : '치즈 1개 완성! 다음엔 더 정확하게 해 봐요');
+      btn('chzOk', '🧺 ' + tr('바구니에 담기') + ` (🧀×${n})`).onclick = () => { const cb = CHZ.cb; chzClose(); cb && cb(n); };
+    }
+    chzDraw();
+  }
+  function chzSay(t, cls){ const el = $('chzMsg'); el.textContent = tr(t); el.className = 'chzmsg ' + (cls || 'good'); clearTimeout(chzSay.t); chzSay.t = setTimeout(() => { el.textContent = ''; }, 1600); }
+  function chzNext(msg){ if(msg) chzSay(msg, 'good'); CHZ.step++; chzStep(); }
+  function chzLoop(now){
+    if(!CHZ.on) return;
+    const dt = Math.min(.05, (now - CHZ.last)/1000); CHZ.last = now;
+    if(CHZ.step === 0){
+      CHZ.T += (CHZ.heat ? 22 : -6)*dt; CHZ.T = Math.max(10, Math.min(48, CHZ.T));
+      const ok = CHZ.T >= 30 && CHZ.T <= 36;
+      if(ok) CHZ.zone += dt; else CHZ.zone = Math.max(0, CHZ.zone - dt*.5);
+      if(CHZ.T > 40 && !CHZ.over){ CHZ.over = true; CHZ.q -= 10; chzSay('너무 뜨거워요! 우유가 상해요', 'bad'); SFX.nope(); }
+      if(CHZ.T < 37) CHZ.over = false;
+      if(CHZ.zone >= .8){ CHZ.heat = false; chzNext('딱 알맞은 온도!'); }
+    }
+    if(CHZ.step === 2){ CHZ.set = Math.min(1, CHZ.set + dt/1.8); if(CHZ.set >= .85) $('chzTest') && $('chzTest').classList.add('ready'); }
+    chzDraw();
+    CHZ.raf = requestAnimationFrame(chzLoop);
+  }
+  function chzDraw(){
+    const sv = $('chzSvg'); if(!sv) return;
+    const st = CHZ.step;
+    // milk → curd colours as it changes
+    const milk = st <= 1 ? '#FBFBF5' : st === 2 ? `rgb(${251 - CHZ.set*6},${248 - CHZ.set*10},${232 - CHZ.set*40})` : '#F3E6B5';
+    const level = st >= 4 ? 70 - CHZ.drain*.3 : 70;
+    let h = `<defs><clipPath id="chzClip"><path d="M40 70 H260 L248 178 Q150 196 52 178 Z"/></clipPath></defs>
+      <rect x="0" y="182" width="300" height="18" rx="6" fill="#3A3A3A"/>`;
+    if(st <= 4) h += `<g clip-path="url(#chzClip)"><rect x="30" y="${level}" width="240" height="140" fill="${st >= 4 ? '#E9DC9A' : milk}"/>
+        ${st >= 3 ? CHZ.cuts.map(c => `<line x1="${c[0]}" y1="${c[1]}" x2="${c[2]}" y2="${c[3]}" stroke="#C9B26A" stroke-width="3"/>`).join('') : ''}
+        ${st >= 4 ? Array.from({length:14}, (_, i) => `<rect x="${52 + (i%7)*28}" y="${level + 14 + Math.floor(i/7)*30 + Math.sin(i + CHZ.drain/9)*3}" width="22" height="20" rx="5" fill="#FFF3C4" stroke="#C9B26A"/>`).join('') : ''}</g>
+        <path d="M40 70 H260 L248 178 Q150 196 52 178 Z" fill="none" stroke="#9AA2AA" stroke-width="6"/><rect x="30" y="62" width="240" height="12" rx="6" fill="#B8C0C8"/>`;
+    if(st === 0){ const p = (CHZ.T - 10)/38; h += `<g transform="translate(280 20)"><rect x="-8" y="0" width="16" height="150" rx="8" fill="#FFF" stroke="#555" stroke-width="2"/>
+        <rect x="-6" y="${150 - 150*(36 - 10)/38}" width="12" height="${150*(6/38)}" fill="#CDEFD9"/><rect x="-5" y="${150 - 148*p}" width="10" height="${148*p}" rx="5" fill="${CHZ.T > 36 ? '#E2231A' : '#FF8A3D'}"/>
+        <text x="-14" y="${150 - 150*p + 4}" font-size="12" text-anchor="end" font-weight="700">${Math.round(CHZ.T)}℃</text></g>
+        <rect x="70" y="190" width="160" height="6" rx="3" fill="${CHZ.heat ? '#FF8A3D' : '#555'}"/>
+        <text x="150" y="40" font-size="13" text-anchor="middle" fill="#13804A" font-weight="700">${'●'.repeat(Math.min(4, Math.floor(CHZ.zone*2)))}${'○'.repeat(4 - Math.min(4, Math.floor(CHZ.zone*2)))}</text>`; }
+    if(st === 1) h += `<g transform="translate(150 30)"><path d="M-6 -24 h12 v18 l-6 10 l-6 -10z" fill="#7B3FA0"/><text x="22" y="-6" font-size="14" font-weight="700">${CHZ.drops}/3</text></g>`
+      + Array.from({length:CHZ.drops}, (_, i) => `<circle cx="${120 + i*30}" cy="${90}" r="5" fill="#B48ACF"/>`).join('');
+    if(st === 2) h += `<rect x="70" y="30" width="160" height="10" rx="5" fill="#EEE"/><rect x="70" y="30" width="${160*CHZ.set}" height="10" rx="5" fill="${CHZ.set >= .85 ? '#34C759' : '#F2C14E'}"/>
+      <line x1="${70 + 160*.85}" x2="${70 + 160*.85}" y1="26" y2="44" stroke="#13804A" stroke-width="2"/>`;
+    if(st === 3) h += `<text x="150" y="40" font-size="14" text-anchor="middle" font-weight="700">✂️ ${CHZ.cuts.length}/2</text>`;
+    if(st === 4) h += `<rect x="70" y="30" width="160" height="10" rx="5" fill="#EEE"/><rect x="70" y="30" width="${1.6*CHZ.drain}" height="10" rx="5" fill="#F2C14E"/><text x="150" y="24" font-size="11" text-anchor="middle">${tr('유청 빼기')} ${Math.round(CHZ.drain)}%</text>`;
+    if(st >= 5){ const sq = Math.min(5, CHZ.press*5/3);
+      h += `<g transform="translate(150 120)"><rect x="-70" y="-40" width="140" height="90" rx="10" fill="#C98B4E" stroke="#6E4620" stroke-width="3"/>
+        <ellipse cx="0" cy="${10 + sq*2}" rx="56" ry="${34 - sq*3}" fill="#FFD24A" stroke="#C9952A" stroke-width="3"/>
+        ${st === 5 ? `<rect x="-60" y="${-70 + sq*8}" width="120" height="16" rx="6" fill="#8C8C8C"/><rect x="-6" y="${-110 + sq*8}" width="12" height="44" fill="#6B6B6B"/>` : ''}
+        ${st >= 6 ? Array.from({length:CHZ.made || 1}, (_, i) => `<text x="${(i - ((CHZ.made || 1) - 1)/2)*48}" y="-50" font-size="34" text-anchor="middle">🧀</text>`).join('') : ''}</g>`; }
+    sv.innerHTML = h;
+  }
+  // cutting (swipes) and stirring (circles) on the pot
+  (function(){
+    const sv = () => $('chzSvg');
+    const pt = e => { const s = sv(), r = s.getBoundingClientRect(); return [(e.clientX - r.left)*300/r.width, (e.clientY - r.top)*200/r.height]; };
+    document.addEventListener('pointerdown', e => { if(!CHZ.on || !sv() || !sv().contains(e.target)) return; CHZ.lastP = pt(e); CHZ.p0 = CHZ.lastP; });
+    document.addEventListener('pointermove', e => { if(!CHZ.on || !CHZ.lastP) return; const p = pt(e);
+      if(CHZ.step === 4){ const d = Math.hypot(p[0] - CHZ.lastP[0], p[1] - CHZ.lastP[1]); CHZ.drain = Math.min(100, CHZ.drain + d*.5); if(CHZ.drain >= 100){ CHZ.lastP = null; chzNext('유청이 쏙 빠졌어요!'); return; } }
+      CHZ.lastP = p; });
+    document.addEventListener('pointerup', e => { if(!CHZ.on || !CHZ.p0) return; const p = pt(e), a = CHZ.p0; CHZ.p0 = null; CHZ.lastP = null;
+      if(CHZ.step === 3 && Math.hypot(p[0] - a[0], p[1] - a[1]) > 70){ CHZ.cuts.push([a[0], a[1], p[0], p[1]]); SFX.pick(); chzDraw(); if(CHZ.cuts.length >= 2) setTimeout(() => chzNext('바둑판처럼 잘 잘렸어요!'), 250); } });
+  })();
+  setInterval(nowDoTick, 300);
+  // =================================================================
+  // 👆 SHOW-ME HAND: when a beginner stops for a moment, a ghost finger acts out the next move
+  // (drag this → there, tap here, rub in circles). It disappears as soon as you touch the screen.
+  // =================================================================
+  const GH = {el:null, t0:0, idle:0, key:'', raf:0};
+  const ghC = id => { const e = $(id); if(!e) return null; try{ const b = e.getBBox(); return [b.x + b.width/2, b.y + b.height/2]; }catch(err){ return null; } };
+  const ghItem = pre => { const k = Object.keys(items).find(k => (k === pre || k.startsWith(pre)) && !items[k].used && !items[k].disabled); return k ? [items[k].x, items[k].y] : null; };
+  // the soil bed itself (not its labels / water gauge): plots on the page you're looking at
+  const ghPlot = want => { if(!SG.plots) return null; const pg = SG.page || 0;
+    for(let j=0;j<PER;j++){ const i = pg*PER + j, p = SG.plots[i]; if(p && (want ? (p.crop && !p.dead) : !p.crop)) return [PLOT_X[j], PLOT_Y + 2]; }
+    return null; };
+  function ghPlan(){
+    if(!G || !G.running) return null;
+    const pot = () => { const c = ghC('pot'); return c ? [c[0], c[1] - 40] : [200, 230]; }, bowl = () => ghC('bowlHit') || [120, 268];
+    const S = G.stage;
+    if(S === 0){
+      if(!(SG.plots && SG.plots.some(p => p.crop))) return {k:'plant', a:ghItem('seed_'), b:ghPlot(false), kind:'drag'};
+      if(SG.cheeses && SG.cheeses.length) return {k:'milk', a:[SG.cheeses[0].x, 194], kind:'tap'};
+      if(SG.eggs && SG.eggs.length) return {k:'egg', a:[SG.eggs[0].x, 176], kind:'tap'};
+      if(!(SG.harvested > 0)) return {k:'water', a:ghItem('can'), b:ghPlot(true), kind:'drag'};
+      return null;
+    }
+    if(S === 1){
+      if(SG.flour < FT - 5) return {k:'flour', a:ghItem('flour'), b:bowl(), kind:'drag'};
+      if(SG.water < WT - 3) return {k:'cup', a:ghItem('cup'), b:bowl(), kind:'drag'};
+      if(!SG.dough) return {k:'rub', a:bowl(), kind:'circle', r:34};
+      if(!SG.thick) return {k:'thick', a:ghC('thickSel'), kind:'tap'};
+      if(!SG.loaded) return {k:'load', a:ghItem('dough'), b:ghC('hopperFill') || [300, 120], kind:'drag'};
+      return {k:'crank', a:ghC('crankWheel') || [300, 240], kind:'circle', r:46};
+    }
+    if(S === 2){
+      const sug = soupSuggest();
+      if(sug && sug.page !== (SG.ingPage || 0)) return {k:'ingpage', a:ghC('ingNext') || [243, 412], kind:'tap'};
+      if(sug){ const it = items['ing_' + sug.id]; return it ? {k:'jar', pre:'ing_' + sug.id, a:[it.x, it.y], b:ghC('mortarHit') || [200, 270], kind:'drag'} : null; }
+      if(SG.grind < 100) return {k:'grind', a:ghC('mortarHit') || [200, 270], kind:'circle', r:30};
+      return {k:'done', a:ghC('soupDone'), kind:'tap'};
+    }
+    if(S === 3){
+      if(SG.water < TW*.9) return {k:'kettle', a:ghItem('kettle'), b:pot(), kind:'drag'};
+      if(!SG.heat) return {k:'heat', a:ghC('knobBg') || ghC('knob'), kind:'tap'};
+      if(!SG.noodle) return SG.boiled ? {k:'nest', a:ghItem('nest'), b:pot(), kind:'drag'} : null;   // wait for the boil
+      if(!SG.soup) return {k:'soup', a:ghItem('soupjar'), b:pot(), kind:'drag'};
+      if(SG.cook < CZ[0]) return null;
+      return {k:'bowl', a:ghItem('bowl'), b:pot(), kind:'drag'};
+    }
+    return null;
+  }
+  const GH_PRE = {plant:'seed_', water:'can', flour:'flour', cup:'cup', load:'dough', jar:'ing_', kettle:'kettle', nest:'nest', soup:'soupjar', bowl:'bowl'};
+  function ghFocus(plan){
+    const pre = plan && (plan.pre || GH_PRE[plan.k]), key = pre || '';
+    if(GH.fk === key) return; GH.fk = key;
+    Object.entries(items).forEach(([k, it]) => { if(!it.el) return; it.el.classList.toggle('dim', !!pre && !(k === pre || k.startsWith(pre))); });
+  }
+  function ghWanted(){
+    if(!G || !G.running || (TUT && TUT.on) || !$('stageOv').hidden || !$('custOv').hidden || drag) return false;
+    if(mode === 'solo') return !PROFILE || shopData().day < 6 || G.lesson > 0;
+    return mode === 'heal';
+  }
+  function ghTick(now){
+    GH.raf = requestAnimationFrame(ghTick);
+    const svg = $('svg'); if(!svg) return;
+    if(!GH.el){ GH.el = document.createElementNS(NS, 'g'); GH.el.setAttribute('id', 'ghost'); GH.el.style.pointerEvents = 'none';
+      GH.el.innerHTML = '<path id="ghTrail" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-dasharray="2 7" stroke-linecap="round" opacity=".85"/><g id="ghDot"><circle r="19" fill="rgba(255,255,255,.35)" stroke="#FFFFFF" stroke-width="2.5"/><circle id="ghCore" r="9" fill="#FFFFFF" opacity=".95"/><text y="34" x="6" font-size="30" text-anchor="middle">👆</text></g>'; }
+    if(GH.el.parentNode !== svg) svg.appendChild(GH.el);
+    const want = ghWanted(), plan0 = want ? ghPlan() : null;
+    ghFocus(plan0);
+    const plan = want && (now - GH.idle > 2600) ? plan0 : null;
+    if(!plan || !plan.a || (plan.kind === 'drag' && !plan.b)){ GH.el.style.display = 'none'; GH.key = ''; return; }
+    if(plan.k !== GH.key){ GH.key = plan.k; GH.t0 = now; }
+    GH.el.style.display = '';
+    const T = (now - GH.t0)/1000, dot = $('ghDot'), trail = $('ghTrail'), core = $('ghCore');
+    let x = plan.a[0], y = plan.a[1], press = 0, alpha = 1;
+    if(plan.kind === 'drag'){
+      const cyc = 2.2, u = (T % cyc)/cyc;                     // press (0-.15) → glide (.15-.75) → release (.75-1)
+      const m = u < .15 ? 0 : u > .75 ? 1 : (u - .15)/.6, e = m < .5 ? 2*m*m : 1 - Math.pow(-2*m + 2, 2)/2;
+      x = plan.a[0] + (plan.b[0] - plan.a[0])*e; y = plan.a[1] + (plan.b[1] - plan.a[1])*e;
+      press = u < .75 ? 1 : 0; alpha = u > .9 ? (1 - u)/.1 : u < .05 ? u/.05 : 1;
+      trail.setAttribute('d', `M${plan.a[0]} ${plan.a[1]} L${plan.b[0]} ${plan.b[1]}`); trail.style.display = '';
+    } else if(plan.kind === 'circle'){
+      const a = T*4.2; x = plan.a[0] + Math.cos(a)*plan.r; y = plan.a[1] + Math.sin(a)*plan.r*.7; press = 1; trail.style.display = 'none';
+    } else {
+      const u = (T % 1.3)/1.3; press = u < .35 ? 1 : 0; trail.style.display = 'none'; alpha = u > .85 ? (1 - u)/.15 : 1;
+    }
+    dot.setAttribute('transform', `translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${press ? .88 : 1})`);
+    core.setAttribute('opacity', press ? .95 : .4); GH.el.setAttribute('opacity', Math.max(0, Math.min(1, alpha)).toFixed(2));
+  }
+  // any touch on the game hides the hand and restarts the idle timer
+  document.addEventListener('pointerdown', () => { GH.idle = performance.now(); if(GH.el) GH.el.style.display = 'none'; GH.key = ''; }, true);
+  GH.idle = performance.now(); requestAnimationFrame(ghTick);
+
   function newGame(seed, rKey, tKey, asAI){
     if(typeof seed !== 'number'){ seed = Math.floor(Math.random()*1e9); mode = asAI ? 'ai' : 'solo'; rKey = pickR; tKey = pickT; }
     const guests = makeCustomers(seed, mode === 'solo' && PROFILE ? shopWeights() : null);
@@ -3359,7 +3972,12 @@ ${JSON.stringify(part)}`;
     g3Leave(); k3Leave(); b3Leave();   // stop drawing the previous game's 3D scenes
     if(mode === 'online'){ startStage(0); return; }
     ['startOv','finalOv'].forEach(id => $(id).hidden = true);
-    showCustomers(() => startStage(0));
+    const from = lessonFrom();
+    G.lesson = from;
+    if(from) G.time = 'none';
+    $('custLesson').hidden = !from;
+    if(from) $('custLesson').innerHTML = `<b>📚 ${esc(tr('영업'))} ${shopData().day + 1}${esc(tr('일차'))} · ⏱️ ${esc(tr('시간 제한 없음'))}</b> ${esc(tr(LESSON[from]))}<br><small>👆 ${esc(tr('잠깐 멈추면 손가락이 다음 동작을 보여 줘요'))}</small>`;
+    showCustomers(() => { if(from){ lessonPrep(from); renderSteps(); startStage(from); setTimeout(() => say('🧑‍🍳 ' + tr('하늘') + ': ' + tr(LESSON[from]), 'good'), 400); } else startStage(0); });
   }
   $('tCust').addEventListener('click', () => { if(G && G.customers) showCustomers(null); });
   // =================================================================
@@ -3423,7 +4041,7 @@ ${JSON.stringify(part)}`;
     const body = new T.Mesh(new T.BoxGeometry(58, 46, 40), M('#C0392B')); body.position.y = 23; coop.add(body);
     const roof = new T.Mesh(new T.ConeGeometry(44, 26, 4), M('#8E2A1E')); roof.rotation.y = Math.PI/4; roof.position.y = 59; coop.add(roof);
     const door = new T.Mesh(new T.BoxGeometry(18, 28, 2), M('#5A1E14')); door.position.set(0, 14, 20.5); coop.add(door);
-    coop.scale.setScalar(cu); coop.position.set(cp.x, 0, cp.z - 20*cu); sc.add(coop);
+    coop.scale.setScalar(cu); coop.position.set(cp.x, 0, cp.z - 20*cu); sc.add(coop); G3.coop = coop;
     const hen = G3.hen = new T.Group();
     const hb = new T.Mesh(new T.SphereGeometry(14, 14, 10), M('#FFFFFF')); hb.scale.set(1.2, 1, 1); hb.position.y = 13; hen.add(hb);
     const hh = new T.Mesh(new T.SphereGeometry(7, 12, 10), M('#FFFFFF')); hh.position.set(12, 26, 0); hen.add(hh);
@@ -3516,9 +4134,9 @@ ${JSON.stringify(part)}`;
     const keep = {};
     (SG.eggs || []).forEach(e => { keep['e' + e.id] = 1; if(!G3.eggs[e.id]){ const m = new T.Mesh(new T.SphereGeometry(1, 12, 10), G3.M('#FBF3E4')); m.scale.set(.32, .42, .32); const v = G3.toG(e.x, 182); m.position.set(v.x, .4, v.z); G3.scene.add(m); G3.eggs[e.id] = m; } });
     Object.keys(G3.eggs).forEach(id => { if(!keep['e' + id]){ G3.scene.remove(G3.eggs[id]); delete G3.eggs[id]; } });
-    (SG.cheeses || []).forEach(e => { keep['c' + e.id] = 1; if(!G3.cheeses[e.id]){ const m = new T.Mesh(new T.CylinderGeometry(.7, .7, .45, 3, 1, false, 0, Math.PI/2.2), G3.M('#FFC83A')); const v = G3.toG(e.x, 204); m.position.set(v.x, .25, v.z); m.rotation.y = .6; G3.scene.add(m); G3.cheeses[e.id] = m; } });
+    (SG.cheeses || []).forEach(e => { keep['c' + e.id] = 1; if(!G3.cheeses[e.id]){ const m = new T.Mesh(new T.CylinderGeometry(.5, .38, .7, 16), G3.M('#DCE3EA')); const top = new T.Mesh(new T.CircleGeometry(.48, 16), G3.M('#FFFFFF')); top.rotation.x = -Math.PI/2; top.position.y = .36; m.add(top); const v = G3.toG(e.x, 204); m.position.set(v.x, .35, v.z); G3.scene.add(m); G3.cheeses[e.id] = m; } });
     Object.keys(G3.cheeses).forEach(id => { if(!keep['c' + id]){ G3.scene.remove(G3.cheeses[id]); delete G3.cheeses[id]; } });
-    Object.values(G3.eggs).concat(Object.values(G3.cheeses)).forEach((m, k) => { m.position.y = (m.geometry.type === 'SphereGeometry' ? .4 : .25) + Math.abs(Math.sin(G3.t*3 + k))*.12; });
+    Object.values(G3.eggs).concat(Object.values(G3.cheeses)).forEach((m, k) => { m.position.y = (m.geometry.type === 'SphereGeometry' ? .4 : .35) + Math.abs(Math.sin(G3.t*3 + k))*.12; });
     // the bobber dips when a fish bites
     const bite = SG.fish && SG.fish.bite > 0;
     G3.bob.position.y = bite ? -.05 + Math.sin(G3.t*18)*.12 : .1 + Math.sin(G3.t*2)*.04;
@@ -3704,7 +4322,7 @@ ${JSON.stringify(part)}`;
     const cv = $('k3d'); cv.style.left = (a.x - sc.left - 3) + 'px'; cv.style.top = (a.y - sc.top - 3) + 'px';
     K3.r.setSize(Math.max(10, b.x - a.x), Math.max(10, b.y - a.y), true);
   }
-  const TOPCOL = {pa:'#3FA34D', chili:'#E2231A', cabbage:'#A6D66A', onion:'#B57CC9', mushroom:'#8C5A2B', corn:'#FFD43B', sprout:'#F6F2DE', perilla:'#2E7D32', zucchini:'#9CCB5A', carrot:'#F08A24', egg:'#FFFDF5', cheese:'#FFC83A', shrimp:'#FF8A57', squid:'#F7E7E0', chashu:'#C9763E'};
+  const TOPCOL = {pa:'#3FA34D', chili:'#E2231A', cabbage:'#A6D66A', onion:'#B57CC9', mushroom:'#8C5A2B', corn:'#FFD43B', sprout:'#F6F2DE', perilla:'#2E7D32', zucchini:'#9CCB5A', carrot:'#F08A24', egg:'#FFFDF5', cheese:'#FFC83A', shrimp:'#FF8A57', squid:'#F7E7E0', chashu:'#C9763E', pheasant:'#E3A86B', rabbit:'#D98C7A'};
   function k3Sync(dt){
     if(!K3.ready || SG.water === undefined) return;
     const T = window.THREE, cosT = Math.cos(K3_TILT);
@@ -4309,7 +4927,15 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
   // =================================================================
   const HUNT = {on:false, raf:0, t:0, left:40, an:[], id:0, caught:0, meat:0, spawn:0, nets:12, fly:[]};
   const H_ROWS = [255, 365, 470];
+  const MEAT_OF = {boar:'chashu', gold:'chashu', bird:'pheasant', rabbit:'rabbit'};
+  const MEAT_N = k => ({boar:3 - 1, gold:3, bird:1, rabbit:1})[k] || 1;
   function huntArt(a){
+    if(a.k === 'rabbit') return `<g transform="scale(${a.dir} 1)"><ellipse cx="0" cy="0" rx="20" ry="14" fill="#F2EEE8" stroke="#1A1410" stroke-width="2.5"/>
+      <circle cx="-19" cy="-2" r="6" fill="#FFFFFF" stroke="#1A1410" stroke-width="2"/><circle cx="17" cy="-8" r="10" fill="#F2EEE8" stroke="#1A1410" stroke-width="2.5"/>
+      <ellipse cx="13" cy="-26" rx="4" ry="12" fill="#F2EEE8" stroke="#1A1410" stroke-width="2"/><ellipse cx="22" cy="-26" rx="4" ry="12" fill="#F2EEE8" stroke="#1A1410" stroke-width="2"/>
+      <ellipse cx="13" cy="-26" rx="1.8" ry="8" fill="#F4A3A3"/><ellipse cx="22" cy="-26" rx="1.8" ry="8" fill="#F4A3A3"/>
+      <circle cx="21" cy="-9" r="1.8" fill="#1A1410"/><circle cx="27" cy="-5" r="1.6" fill="#F4A3A3"/>
+      <path d="M-8 12 v6 M8 12 v6" stroke="#1A1410" stroke-width="3" stroke-linecap="round" class="hleg"/></g>`;
     if(a.k === 'bird') return `<g transform="scale(${a.dir} 1)"><ellipse cx="0" cy="0" rx="20" ry="13" fill="#B5652B" stroke="#1A1410" stroke-width="2.5"/>
       <path d="M-18 -4 L-40 -14 L-36 0 L-42 8 L-18 4 Z" fill="#6B3A1A" stroke="#1A1410" stroke-width="2"/>
       <circle cx="18" cy="-12" r="9" fill="#1E6E5A" stroke="#1A1410" stroke-width="2.5"/><circle cx="20" cy="-14" r="3" fill="#E2231A"/><circle cx="21" cy="-14" r="1.3" fill="#1A1410"/>
@@ -4339,8 +4965,8 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
     HUNT.spawn -= dt;
     if(HUNT.spawn <= 0 && HUNT.left > 1.5){
       HUNT.spawn = .7 + Math.random()*1.1;
-      const r = Math.random(), k = r < .06 ? 'gold' : r < .5 ? 'bird' : 'boar', dir = Math.random() < .5 ? 1 : -1;
-      const row = Math.floor(Math.random()*3), sp = (k === 'gold' ? 270 : k === 'bird' ? 200 : 150) + Math.random()*60;
+      const r = Math.random(), k = r < .06 ? 'gold' : r < .38 ? 'bird' : r < .62 ? 'rabbit' : 'boar', dir = Math.random() < .5 ? 1 : -1;
+      const row = Math.floor(Math.random()*3), sp = (k === 'gold' ? 270 : k === 'bird' ? 200 : k === 'rabbit' ? 230 : 150) + Math.random()*60;
       const a = {id:++HUNT.id, k, dir, x:dir > 0 ? -60 : 460, y0:H_ROWS[row] + 50, y:H_ROWS[row] + 50, sp, hop:Math.random()*6, caught:false, dash:0, nextDash:.4 + Math.random()*1.2, fly:0};
       const g = document.createElementNS(NS, 'g'); g.dataset.id = a.id; g.classList.add('hanimal'); g.innerHTML = huntArt(a);
       $('huntAn').appendChild(g); a.el = g; HUNT.an.push(a);
@@ -4381,11 +5007,11 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
     HUNT.an.forEach(a => { if(a !== hit && !a.caught && Math.hypot(a.x - n.x, a.y - n.y) < 110){ if(a.k === 'bird') a.fly = 1; else { a.dash = .8; a.dir = a.x < n.x ? -1 : 1; } } });
     if(!hit){ SFX.soft(); const m = document.createElementNS(NS, 'text'); m.setAttribute('x', n.x); m.setAttribute('y', n.y - 20); m.setAttribute('text-anchor', 'middle'); m.setAttribute('font-size', '15'); m.setAttribute('font-weight', '700'); m.setAttribute('fill', '#FFF'); m.setAttribute('stroke', '#1A1410'); m.setAttribute('stroke-width', '3'); m.setAttribute('paint-order', 'stroke'); m.classList.add('hpop'); m.textContent = tr('놓쳤다!'); $('huntFx').appendChild(m); setTimeout(() => m.remove(), 800); return; }
     hit.caught = true; hit.ct = 0; HUNT.caught++;
-    const cnt = hit.k === 'gold' ? 3 : hit.k === 'boar' ? 2 : 1; HUNT.meat += cnt;
-    const pt = farmData().pantry = farmData().pantry || {}; pt.chashu = Math.min(99, (pt.chashu || 0) + cnt);
+    const cnt = MEAT_N(hit.k), mk = MEAT_OF[hit.k] || 'chashu'; HUNT.meat += cnt;
+    const pt = farmData().pantry = farmData().pantry || {}; pt[mk] = Math.min(99, (pt[mk] || 0) + cnt);
     const ft = document.createElementNS(NS, 'text'); ft.setAttribute('x', hit.x); ft.setAttribute('y', hit.y - 30); ft.setAttribute('text-anchor', 'middle'); ft.setAttribute('font-size', '18'); ft.setAttribute('font-weight', '700');
     ft.setAttribute('fill', '#FFF'); ft.setAttribute('stroke', '#1A1410'); ft.setAttribute('stroke-width', '4'); ft.setAttribute('paint-order', 'stroke'); ft.classList.add('hpop');
-    ft.textContent = tr('잡았다!') + ' 🍖+' + cnt; $('huntFx').appendChild(ft); setTimeout(() => ft.remove(), 900);
+    ft.textContent = tr('잡았다!') + ' ' + TOPE[mk] + tr(TOPN[mk]) + ' +' + cnt; $('huntFx').appendChild(ft); setTimeout(() => ft.remove(), 900);
     SFX.harvest(); SFX.buzz(20);
   }
   function huntTap(e){
@@ -4400,9 +5026,9 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
   function huntFinish(){
     HUNT.on = false; cancelAnimationFrame(HUNT.raf);
     saveProfile();
-    $('huntEndT').textContent = HUNT.caught ? tr('동물') + ' ' + HUNT.caught + tr('마리를 잡아서 차슈') + ' ' + HUNT.meat + tr('개를 창고에 넣었어요!') : tr('이번엔 한 마리도 못 잡았어요. 다음엔 꼭!');
+    $('huntEndT').textContent = HUNT.caught ? tr('동물') + ' ' + HUNT.caught + tr('마리를 잡아서 고기') + ' ' + HUNT.meat + tr('개를 창고에 넣었어요!') : tr('이번엔 한 마리도 못 잡았어요. 다음엔 꼭!');
     $('huntEnd').hidden = false; SFX.stageWin();
-    if(HUNT.meat && mode === 'heal') palSay(tr('오, 사냥 다녀왔어? 차슈 올리면 라면이 확 고급스러워지겠다!'), true);
+    if(HUNT.meat && mode === 'heal') palSay(tr('오, 사냥 다녀왔어? 고기 고명 올리면 라면이 확 든든해지겠다!'), true);
   }
   $('huntSvg').addEventListener('pointerdown', huntTap);
   $('bHunt').onclick = () => { mode = 'heal'; huntOpen(); };
@@ -4424,10 +5050,10 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
   const WILD = {t:30, a:null, id:0};
   function wildReset(first){ WILD.t = first ? 20 + Math.random()*25 : 80 + Math.random()*120; WILD.a = null; $('wild').innerHTML = ''; }
   function wildSpawn(){
-    const r = Math.random(), k = r < .06 ? 'gold' : r < .42 ? 'bird' : 'boar', dir = Math.random() < .5 ? 1 : -1;
+    const r = Math.random(), k = r < .06 ? 'gold' : r < .36 ? 'bird' : r < .62 ? 'rabbit' : 'boar', dir = Math.random() < .5 ? 1 : -1;
     const planted = SG.plots.map((p, i) => p.crop && !p.dead && Math.floor(i/PER) === SG.page ? i : -1).filter(i => i >= 0);
     const target = k !== 'bird' && planted.length ? planted[Math.floor(Math.random()*planted.length)] : -1;
-    const a = {k, dir, x:dir > 0 ? -50 : 450, y:228 + Math.random()*24, t:0, state:'rustle', target, sp:k === 'gold' ? 150 : k === 'bird' ? 125 : 95, hop:Math.random()*6};
+    const a = {k, dir, x:dir > 0 ? -50 : 450, y:228 + Math.random()*24, t:0, state:'rustle', target, sp:k === 'gold' ? 150 : k === 'bird' ? 125 : k === 'rabbit' ? 120 : 95, hop:Math.random()*6};
     WILD.a = a;
     // a bush at the edge of the field starts to rustle first
     const bx = dir > 0 ? 18 : 382;
@@ -4445,7 +5071,7 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
     if(a.state === 'rustle'){
       if(bush) bush.setAttribute('transform', `translate(${a.dir > 0 ? 18 : 382} ${a.y + 6}) rotate(${Math.sin(a.t*40)*6})`);
       if(a.t > 1.1){ a.state = 'run'; a.t = 0; $('wildA').style.display = ''; $('wildArt').innerHTML = huntArt(a);
-        say((a.k === 'bird' ? '🐦 ' + tr('꿩이다! 날아가기 전에 톡!') : a.k === 'gold' ? '✨ ' + tr('황금 멧돼지?! 빨리 잡아요!') : '🐗 ' + tr('멧돼지가 밭으로 달려와요! 톡 눌러서 잡아요!')), 'bad'); }
+        say((a.k === 'bird' ? '🐦 ' + tr('꿩이다! 날아가기 전에 톡!') : a.k === 'gold' ? '✨ ' + tr('황금 멧돼지?! 빨리 잡아요!') : a.k === 'rabbit' ? '🐇 ' + tr('토끼가 밭으로 깡충깡충! 톡 눌러서 잡아요!') : '🐗 ' + tr('멧돼지가 밭으로 달려와요! 톡 눌러서 잡아요!')), 'bad'); }
       return;
     }
     if(bush && a.t > .6) bush.style.opacity = Math.max(0, 1 - (a.t - .6)*2);
@@ -4457,7 +5083,7 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
       else { a.x += a.dir*a.sp*dt; a.y += Math.sin(a.t*7 + a.hop)*40*dt; }
     } else if(a.state === 'nibble'){
       if(a.t > 1.6){ const p = SG.plots[a.target];
-        if(p && p.crop && !p.dead){ p.g = Math.max(0, p.g - .3); say('😣 ' + tr('멧돼지가') + ' ' + tr(CROPS[p.crop].n) + tr('을(를) 조금 먹고 도망갔어요…'), 'bad'); SFX.bad(); }
+        if(p && p.crop && !p.dead){ p.g = Math.max(0, p.g - .3); say('😣 ' + tr(a.k === 'rabbit' ? '토끼가' : '멧돼지가') + ' ' + tr(CROPS[p.crop].n) + tr('을(를) 조금 먹고 도망갔어요…'), 'bad'); SFX.bad(); }
         a.state = 'flee'; a.t = 0; a.dir = a.x < 200 ? -1 : 1; }
     } else if(a.state === 'flee'){ a.x += a.dir*a.sp*1.6*dt; a.y -= 30*dt; }
     if(a.state === 'run' && a.target < 0 && a.t > 5){ a.state = 'flee'; }
@@ -4468,16 +5094,167 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
   function wildCatch(){
     const a = WILD.a; if(!a || a.state === 'rustle' || a.state === 'caught' || !G || !G.running) return;
     a.state = 'caught';
-    const n = a.k === 'gold' ? 3 : a.k === 'boar' ? 2 : 1;
-    for(let i=0;i<n;i++) G.basket.chashu.push(true);
+    const n = MEAT_N(a.k), mk = MEAT_OF[a.k] || 'chashu';
+    for(let i=0;i<n;i++) G.basket[mk].push(true);
     $('basketT').textContent = bText();
     const el = $('wildA'); el.innerHTML += `<g class="hnet"><circle r="34" fill="none" stroke="#FFF" stroke-width="3" stroke-dasharray="5 4"/><path d="M-34 0 H34 M0 -34 V34 M-24 -24 L24 24 M24 -24 L-24 24" stroke="#FFF" stroke-width="1.4"/></g>`;
-    fly(`<text font-size="24" text-anchor="middle">🍖</text>`, [a.x, a.y], [200, 526]);
-    say('🎉 ' + tr('잡았다!') + ' ' + tr('차슈') + ' +' + n + ' 🍖', 'good'); SFX.harvest(); SFX.stageWin(); SFX.buzz(30);
+    fly(`<text font-size="24" text-anchor="middle">${TOPE[mk]}</text>`, [a.x, a.y], [200, 526]);
+    say('🎉 ' + tr('잡았다!') + ' ' + tr(TOPN[mk]) + ' +' + n + ' ' + TOPE[mk], 'good'); SFX.harvest(); SFX.stageWin(); SFX.buzz(30);
     farmSave();
-    if(Math.random() < .5) palSay(tr(a.k === 'bird' ? '꿩까지 잡았어? 순발력 대단한데!' : '멧돼지 잡았다고?! 오늘은 차슈 라면이다!'), true);
+    if(Math.random() < .5) palSay(tr(a.k === 'bird' ? '꿩까지 잡았어? 꿩고기 라면 끓여 먹자!' : a.k === 'rabbit' ? '토끼를 잡았어? 날쌘데!' : '멧돼지 잡았다고?! 오늘은 멧돼지고기 라면이다!'), true);
     setTimeout(() => wildReset(false), 700);
   }
+  // =================================================================
+  // 🏠 THE FARM HUT — step inside: a warm room you can look around in (swipe left/right),
+  // with a bed, a window onto your farm, a tea table and an earthen stove (아궁이).
+  // =================================================================
+  const HUT_NAP_MS = 120000;
+  const HUTR = {x:-150, drag:null, raf:0, t:0};
+  function hutSky(){
+    const h = new Date().getHours();
+    if(h >= 6 && h < 11) return ['#9FD3FF', '#FFE7B8', '☀️'];
+    if(h >= 11 && h < 17) return ['#6FB8F2', '#CFEAFF', '☀️'];
+    if(h >= 17 && h < 20) return ['#F28C5A', '#FFD08A', '🌇'];
+    return ['#1A2350', '#3A3A7A', '🌙'];
+  }
+  function hutRoomSVG(){
+    const [s1, s2, sun] = hutSky(), night = sun === '🌙', f = farmData(), napLeft = Math.max(0, (f.napT || 0) + HUT_NAP_MS - Date.now());
+    const planks = Array.from({length:11}, (_, i) => `<rect x="${i*40}" y="60" width="40" height="380" fill="${i % 2 ? '#C99A62' : '#D2A66E'}"/><line x1="${i*40}" y1="60" x2="${i*40}" y2="440" stroke="#A57A48" stroke-width="2"/>`).join('');
+    const floor = Array.from({length:13}, (_, i) => `<line x1="210" y1="440" x2="${-300 + i*85}" y2="760" stroke="#7A5232" stroke-width="2" opacity=".5"/>`).join('')
+      + [480, 540, 620, 720].map(y => `<line x1="0" y1="${y}" x2="420" y2="${y}" stroke="#7A5232" stroke-width="1.5" opacity=".35"/>`).join('');
+    const tag = (x, y, txt, a) => `<g transform="translate(${x} ${y})"><g class="hutTag" data-a="${a}"><rect x="-56" y="-17" width="112" height="34" rx="17" fill="rgba(255,255,255,.92)" stroke="rgba(0,0,0,.12)"/><text y="6" font-size="15" font-weight="800" text-anchor="middle" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif" fill="#1C1C1E">${txt}</text></g></g>`;
+    return `
+      <defs>
+        <linearGradient id="hSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${s1}"/><stop offset="1" stop-color="${s2}"/></linearGradient>
+        <linearGradient id="hFloor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9A6B40"/><stop offset="1" stop-color="#5E3A20"/></linearGradient>
+        <radialGradient id="hFire" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFD27A" stop-opacity=".95"/><stop offset=".5" stop-color="#FF8A3D" stop-opacity=".4"/><stop offset="1" stop-color="#FF5A1E" stop-opacity="0"/></radialGradient>
+        <radialGradient id="hLamp" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFF1C4" stop-opacity=".8"/><stop offset="1" stop-color="#FFE08A" stop-opacity="0"/></radialGradient>
+        <radialGradient id="hVig" cx=".5" cy=".45" r=".78"><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#2A140A" stop-opacity="${night ? .72 : .5}"/></radialGradient>
+      </defs>
+      <g id="hutPan">
+        <rect x="0" y="0" width="420" height="62" fill="#7A5232"/>
+        ${[0, 1, 2].map(i => `<rect x="${30 + i*150}" y="0" width="22" height="64" fill="#5A3A20"/>`).join('')}
+        <rect x="0" y="54" width="420" height="12" fill="#5A3A20"/>
+        ${planks}
+        <path d="M0 440 H420 V760 H0 Z" fill="url(#hFloor)"/>${floor}
+        <rect x="0" y="434" width="420" height="10" fill="#5A3A20"/>
+        <!-- window onto the farm -->
+        <g class="hspot" data-a="window">
+          <rect x="112" y="104" width="170" height="146" rx="6" fill="url(#hSky)" stroke="#5A3A20" stroke-width="10"/>
+          <text x="245" y="146" font-size="26" text-anchor="middle">${sun}</text>
+          <path d="M117 212 Q160 190 200 206 T277 200 V245 H117 Z" fill="${night ? '#1E3A1E' : '#5DAA4A'}"/>
+          <path d="M117 226 H277 V245 H117 Z" fill="${night ? '#2A2016' : '#8C5A35'}"/>
+          ${[132, 162, 192, 222, 252].map(x => `<path d="M${x} 226 q4 -12 8 0" fill="${night ? '#2E5A2E' : '#3E8E3A'}"/>`).join('')}
+          <line x1="197" y1="104" x2="197" y2="250" stroke="#5A3A20" stroke-width="6"/><line x1="112" y1="177" x2="282" y2="177" stroke="#5A3A20" stroke-width="6"/>
+          <rect x="102" y="248" width="190" height="12" rx="3" fill="#6E4628"/>
+          <path d="M106 96 Q140 175 106 262" fill="#E8D7B0" opacity=".85"/><path d="M288 96 Q254 175 288 262" fill="#E8D7B0" opacity=".85"/>
+        </g>
+        <!-- pantry shelf (right) -->
+        <g class="hspot" data-a="pantry">
+          <rect x="312" y="96" width="100" height="200" rx="6" fill="#B07C4A" stroke="#5A3A20" stroke-width="4"/>
+          ${[160, 226].map(y => `<rect x="312" y="${y}" width="100" height="7" fill="#5A3A20"/>`).join('')}
+          <text x="322" y="150" font-size="24">🥚</text><text x="362" y="150" font-size="24">🧀</text>
+          <text x="322" y="216" font-size="24">🍖</text><text x="362" y="216" font-size="24">🥕</text>
+          <rect x="322" y="246" width="24" height="40" rx="5" fill="#E8D7B0" stroke="#6B4A2A" stroke-width="2"/><rect x="352" y="246" width="24" height="40" rx="5" fill="#C0392B" stroke="#6B4A2A" stroke-width="2"/><rect x="382" y="246" width="22" height="40" rx="5" fill="#F2C14E" stroke="#6B4A2A" stroke-width="2"/>
+          <path d="M322 82 q8 16 0 28 M398 82 q-8 16 0 28" stroke="#E2231A" stroke-width="6" fill="none" stroke-linecap="round"/>
+        </g>
+        <!-- hanging lamp -->
+        <line x1="197" y1="62" x2="197" y2="84" stroke="#3A2A1A" stroke-width="2"/>
+        <g id="hutLamp"><circle cx="197" cy="96" r="78" fill="url(#hLamp)"/><path d="M180 84 h34 l-6 17 h-22 z" fill="#E8B04A" stroke="#6B4A1A" stroke-width="2"/><circle cx="197" cy="104" r="6" fill="#FFF3C4"/></g>
+        <!-- bed (left) -->
+        <g class="hspot" data-a="nap">
+          <rect x="8" y="402" width="170" height="104" rx="10" fill="#8C5A35"/>
+          <rect x="14" y="380" width="160" height="66" rx="14" fill="#F6F1E6" stroke="#B8A888" stroke-width="2"/>
+          <rect x="22" y="374" width="52" height="32" rx="11" fill="#FFFFFF" stroke="#C8B898" stroke-width="2"/>
+          <path d="M70 386 h104 v50 q-52 12 -104 0 z" fill="#5B7FC7"/>
+          ${[0, 1, 2].map(i => `<rect x="${84 + i*28}" y="396" width="14" height="14" rx="3" fill="#7FA0DD" opacity=".85"/>`).join('')}
+          <rect x="4" y="330" width="14" height="176" rx="6" fill="#6E4628"/>
+          <ellipse cx="100" cy="530" rx="100" ry="16" fill="#B04A3A" opacity=".5"/>
+        </g>
+        <!-- earthen stove 아궁이 (right) -->
+        <g class="hspot" data-a="cook">
+          <circle id="hutGlow" cx="330" cy="460" r="110" fill="url(#hFire)"/>
+          <path d="M246 530 V392 Q246 364 276 364 H386 Q414 364 414 392 V530 Z" fill="#B4876A" stroke="#6B4A3A" stroke-width="4"/>
+          <path d="M298 530 V476 Q298 448 330 448 Q362 448 362 476 V530 Z" fill="#2A140A"/>
+          <g id="hutFlame"><path d="M312 526 q-6 -28 18 -44 q-4 20 13 28 q9 -16 2 -31 q22 16 9 47 z" fill="#FF8A3D"/><path d="M322 526 q-2 -16 11 -26 q0 13 9 16 q4 -7 0 -14 q11 11 4 24 z" fill="#FFD23F"/></g>
+          ${[0, 1, 2].map(i => `<rect x="${252 + i*4}" y="${540 + i*10}" width="46" height="9" rx="4.5" fill="#8C5A35" stroke="#5A3A20" stroke-width="1.5" transform="rotate(${-6 + i*5} 275 548)"/>`).join('')}
+          <ellipse cx="330" cy="364" rx="64" ry="15" fill="#2B2B2B"/><path d="M270 364 Q272 400 330 404 Q388 400 390 364 Z" fill="#3A3A3A"/>
+          <ellipse cx="330" cy="352" rx="56" ry="11" fill="#4A4A4A" stroke="#1A1A1A" stroke-width="2"/><circle cx="330" cy="345" r="6" fill="#2B2B2B"/>
+          <path id="hutPotSteam" d="M312 336 q-8 -16 0 -30 q8 -14 0 -26 M348 336 q-8 -16 0 -30 q8 -14 0 -26" stroke="#FFFFFF" stroke-width="4" fill="none" opacity=".6"/>
+        </g>
+        <!-- tea table (front) -->
+        <g class="hspot" data-a="tea">
+          <ellipse cx="210" cy="680" rx="110" ry="22" fill="#000" opacity=".2"/>
+          <rect x="110" y="606" width="200" height="20" rx="10" fill="#9A6B40" stroke="#5A3A20" stroke-width="3"/>
+          <rect x="130" y="624" width="14" height="52" fill="#5A3A20"/><rect x="276" y="624" width="14" height="52" fill="#5A3A20"/>
+          <path d="M180 604 q0 -28 30 -28 q30 0 30 28 z" fill="#E7E3D8" stroke="#6B6B6B" stroke-width="2"/><path d="M238 588 q16 -2 14 12" stroke="#6B6B6B" stroke-width="3" fill="none"/>
+          <rect x="262" y="590" width="20" height="16" rx="3" fill="#FFFFFF" stroke="#6B6B6B" stroke-width="1.5"/><rect x="138" y="590" width="20" height="16" rx="3" fill="#FFFFFF" stroke="#6B6B6B" stroke-width="1.5"/>
+          <path id="hutTeaSteam" d="M208 566 q-6 -12 0 -22 q6 -10 0 -20" stroke="#FFFFFF" stroke-width="3" fill="none" opacity=".7"/>
+        </g>
+        ${tag(110, 350, napLeft ? '🛏️ ' + Math.ceil(napLeft/1000) + tr('초') : '🛏️ ' + tr('낮잠'), 'nap')}
+        ${tag(306, 318, '🔥 ' + tr('라면 끓이기'), 'cook')}
+        ${tag(326, 80, '🧺 ' + tr('창고'), 'pantry')}
+        ${tag(210, 548, '☕ ' + tr('차 한잔'), 'tea')}
+        <g id="hutDust">${Array.from({length:14}, (_, i) => `<circle cx="${120 + (i*37) % 170}" cy="${110 + (i*53) % 240}" r="${1 + (i % 3)*.6}" fill="#FFF8DC" opacity=".6"/>`).join('')}</g>
+      </g>
+      <rect width="420" height="760" fill="url(#hVig)" pointer-events="none"/>`;
+  }
+  function hutOpen(){
+    if(!G || !G.farm) return;
+    if(G.running) G.paused = true;
+    const r = $('hutRoom'); $('hutSvg').innerHTML = hutRoomSVG(); $('hutSheet').hidden = true;
+    r.hidden = false; r.classList.remove('enter'); void r.offsetWidth; r.classList.add('enter');
+    HUTR.x = 0; hutPan(); SFX.soft();
+    cancelAnimationFrame(HUTR.raf); HUTR.last = performance.now(); HUTR.raf = requestAnimationFrame(hutLoop);
+    say('🏠 ' + tr('농막에 들어왔어요. 침대·아궁이·선반·찻상을 톡 눌러 봐요'), 'good');
+  }
+  function hutClose(){ $('hutRoom').hidden = true; cancelAnimationFrame(HUTR.raf); if(G) G.paused = false; }
+  function hutPan(){ const g = $('hutPan'); if(g) g.setAttribute('transform', `translate(${HUTR.x.toFixed(1)} 0)`); }
+  function hutLoop(now){
+    if($('hutRoom').hidden) return;
+    const dt = Math.min(.05, (now - HUTR.last)/1000); HUTR.last = now; HUTR.t += dt; const t = HUTR.t;
+    const fl = $('hutFlame'); if(fl) fl.setAttribute('transform', `translate(330 526) scale(${1 + Math.sin(t*13)*.05}, ${1 + Math.sin(t*9.3)*.09}) translate(-330 -526)`);
+    const gl = $('hutGlow'); if(gl) gl.setAttribute('r', 105 + Math.sin(t*7)*6 + Math.sin(t*13)*3);
+    const lp = $('hutLamp'); if(lp) lp.setAttribute('transform', `rotate(${Math.sin(t*1.2)*2.2} 197 62)`);
+    ['hutTeaSteam', 'hutPotSteam'].forEach((id, k) => { const s = $(id); if(s){ s.setAttribute('transform', `translate(0 ${-((t*14 + k*9) % 18)})`); s.setAttribute('opacity', .35 + Math.sin(t*2 + k)*.2); } });
+    const du = $('hutDust'); if(du) du.setAttribute('transform', `translate(${Math.sin(t*.4)*8} ${-((t*6) % 30)})`);
+    HUTR.raf = requestAnimationFrame(hutLoop);
+  }
+  (function(){
+    const room = $('hutRoom'), svg = $('hutSvg');
+    const toSvgX = dx => dx*.15;
+    svg.addEventListener('pointerdown', e => { HUTR.drag = {x0:e.clientX, px:HUTR.x, moved:false}; });
+    window.addEventListener('pointermove', e => { if(!HUTR.drag || room.hidden) return; const d = e.clientX - HUTR.drag.x0; if(Math.abs(d) > 6) HUTR.drag.moved = true;
+      HUTR.x = Math.max(-18, Math.min(18, HUTR.drag.px + toSvgX(d))); hutPan(); });
+    window.addEventListener('pointerup', e => { const d = HUTR.drag; HUTR.drag = null; if(d && !room.hidden){ const back = () => { HUTR.x *= .82; hutPan(); if(Math.abs(HUTR.x) > .3 && !HUTR.drag) requestAnimationFrame(back); }; requestAnimationFrame(back); }
+      if(!d || d.moved || room.hidden) return;
+      const hs = e.target.closest && e.target.closest('[data-a]'); if(hs) hutAct(hs.dataset.a); });
+  })();
+  function hutSheet(html){ const s = $('hutSheet'); s.innerHTML = html + `<button class="btn alt" id="hutSheetX">${tr('닫기')}</button>`; s.hidden = false; $('hutSheetX').onclick = () => { s.hidden = true; SFX.back(); }; }
+  function hutAct(a){
+    const f = farmData();
+    if(a === 'window'){ say('🌤️ ' + tr('창밖으로 내 밭이 보여요. 작물들이 쑥쑥 자라고 있어요'), 'good'); SFX.pick(); return; }
+    if(a === 'pantry'){
+      const p = f.pantry || {}, keys = [...ALLTOP, 'rice'].filter(k => p[k]);
+      hutSheet(`<b class="hsht">🧺 ${tr('창고')}</b><div class="hutlist">${keys.length ? keys.map(k => `<span>${k === 'rice' ? '🍚' : TOPE[k]} ${tr(k === 'rice' ? '쌀' : TOPN[k])} <b>×${p[k]}</b></span>`).join('') : `<p class="how">${tr('창고가 비어 있어요. 밭에서 거두고, 사냥도 해 봐요!')}</p>`}</div>`);
+      SFX.pick(); return;
+    }
+    if(a === 'nap'){
+      if((f.napT || 0) + HUT_NAP_MS > Date.now()){ say('😊 ' + tr('아직 졸리지 않아요. 조금 있다가 다시 자요'), 'bad'); SFX.nope(); return; }
+      farmSave(); f.napT = Date.now(); f.t = (f.t || Date.now()) - 180000; farmLoad(); saveProfile();
+      $('napFx').hidden = false; SFX.soft();
+      setTimeout(() => { $('napFx').hidden = true; $('hutSvg').innerHTML = hutRoomSVG(); hutPan(); say('😴 ' + tr('푹 잤다! 그새 작물이 자랐고 닭과 젖소도 일했어요'), 'good'); }, 1600);
+      return;
+    }
+    if(a === 'cook'){ hutClose(); leaveFarm(); setTimeout(() => $('bHealCook').click(), 60); return; }
+    if(a === 'tea'){ hutClose(); openChat(); return; }
+  }
+  $('hutExit').onclick = () => { hutClose(); SFX.back(); };
+  $('hut').addEventListener('click', () => { if(G && G.farm && G.stage === 0) hutOpen(); });
+
+  // the hut only stands on the healing farm
+  function hutShow(){ const on = !!(G && (G.farm || mode === 'heal')); const h = $('hut'); if(h) h.style.display = on ? '' : 'none'; const t = $('hutTag'); if(t) t.style.display = G && G.farm ? '' : 'none'; if(G3.coop) G3.coop.visible = on; }
+  setInterval(hutShow, 400);
   function startFarm(){
     mode = 'heal'; SFX.unlock();
     const seed = Math.floor(Math.random()*1e9), rKey = HEAL.rKey;
@@ -4597,6 +5374,7 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
   function loop(now){
     const dt = Math.min(.05, (now - last)/1000); last = now;
     if(!G.running) return;
+    if(G.paused){ raf = requestAnimationFrame(loop); return; }
     G.T -= dt;
     if(G.ai){
       G.ai.el += dt;
@@ -4662,7 +5440,7 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
         <g id="plant${i}" class="g2d" transform="translate(0 -12)"></g>
         <g id="plab${i}" style="display:none" pointer-events="none">
           <rect x="-46" y="33" width="92" height="21" rx="10.5" fill="#FFF8E7" stroke="#5E8F2E" stroke-width="1.5" opacity=".96"/>
-          <text id="plt${i}" x="0" y="48" font-size="12" font-weight="700" text-anchor="middle" fill="#2E5A12" font-family="Gowun Dodum, sans-serif"></text>
+          <text id="plt${i}" x="0" y="48" font-size="12" font-weight="700" text-anchor="middle" fill="#2E5A12" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif"></text>
         </g>
         <rect id="plotHit${i}" class="tap" x="-46" y="-100" width="92" height="134" fill="transparent"/>
       </g>`).join('');
@@ -4749,15 +5527,23 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
       SFX.harvest(); say('달걀 득템! 🥚', 'good'); storyEvent('egg');
     },
     tapCheese(id){
-      if(!G || !G.running || G.stage !== 0) return;
+      if(!G || !G.running || G.stage !== 0 || CHZ.on) return;
       const i = SG.cheeses.findIndex(e => e.id === id); if(i < 0) return;
-      const e = SG.cheeses.splice(i, 1)[0];
-      G.basket.cheese.push(true); SG.harvested++; Garden.drawCheese();
-      fly(`<text font-size="24" text-anchor="middle">🧀</text>`, [e.x, 196], [200, 526]);
-      SFX.harvest(); say(tr('치즈 득템!') + ' 🧀', 'good');
+      const e = SG.cheeses[i];
+      chzOpen(n => {
+        const j = SG.cheeses.findIndex(x => x.id === id); if(j >= 0) SG.cheeses.splice(j, 1);
+        for(let k=0;k<n;k++) G.basket.cheese.push(true); SG.harvested++; Garden.drawCheese();
+        fly(`<text font-size="24" text-anchor="middle">🧀</text>`, [e.x, 196], [200, 526]);
+        SFX.harvest(); say(tr('치즈 득템!') + ` 🧀×${n}`, 'good');
+        if(farmOn()) farmSave();
+      });
     },
     drawCheese(){
-      $('cheeses').innerHTML = SG.cheeses.map(e => `<g class="tap ch" data-id="${e.id}" transform="translate(${e.x} 198)"><circle r="18" fill="transparent"/><g transform="scale(.55)">${TOPART.cheese}</g></g>`).join('');
+      // a pail of fresh milk waits by the cow — tap it to make cheese
+      $('cheeses').innerHTML = SG.cheeses.map(e => `<g class="tap ch" data-id="${e.id}" transform="translate(${e.x} 198)"><circle r="20" fill="transparent"/>
+        <path d="M-11 -12 h22 l-3 20 h-16 z" fill="#DCE3EA" stroke="#5B6670" stroke-width="2"/><ellipse cx="0" cy="-12" rx="11" ry="3.5" fill="#FFFFFF" stroke="#5B6670" stroke-width="1.5"/>
+        <path d="M-11 -12 Q0 -26 11 -12" fill="none" stroke="#5B6670" stroke-width="1.5"/>
+        <g class="tapme"><rect x="-16" y="-44" width="32" height="16" rx="8" fill="#FFD23F" stroke="#1A1410" stroke-width="1.5"/><text y="-32" font-size="10" font-weight="800" text-anchor="middle">${tr('톡!')}</text></g></g>`).join('');
     },
     tapPond(){
       if(!G || !G.running || G.stage !== 0 || drag) return;
@@ -4771,7 +5557,7 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
       } else { SFX.plop(); say('아직 입질이 없어요… 찌가 흔들리고 ❗가 뜨면 탭!'); }
     },
     drawEggs(){
-      $('eggs').innerHTML = SG.eggs.map(e => `<g class="tap egg" data-id="${e.id}" transform="translate(${e.x} 176)"><circle r="18" fill="transparent"/><ellipse rx="7" ry="9" fill="#FBF3E4" stroke="#1A1410" stroke-width="1.6"/></g>`).join('');
+      $('eggs').innerHTML = SG.eggs.map(e => `<g class="tap egg" data-id="${e.id}" transform="translate(${e.x} 176)"><circle r="18" fill="transparent"/><ellipse rx="7" ry="9" fill="#FBF3E4" stroke="#1A1410" stroke-width="1.6"/><g class="tapme"><rect x="-16" y="-36" width="32" height="16" rx="8" fill="#FFD23F" stroke="#1A1410" stroke-width="1.5"/><text y="-24" font-size="10" font-weight="800" text-anchor="middle">${tr('톡!')}</text></g></g>`).join('');
     },
     tick(dt){
       SG.plots.forEach((p, i) => {
@@ -4794,7 +5580,7 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
       SG.cheeseT -= dt;
       if(SG.cheeseT <= 0){
         SG.cheeseT = farmOn() ? 75 + rng()*40 : 10 + rng()*5;
-        if(SG.cheeses.length < 2){ SG.cheeses.push({id:++SG.eggId, x:SG.cheeses.some(e => e.x < 160) ? 170 : 150}); const ac = SFX.audioCtx(); if(ac) SFX.mNote(170, ac.currentTime, .6, {type:'sawtooth', vol:.05, slide:120}); Garden.drawCheese(); say('🐄 ' + tr('음메~ 치즈가 나왔어요. 탭해서 주워요')); }
+        if(SG.cheeses.length < 2){ SG.cheeses.push({id:++SG.eggId, x:SG.cheeses.some(e => e.x < 160) ? 170 : 150}); const ac = SFX.audioCtx(); if(ac) SFX.mNote(170, ac.currentTime, .6, {type:'sawtooth', vol:.05, slide:120}); Garden.drawCheese(); say('🐄 ' + tr('음메~ 우유가 나왔어요! 우유통을 톡 눌러 치즈를 만들어요')); }
       }
       SG.henT -= dt;
       if(SG.henT <= 0){
@@ -4879,7 +5665,7 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
     window.addEventListener('pointerup', upf); window.addEventListener('pointercancel', upf);
   });
   $('cheeses').addEventListener('click', e => { const g = e.target.closest('.ch'); if(g) Garden.tapCheese(+g.dataset.id); });
-  $('cow').addEventListener('click', () => { if(G && G.running && G.stage === 0){ say('🐄 ' + tr('음메~ 조금만 기다리면 치즈가 나와요')); } });
+  $('cow').addEventListener('click', () => { if(G && G.running && G.stage === 0){ if(SG.cheeses && SG.cheeses.length) Garden.tapCheese(SG.cheeses[0].id); else say('🐄 ' + tr('음메~ 조금 기다리면 우유통이 나와요. 우유로 치즈를 만들어요')); } });
   $('eggs').addEventListener('click', e => { const g = e.target.closest('.egg'); if(g) Garden.tapEgg(+g.dataset.id); });
   $('pond').addEventListener('click', () => Garden.tapPond());
   $('gDone').addEventListener('click', () => { if(G && G.running && G.stage === 0){ if(farmOn()) leaveFarm(); else endStage(false); } });
@@ -5067,29 +5853,44 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
     {id:'doenjang', n:'된장', c:'#8B5A2B', lid:'#5A3A1A', fx:{salt:12, umami:10}},
     {id:'mala', n:'마라소스', c:'#8E1B12', lid:'#3A0A06', fx:{spicy:26, salt:4}},
     {id:'chili', n:'내 고추', c:'#E74C3C', lid:'#2F8A3C', fx:{spicy:24, umami:3}, garden:true},
-    {id:'water', n:'물', c:'#A9D8EA', lid:'#2F6FD1', fx:'dilute'}
+    {id:'water', n:'물', c:'#A9D8EA', lid:'#2F6FD1', fx:'dilute'},
+    {id:'oyster', n:'굴소스', c:'#4A2A14', lid:'#8C5A2B', fx:{umami:14, salt:7}},
+    {id:'fishsauce', n:'액젓', c:'#A8601E', lid:'#3A2A1A', fx:{salt:14, umami:8}},
+    {id:'pepper', n:'후추', c:'#3A3A3A', lid:'#8C8C8C', fx:{spicy:8, umami:2}},
+    {id:'cheongyang', n:'청양고추', c:'#2E8B3A', lid:'#1C5A24', fx:{spicy:20}},
+    {id:'bone', n:'사골육수', c:'#F0E6D0', lid:'#B59F6A', fx:{umami:16, salt:3}},
+    {id:'shiitake', n:'표고가루', c:'#8B6A4A', lid:'#4A3A2A', fx:{umami:11}},
+    {id:'sesame', n:'참기름', c:'#C9952A', lid:'#7A5A10', fx:{umami:6}},
+    {id:'milk', n:'우유', c:'#FFFFFF', lid:'#7AB8FF', fx:{spicy:-12, umami:4}}
   ];
   const BX = 88, BW = 280;
   (function buildBars(){
     $('bars').innerHTML = ['salt','spicy','umami'].map((k, i) => {
       const y = 60 + i*34;
-      return `<text x="14" y="${y + 14}" font-size="13" font-weight="700" fill="#1A1410" font-family="Gowun Dodum, sans-serif">${TASTE[k]}</text>
+      return `<text x="14" y="${y + 14}" font-size="13" font-weight="700" fill="#1A1410" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">${TASTE[k]}</text>
         <rect x="${BX}" y="${y}" width="${BW}" height="20" rx="10" fill="#FFFFFF" stroke="#1A1410" stroke-width="2.5"/>
         <rect id="band_${k}" x="${BX}" y="${y + 1.5}" width="0" height="17" fill="#7EDBA9"/>
         <rect id="fill_${k}" x="${BX + 1.5}" y="${y + 1.5}" width="0" height="17" rx="8" fill="#FFC400" opacity=".85"/>
-        <rect id="mark_${k}" x="${BX}" y="${y - 4}" width="4" height="28" rx="2" fill="#1A1410"/>`;
+        <rect id="mark_${k}" x="${BX}" y="${y - 4}" width="4" height="28" rx="2" fill="#1A1410"/>
+        <rect id="prev_${k}" x="${BX}" y="${y - 6}" width="6" height="32" rx="3" fill="#FFFFFF" stroke="#2F6FD1" stroke-width="2" stroke-dasharray="3 2" style="display:none"/>
+        <text id="stat_${k}" x="14" y="${y + 28}" font-size="9.5" font-weight="800" fill="#8C5A00" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif"></text>`;
     }).join('');
   })();
-  const fxText = g => g.fx === 'dilute' ? '모든 맛 ↓ (희석)' : Object.entries(g.fx).map(([k, v]) => TASTE[k] + (v >= 12 ? ' ↑↑' : ' ↑')).join(', ');
+  const TICON = {salt:'🧂', spicy:'🌶️', umami:'✨'};
+  const fxShort = g => g.fx === 'dilute' ? '💧' + tr('희석') : Object.entries(g.fx).filter(([, v]) => Math.abs(v) >= 5).map(([k, v]) => TICON[k] + (v < 0 ? '↓' : v >= 12 ? '↑↑' : '↑')).join(' ');
+  const fxText = g => g.fx === 'dilute' ? '모든 맛 ↓ (희석)' : Object.entries(g.fx).map(([k, v]) => TASTE[k] + (v < 0 ? ' ↓' : v >= 12 ? ' ↑↑' : ' ↑')).join(', ');
   function jarArt(g){
     const cnt = g.garden ? G.basket.chili.length : null;
-    return `<rect class="hit" x="-34" y="-36" width="68" height="70" fill="transparent"/>
-      <rect x="-21" y="-22" width="42" height="46" rx="7" fill="${g.c}" ${L} stroke-width="2.5"/>
-      <rect x="-23" y="-31" width="46" height="11" rx="3" fill="${g.lid}" ${L} stroke-width="2"/>
-      <rect x="-19" y="-5" width="38" height="15" rx="3" fill="#FFF8E7" opacity=".95"/>
-      <text y="6" font-size="10" font-weight="700" text-anchor="middle" fill="#1A1410" font-family="Gowun Dodum, sans-serif">${g.n}</text>
-      ${cnt !== null ? `<circle cx="20" cy="-26" r="10" fill="#E2231A" ${L} stroke-width="2"/><text x="20" y="-22" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">${cnt}</text>` : ''}`;
+    return `<rect class="hit" x="-46" y="-30" width="92" height="66" fill="transparent"/>
+      <rect x="-27" y="-20" width="54" height="36" rx="9" fill="${g.c}" ${L} stroke-width="2.5"/>
+      <rect x="-29" y="-28" width="58" height="10" rx="4" fill="${g.lid}" ${L} stroke-width="2"/>
+      <rect x="-25" y="-10" width="50" height="17" rx="4" fill="#FFF8E7" opacity=".96"/>
+      <text y="3" font-size="12.5" font-weight="800" text-anchor="middle" fill="#1A1410" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">${g.n}</text>
+      <rect x="-42" y="18" width="84" height="17" rx="8.5" fill="#FFFFFF" stroke="#1A1410" stroke-width="1.4"/>
+      <text y="30.5" font-size="11.5" font-weight="800" text-anchor="middle" fill="#1A1410">${fxShort(g)}</text>
+      ${cnt !== null ? `<circle cx="26" cy="-25" r="11" fill="#E2231A" ${L} stroke-width="2"/><text x="26" y="-21" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">${cnt}</text>` : ''}`;
   }
+
   const BROTH = {spicy:'#D2541E', kimchi:'#D9582A', seafood:'#CC4422', mushroom:'#C9A26A', corn:'#E8C27A', mala:'#B8301A', gomtang:'#F0E6D0', doenjang:'#A8743A', jjajang:'#3E2414', cheese:'#EBA040'};
   function blendHex(a, b, t){ const p = (h, i) => parseInt(h.slice(i, i + 2), 16), m = i => Math.round(p(a, i)*(1 - t) + p(b, i)*t).toString(16).padStart(2, '0'); return '#' + m(1) + m(3) + m(5); }
   function brothColor(){
@@ -5107,19 +5908,47 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
     return '#' + h(r) + h(gg) + h(b);
   }
   const inBand = (k) => SG.v[k] >= SG.recipe.t[k][0] && SG.v[k] <= SG.recipe.t[k][1];
+  const TK = ['salt','spicy','umami'];
+  function soupAfter(g){ const v = Object.assign({}, SG.v); if(g.fx === 'dilute') TK.forEach(k => v[k] *= .75); else Object.entries(g.fx).forEach(([k, d]) => v[k] = Math.max(0, Math.min(100, v[k] + d))); return v; }
+  function soupSuggest(){
+    if(!SG.v || !SG.recipe || G.stage !== 2) return null;
+    const t = SG.recipe.t, v = SG.v;
+    const over = TK.filter(k => v[k] > t[k][1]).sort((a, b) => (v[b] - t[b][1]) - (v[a] - t[a][1]))[0];
+    if(over){ const wpg = Math.floor(ING.findIndex(g => g.id === 'water')/8); return {id:'water', k:over, page:wpg, txt:`💧 ${TASTE[over]}이 너무 강해요 → 물 병으로 희석${wpg !== (SG.ingPage || 0) ? ' (◀ ▶ ' + (wpg + 1) + '쪽)' : ''}`}; }
+    const need = TK.filter(k => v[k] < t[k][0]).sort((a, b) => (t[b][0] - v[b]) - (t[a][0] - v[a]));
+    if(!need.length) return null;
+    let best = null, bs = -1e9;
+    ING.forEach(g => { if(g.fx === 'dilute' || (g.garden && !G.basket.chili.length)) return;
+      const nv = soupAfter(g); let sc = 0;
+      TK.forEach(k => { const [a, b] = t[k], before = v[k] < a ? a - v[k] : v[k] > b ? v[k] - b : 0, after = nv[k] < a ? a - nv[k] : nv[k] > b ? nv[k] - b : 0; sc += (before - after)*(nv[k] > b ? 2 : 1); });
+      if(sc > bs){ bs = sc; best = g; } });
+    if(!best) return null;
+    // name the taste this jar actually fixes, so the advice always makes sense
+    const nv = soupAfter(best); let k = need[0], gain = -1;
+    need.forEach(q => { const g = Math.min(nv[q], t[q][0]) - v[q]; if(g > gain){ gain = g; k = q; } });
+    const also = need.filter(q => q !== k && nv[q] > v[q]).map(q => TASTE[q]);
+    const pg = Math.floor(ING.indexOf(best)/8), away = pg !== (SG.ingPage || 0);
+    return {id:best.id, k, page:pg, txt:`${TICON[k]} ${TASTE[k]}${also.length ? '·' + also.join('·') : ''}이 부족해요 → ${best.n} 병을 절구에${away ? ' (◀ ▶ ' + (pg + 1) + '쪽)' : ''}`};
+  }
   const Soup = {
     init(){
       const r = G.ramen;
       Object.assign(SG, {recipe:r, v:{salt:0, spicy:0, umami:0}, spoons:0, mix:[], grind:0, lastAng:null, pa:-Math.PI/2, grindSnd:0, gmsg:0, ready:false, usedChili:0});
-      $('recipeT').textContent = '📋 ' + r.e + ' ' + r.n + ' 맛 — 세 막대를 초록 칸에!';
+      const lv = k => { const m = (r.t[k][0] + r.t[k][1])/2; return m >= 60 ? '강하게' : m >= 35 ? '적당히' : '약하게'; };
+      $('recipeT').textContent = `📋 ${r.e} ${r.n}: 짠맛 ${lv('salt')} · 매운맛 ${lv('spicy')} · 감칠맛 ${lv('umami')}`;
       ['salt','spicy','umami'].forEach(k => { const [a, b] = r.t[k]; $('band_' + k).setAttribute('x', BX + BW*a/100); $('band_' + k).setAttribute('width', BW*(b - a)/100); });
       ING.forEach((g, i) => {
-        const it = mkItem('ing_' + g.id, jarArt(g), [42 + (i%5)*79, i < 5 ? 440 : 514, 0], {sc:.9, label:g.n,
-          onPick:() => say(g.n + ': ' + fxText(g)), onDrop:(it, x, y) => Soup.add(g, x, y)});
+        const j = i % 8;
+        const it = mkItem('ing_' + g.id, jarArt(g), [52 + (j % 4)*99, j < 4 ? 457 : 518, 0], {sc:1, label:g.n,
+          onPick:() => say(g.n + ': ' + fxText(g)),
+          onMove:(it, x, y) => { const over = x > 100 && x < 300 && y > 160 && y < 345, nv = over ? soupAfter(g) : null;
+            TK.forEach(k => { const m = $('prev_' + k); if(!nv){ m.style.display = 'none'; return; } m.style.display = ''; m.setAttribute('x', BX + BW*nv[k]/100 - 3); }); },
+          onDrop:(it, x, y) => { TK.forEach(k => $('prev_' + k).style.display = 'none'); return Soup.add(g, x, y); }});
         if(g.garden && !G.basket.chili.length) it.el.classList.add('dim');
       });
       $('soupDone').style.display = 'none';
-      say('재료 병을 절구에 넣어 맛을 맞춰요. 병을 집으면 효과가 보여요');
+      Soup.ingTab(0);
+      say('병 아래에 올려 주는 맛이 적혀 있어요. 절구에 넣어 세 막대를 초록 칸에! ◀ ▶로 재료가 더 있어요');
     },
     add(g, x, y){
       if(!(x > 100 && x < 300 && y > 160 && y < 345)) return false;
@@ -5130,7 +5959,7 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
         if(!G.basket.chili.length) items['ing_chili'].el.classList.add('dim');
       }
       if(g.fx === 'dilute') Object.keys(SG.v).forEach(k => SG.v[k] *= .75);
-      else Object.entries(g.fx).forEach(([k, v]) => SG.v[k] = Math.min(100, SG.v[k] + v));
+      else Object.entries(g.fx).forEach(([k, v]) => SG.v[k] = Math.max(0, Math.min(100, SG.v[k] + v)));
       SG.spoons++; SG.mix.push(g.c);
       if(SG.grind > 0) SG.grind = Math.max(0, SG.grind - 15);
       SFX.plop();
@@ -5139,6 +5968,12 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
       else if(['salt','spicy','umami'].every(inBand)){ say('맛이 딱 맞아요! 절구를 빙글빙글 갈아요', 'good'); SFX.ding(); }
       else say(g.n + ' 한 숟갈! (' + fxText(g) + ')');
       return 'home';
+    },
+    // the shelf shows 8 jars at a time; the tabs flip through the rest
+    ingTab(pg){
+      const n = Math.ceil(ING.length/8); SG.ingPage = ((pg % n) + n) % n;
+      ING.forEach((g, i) => { const it = items['ing_' + g.id]; if(it) it.el.style.display = Math.floor(i/8) === SG.ingPage ? '' : 'none'; });
+      $('ingTabT').textContent = (SG.ingPage + 1) + ' / ' + n;
     },
     grindMove(p){
       if(!SG.spoons){ say('재료부터 넣어요', 'bad'); return; }
@@ -5159,6 +5994,10 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
         $('fill_' + k).setAttribute('width', (BW - 3)*v/100);
         $('fill_' + k).setAttribute('fill', inBand(k) ? '#2BB673' : v > SG.recipe.t[k][1] ? '#E2231A' : '#FFC400');
         $('mark_' + k).setAttribute('x', BX + BW*v/100 - 2);
+        const [a, b] = SG.recipe.t[k], st = $('stat_' + k);
+        if(v > b){ st.textContent = tr('너무 많아요'); st.setAttribute('fill', '#E2231A'); }
+        else if(v >= a){ st.textContent = '✓ ' + tr('딱 좋아요'); st.setAttribute('fill', '#13804A'); }
+        else { st.textContent = tr('조금 더') + ' ↑'; st.setAttribute('fill', '#8C5A00'); }
       });
       $('powder').setAttribute('rx', Math.min(72, SG.spoons ? 14 + SG.spoons*6 : 0));
       $('powder').setAttribute('fill', mixColor());
@@ -5185,6 +6024,8 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
   };
   rub($('mortarHit'), 2, {start:() => { SG.lastAng = null; }, move:p => Soup.grindMove(p), end:() => { SG.lastAng = null; }});
   $('soupDone').addEventListener('click', () => { if(G && G.running && G.stage === 2) endStage(false); });
+  $('ingPrev').addEventListener('click', () => { if(G && G.running && G.stage === 2){ Soup.ingTab(SG.ingPage - 1); SFX.pick(); } });
+  $('ingNext').addEventListener('click', () => { if(G && G.running && G.stage === 2){ Soup.ingTab(SG.ingPage + 1); SFX.pick(); } });
 
   // =================================================================
   // STAGE 3 — COOK
@@ -5200,11 +6041,11 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
   const nestArt = n => `<rect class="hit" x="-40" y="-24" width="80" height="48" fill="transparent"/>
     <ellipse rx="34" ry="17" fill="${n.col}" stroke="#B5862A" stroke-width="2.5"/>
     <path d="M-28 -4 q7 -7 14 0 t14 0 t14 0 t14 0 M-24 4 q7 -7 14 0 t14 0 t14 0 t10 0" fill="none" stroke="#B5862A" stroke-width="2"/>
-    <text y="34" font-size="10" font-weight="700" text-anchor="middle" fill="#6B4A22" font-family="Gowun Dodum, sans-serif">${n.label} 수제면</text>`;
+    <text y="34" font-size="10" font-weight="700" text-anchor="middle" fill="#6B4A22" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">${n.label} 수제면</text>`;
   const soupJarArt = s => `<rect class="hit" x="-28" y="-30" width="56" height="64" fill="transparent"/>
     <rect x="-18" y="-18" width="36" height="38" rx="8" fill="${s.color}" ${L} stroke-width="2.5"/>
     <rect x="-20" y="-26" width="40" height="10" rx="3" fill="#8C6239" ${L} stroke-width="2"/>
-    <text y="34" font-size="10" font-weight="700" text-anchor="middle" fill="#6B4A22" font-family="Gowun Dodum, sans-serif">수제 스프</text>`;
+    <text y="34" font-size="10" font-weight="700" text-anchor="middle" fill="#6B4A22" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">수제 스프</text>`;
   const Cook = {
     init(){
       Object.assign(SG, {water:0, pouring:false, heat:false, temp:20, noodle:false, soup:false, tops:[], cook:0, foam:0, pen:[], boiled:false, foamWarn:false, stirSnd:0, stirMsg:0, waterDing:false});
@@ -5240,8 +6081,8 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
       const pg = SG.shelfPage || 0;
       $('topLabels').innerHTML = SG.shelf.length ? SG.shelf.map((k, i) => {
         if(Math.floor(i/8) !== pg) return ''; i = i % 8; const lab = (G.ramen.best.includes(k) ? '⭐' : '') + tr(TOPN[k]) + '×' + G.basket[k].length; const fit = lab.length*SLOT_FS*.6 > SLOT_CW - 6 ? `textLength="${SLOT_CW - 6}" lengthAdjust="spacingAndGlyphs"` : '';
-        return `<text x="${SLOT[i][0]}" y="${SLOT[i][1] + 24*SLOT_SC + 6}" text-anchor="middle" ${fit} font-size="${SLOT_FS}" font-weight="700" fill="#6B4A22" font-family="Gowun Dodum, sans-serif">${lab}</text>`; }).join('')
-        : `<text x="200" y="495" font-size="13" font-weight="700" fill="#8C6239" text-anchor="middle" font-family="Gowun Dodum, sans-serif">텃밭에서 거둔 토핑이 없어요 🥲</text>`;
+        return `<text x="${SLOT[i][0]}" y="${SLOT[i][1] + 24*SLOT_SC + 6}" text-anchor="middle" ${fit} font-size="${SLOT_FS}" font-weight="700" fill="#6B4A22" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">${lab}</text>`; }).join('')
+        : `<text x="200" y="495" font-size="13" font-weight="700" fill="#8C6239" text-anchor="middle" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">텃밭에서 거둔 토핑이 없어요 🥲</text>`;
       SG.shelf.forEach(k => { const it = items['top_' + k]; const none = !G.basket[k].length; it.disabled = none; it.el.classList.toggle('dim', none); });
     },
     inPot: (x, y) => x > 95 && x < 305 && y > 30 && y < 275,
@@ -5597,9 +6438,11 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
       <small class="order">${esc(tr('주문'))}: ${RAMEN[c.order].e} <b>${esc(tr(RAMEN[c.order].n))}</b></small>
       ${compact ? '' : `<p class="cline notr" id="custLine">“${esc(c.line || tr(pickLine(c, 'hi')))}”</p>`}
       <small>💕 ${c.likes.map(t).join(' · ')}</small><small>🙅 ${t(c.hate)}</small>
-      <small>🍚 ${esc(tr(RICE_T[c.rice]))}${c.size === 'large' ? ' · 🍽️ <b style="color:var(--red)">' + esc(tr('곱빼기')) + '!</b>' : ''}</small>
+      ${c.size === 'large' ? '<small>🍽️ <b style="color:var(--red)">' + esc(tr('곱빼기')) + '!</b></small>' : ''}
+      <details class="more"><summary>${esc(tr('취향 더 보기'))}</summary>
+      <small>🍚 ${esc(tr(RICE_T[c.rice]))}</small>
       <small>〰️ ${esc(tr('면 굵기'))}: ${esc(tr(c.thickPref === 'any' ? '상관없음' : THICK_N[c.thickPref]))}</small>
-      <small>${c.spice === 'hot' ? '🔥' : c.spice === 'mild' ? '🥛' : '🙂'} ${esc(tr(SPICE_T[c.spice]))} · 🍜 ${esc(tr(NOODLE_T[c.noodle]))}</small></div></div>`;
+      <small>${c.spice === 'hot' ? '🔥' : c.spice === 'mild' ? '🥛' : '🙂'} ${esc(tr(SPICE_T[c.spice]))} · 🍜 ${esc(tr(NOODLE_T[c.noodle]))}</small></details></div></div>`;
   }
   function showCustomers(onGo){
     const c = G.customers[0];
@@ -5670,10 +6513,10 @@ Reply as JSON only: {"line": "..."}`;
     const uniq = new Set(tops).size;
     if(c.type === 'nightowl'){ if(left > .3) s += 6; else if(left < .08) s -= 8; }
     if(c.type === 'creator'){ if(uniq >= 4) s += 12; else if(uniq >= 3) s += 6; else if(uniq <= 1) s -= 10; }
-    if(c.type === 'vegan'){ if(tops.some(k => ['egg','shrimp','squid','cheese','chashu'].includes(k))) s -= 25; else s += 6; }
+    if(c.type === 'vegan'){ if(tops.some(k => ['egg','shrimp','squid','cheese', ...MEATS].includes(k))) s -= 25; else s += 6; }
     if(c.type === 'couple'){ if(uniq >= 3) s += 6; }
     if(c.type === 'rival'){ if(c2 >= 62 && c2 <= 80) s += 10; else s -= 10; }
-    if(c.type === 'athlete'){ if(has('chashu')) s += 6; }
+    if(c.type === 'athlete'){ if(MEATS.some(has)) s += 6; }
     if(c.type === 'tourist'){ if(spicy >= 55) s -= 10; else s += 4; }
     if(G.rice){ s += c.rice === 'love' ? 10 : c.rice === 'any' ? 3 : -2; } else if(c.rice === 'love') s -= 8;
     const th = (G.noodle && G.noodle.thick) || 'medium', grams = (G.noodle && G.noodle.grams) || 0;
@@ -5794,6 +6637,7 @@ Reply as JSON only: {"score": <number ${j.lo}-${j.hi}>, "comment": "..."}`;
   });
   $('bShopClose').onclick = () => { $('shopOv').hidden = true; $('startOv').hidden = false; renderWho(); };
   // ---------- the finished bowl, drawn like a real bowl of ramen ----------
+  if(POTTOP.chashu){ POTTOP.pheasant = POTTOP.chashu.split('#C9763E').join('#E3A86B'); POTTOP.rabbit = POTTOP.chashu.split('#C9763E').join('#D98C7A'); }
   const BOWLTOP = {
     egg:`<g><ellipse cx="-9" rx="12" ry="8.5" fill="#FFFDF5" stroke="#E2D8C0" stroke-width="1.2"/><ellipse cx="-8" cy=".5" rx="6.5" ry="5" fill="#F39A12"/><ellipse cx="-9.5" cy="-1" rx="2.6" ry="1.8" fill="#FFD27A"/>
       <ellipse cx="11" cy="3" rx="12" ry="8.5" fill="#FFFDF5" stroke="#E2D8C0" stroke-width="1.2"/><ellipse cx="12" cy="3.5" rx="6.5" ry="5" fill="#F39A12"/><ellipse cx="10.5" cy="2" rx="2.6" ry="1.8" fill="#FFD27A"/></g>`,
@@ -5811,7 +6655,8 @@ Reply as JSON only: {"score": <number ${j.lo}-${j.hi}>, "comment": "..."}`;
     shrimp:`<g><path d="M-12 2 C-12 -10 8 -12 12 -2 C14 6 6 10 0 6" fill="none" stroke="#B9471B" stroke-width="10" stroke-linecap="round"/><path d="M-12 2 C-12 -10 8 -12 12 -2 C14 6 6 10 0 6" fill="none" stroke="#FF8A57" stroke-width="7" stroke-linecap="round"/><path d="M-6 -7 l1 5 M2 -9 l0 5 M8 -6 l-2 4" stroke="#FFD2BA" stroke-width="1.4"/><path d="M0 6 l-8 5 l2 -9 Z" fill="#E0592A"/></g>`,
     chashu:`<g>${[[-8,0],[8,-2]].map(([x,y]) => `<ellipse cx="${x}" cy="${y}" rx="11" ry="8" fill="#C9763E" stroke="#6B3A1A" stroke-width="1.5"/><ellipse cx="${x}" cy="${y}" rx="6.5" ry="4.5" fill="#F0C9A0"/><path d="M${x - 5} ${y - 1} q5 -3 10 0" stroke="#C9763E" stroke-width="1.5" fill="none"/>`).join('')}</g>`,
     squid:`<g fill="none">${[[-7,-1],[6,-3],[0,6]].map(([x,y]) => `<ellipse cx="${x}" cy="${y}" rx="7" ry="4.6" stroke="#F7E7E0" stroke-width="3.4"/><ellipse cx="${x}" cy="${y}" rx="7" ry="4.6" stroke="#D99A8C" stroke-width="1" />`).join('')}</g>`
-  };
+  };  BOWLTOP.pheasant = BOWLTOP.chashu.split('#C9763E').join('#E3A86B'); BOWLTOP.rabbit = BOWLTOP.chashu.split('#C9763E').join('#D98C7A');
+
   function dishSVG(other){
     const sk = other ? SKINS.basic : skin();
     const soupC = other ? (BROTH[G.rKey] || '#D9A35A') : ((G.soup && G.soup.color) || '#E8B35A');
@@ -6040,7 +6885,7 @@ Reply as JSON only: {"a":{"score":n,"comment":"..."},"b":{"score":n,"comment":".
     else if(k === 'carrot'){ for(let i=0;i<4;i++) add(new T.CylinderGeometry(7, 7, 3, 10), M('#F08A24'), (i % 2 - .5)*14, 0, (Math.floor(i/2) - .5)*14); }
     else if(k === 'cheese'){ add(new T.BoxGeometry(34, 1.6, 34), M('#FFC83A', {roughness:.4}), 0, 4, 0, .12, 0, -.1); add(new T.BoxGeometry(10, 1.6, 16), M('#FFC83A', {roughness:.4}), 18, -2, 6, 0, 0, -.9); }
     else if(k === 'shrimp'){ add(new T.TorusGeometry(10, 4.4, 10, 20, Math.PI*1.4), M('#FF8A57', {roughness:.35}), 0, 2, 0, Math.PI/2); add(new T.ConeGeometry(5, 9, 4), M('#E0592A'), 10, 2, 0, 0, 0, -Math.PI/2); }
-    else if(k === 'chashu'){ [[-14, 0, .2], [12, 6, -.25]].forEach(([x, z, r]) => { add(new T.CylinderGeometry(15, 15, 5, 28), M('#C9763E', {roughness:.45}), x, 2, z, 0, 0, r); add(new T.CylinderGeometry(9.5, 9.5, 5.4, 22), M('#F0C9A0', {roughness:.5}), x, 2.1, z, 0, 0, r); add(new T.TorusGeometry(6, .8, 5, 20, Math.PI*1.3), M('#C9763E'), x, 5, z, Math.PI/2, 0, r); }); }
+    else if(MEATS.includes(k)){ const mc = {chashu:'#C9763E', pheasant:'#E3A86B', rabbit:'#D98C7A'}[k]; [[-14, 0, .2], [12, 6, -.25]].forEach(([x, z, r]) => { add(new T.CylinderGeometry(15, 15, 5, 28), M(mc, {roughness:.45}), x, 2, z, 0, 0, r); add(new T.CylinderGeometry(9.5, 9.5, 5.4, 22), M('#F0C9A0', {roughness:.5}), x, 2.1, z, 0, 0, r); add(new T.TorusGeometry(6, .8, 5, 20, Math.PI*1.3), M('#C9763E'), x, 5, z, Math.PI/2, 0, r); }); }
     else if(k === 'squid'){ for(let i=0;i<3;i++) add(new T.TorusGeometry(8, 2.6, 8, 20), M('#F7E7E0', {roughness:.4}), (i - 1)*15, 0, (i % 2)*7, Math.PI/2); }
     else add(new T.SphereGeometry(8, 10, 8), M('#5EAD3A'), 0, 0, 0, 0, 0, 0, 1, .4, 1);
     return g;
@@ -6085,7 +6930,7 @@ Reply as JSON only: {"a":{"score":n,"comment":"..."},"b":{"score":n,"comment":".
   function localDishName(f){
     const pick = a => a[Math.floor(Math.random()*a.length)];
     const mood = f.spicy >= 70 ? pick(['불꽃', '화끈', '폭탄', '용암']) : f.spicy <= 20 ? pick(['포근', '보들', '순둥', '구름']) : pick(['황금', '든든', '꿀맛', '정성']);
-    let star = f.tops.includes('차슈') ? '차슈' : f.tops.includes('치즈') ? '치즈' : f.tops.includes('달걀') ? '반숙' : f.tops[0] || '';
+    let star = f.tops.includes('멧돼지고기') ? '멧돼지고기' : f.tops.includes('꿩고기') ? '꿩고기' : f.tops.includes('토끼고기') ? '토끼고기' : f.tops.includes('치즈') ? '치즈' : f.tops.includes('달걀') ? '반숙' : f.tops[0] || '';
     if(star && f.ramen.includes(star)) star = f.tops.find(t => !f.ramen.includes(t)) || '';   // no "치즈 치즈라면"
     if(star === '달걀') star = '반숙';
     const nd = {thin:'실', medium:'', thick:'왕'}[f.thick];
@@ -6411,7 +7256,69 @@ Reply as JSON only: {"name":"...","why":"..."}`;
   $('bAIGo').onclick = () => { $('aiSetupOv').hidden = true; newGame(undefined, undefined, undefined, true); };
   $('bTro').onclick = openTrophies;
   $('bShop').onclick = openShop;
-  const r3D = () => { const b = $('b3D'); b.textContent = '🧊'; const sm = document.createElement('small'); sm.textContent = '3D ' + tr(G3_OFF() ? '꺼짐' : '켜짐'); b.appendChild(sm); b.classList.toggle('off', G3_OFF()); };
+  const r3D = () => { $('b3D').classList.toggle('on', !G3_OFF()); };
+  const rUI = () => { $('bUI').classList.toggle('on', document.body.classList.contains('lg')); };
+  $('bUI').onclick = () => { const on = !document.body.classList.contains('lg'); document.body.classList.toggle('lg', on); try{ localStorage.setItem('ramen-ui', on ? 'glass' : 'classic'); }catch(e){} rUI(); SFX.pick(); };
+  setTimeout(rUI, 0);
+  $('bSet').onclick = () => { rUI(); r3D(); $('setOv').hidden = false; SFX.pick(); };
+  $('bSetClose').onclick = () => { $('setOv').hidden = true; };
+  new MutationObserver(() => { if($('setOv').hidden && !$('startOv').hidden) lgSel(0); }).observe($('setOv'), {attributes:true, attributeFilter:['hidden']});
+  $('setOv').addEventListener('click', e => { if(e.target === $('setOv')) $('setOv').hidden = true; });
+  $('bLangSet').onclick = () => { $('setOv').hidden = true; $('bLang2').click(); };
+  let lgCur = 0, lgTilt = null;
+  // a time-based spring (smooth at any frame rate). It slightly overshoots, then settles like a drop of gel.
+  const LGS = {x:4, v:0, tx:4, w:80, drag:false, alive:false, last:0, sv:0, lensX:null};
+  function lgTabs(){ return [...$('lgcaps').querySelectorAll('.tab')]; }
+  function lgKick(){ if(!LGS.alive){ LGS.alive = true; LGS.last = performance.now(); requestAnimationFrame(lgStep); } }
+  function lgStep(now){
+    const d = $('lgdrop'), dt = Math.min(.032, Math.max(.001, (now - LGS.last)/1000)); LGS.last = now;
+    const K = LGS.drag ? 420 : 210, C = LGS.drag ? 34 : 22;            // stiffness / damping
+    const a = K*(LGS.tx - LGS.x) - C*LGS.v; LGS.v += a*dt; LGS.x += LGS.v*dt;
+    LGS.sv += (LGS.v - LGS.sv)*Math.min(1, dt*14);                       // smoothed speed → gentle stretch
+    const sp = Math.min(1, Math.abs(LGS.sv)/1400), sx = 1 + sp*.22, sy = 1 - sp*.1;
+    d.style.width = LGS.w + 'px'; d.style.transform = `translate3d(${LGS.x.toFixed(2)}px,0,0) scale(${sx.toFixed(4)},${sy.toFixed(4)})`;
+    // icons grow smoothly as the lens passes over them
+    const c = LGS.x + LGS.w/2, tabs = lgTabs();
+    tabs.forEach(t => { const dist = Math.abs(t.offsetLeft + t.offsetWidth/2 - c), m = LGS.drag ? Math.max(0, 1 - dist/(t.offsetWidth*.7)) : 0;
+      t.style.setProperty('--mag', (1 + m*.18).toFixed(3)); });
+    if(!LGS.drag && Math.abs(LGS.tx - LGS.x) < .2 && Math.abs(LGS.v) < 2){ LGS.x = LGS.tx; LGS.v = 0; LGS.sv = 0; d.style.transform = `translate3d(${LGS.tx}px,0,0)`; LGS.alive = false;
+      tabs.forEach(t => t.style.setProperty('--mag', 1)); return; }
+    requestAnimationFrame(lgStep);
+  }
+  function lgSel(i, jump){ const tabs = lgTabs(); if(!tabs[i]) return; lgCur = i; LGS.w = tabs[i].offsetWidth; LGS.tx = tabs[i].offsetLeft;
+    if(jump){ LGS.x = LGS.tx; LGS.v = 0; } tabs.forEach((t, k) => t.classList.toggle('on', k === i)); lgKick(); }
+  function lgMotionAsk(){ if(lgMotionAsk.done) return; lgMotionAsk.done = true;
+    let raf = 0, g = 0;
+    const apply = () => { raf = 0; const bar = $('tabbar'); if(!bar || $('startOv').hidden) return; lgTilt = lgTilt == null ? g : lgTilt + (g - lgTilt)*.25;
+      bar.style.setProperty('--spec', (-35 + lgTilt*80).toFixed(1) + 'deg'); bar.style.setProperty('--sx', Math.max(-1, Math.min(1, lgTilt)).toFixed(3)); };
+    const on = () => window.addEventListener('deviceorientation', e => { if(e.gamma == null) return; const ng = e.gamma/40; if(Math.abs(ng - g) < .02) return; g = ng; if(!raf) raf = requestAnimationFrame(apply); });
+    try{ if(window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission === 'function') DeviceOrientationEvent.requestPermission().then(r => { if(r === 'granted') on(); }).catch(() => {}); else on(); }catch(e){} }
+  (function(){ const caps = $('lgcaps'), d = $('lgdrop'), bar = $('tabbar'); let drag = null;
+    const nearest = x => { let k = 0, bd = 1e9; lgTabs().forEach((t, i) => { const c = t.offsetLeft + t.offsetWidth/2, dd = Math.abs(c - x); if(dd < bd){ bd = dd; k = i; } }); return k; };
+    const follow = x => { const r = caps.getBoundingClientRect(); LGS.tx = Math.max(-6, Math.min(r.width - LGS.w + 6, x - LGS.w/2)); lgKick(); };
+    caps.addEventListener('pointerdown', e => {
+      if(bar.classList.contains('min')){ bar.classList.remove('min'); caps.dataset.eat = 1; drag = {skip:true}; return; }
+      const x = e.clientX - caps.getBoundingClientRect().left; drag = {id:e.pointerId, x0:x, moved:false, k:nearest(x)};
+      LGS.drag = true; d.classList.add('drag'); bar.classList.add('press'); follow(x); lgMotionAsk(); });
+    window.addEventListener('pointermove', e => { if(!drag || drag.skip || e.pointerId !== drag.id) return; const x = e.clientX - caps.getBoundingClientRect().left;
+      if(Math.abs(x - drag.x0) > 6) drag.moved = true; follow(x); });
+    const release = e => { if(!drag) return; if(drag.skip){ drag = null; return; } const k = nearest(e.clientX - caps.getBoundingClientRect().left), moved = drag.moved; drag = null;
+      LGS.drag = false; d.classList.remove('drag'); bar.classList.remove('press'); lgSel(k); if(moved){ const t = lgTabs()[k]; t && t.click(); } };
+    window.addEventListener('pointerup', release);
+    caps.addEventListener('pointercancel', () => { drag = null; LGS.drag = false; d.classList.remove('drag'); bar.classList.remove('press'); lgSel(lgCur); });
+    caps.addEventListener('click', e => { if(caps.dataset.eat){ e.stopPropagation(); e.preventDefault(); delete caps.dataset.eat; } }, true);
+    $('bSet').addEventListener('pointerdown', lgMotionAsk);
+  })();
+  (function(){ const card = document.querySelector('#startOv .card'); let last = 0, raf = 0;
+    card && card.addEventListener('scroll', () => { if(raf) return; raf = requestAnimationFrame(() => { raf = 0; const y = card.scrollTop, bar = $('tabbar');
+      if(y > last + 8 && y > 60) bar.classList.add('min'); else if(y < last - 8 || y < 20) bar.classList.remove('min'); last = y; }); }, {passive:true});
+    $('lgcaps').addEventListener('transitionend', e => { if(e.target === $('lgcaps') && e.propertyName === 'flex-basis' && !$('tabbar').classList.contains('min')) lgSel(lgCur, true); }); })();
+  $('tabHome').onclick = () => { const c = document.querySelector('#startOv .card'); if(c) c.scrollTo({top:0, behavior:'smooth'}); };
+  // back on the home screen → the droplet slides home
+  new MutationObserver(() => { if(!$('startOv').hidden){ $('tabbar').classList.remove('min'); requestAnimationFrame(() => lgSel(0, lgCur === 0)); } }).observe($('startOv'), {attributes:true, attributeFilter:['hidden']});
+  window.addEventListener('resize', () => { if(!$('startOv').hidden) lgSel(lgCur, true); });
+  // rows that open something else close the settings sheet first
+  ['bTut', 'bInstall'].forEach(id => $(id).addEventListener('click', () => { $('setOv').hidden = true; }, true));
   $('b3D').onclick = () => { try{ localStorage.setItem('ramen-3d', G3_OFF() ? 'on' : 'off'); }catch(e){} r3D(); SFX.pick(); };
   r3D();
 
@@ -7642,11 +8549,11 @@ Reply as JSON only: {"name":"...","why":"..."}`;
       const R = CO_R[o.r], x = TICKX[i], k = o.p/o.P, col = k > .5 ? '#2BB673' : k > .25 ? '#F5A623' : '#E2231A';
       oh += `<g transform="translate(${x} 6)"><rect width="124" height="104" rx="10" fill="#FFFDF5" stroke="${k < .25 ? '#E2231A' : '#1A1410'}" stroke-width="${k < .25 ? 4 : 2.5}"/>
         <text x="62" y="30" font-size="24" text-anchor="middle">${R.e}</text>
-        <text x="62" y="50" font-size="12.5" font-weight="700" text-anchor="middle" fill="#1A1410" font-family="Gowun Dodum, sans-serif">${R.n}</text>
+        <text x="62" y="50" font-size="12.5" font-weight="700" text-anchor="middle" fill="#1A1410" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">${R.n}</text>
         <text x="62" y="74" font-size="16" text-anchor="middle">${CO_SOUP[R.s].e}+${tpIcons(R.tp)}</text>
         <rect x="8" y="86" width="108" height="9" rx="4" fill="#EEE"/><rect x="8" y="86" width="${108*clamp(k, 0, 1)}" height="9" rx="4" fill="${col}"/></g>`;
     });
-    for(let i=V.orders.length;i<3;i++) oh += `<g transform="translate(${TICKX[i]} 6)"><rect width="124" height="104" rx="10" fill="none" stroke="#C9D8D1" stroke-width="2" stroke-dasharray="6 5"/><text x="62" y="58" font-size="11" text-anchor="middle" fill="#9AA2AA" font-family="Gowun Dodum, sans-serif">손님 기다리는 중</text></g>`;
+    for(let i=V.orders.length;i<3;i++) oh += `<g transform="translate(${TICKX[i]} 6)"><rect width="124" height="104" rx="10" fill="none" stroke="#C9D8D1" stroke-width="2" stroke-dasharray="6 5"/><text x="62" y="58" font-size="11" text-anchor="middle" fill="#9AA2AA" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">손님 기다리는 중</text></g>`;
     setH('coOrders', oh);
     // bowls on the shared counter
     let bh = '';
@@ -7659,8 +8566,8 @@ Reply as JSON only: {"name":"...","why":"..."}`;
           <ellipse cy="-8" rx="48" ry="10" fill="${b.s ? CO_SOUP[b.s].c : '#CFE3EA'}" stroke="#1A1410" stroke-width="2.5"/>
           <path d="M-34 -9 q6 -5 12 0 t12 0 t12 0 t12 0 t12 0 t12 0" fill="none" stroke="#F2C14E" stroke-width="3"/></g>
           <text y="-22" font-size="15" text-anchor="middle">${tpIcons(b.tp)}</text>
-          <text y="46" font-size="11" font-weight="700" text-anchor="middle" fill="#FFF" stroke="#5A3A12" stroke-width="3" paint-order="stroke" font-family="Gowun Dodum, sans-serif">${b.q === 2 ? '⭐완벽 ' : b.q === 0 ? '😕 ' : ''}${b.s ? CO_SOUP[b.s].n : '맹물'}</text>`;
-      } else bh += `<ellipse cy="0" rx="46" ry="26" fill="none" stroke="#8C6239" stroke-width="2" stroke-dasharray="6 5"/><text y="5" font-size="11" text-anchor="middle" fill="#6B4A22" font-family="Gowun Dodum, sans-serif">빈 그릇 ${i + 1}</text>`;
+          <text y="46" font-size="11" font-weight="700" text-anchor="middle" fill="#FFF" stroke="#5A3A12" stroke-width="3" paint-order="stroke" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">${b.q === 2 ? '⭐완벽 ' : b.q === 0 ? '😕 ' : ''}${b.s ? CO_SOUP[b.s].n : '맹물'}</text>`;
+      } else bh += `<ellipse cy="0" rx="46" ry="26" fill="none" stroke="#8C6239" stroke-width="2" stroke-dasharray="6 5"/><text y="5" font-size="11" text-anchor="middle" fill="#6B4A22" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">빈 그릇 ${i + 1}</text>`;
       bh += `</g>`;
     });
     setH('coBowls', bh);
@@ -7681,7 +8588,7 @@ Reply as JSON only: {"name":"...","why":"..."}`;
       const zone = p.n && p.c >= CZ2[0] && p.c <= CZ2[1];
       h += `<g data-pot="${i}">
         <rect x="${x - 80}" y="246" width="160" height="168" fill="transparent"/>
-        <text x="${x}" y="262" font-size="12" font-weight="700" text-anchor="middle" fill="#1A1410" font-family="Gowun Dodum, sans-serif">${
+        <text x="${x}" y="262" font-size="12" font-weight="700" text-anchor="middle" fill="#1A1410" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">${
           p.b ? '💨 탔어요! 버려요' : !p.w ? '① 💧 물 붓기' : !p.h && !p.n ? '② 🔥 불 켜기' : p.T < 95 && !p.n ? '끓는 중… ' + Math.round(p.T) + '°' : !p.n ? '③ 🍜 면 넣기!' : !p.s ? '스프도 넣어요' : zone ? '④ 지금 담기!' : p.c > CZ2[1] ? '불어요! 빨리!' : '익는 중…'}</text>
         <rect x="${x - 60}" y="268" width="120" height="10" rx="5" fill="#FFF" stroke="#1A1410" stroke-width="2"/>
         ${p.n ? `<rect x="${x - 60 + 120*CZ2[0]/120}" y="269" width="${120*(CZ2[1] - CZ2[0])/120}" height="8" fill="#7EDBA9"/><rect x="${x - 59}" y="269" width="${118*Math.min(120, p.c)/120}" height="8" rx="4" fill="${p.b ? '#555' : '#FFC400'}" opacity=".85"/>`
@@ -7691,15 +8598,15 @@ Reply as JSON only: {"name":"...","why":"..."}`;
         ${p.f > 5 ? `<rect x="${x - 66}" y="${314 - p.f*.25}" width="132" height="${p.f*.25 + 6}" rx="6" fill="#FBF6EC"/>` : ''}
         ${p.n ? `<path d="M${x - 56} 330 q7 -6 14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0" fill="none" stroke="${p.b ? '#6B4A22' : '#F2C14E'}" stroke-width="4"/>` : ''}
         ${p.h ? `<g fill="#3D8BFD"><path class="flame" d="M${x - 40} 404 q6 -14 12 0 z"/><path class="flame" d="M${x - 6} 404 q6 -17 12 0 z"/><path class="flame" d="M${x + 28} 404 q6 -14 12 0 z"/></g>` : ''}</g>
-        ${p.b ? `<text x="${x}" y="300" font-size="26" text-anchor="middle">💨</text>` : p.f > 60 ? `<text x="${x}" y="306" font-size="13" font-weight="700" fill="#E2231A" text-anchor="middle" stroke="#fff" stroke-width="3" paint-order="stroke" font-family="Gowun Dodum, sans-serif">거품! 문질러요</text>` : ''}
+        ${p.b ? `<text x="${x}" y="300" font-size="26" text-anchor="middle">💨</text>` : p.f > 60 ? `<text x="${x}" y="306" font-size="13" font-weight="700" fill="#E2231A" text-anchor="middle" stroke="#fff" stroke-width="3" paint-order="stroke" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">거품! 문질러요</text>` : ''}
         <rect class="co2d" x="${x - 78}" y="386" width="156" height="22" rx="6" fill="#2E2A28"/>
       </g>
       <g data-tap="water:${i}" style="cursor:pointer" class="${!p.w && !p.b ? 'hint' : ''}"><circle cx="${x - 50}" cy="440" r="21" fill="${p.w ? '#E6E9EC' : '#7CC4E2'}" stroke="#1A1410" stroke-width="2.5"/><text x="${x - 50}" y="447" font-size="18" text-anchor="middle">💧</text></g>
       <g data-tap="fire:${i}" style="cursor:pointer" class="${p.w && !p.h && !p.n && !p.b ? 'hint' : ''}"><circle cx="${x}" cy="440" r="21" fill="${p.h ? '#E2231A' : '#ECE7E1'}" stroke="#1A1410" stroke-width="2.5"/><text x="${x}" y="447" font-size="18" text-anchor="middle">${p.h ? '🧯' : '🔥'}</text></g>
       <g data-tap="${p.b ? 'dump' : 'pour'}:${i}" style="cursor:pointer" class="${zone || p.b ? 'hint' : ''}"><circle cx="${x + 50}" cy="440" r="21" fill="${p.b ? '#7A6A55' : zone ? '#2BB673' : '#ECE7E1'}" stroke="#1A1410" stroke-width="2.5"/><text x="${x + 50}" y="447" font-size="18" text-anchor="middle">${p.b ? '🗑️' : '🥣'}</text></g>
-      <text x="${x - 50}" y="474" font-size="10" text-anchor="middle" fill="#5A3A12" font-family="Gowun Dodum, sans-serif">물</text>
-      <text x="${x}" y="474" font-size="10" text-anchor="middle" fill="#5A3A12" font-family="Gowun Dodum, sans-serif">${p.h ? '불 끄기' : '불 켜기'}</text>
-      <text x="${x + 50}" y="474" font-size="10" text-anchor="middle" fill="#5A3A12" font-family="Gowun Dodum, sans-serif">${p.b ? '버리기' : '그릇에 담기'}</text>`;
+      <text x="${x - 50}" y="474" font-size="10" text-anchor="middle" fill="#5A3A12" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">물</text>
+      <text x="${x}" y="474" font-size="10" text-anchor="middle" fill="#5A3A12" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">${p.h ? '불 끄기' : '불 켜기'}</text>
+      <text x="${x + 50}" y="474" font-size="10" text-anchor="middle" fill="#5A3A12" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">${p.b ? '버리기' : '그릇에 담기'}</text>`;
     });
     setH('coPots', h);
   }
@@ -7708,23 +8615,23 @@ Reply as JSON only: {"name":"...","why":"..."}`;
     $('coPotMini').textContent = V.pots.map((p, i) => '냄비' + (i + 1) + ': ' + (p.b ? '💨탐' : !p.w ? '비었음' : !p.n ? (p.T >= 95 ? '끓음' : '데우는 중') : p.c >= CZ2[0] ? '✅다 익음' : '익는 중 ' + Math.round(p.c/CZ2[0]*100) + '%')).join('  ·  ');
     const bd = V.bd;
     setH('coBoard', bd ? `<text x="200" y="338" font-size="48" text-anchor="middle">${CO_P[bd.k].e}</text>
-        <text x="200" y="300" font-size="12" font-weight="700" text-anchor="middle" fill="#5A3A12" font-family="Gowun Dodum, sans-serif">${CO_P[bd.k].n} 손질 중</text>
+        <text x="200" y="300" font-size="12" font-weight="700" text-anchor="middle" fill="#5A3A12" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">${CO_P[bd.k].n} 손질 중</text>
         ${Array.from({length:bd.need}, (_, j) => `<circle cx="${200 - (bd.need - 1)*12 + j*24}" cy="368" r="7" fill="${j < bd.c ? '#2BB673' : '#FFF'}" stroke="#1A1410" stroke-width="2"/>`).join('')}
-        <text x="290" y="340" font-size="30" text-anchor="middle" class="bobbing">🔪</text><text x="105" y="336" font-size="13" font-weight="700" fill="#E2231A" text-anchor="middle" font-family="Gowun Dodum, sans-serif">탭탭!</text>`
-      : `<text x="200" y="330" font-size="13" font-weight="700" text-anchor="middle" fill="#5A3A12" font-family="Gowun Dodum, sans-serif">아래 재료 상자를 도마로 끌어와요</text><text x="200" y="352" font-size="12" text-anchor="middle" fill="#7A5530" font-family="Gowun Dodum, sans-serif">그다음 도마를 탭탭 눌러 손질!</text>`);
+        <text x="290" y="340" font-size="30" text-anchor="middle" class="bobbing">🔪</text><text x="105" y="336" font-size="13" font-weight="700" fill="#E2231A" text-anchor="middle" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">탭탭!</text>`
+      : `<text x="200" y="330" font-size="13" font-weight="700" text-anchor="middle" fill="#5A3A12" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">아래 재료 상자를 도마로 끌어와요</text><text x="200" y="352" font-size="12" text-anchor="middle" fill="#7A5530" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">그다음 도마를 탭탭 눌러 손질!</text>`);
     let sh = '';
     CO_PK.forEach((k, i) => {
       const x = 60 + i*93, c = V.shelf[k];
       sh += `<g ${c ? `data-drag="shelf:${k}" style="cursor:grab"` : ''} transform="translate(${x} 434)" opacity="${c ? 1 : .4}">
         <rect x="-38" y="-30" width="76" height="58" rx="10" fill="#FFFFFF" stroke="#1A1410" stroke-width="2"/>
         <text y="2" font-size="24" text-anchor="middle">${CO_P[k].e}</text>
-        <text y="20" font-size="11" font-weight="700" text-anchor="middle" fill="#1A1410" font-family="Gowun Dodum, sans-serif">손질 ${CO_P[k].n} ×${c}</text></g>`;
+        <text y="20" font-size="11" font-weight="700" text-anchor="middle" fill="#1A1410" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">손질 ${CO_P[k].n} ×${c}</text></g>`;
     });
-    setH('coShelf', '<text x="14" y="400" font-size="11" font-weight="700" fill="#5A3A12" font-family="Gowun Dodum, sans-serif">손질한 토핑 → 그릇으로 끌어요</text>' + sh);
-    setH('coCrates', '<text x="14" y="488" font-size="11" font-weight="700" fill="#5A3A12" font-family="Gowun Dodum, sans-serif">재료 상자 → 도마로 끌어요</text>' + CO_PK.map((k, i) => `<g data-drag="crate:${k}" style="cursor:grab" transform="translate(${60 + i*93} 538)">
+    setH('coShelf', '<text x="14" y="400" font-size="11" font-weight="700" fill="#5A3A12" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">손질한 토핑 → 그릇으로 끌어요</text>' + sh);
+    setH('coCrates', '<text x="14" y="488" font-size="11" font-weight="700" fill="#5A3A12" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">재료 상자 → 도마로 끌어요</text>' + CO_PK.map((k, i) => `<g data-drag="crate:${k}" style="cursor:grab" transform="translate(${60 + i*93} 538)">
         <rect x="-38" y="-38" width="76" height="76" fill="transparent"/>
         <rect x="-34" y="-26" width="68" height="52" rx="6" fill="#C98B4E" stroke="#6E4620" stroke-width="2.5"/><path d="M-34 -8 H34" stroke="#6E4620" stroke-width="2"/>
-        <text y="12" font-size="24" text-anchor="middle">${CO_P[k].e}</text><text y="40" font-size="11" font-weight="700" text-anchor="middle" fill="#5A3A12" font-family="Gowun Dodum, sans-serif">${CO_P[k].n}</text></g>`).join(''));
+        <text y="12" font-size="24" text-anchor="middle">${CO_P[k].e}</text><text y="40" font-size="11" font-weight="700" text-anchor="middle" fill="#5A3A12" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">${CO_P[k].n}</text></g>`).join(''));
   }
   function coHint(){
     const V = CO.V;
