@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>라면 공방 — 씨앗부터 한 그릇까지</title>
 <meta name="theme-color" content="#E2231A">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -458,10 +458,18 @@ body.healing .st{cursor:pointer}
 #introLine.chatline{background:#2A1A3A;color:#FFF;border-color:#7B3FA0;font-weight:700}
 .mkst u.rule{text-decoration:none;font-size:.8rem;font-weight:700;color:#7B3FA0;line-height:1.25;text-align:center}
 .mkgoal{margin:6px 0 2px;padding:8px 10px;border-radius:10px;background:#F1E6FA;color:#4A1F6B;font-weight:700;font-size:.85rem;text-align:center}
+html, body{touch-action:manipulation;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+input, textarea, select{font-size:16px}
 </style>
 </head>
 
 <body>
+<script>(function(){
+  // no accidental zooming while playing: block pinch (iOS gesture events + two-finger moves) and double-tap zoom
+  ['gesturestart', 'gesturechange', 'gestureend'].forEach(function(n){ document.addEventListener(n, function(e){ e.preventDefault(); }, {passive:false}); });
+  document.addEventListener('touchmove', function(e){ if(e.touches && e.touches.length > 1) e.preventDefault(); }, {passive:false});
+  document.addEventListener('dblclick', function(e){ e.preventDefault(); }, {passive:false});
+})();</script>
 <div id="splash" aria-label="라면 공방">
   <div class="splashIn">
     <svg class="spBowl" viewBox="0 0 240 200" aria-hidden="true">
