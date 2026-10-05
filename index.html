@@ -364,25 +364,33 @@ body.healing .st{cursor:pointer}
 @keyframes spFade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @keyframes spSteam{0%{opacity:0;transform:translateY(10px)}40%{opacity:.9}100%{opacity:0;transform:translateY(-14px)}}
 .mkcar{position:relative;display:flex;align-items:center;gap:4px;margin:6px -6px 2px}
-.mkstages{flex:1;min-width:0;display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:6px 14%;scrollbar-width:none}
+.mkstages{flex:1;min-width:0;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .mkstages::-webkit-scrollbar{display:none}
-.mkarr{appearance:none;flex:none;width:30px;height:46px;border:2px solid var(--line);border-radius:10px;background:var(--panel);font:inherit;font-size:1.4rem;font-weight:700;cursor:pointer;padding:0}
-.mkst{appearance:none;flex:0 0 100%;scroll-snap-align:center;border:3px solid var(--line);border-radius:16px;background:var(--panel);font:inherit;padding:12px 10px 10px;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;min-height:176px;justify-content:center;transition:transform .15s,opacity .15s}
-.mkst:not(.on){transform:scale(.92);opacity:.75}
-.mkst::before{content:"";position:absolute;inset:0 0 auto 0;height:38px;border-radius:13px 13px 0 0;background:linear-gradient(90deg,var(--sc1),var(--sc2));opacity:.9}
-.mkst{position:relative;overflow:hidden}
-.mkst > *{position:relative}
-.mkst b{color:#FFF !important;text-shadow:0 1px 2px #000}
-.mkst b{font-size:.85rem;color:var(--muted)}
-.mkst .mke{font-size:2.2rem;line-height:1.15}
-.mkst small{font-size:1.05rem;font-weight:700;line-height:1.3;max-width:100%;text-align:center;word-break:keep-all;overflow-wrap:anywhere}
-.mkst em{font-style:normal;font-size:.8rem;font-weight:700;border-radius:6px;padding:2px 8px}
+.mkarr{appearance:none;flex:none;width:26px;height:70px;border:2px solid var(--line);border-radius:10px;background:var(--panel);font:inherit;font-size:1.3rem;font-weight:700;cursor:pointer;padding:0}
+.mkpage{flex:0 0 100%;scroll-snap-align:start;padding:2px 2px 4px}
+.mkch{display:block;text-align:center;font-size:.85rem;margin-bottom:6px;color:#4A1F6B}
+.mkgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.mkst{appearance:none;position:relative;overflow:hidden;border:2.5px solid var(--line);border-radius:12px;background:var(--panel);font:inherit;padding:16px 2px 4px;display:flex;flex-direction:column;align-items:center;gap:1px;cursor:pointer;min-width:0}
+.mkst::before{content:"";position:absolute;inset:0 0 auto 0;height:15px;background:linear-gradient(90deg,var(--sc1),var(--sc2))}
+.mkst b{position:absolute;top:0;left:0;right:0;font-size:.7rem;line-height:15px;color:#FFF;text-shadow:0 1px 2px #000}
+.mkst .mke{font-size:1.45rem;line-height:1.2}
+.mkst i{font-style:normal;font-size:.62rem;color:#E8A800;letter-spacing:-1px}.mkst i u{text-decoration:none;color:#D8D2C4}
+.mkst .rdot{position:absolute;top:18px;right:4px;width:7px;height:7px;border-radius:50%;background:#7B3FA0}
+.mkst.on{background:#FFD23F;box-shadow:0 0 0 3px #E2231A inset}
+.mkst.locked{filter:grayscale(.8);opacity:.6}
+.mkdots{display:flex;justify-content:center;gap:6px;margin:4px 0}
+.mkdots span{width:7px;height:7px;border-radius:50%;background:#D8D2C4}.mkdots span.on{background:#E2231A;width:18px;border-radius:4px}
+.mksel{display:flex;align-items:center;gap:10px;margin:4px 0;padding:8px 10px;border:2.5px solid var(--line);border-radius:14px;background:#FFFDF5}
+.mksel .mke{font-size:2rem}
+.mksel b{display:block;font-size:1.02rem;line-height:1.3;word-break:keep-all}
+.mksel small{display:block;font-size:.8rem;color:#5B4636;margin-top:2px}
+.mksel em{font-style:normal;font-weight:700;border-radius:6px;padding:1px 6px}
+.mksel em.easy{background:#CDEFD9;color:#1E6B40}.mksel em.normal{background:#FFE9A8;color:#8C5A00}.mksel em.upper{background:#FFD9B3;color:#9A4A00}.mksel em.hard{background:#FFD0CC;color:#A1150D}
+.mkgoal[hidden]{display:none}
 .mkhow{margin:6px 0;border:2px dashed var(--line);border-radius:12px;padding:6px 10px}
 .mkhow summary{cursor:pointer;font-weight:700}
-.mkst.easy em{background:#CDEFD9;color:#1E6B40}.mkst.normal em{background:#FFE9A8;color:#8C5A00}.mkst.hard em{background:#FFD0CC;color:#A1150D}
-.mkst i{font-style:normal;font-size:1.1rem;color:#E8A800;letter-spacing:1px}.mkst i u{text-decoration:none;color:#D8D2C4}
+.mkst.easy em{background:#CDEFD9;color:#1E6B40}.mkst.normal em{background:#FFE9A8;color:#8C5A00}.mkst.upper em{background:#FFD9B3;color:#9A4A00}.mkst.hard em{background:#FFD0CC;color:#A1150D}
 .mkst.on{background:#FFD23F;box-shadow:0 0 0 3px #E2231A inset}
-.mkst.locked{filter:grayscale(.7)}
 .mkres{border:2.5px solid var(--line);border-radius:14px;padding:8px 10px;margin-bottom:8px;text-align:center;display:flex;flex-direction:column;gap:2px}
 .mkres.ok{background:#EAF7EE}.mkres.no{background:#FFF0EE}
 .mkres span{font-size:1.5rem;color:#E8A800;letter-spacing:2px}.mkres span u{text-decoration:none;color:#D8D2C4}
@@ -1306,8 +1314,10 @@ body.healing .st{cursor:pointer}
 <div class="overlay" id="mkSetOv" hidden>
   <div class="card">
     <h2>🎵 면치기 리듬 먹방</h2>
-    <div class="lbl" style="display:flex;justify-content:space-between;gap:6px"><span>퀘스트 고르기 (옆으로 넘겨요)</span><span class="notr" id="mkStarTot"></span></div>
-    <div class="mkcar"><button class="mkarr" id="mkPrev" aria-label="이전">‹</button><div class="mkstages" id="mkStages"></div><button class="mkarr" id="mkNext" aria-label="다음">›</button></div>
+    <div class="lbl" style="display:flex;justify-content:space-between;gap:6px"><span>퀘스트 고르기 (옆으로 넘기면 다음 장)</span><span class="notr" id="mkStarTot"></span></div>
+    <div class="mkcar"><button class="mkarr" id="mkPrev" aria-label="이전 장">‹</button><div class="mkstages" id="mkStages"></div><button class="mkarr" id="mkNext" aria-label="다음 장">›</button></div>
+    <div class="mkdots" id="mkDots"></div>
+    <div class="mksel notr" id="mkSel"></div>
     <p class="mkgoal notr" id="mkGoal"></p>
     <button class="btn" id="mkGoSolo">🎬 이 퀘스트 시작</button>
     <button class="btn alt" id="mkReplay">📖 이 퀘스트 이야기 다시 보기</button>
@@ -1356,6 +1366,9 @@ body.healing .st{cursor:pointer}
   const nrm = a => { while(a > Math.PI) a -= 2*Math.PI; while(a < -Math.PI) a += 2*Math.PI; return a; };
   // order: en | ja | zh (简) | zt (繁) | es | fr | de | pt | vi | th
   const I18N_RAW = {
+'퀘스트 고르기 (옆으로 넘기면 다음 장)':'Pick a quest (swipe for the next chapter)|クエストを選ぶ（横で次の章）|选择任务（左右滑动换章）|選擇任務（左右滑動換章）|Elige misión (desliza: siguiente capítulo)|Choisis une quête (glisse : chapitre suivant)|Quest wählen (wischen: nächstes Kapitel)|Escolha a missão (deslize: próximo capítulo)|Chọn nhiệm vụ (vuốt: chương sau)|เลือกเควสต์ (ปัดเพื่อไปบทถัดไป)',
+'중상':'Hard-ish|やや難|中上|中上|Medio-alto|Assez dur|Mittelschwer|Médio-alto|Khá khó|ค่อนข้างยาก',
+'장':'Ch.|章|章|章|Cap.|Ch.|Kap.|Cap.|Ch.|บทที่',
 '퀘스트 고르기 (옆으로 넘겨요)':'Pick a quest (swipe sideways)|クエストを選ぶ（横にスワイプ）|选择任务（左右滑动）|選擇任務（左右滑動）|Elige misión (desliza)|Choisis une quête (glisse)|Quest wählen (wischen)|Escolha a missão (deslize)|Chọn nhiệm vụ (vuốt ngang)|เลือกเควสต์ (ปัดด้านข้าง)',
 '앞 퀘스트를 깨면 열려요':'Clear the previous quest to unlock|前のクエストをクリアで開放|通关前一个任务后解锁|通關前一個任務後解鎖|Supera la anterior para abrirla|Réussis la précédente pour l’ouvrir|Vorherige Quest schaffen|Passe a anterior para liberar|Qua nhiệm vụ trước để mở|ผ่านเควสต์ก่อนหน้าเพื่อปลดล็อก',
 '하는 법':'How to play|遊び方|玩法|玩法|Cómo jugar|Comment jouer|So geht’s|Como jogar|Cách chơi|วิธีเล่น',
@@ -2408,7 +2421,16 @@ ${JSON.stringify(part)}`;
     function ensure(){
       if(!ctx){
         const AC = window.AudioContext || window.webkitAudioContext; if(!AC) return null;
-        ctx = new AC(); master = ctx.createGain(); master.gain.value = sound ? .55 : 0; master.connect(ctx.destination);
+        ctx = new AC(); master = ctx.createGain(); master.gain.value = sound ? .55 : 0;
+        // mix bus: tame harsh highs, warm the lows, glue it together, and add a small room
+        const hs = ctx.createBiquadFilter(); hs.type = 'highshelf'; hs.frequency.value = 6500; hs.gain.value = -5;
+        const ls = ctx.createBiquadFilter(); ls.type = 'lowshelf'; ls.frequency.value = 180; ls.gain.value = 1.5;
+        const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -16; comp.knee.value = 12; comp.ratio.value = 3; comp.attack.value = .01; comp.release.value = .2;
+        const rv = ctx.createConvolver(), len = Math.floor(ctx.sampleRate*1.6), ir = ctx.createBuffer(2, len, ctx.sampleRate);
+        for(let c=0;c<2;c++){ const d = ir.getChannelData(c); for(let i=0;i<len;i++) d[i] = (Math.random()*2 - 1)*Math.pow(1 - i/len, 3.2)*(i < ctx.sampleRate*.012 ? 0 : 1); }
+        rv.buffer = ir; const wet = ctx.createGain(); wet.gain.value = .16; const rvlp = ctx.createBiquadFilter(); rvlp.type = 'lowpass'; rvlp.frequency.value = 4200;
+        master.connect(hs).connect(ls).connect(comp).connect(ctx.destination);
+        master.connect(rv); rv.connect(rvlp).connect(wet).connect(comp);
         nbuf = ctx.createBuffer(1, ctx.sampleRate*2, ctx.sampleRate);
         const d = nbuf.getChannelData(0); for(let i=0;i<d.length;i++) d[i] = Math.random()*2-1;
       }
@@ -2551,10 +2573,11 @@ ${JSON.stringify(part)}`;
         o1.start(t); o2.start(t); o1.stop(t + d + .05); o2.stop(t + .15);
       },
       // ===== a little band: each song picks its own instruments, so every song sounds different =====
-      inst(name, f, t, dur, vol){
+      inst(name, f, t, dur, vol, pan){
         if(!sound || !ctx) return;
         const d = Math.max(.06, dur);
-        const out = ctx.createGain(); out.connect(master);
+        const out = ctx.createGain();
+        if(pan && ctx.createStereoPanner){ const pn = ctx.createStereoPanner(); pn.pan.value = Math.max(-1, Math.min(1, pan)); out.connect(pn).connect(master); } else out.connect(master);
         const env = (g, a, peak, sus, rel, end) => { g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + a); g.gain.exponentialRampToValueAtTime(Math.max(.0001, peak*sus), t + a + .12); g.gain.setValueAtTime(Math.max(.0001, peak*sus), Math.max(t + a + .12, end - rel)); g.gain.exponentialRampToValueAtTime(.0001, end); };
         const osc = (type, fr, det) => { const o = ctx.createOscillator(); o.type = type; o.frequency.setValueAtTime(fr, t); if(det) o.detune.value = det; return o; };
         const start = (nodes, end) => nodes.forEach(n => { n.start(t); n.stop(end + .05); });
@@ -2575,20 +2598,20 @@ ${JSON.stringify(part)}`;
             const vib = osc('sine', 5.4), vg = ctx.createGain(); vg.gain.setValueAtTime(0, t); vg.gain.linearRampToValueAtTime(f*.012, t + .25); vib.connect(vg).connect(o.frequency);
             env(g, .05, vol, .8, .08, end); o.connect(g); o2.connect(w2).connect(g); g.connect(out); start([o, o2, vib], end); break; }
           case 'brass': {    // a little horn section
-            const g = ctx.createGain(), l = lpf(f*1.5, 2); l.frequency.exponentialRampToValueAtTime(f*6, t + .08); l.frequency.exponentialRampToValueAtTime(f*3, end);
+            const g = ctx.createGain(), l = lpf(f*1.4, 1.2); l.frequency.exponentialRampToValueAtTime(Math.min(3000, f*4), t + .1); l.frequency.exponentialRampToValueAtTime(f*2.4, end);
             const a = osc('sawtooth', f, -6), b = osc('sawtooth', f, 7); env(g, .04, vol, .75, .08, end);
             a.connect(l); b.connect(l); l.connect(g).connect(out); start([a, b], end); break; }
           case 'pluck': {    // bright synth pluck
             end = t + Math.min(.6, d + .2); const g = ctx.createGain(), l = lpf(f*8, 3); l.frequency.exponentialRampToValueAtTime(f*1.2, t + .25);
             const a = osc('sawtooth', f); env(g, .004, vol, .3, .15, end); a.connect(l).connect(g).connect(out); start([a], end); break; }
           case 'supersaw': { // wide trance lead / pad
-            const g = ctx.createGain(), l = lpf(Math.min(9000, f*7), 1); env(g, .02, vol, .7, .1, end);
-            const os = [-14, -5, 0, 6, 15].map(dt => { const o = osc('sawtooth', f, dt); o.connect(l); return o; });
+            const g = ctx.createGain(), l = lpf(Math.min(3200, f*4), .6); env(g, .035, vol, .7, .14, end);
+            const os = [-12, -4, 0, 5, 13].map(dt => { const o = osc('sawtooth', f, dt); o.connect(l); return o; });
             l.connect(g).connect(out); start(os, end); break; }
           case 'square': {   // 8-bit lead
-            const g = ctx.createGain(), a = osc('square', f); env(g, .003, vol, .6, .03, end); a.connect(g).connect(out); start([a], end); break; }
+            const g = ctx.createGain(), a = osc('square', f), l = lpf(Math.min(4500, f*5), .5); env(g, .005, vol*.9, .55, .05, end); a.connect(l).connect(g).connect(out); start([a], end); break; }
           case 'accordion': {
-            const g = ctx.createGain(), l = lpf(f*5, 1.2), a = osc('square', f, -9), b = osc('sawtooth', f, 9);
+            const g = ctx.createGain(), l = lpf(Math.min(2600, f*3.5), .8), a = osc('square', f, -9), b = osc('sawtooth', f, 9);
             const vib = osc('sine', 5.8), vg = ctx.createGain(); vg.gain.value = f*.006; vib.connect(vg); vg.connect(a.frequency); vg.connect(b.frequency);
             env(g, .03, vol, .85, .06, end); a.connect(l); b.connect(l); l.connect(g).connect(out); start([a, b, vib], end); break; }
           case 'clav': {     // funky clavinet stab
@@ -2604,6 +2627,21 @@ ${JSON.stringify(part)}`;
             const cs = ctx.createBufferSource(), cg = ctx.createGain(), cf = lpf(3000); cs.buffer = nbuf; cg.gain.setValueAtTime(vol*.8, t); cg.gain.exponentialRampToValueAtTime(.0001, t + .02); cs.connect(cf).connect(cg).connect(out); cs.start(t, Math.random()); cs.stop(t + .03); break; }
           case 'clap': { end = t + .25; [0, .012, .026].forEach((o, k) => { const cs = ctx.createBufferSource(), bp = ctx.createBiquadFilter(), cg = ctx.createGain(); cs.buffer = nbuf; bp.type = 'bandpass'; bp.frequency.value = 1500; bp.Q.value = 1.2;
               const tt = t + o, len = k === 2 ? .2 : .03; cg.gain.setValueAtTime(vol, tt); cg.gain.exponentialRampToValueAtTime(.0001, tt + len); cs.connect(bp).connect(cg).connect(out); cs.start(tt, Math.random()); cs.stop(tt + len + .02); }); break; }
+          case 'snare': {   // soft brushed snare: a short tone body plus airy noise
+            end = t + .22; const g = ctx.createGain(), a = osc('triangle', 190); a.frequency.exponentialRampToValueAtTime(140, t + .06);
+            g.gain.setValueAtTime(vol*.6, t); g.gain.exponentialRampToValueAtTime(.0001, t + .09); a.connect(g).connect(out); start([a], t + .1);
+            const cs = ctx.createBufferSource(), bp = ctx.createBiquadFilter(), cg = ctx.createGain(); cs.buffer = nbuf; bp.type = 'bandpass'; bp.frequency.value = 2400; bp.Q.value = .7;
+            cg.gain.setValueAtTime(vol, t); cg.gain.exponentialRampToValueAtTime(.0001, end); cs.connect(bp).connect(cg).connect(out); cs.start(t, Math.random()); cs.stop(end + .02); break; }
+          case 'ride': { end = t + .45; const cs = ctx.createBufferSource(), bp = ctx.createBiquadFilter(), cg = ctx.createGain(); cs.buffer = nbuf; bp.type = 'bandpass'; bp.frequency.value = 7500; bp.Q.value = 1.5;
+            cg.gain.setValueAtTime(vol, t); cg.gain.exponentialRampToValueAtTime(.0001, end); cs.connect(bp).connect(cg).connect(out);
+            const a = osc('sine', 3150), ag = ctx.createGain(); ag.gain.setValueAtTime(vol*.15, t); ag.gain.exponentialRampToValueAtTime(.0001, end); a.connect(ag).connect(out); start([a], end); cs.start(t, Math.random()); cs.stop(end + .02); break; }
+          case 'rim': { end = t + .06; const a = osc('triangle', 1700), g = ctx.createGain(); g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(.0001, end); a.connect(g).connect(out); start([a], end); break; }
+          case 'riser': { end = t + d; const cs = ctx.createBufferSource(), bp = ctx.createBiquadFilter(), cg = ctx.createGain(); cs.buffer = nbuf; bp.type = 'bandpass'; bp.Q.value = 2;
+            bp.frequency.setValueAtTime(400, t); bp.frequency.exponentialRampToValueAtTime(6000, end); cg.gain.setValueAtTime(.0001, t); cg.gain.exponentialRampToValueAtTime(vol, end - .02); cg.gain.exponentialRampToValueAtTime(.0001, end + .05);
+            cs.connect(bp).connect(cg).connect(out); cs.start(t, Math.random()); cs.stop(end + .1); break; }
+          case 'crash': {   // a soft, shimmering cymbal swell
+            end = t + 1.6; const cs = ctx.createBufferSource(), hp = ctx.createBiquadFilter(), cg = ctx.createGain(); cs.buffer = nbuf; hp.type = 'highpass'; hp.frequency.value = 5000;
+            cg.gain.setValueAtTime(vol, t); cg.gain.exponentialRampToValueAtTime(.0001, end); cs.connect(hp).connect(cg).connect(out); cs.start(t, Math.random()); cs.stop(end + .05); break; }
           case 'hat': { const cs = ctx.createBufferSource(), hp = ctx.createBiquadFilter(), cg = ctx.createGain(); cs.buffer = nbuf; hp.type = 'highpass'; hp.frequency.value = 7000;
             cg.gain.setValueAtTime(vol, t); cg.gain.exponentialRampToValueAtTime(.0001, t + (dur > .1 ? .16 : .045)); cs.connect(hp).connect(cg).connect(out); cs.start(t, Math.random()); cs.stop(t + .2); break; }
           case 'scratch': {   // "wicka-wicka": a record pushed back and forth
@@ -8001,15 +8039,36 @@ Reply as JSON only: {"name":"...","why":"..."}`;
     carnival: {n:'리우 카니발', g:'카니발 삼바', e:'🦚', bpm:122, root:220, bars:24, beat:'samba', prog:[0, 5, 7, 0], pad:true, scale:PENTA, band:{lead:'flute', bass:'walk', pad:null, arp:'marimba', catch:'marimba'}, arp:'marimba', mpat:[[0, .25], [.25, .25], [.5, .5], [1.5, .5], [2, .25], [2.25, .25], [2.5, .5], [3.5, .5]]},
     mirrorhall: {n:'미러볼 퍼레이드', g:'디스코', e:'🪩', bpm:120, root:233.1, bars:24, beat:'funk', prog:[0, 5, 9, 7], pad:true, scale:PENTA, band:{lead:'clav', bass:'slap', pad:'supersaw', arp:'pluck', catch:'clav'}, arp:'pluck', mpat:[[0, .5], [.75, .25], [1.5, .5], [2, .5], [3, .25], [3.5, .5]]},
     moonlake: {n:'달빛 호수', g:'드림 재즈', e:'🌕', bpm:84, root:246.9, bars:20, beat:'swing', prog:[0, 9, 5, 7], pad:true, scale:PENTA, band:{lead:'flute', bass:'walk', pad:'warmpad', arp:'bell', catch:'flute'}, arp:'bell', mpat:[[0, 1.5], [2, .5], [2.5, .5], [3, 1]]},
-    festival: {n:'전설의 페스티벌', g:'페스티벌 EDM', e:'🎇', bpm:130, root:277.2, bars:28, beat:'four', prog:[9, 5, 0, 7], minor:true, scale:MINP, band:{lead:'supersaw', bass:'808', pad:'supersaw', arp:'pluck', catch:'pluck'}, arp:'pluck', mpat:[[0, .5], [.5, .5], [1, .5], [1.5, .5], [2, 1], [3, .5], [3.5, .5]]}
+    festival: {n:'전설의 페스티벌', g:'페스티벌 EDM', e:'🎇', bpm:130, root:277.2, bars:28, beat:'four', prog:[9, 5, 0, 7], minor:true, scale:MINP, band:{lead:'supersaw', bass:'808', pad:'supersaw', arp:'pluck', catch:'pluck'}, arp:'pluck', mpat:[[0, .5], [.5, .5], [1, .5], [1.5, .5], [2, 1], [3, .5], [3.5, .5]]},
+    letter: {n:'검은 편지', g:'누아르 재즈', e:'✉️', bpm:88, root:196, bars:20, beat:'swing', prog:[0, 8, 5, 7], minor:true, scale:[0, 2, 3, 5, 7, 8, 11, 12, 14, 15], band:{lead:'epiano', bass:'walk', pad:'organ', arp:null, catch:'epiano'}, mpat:[[0, 1], [1.5, .5], [2, .75], [2.75, .25], [3, 1]]},
+    factory: {n:'녹슨 컨베이어', g:'인더스트리얼', e:'🏭', bpm:104, root:174.6, bars:22, beat:'funk', prog:[0, 1, 0, 8], minor:true, scale:MINP, band:{lead:'clav', bass:'bass808', pad:null, arp:'square', catch:'clav'}, arp:'square', mpat:[[0, .25], [.5, .25], [1, .5], [2, .25], [2.5, .25], [3, .5]]},
+    nightmarket: {n:'야시장 탐문', g:'훵키 서스펜스', e:'🏮', bpm:98, root:220, bars:20, beat:'boom', prog:[0, 3, 5, 3], minor:true, scale:MINP, band:{lead:'pluck', bass:'walk', pad:null, arp:'bell', catch:'pluck'}, arp:'bell', mpat:[[0, .5], [1, .25], [1.5, .5], [2.5, .5], [3.5, .5]]},
+    ghostshop: {n:'유령의 왈츠', g:'스푸키 왈츠', e:'👻', bpm:108, root:233.1, bars:22, beat:'trot', prog:[0, 8, 3, 7], minor:true, scale:[0, 2, 3, 5, 7, 8, 11, 12, 14, 15], band:{lead:'organ', bass:'walk', pad:'organ', arp:null, catch:'organ'}, mpat:[[0, 1], [1, .5], [1.5, .5], [2, 1.5]]},
+    library: {n:'먼지 쌓인 책장', g:'바로크 서스펜스', e:'📚', bpm:100, root:261.6, bars:22, beat:'march', prog:[0, 7, 9, 4], minor:true, scale:MINP, band:{lead:'pluck', bass:'walk', pad:'organ', arp:'pluck', catch:'pluck'}, arp:'pluck', mpat:[[0, .25], [.25, .25], [.5, .25], [.75, .25], [1, 1], [2, .5], [2.5, .5], [3, 1]]},
+    train: {n:'밤기차 리듬', g:'트레인 셔플', e:'🚂', bpm:120, root:220, bars:24, beat:'boom', prog:[0, 5, 7, 5], pad:true, scale:PENTA, band:{lead:'flute', bass:'walk', pad:'warmpad', arp:'marimba', catch:'flute'}, arp:'marimba', mpat:[[0, .5], [.5, .5], [1.5, .5], [2, .5], [3, .5], [3.5, .5]]},
+    tunnel: {n:'동굴의 메아리', g:'앰비언트 트랩', e:'🕳️', bpm:90, root:185, bars:20, beat:'boom', prog:[0, 0, 8, 10], minor:true, scale:MINP, band:{lead:'bell', bass:'bass808', pad:'warmpad', arp:null, catch:'bell'}, kit:'hiphop', mpat:[[0, 1], [1.5, .5], [2.5, 1]]},
+    lighthouse: {n:'폭풍의 등대', g:'바다 셰이크', e:'🗼', bpm:112, root:196, bars:22, beat:'trot', prog:[0, 5, 0, 7], minor:true, scale:MINP, band:{lead:'accordion', bass:'walk', pad:'warmpad', arp:null, catch:'accordion'}, mpat:[[0, .75], [.75, .25], [1, .5], [1.5, .5], [2, 1], [3, 1]]},
+    oldkitchen: {n:'노포의 비밀', g:'올드 소울', e:'🍲', bpm:84, root:220, bars:20, beat:'swing', prog:[0, 9, 2, 7], pad:true, scale:PENTA, band:{lead:'organ', bass:'walk', pad:'epiano', arp:null, catch:'organ'}, mpat:[[0, 1.5], [2, .5], [2.5, .5], [3, 1]]},
+    masquerade: {n:'가면의 탱고', g:'탱고', e:'🎭', bpm:116, root:220, bars:24, beat:'trot', prog:[0, 0, 7, 8], minor:true, scale:[0, 1, 4, 5, 7, 8, 10, 12, 13, 16], band:{lead:'accordion', bass:'slap', pad:'organ', arp:'pluck', catch:'accordion'}, arp:'pluck', mpat:[[0, .75], [.75, .25], [1, .5], [1.5, .5], [2, .5], [2.75, .25], [3, 1]]},
+    mountain: {n:'산사의 종소리', g:'젠 앰비언트', e:'🏔️', bpm:80, root:293.7, bars:20, beat:'boom', prog:[0, 7, 5, 7], pad:true, scale:PENTA, band:{lead:'flute', bass:'sub', pad:'warmpad', arp:'bell', catch:'bell'}, arp:'bell', mpat:[[0, 1.5], [2, 1], [3, 1]]},
+    desert: {n:'사막의 향신료', g:'오리엔탈 그루브', e:'🐪', bpm:118, root:220, bars:24, beat:'funk', prog:[0, 1, 0, 8], minor:true, scale:[0, 1, 4, 5, 7, 8, 11, 12, 13, 16], band:{lead:'flute', bass:'slap', pad:null, arp:'pluck', catch:'flute'}, arp:'pluck', mpat:[[0, .25], [.25, .25], [.5, .5], [1.5, .5], [2, .25], [2.25, .25], [2.5, 1]]},
+    aquarium: {n:'심해의 꿈', g:'드림 팝', e:'🐙', bpm:92, root:246.9, bars:20, beat:'boom', prog:[0, 9, 5, 4], pad:true, scale:PENTA, band:{lead:'marimba', bass:'sub', pad:'warmpad', arp:'bell', catch:'marimba'}, arp:'bell', mpat:[[0, .5], [.5, .5], [1.5, 1], [3, 1]]},
+    clocktower: {n:'째깍째깍 테크노', g:'클락워크 테크노', e:'🕰️', bpm:128, root:261.6, bars:26, beat:'four', prog:[0, 8, 10, 7], minor:true, scale:MINP, band:{lead:'pluck', bass:'sub', pad:null, arp:'bell', catch:'pluck'}, arp:'bell', mpat:[[0, .25], [.5, .25], [1, .25], [1.5, .25], [2, .25], [2.5, .25], [3, .5]]},
+    cyber: {n:'시스템 해킹', g:'사이버 신스웨이브', e:'💾', bpm:132, root:207.7, bars:26, beat:'four', prog:[0, 8, 3, 10], minor:true, scale:MINP, band:{lead:'supersaw', bass:'808', pad:'warmpad', arp:'square', catch:'square'}, arp:'square', mpat:[[0, .5], [.5, .25], [.75, .25], [1, .5], [2, .5], [2.5, .5], [3.5, .5]]},
+    palace: {n:'궁중 면 연회', g:'궁중 국악풍', e:'🏯', bpm:96, root:293.7, bars:22, beat:'march', prog:[0, 5, 7, 5], pad:true, scale:PENTA, band:{lead:'flute', bass:'walk', pad:'organ', arp:'marimba', catch:'flute'}, arp:'marimba', mpat:[[0, 1], [1, .5], [1.5, .5], [2, 1], [3, .5], [3.5, .5]]},
+    airship: {n:'구름 위 모험', g:'어드벤처 오케스트라', e:'🎈', bpm:124, root:329.6, bars:26, beat:'march', prog:[0, 5, 9, 7], pad:true, scale:PENTA, band:{lead:'brass', bass:'walk', pad:'warmpad', arp:'bell', catch:'brass'}, arp:'bell', mpat:[[0, .5], [.5, .5], [1, 1], [2, .5], [2.5, .5], [3, 1]]},
+    volcano: {n:'용암 냄비', g:'라바 록', e:'🌋', bpm:146, root:164.8, bars:28, beat:'four', prog:[0, 0, 10, 8], minor:true, scale:MINP, band:{lead:'square', bass:'bass808', pad:'supersaw', arp:'square', catch:'square'}, arp:'square', mpat:[[0, .25], [.25, .25], [.5, .5], [1, .25], [1.25, .25], [1.5, .5], [2.5, .5], [3, 1]]},
+    hideout: {n:'어둠의 성', g:'다크 오케스트라', e:'🏰', bpm:110, root:196, bars:24, beat:'march', prog:[0, 8, 6, 7], minor:true, scale:[0, 2, 3, 5, 7, 8, 11, 12, 14, 15], band:{lead:'organ', bass:'bass808', pad:'brass', arp:'pluck', catch:'organ'}, arp:'pluck', mpat:[[0, 1], [1, .5], [1.5, .5], [2, .75], [2.75, .25], [3, 1]]},
+    finale: {n:'첫 레시피', g:'에픽 피날레', e:'📜', bpm:136, root:261.6, bars:30, beat:'four', prog:[9, 5, 0, 7], pad:true, scale:PENTA, band:{lead:'supersaw', bass:'808', pad:'brass', arp:'bell', catch:'bell'}, arp:'bell', mpat:[[0, .5], [.5, .5], [1, .5], [1.5, .5], [2, 1], [3, .5], [3.5, .5]]}
   };
 
   const MK_DIFF = {
     easy:  {n:'쉬움', d:'큰 얼굴 원', pats:[[0,8],[0,4,8,12],[0,8,12],[0,4,8]], strum:.08, bend:.08, lead:1.5},
     normal:{n:'보통', d:'중간 원 · 긴 면발', pats:[[0,4,8,12],[0,2,4,8,12],[0,4,6,8,12],[0,4,8,10,12],[0,6,8,12]], strum:.12, bend:.12, lead:1.2},
+    upper: {n:'중상', d:'작은 원 · 바쁜 박자', pats:[[0,2,4,8,12],[0,4,6,8,10,12],[0,2,4,6,8,12],[0,4,8,10,12,14],[0,3,4,8,11,12]], strum:.13, bend:.125, lead:1.08},
     hard:  {n:'어려움', d:'작은 원 · 빠른 이동', pats:[[0,2,4,6,8,10,12,14],[0,3,4,6,8,11,12,14],[0,2,3,4,8,10,11,12],[0,4,6,7,8,12,14,15]], strum:.14, bend:.13, lead:.95}
   };
-  const MK_AI = {easy:[.35,.3,.15], normal:[.55,.28,.1], hard:[.78,.17,.04]};
+  const MK_AI = {easy:[.35,.3,.15], normal:[.55,.28,.1], upper:[.66,.22,.07], hard:[.78,.17,.04]};
   const MK_W = {p:.06, g:.11, o:.16};
   // one circle (the eater's face) slides left/right on the catch line; put it under the falling noodle balls
   const ST = 84, HIT = 486, XMIN = 46, XMAX = 354, CR = 34, SEMI = [0, 2, 4, 7, 9, 12, 14, 16, 19, 21];
@@ -8024,10 +8083,10 @@ Reply as JSON only: {"name":"...","why":"..."}`;
 
   function mkChart(songKey, diffKey, seed, ramp){
     const S = MK_SONGS[songKey], D = MK_DIFF[diffKey], r = mulberry32(seed + 31337), ramp0 = clamp(+ramp || 0, 0, 1);
-    const harder = MK_DIFF[diffKey === 'easy' ? 'normal' : 'hard'];   // later quests in a tier borrow a few busier bars
+    const harder = MK_DIFF[{easy:'normal', normal:'upper', upper:'hard', hard:'hard'}[diffKey] || 'hard'];   // later quests in a tier borrow a few busier bars
     const spb = 60/S.bpm, s16 = spb/4, notes = [];
     let x = 200, busyUntil = -1;
-    const maxStep = {easy:110, normal:170, hard:230}[diffKey] + 50*ramp0;
+    const maxStep = ({easy:110, normal:170, upper:200, hard:230}[diffKey] || 170) + 50*ramp0;
     for(let bar = 2; bar < S.bars; bar++){
       const P = r() < ramp0*.45 ? harder.pats : D.pats, pat = P[Math.floor(r()*P.length)];
       pat.forEach(slot => {
@@ -8048,15 +8107,82 @@ Reply as JSON only: {"name":"...","why":"..."}`;
     }
     return {notes, spb, len:S.bars*16*s16 + spb*2};
   }
+  // ---------- each song gets its own groove, and songs now have a shape: intro → verse → chorus → break → chorus ----------
+  const MK_GROOVE = {lofi:'lofi', blues:'swing', funk:'funk', march:'march', kpop:'disco', edm:'house', chip:'chip',
+    contest:'march', stadium:'rock', fireworks:'house', boss:'chip', radio:'lofi', rainjazz:'swing', blackout:'funk', trackfinal:'rock',
+    award:'disco', strobe:'house', space:'chip', store:'bossa', mirrorhall:'disco', moonlake:'ballad', festival:'house',
+    letter:'swing', factory:'rock', nightmarket:'reggae', ghostshop:'ballad', library:'ballad', train:'shuffle', tunnel:'trap', lighthouse:'reggae',
+    oldkitchen:'swing', masquerade:'tango', mountain:'ballad', desert:'funk', aquarium:'bossa', clocktower:'house', cyber:'trap', palace:'march',
+    airship:'rock', volcano:'rock', hideout:'tango', finale:'disco'};
+  function mkSection(bar, bars){
+    const body = bar - 2, total = bars - 2, cs = Math.max(8, Math.floor(total*.5)), br = total >= 22 ? total - 6 : -1;
+    if(body < 4) return 0;                       // intro
+    if(br >= 0 && body >= br && body < br + 2) return .5;   // break
+    return body >= cs ? 2 : 1;                   // chorus : verse
+  }
+  // drums + bass for one bar of a groove. lvl: 0 intro, .5 break, 1 verse, 2 chorus
+  function mkGrooveBar(g, ev, t0, spb, hz, ch, third, lvl, phraseEnd, last){
+    const P = (beats, k, extra) => beats.forEach(b => ev.push(Object.assign({t:t0 + b*spb, k}, extra || {})));
+    const bass = (b, semi, len, extra) => ev.push(Object.assign({t:t0 + b*spb, k:'bass', f:hz(semi - 12), d:spb*len}, extra || {}));
+    const full = lvl >= 1, big = lvl >= 2, R = ch;
+    if(lvl === 0){ P([0, 2], 'sip'); bass(0, R, 3.8); return; }
+    if(lvl === .5){ P([0, 1, 2, 3], 'sip'); if(last) ev.push({t:t0, k:'riser', d:spb*4}); return; }
+    switch(g){
+      case 'house': P([0, 1, 2, 3], 'gulp'); P([.5, 1.5, 2.5, 3.5], 'ohat'); P([1, 3], 'slurp'); if(big) P([.25, .75, 1.25, 1.75, 2.25, 2.75, 3.25, 3.75], 'sip');
+        [.5, 1.5, 2.5, 3.5].forEach(b => bass(b, R, .4)); break;
+      case 'disco': P([0, 1, 2, 3], 'gulp'); P([.5, 1.5, 2.5, 3.5], 'ohat'); P([1, 3], 'slurp'); P([0, .25, 1, 1.25, 2, 2.25, 3, 3.25], 'sip');
+        [0, .5, 1, 1.5, 2, 2.5, 3, 3.5].forEach((b, i) => bass(b, R + (i % 2 ? 12 : 0), .42)); break;
+      case 'rock': P([0, 1.5, 2], 'gulp'); P([1, 3], 'slurp'); P([0, .5, 1, 1.5, 2, 2.5, 3, 3.5], 'sip'); if(big) P([2.5], 'gulp');
+        [0, .5, 1, 1.5, 2, 2.5, 3, 3.5].forEach((b, i) => bass(b, i >= 6 && phraseEnd ? R + 7 : R, .45)); break;
+      case 'funk': P([0, .75, 1.75, 2.5], 'gulp'); P([1, 3], 'slurp'); P([1.75, 3.5], 'ghost'); P([0, .25, .5, .75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 3.25, 3.5, 3.75], 'sip');
+        [[0, 0], [.75, 12], [1.5, 0], [2, 7], [2.75, 12], [3.5, 10]].forEach(([b, iv]) => bass(b, R + iv, .3)); break;
+      case 'swing': P([0, 2], 'gulp', {soft:1}); P([1, 3], 'ghost'); [0, 1, 1.66, 2, 3, 3.66].forEach(b => ev.push({t:t0 + b*spb, k:'ride'}));
+        [0, 1, 2, 3].forEach(b => bass(b, R + [0, third, 7, b === 3 ? 6 : 9][b], .9)); break;   // walking bass with an approach note
+      case 'shuffle': P([0, 2], 'gulp'); P([1, 3], 'slurp'); [0, .66, 1, 1.66, 2, 2.66, 3, 3.66].forEach(b => ev.push({t:t0 + b*spb, k:'sip'}));
+        [0, .66, 1, 1.66, 2, 2.66, 3, 3.66].forEach((b, i) => bass(b, R + [0, 0, 4, 4, 7, 7, 9, 7][i] - (third === 3 && [2, 3].includes(i) ? 1 : 0), .32)); break;
+      case 'bossa': P([0, 1.5, 2, 3.5], 'gulp', {soft:1}); [0, .75, 1.5, 2.5, 3].forEach(b => ev.push({t:t0 + b*spb, k:'rim'})); P([0, .5, 1, 1.5, 2, 2.5, 3, 3.5], 'sip', {soft:1});
+        bass(0, R, 1.3); bass(1.5, R + 7, .5); bass(2, R + 7, 1.3); bass(3.5, R, .5); break;
+      case 'reggae': P([2], 'gulp'); P([2], 'slurp'); P([0, .5, 1, 1.5, 2, 2.5, 3, 3.5], 'sip', {soft:1});
+        [.5, 1.5, 2.5, 3.5].forEach(b => ev.push({t:t0 + b*spb, k:'skank', f:hz(R + 12), d:spb*.25}));
+        bass(0, R, .7); bass(.75, R + 7, .25); bass(1, R + 12, .45); bass(2.5, R + 10, .4); bass(3, R + 7, .9); break;
+      case 'trap': P([0, 1.75, 2.5], 'gulp'); P([2], 'slurp'); [0, .5, 1, 1.5, 2, 2.5, 3, 3.5].forEach(b => ev.push({t:t0 + b*spb, k:'sip'}));
+        if(big || phraseEnd) [3, 3.125, 3.25, 3.375, 3.5, 3.625, 3.75, 3.875].forEach(b => ev.push({t:t0 + b*spb, k:'sip', soft:1}));
+        bass(0, R, 1.6, {glide:1}); bass(2.5, R + (phraseEnd ? 3 : 0), 1.4, {glide:1}); break;
+      case 'tango': P([0, 1, 2, 3], 'gulp', {soft:1}); P([1.75], 'slurp'); P([3.5], 'rim');
+        [[0, 0], [1, 0], [1.75, 7], [2, 7], [3, 0], [3.5, -1]].forEach(([b, iv]) => bass(b, R + iv, .3)); break;
+      case 'ballad': P([0], 'gulp', {soft:1}); P([2.5], 'gulp', {soft:1}); P([2], 'slurp', {soft:1}); P([0, .66, 1, 1.66, 2, 2.66, 3, 3.66], 'sip', {soft:1});
+        bass(0, R, 1.9); bass(2, R + 7, 1.9); break;
+      case 'lofi': P([0, 2.66], 'gulp', {soft:1}); P([1, 3], 'slurp', {soft:1}); [0, .62, 1, 1.62, 2, 2.62, 3, 3.62].forEach(b => ev.push({t:t0 + b*spb, k:'sip', soft:1}));
+        bass(0, R, 1.4); bass(2.5, R + 7, 1.2); break;
+      case 'march': P([0, 2], 'gulp'); P([1, 3], 'slurp'); P([3.25, 3.5, 3.75], 'slurp', {soft:1});
+        bass(0, R, .8); bass(1, R + 7, .8); bass(2, R, .8); bass(3, R + 7, .8); break;
+      case 'chip': P([0, 2], 'gulp'); P([1, 3], 'slurp'); P([0, .25, .5, .75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 3.25, 3.5, 3.75], 'sip', {soft:1});
+        [0, .5, 1, 1.5, 2, 2.5, 3, 3.5].forEach((b, i) => bass(b, R + (i % 2 ? 12 : 0), .4)); break;
+    }
+    if(big && !phraseEnd) ev.push({t:t0, k:'chorusLift'});
+  }
   function mkMusic(songKey){
     const S = MK_SONGS[songKey], spb = 60/S.bpm, ev = [], prog = S.prog || [0, 7, 9, 5], third = S.minor ? 3 : 4;
     const hz = semi => S.root*Math.pow(2, semi/12), sw = S.beat === 'swing' || S.beat === 'boom' ? .62 : .5;
+    const mr = mulberry32([...songKey].reduce((a, c) => a*31 + c.charCodeAt(0), 7) >>> 0), mel = {prev:null, contour:[]};
+    { const SC = (S.scale || (S.minor ? MINP : PENTA)); const set = new Set(); SC.forEach(v => [0, 12].forEach(o => { const x = v % 12 + o; if(x >= 4 && x <= 21) set.add(x); }));
+      mel.ladder = [...set].sort((a, b) => a - b); mel.mid = Math.floor(mel.ladder.length*.4);
+      let c = 0; for(let i=0;i<8;i++){ c += [-2, -1, -1, 1, 1, 2, -1, 2][Math.floor(mr()*8)]; c = Math.max(-3, Math.min(4, c)); mel.contour.push(c); } }
     for(let bar = 0; bar < S.bars; bar++){
       const ch = prog[bar % prog.length];
       for(let b = 0; b < 4; b++){
         const t = (bar*4 + b)*spb;
         if(bar < 2){ ev.push({t, k:'tick'}); if(b === 0) ev.push({t, k:'bowl'}); if(bar === 1 && b === 3) ev.push({t:t + spb/2, k:'fill'}); continue; }
         const phraseEnd = bar % 4 === 3 && b === 3, B = S.beat;
+        const GR = S.kit === 'hiphop' ? null : MK_GROOVE[songKey], lvl = mkSection(bar, S.bars), nextLvl = mkSection(bar + 1, S.bars);
+        if(GR){
+          if(b === 0){
+            mkGrooveBar(GR, ev, t, spb, hz, ch, third, lvl, bar % 4 === 3, nextLvl === 2 && lvl !== 2);
+            if(lvl === 2 && mkSection(bar - 1, S.bars) !== 2) ev.push({t, k:'bowl'});            // crash into the chorus
+            if(lvl === 1 && mkSection(bar - 1, S.bars) === 0) ev.push({t, k:'bowl'});
+            if(bar % 4 === 3 && lvl >= 1) ev.push({t:t + spb*3, k:'fill'});
+          }
+        } else {
         // kick ("꿀꺽")
         if(B === 'four' || ((B === 'funk' || B === 'swing' || B === 'trot' || B === 'march' || B === 'chip') && (b === 0 || b === 2))) ev.push({t, k:'gulp'});
         if(B === 'funk' && b === 2 && bar % 2 === 1) ev.push({t:t + spb*.75, k:'gulp'});
@@ -8081,14 +8207,33 @@ Reply as JSON only: {"name":"...","why":"..."}`;
         if(b === 0 || b === 2) ev.push({t, k:'bass', f:hz(ch - 12), d:spb*1.8});
         if(b === 3 && !phraseEnd) ev.push({t:t + spb/2, k:'bass', f:hz(ch - 12 + 7), d:spb*.6});
         if(B === 'trot' && (b === 1 || b === 3)) ev.push({t, k:'bass', f:hz(ch - 12 + 7), d:spb*.5});
+        }
         // pad chords and arpeggios give each song its own colour
-        if((S.band ? S.band.pad : S.pad) && b === 0) [0, third, 7].forEach(iv => ev.push({t, k:'pad', f:hz(ch + iv), d:spb*3.8}));
+        if((S.band ? S.band.pad : S.pad) && b === 0){ const jazzy = ['swing', 'boom'].includes(S.beat); const vo = jazzy ? [0, third, 7, S.minor ? 10 : 11] : [0, 7, third + 12];
+          vo.forEach(iv => ev.push({t, k:'pad', f:hz(ch + iv), d:spb*3.9})); }
         if(S.pad && S.beat === 'trot' && (b === 1 || b === 3)) [0, third, 7].forEach(iv => ev.push({t:t + spb/2, k:'pad', f:hz(ch + iv + 12), d:spb*.3}));
-        if(S.arp && (!S.band || S.band.arp)){ const steps = S.beat === 'chip' ? 4 : 2; for(let q=0;q<steps;q++){ const iv = [0, third, 7, 12][(b*steps + q) % 4]; ev.push({t:t + spb*q/steps, k:'arp', f:hz(ch + iv + 12), d:spb/steps*.9}); } }
-        // 후루룩 melody: a little motif built from chord tones, changing every bar
-        { const SC = S.scale || PENTA, pat = S.mpat || [[0, .5], [1.5, .5], [2, 1], [3, .5], [3.5, .5]], mot = (bar*7 + 3 + (S.ms || 0)) % 5;
-          pat.forEach(([pos, len], j) => { if(Math.floor(pos) !== b || ((j + mot) % 3 === 2 && bar % 2)) return;
-            const deg = SC[(j*2 + mot + (bar % 4) + (S.ms || 0)*3) % SC.length]; ev.push({t:t + spb*(pos - b), k:'mel', f:hz(deg + (deg < 7 ? 12 : 0)), d:spb*len*.95}); }); }
+        if(S.arp && (!S.band || S.band.arp) && (!GR || lvl >= 2 || (GR === 'chip' && lvl >= 1))){ const steps = S.beat === 'chip' ? 4 : 2; for(let q=0;q<steps;q++){ const iv = [0, third, 7, 12][(b*steps + q) % 4]; ev.push({t:t + spb*q/steps, k:'arp', f:hz(ch + iv + 12), d:spb/steps*.9}); } }
+        // melody: real 4-bar phrases. A motif (rhythm + contour in scale steps) is stated, answered a step higher,
+        // varied, then the phrase comes home to the chord root. Strong beats lean onto chord tones.
+        if(b === 0 && (!GR || lvl >= 1)){
+          const pat = S.mpat || [[0, .5], [1.5, .5], [2, 1], [3, .5], [3.5, .5]];
+          const lift = GR && lvl === 2 ? 2 : 0, harmony = GR && lvl === 2;
+          const pb = (bar - 2) % 4, phrase = Math.floor((bar - 2)/4);
+          const chordT = [ch, ch + third, ch + 7].map(v => ((v % 12) + 12) % 12);
+          const isCT = x => chordT.includes(((x % 12) + 12) % 12);
+          const L = mel.ladder, mid = mel.mid;
+          const notes = pb === 3 ? pat.filter(([pos]) => pos < 2.5).concat([[3, 1]]) : pat;
+          const shift = (pb === 1 ? 1 : pb === 2 ? (phrase % 2 ? 2 : -1) : 0) + lift;
+          notes.forEach(([pos, len], j) => {
+            if(pb === 2 && j % 3 === 2 && notes.length > 3) return;   // a breath in the variation bar
+            const strong = pos % 1 === 0, last = pb === 3 && j === notes.length - 1;
+            let k = Math.max(0, Math.min(L.length - 1, mid + shift + mel.contour[j % mel.contour.length]));
+            if(last){ let best = k, bd = 99; L.forEach((x, n) => { if(((x - ch) % 12 + 12) % 12 === 0 && Math.abs(n - mid) < bd){ bd = Math.abs(n - mid); best = n; } }); k = best; }
+            else if(strong && !isCT(L[k])){ for(const d of [1, -1, 2, -2]){ const n = k + d; if(n >= 0 && n < L.length && isCT(L[n])){ k = n; break; } } }
+            ev.push({t:(bar*4 + pos)*spb + (mr() - .5)*.008, k:'mel', f:hz(L[k]), d:spb*len*(last ? 1.7 : .92), v:(strong ? 1 : .78)*(GR && lvl === 1 ? .85 : 1)});
+            if(harmony && k >= 2 && (strong || last)) ev.push({t:(bar*4 + pos)*spb, k:'mel2', f:hz(L[k - 2]), d:spb*len*(last ? 1.7 : .92)});
+          });
+        }
       }
     }
     return ev.sort((a, b) => a.t - b.t);
@@ -8101,6 +8246,22 @@ Reply as JSON only: {"name":"...","why":"..."}`;
   // play one musical event with the song's own instruments (returns false for drum hits)
   function mkVoice(S, e, at){
     const B = S.band || {lead:'marimba', bass:'sub', pad:'warmpad', arp:'bell'};
+    if(e.k === 'mel2'){ SFX.inst(B.lead === 'square' ? 'square' : B.pad || B.lead, e.f, at, Math.max(.18, e.d), .045, -.25); return true; }
+    if(e.k === 'riser'){ SFX.inst('riser', 0, at, e.d, .05, 0); return true; }
+    if(e.k === 'chorusLift') return true;
+    if(e.k === 'skank'){ [1, 1.26, 1.5].forEach((m, i) => SFX.inst(B.pad === 'organ' ? 'organ' : 'epiano', e.f*m, at, e.d, .03, (i - 1)*.3)); return true; }
+    if(e.k === 'ride'){ SFX.inst('ride', 0, at, .3, .05, .3); return true; }
+    if(e.k === 'rim'){ SFX.inst('rim', 0, at, .05, .07, -.15); return true; }
+    if(e.k === 'ghost'){ SFX.inst('snare', 0, at, .1, .035, .05); return true; }
+    if(e.k === 'ohat'){ SFX.inst('hat', 0, at, .3, .06, .3); return true; }
+    if(S.kit !== 'hiphop'){   // a soft, musical kit; the noodle slurp only colours the phrase endings
+      const light = ['swing', 'boom'].includes(S.beat) || S.bpm < 90 || e.soft;
+      if(e.k === 'gulp'){ SFX.inst('kick', 60, at, .4, light ? .28 : .36); return true; }
+      if(e.k === 'slurp'){ SFX.inst('snare', 0, at, .2, light ? .08 : .13, .05); return true; }
+      if(e.k === 'sip'){ SFX.inst('hat', 0, at, .04, e.soft ? .03 : .045, .25); return true; }
+      if(e.k === 'fill'){ [0, .09, .18].forEach((o, k) => SFX.inst('snare', 0, at + o, .2, .08 + k*.03, .05)); SFX.noodleBeat('slurp', at + .27); return true; }
+      if(e.k === 'bowl'){ SFX.inst('crash', 0, at, 1.6, .05, -.2); return true; }
+    }
     if(S.kit === 'hiphop'){
       if(e.k === 'gulp'){ SFX.inst('kick', 60, at, .4, .5); return true; }
       if(e.k === 'slurp'){ SFX.inst('clap', 0, at, .2, .32); SFX.noodleBeat('slurp', at); return true; }
@@ -8110,10 +8271,10 @@ Reply as JSON only: {"name":"...","why":"..."}`;
       if(e.k === 'scratch'){ SFX.inst('scratch', 0, at, e.d || .3, .2); return true; }
     }
     const V = {epiano:.13, organ:.07, flute:.12, brass:.08, pluck:.09, supersaw:.045, square:.05, accordion:.07, clav:.1, bell:.06, marimba:.11, warmpad:.03, stab:.05};
-    if(e.k === 'bass'){ SFX.inst(B.bass, e.f, at, e.d, B.bass === '808' || B.bass === 'bass808' ? .3 : B.bass === 'tri' ? .14 : .2); return true; }
-    if(e.k === 'pad'){ if(B.pad) SFX.inst(B.pad, e.f, at, e.d, (V[B.pad] || .05)*.35); return true; }
-    if(e.k === 'arp'){ if(B.arp) SFX.inst(B.arp, e.f*(B.arp === 'bell' ? .5 : 1), at, Math.min(e.d, .22), (V[B.arp] || .05)*.45); return true; }
-    if(e.k === 'mel'){ SFX.inst(B.lead, e.f, at, Math.max(.18, e.d), V[B.lead] || .1); return true; }
+    if(e.k === 'bass'){ SFX.inst(e.glide ? 'bass808' : B.bass, e.f, at, e.d, B.bass === '808' || B.bass === 'bass808' ? .3 : B.bass === 'tri' ? .14 : .2); return true; }
+    if(e.k === 'pad'){ if(B.pad) SFX.inst(B.pad, e.f, at, e.d, (V[B.pad] || .05)*.42, (Math.log2(e.f) % 1) - .5); return true; }
+    if(e.k === 'arp'){ if(B.arp){ mkVoice.lr = -(mkVoice.lr || .35); SFX.inst(B.arp, e.f*(B.arp === 'bell' ? .5 : 1), at, Math.min(e.d, .22), (V[B.arp] || .05)*.32, mkVoice.lr); } return true; }
+    if(e.k === 'mel'){ SFX.inst(B.lead, e.f, at, Math.max(.18, e.d), (V[B.lead] || .1)*(e.v || 1)); return true; }
     return false;
   }
   function pluckX(x, bend){
@@ -8148,19 +8309,42 @@ Reply as JSON only: {"name":"...","why":"..."}`;
     ['rainjazz','normal'],
     ['parade','normal'],
     ['blackout','normal'],
-    ['trackfinal','hard'],
-    ['award','hard'],
-    ['banquet','hard'],
-    ['strobe','hard'],
-    ['space','hard'],
-    ['store','hard'],
-    ['carnival','hard'],
-    ['mirrorhall','hard'],
-    ['moonlake','hard'],
-    ['festival','hard']
+    ['trackfinal','normal'],
+    ['award','normal'],
+    ['banquet','normal'],
+    ['strobe','normal'],
+    ['space','normal'],
+    ['store','normal'],
+    ['carnival','normal'],
+    ['mirrorhall','normal'],
+    ['moonlake','normal'],
+    ['festival','normal'],
+    ['letter','upper'],
+    ['factory','upper'],
+    ['nightmarket','upper'],
+    ['ghostshop','upper'],
+    ['library','upper'],
+    ['train','upper'],
+    ['tunnel','upper'],
+    ['lighthouse','upper'],
+    ['oldkitchen','upper'],
+    ['masquerade','upper'],
+    ['mountain','hard'],
+    ['desert','hard'],
+    ['aquarium','hard'],
+    ['clocktower','hard'],
+    ['cyber','hard'],
+    ['palace','hard'],
+    ['airship','hard'],
+    ['volcano','hard'],
+    ['hideout','hard'],
+    ['finale','hard']
   ];
+  const MK_CH = i => Math.floor(i/10);   // chapter (0-based)
+  const MK_CHN = ['1장 · 신인 먹방러','2장 · 먹방 스타의 길','3장 · 면치기 왕의 시즌 2','4장 · 미스터리: 검은 냄비의 편지','5장 · 미스터리: 전설의 첫 레시피'];
   // special rules for quests (season 2): combo / no-miss / perfect goals and fast / mirror / hidden twists
-  const MK_RULE = [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,{"combo": 40},{"mirror": 1},{"nomiss": 5},{"fast": 1},{"hidden": 1},{"combo": 60},{"perfect": 60},{"nomiss": 8},{"hidden": 1},{"fast": 1},{"mirror": 1},{"combo": 80},{"perfect": 70},{"hidden": 1, "mirror": 1},{"fast": 1, "combo": 50}];
+  const MK_RULE0 = [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,{"combo": 40},{"mirror": 1},{"nomiss": 5},{"fast": 1},{"hidden": 1},{"combo": 60},{"perfect": 60},{"nomiss": 8},{"hidden": 1},{"fast": 1},{"mirror": 1},{"combo": 80},{"perfect": 70},{"hidden": 1, "mirror": 1},{"fast": 1, "combo": 50}];
+  const MK_RULE = MK_RULE0.concat([null, {"combo": 40}, null, {"hidden": 1}, {"nomiss": 8}, {"fast": 1}, {"mirror": 1}, {"combo": 50}, null, {"perfect": 55}, {"hidden": 1}, {"fast": 1, "combo": 40}, {"mirror": 1}, {"combo": 60}, {"hidden": 1, "fast": 1}, {"nomiss": 6}, {"combo": 70}, {"fast": 1, "perfect": 50}, {"hidden": 1, "combo": 50}, {"fast": 1, "combo": 80}]);
   const ruleBadge = r => !r ? '' : [r.fast ? '⚡' + tr('빠름') : '', r.mirror ? '🔁' + tr('거꾸로') : '', r.hidden ? '🙈' + tr('안 보임') : '', r.combo ? '🔗' + tr('콤보') + ' ' + r.combo : '', r.nomiss != null ? '🛡️' + tr('MISS') + ' ≤' + r.nomiss : '', r.perfect ? '🎯PERFECT ' + r.perfect + '%' : ''].filter(Boolean).join(' ');
   function ruleCheck(r){
     if(!r) return '';
@@ -8174,7 +8358,8 @@ Reply as JSON only: {"name":"...","why":"..."}`;
   const MK_QUEST = ['새벽 첫 방송','골목 랩 배틀 먹방','재즈바 야식 라이브','여름 축제 노점','디스코 면치기 파티',
     '운동회 응원 먹방','아이돌 대기실 잠입','경로당 노래자랑','매운맛 클럽 나이트','레트로 오락실 결투',
     '미러볼 아래 결승','월드투어 앙코르','전국 노래자랑 본선','불꽃 축제 피날레','최종 보스: 면치기 왕',
-    '새벽 라디오 생방송','거꾸로 랩 배틀','재즈바 노 미스 챌린지','번개 축제 퍼레이드','깜깜이 디스코','운동회 계주 결승','음악방송 1위 앵콜','트로트 메들리 노 미스','정전된 클럽','8비트 스피드런','새벽 3시 거꾸로 방송','카니발 콤보 행진','미러볼 퍼펙트쇼','눈 감고 재즈','전설의 면치기 페스티벌'];
+    '새벽 라디오 생방송','거꾸로 랩 배틀','재즈바 노 미스 챌린지','번개 축제 퍼레이드','깜깜이 디스코','운동회 계주 결승','음악방송 1위 앵콜','트로트 메들리 노 미스','정전된 클럽','8비트 스피드런','새벽 3시 거꾸로 방송','카니발 콤보 행진','미러볼 퍼펙트쇼','눈 감고 재즈','전설의 면치기 페스티벌',
+    '검은 냄비의 편지','버려진 라면 공장','야시장 수상한 포장마차','유령이 나오는 국숫집','비밀 레시피 도서관','시골로 가는 밤기차','지하 면발 동굴','폭풍우 치는 등대','30년 된 노포 주방','가면무도회 먹방 파티','눈 덮인 산사','사막의 향신료 캐러밴','심해 수족관','멈춰 버린 시계탑','해킹당한 방송실','고대 면발 궁전','하늘을 나는 비행선','불타는 화산 부엌','녹스의 성','전설의 첫 레시피'];
   // ---------- mukbang story: from a rookie streamer to the mukbang legend ----------
   Object.assign(SP, {
     pd:{name:'김 PD (매니저)', pp:{g:'f', age:'adult', sk:'#F6D3B3', hc:'#3B2A20', st:'bob', sh:'#2F3E5C', bg:'#EADCFF', t:'busy'}},
@@ -8182,6 +8367,10 @@ Reply as JSON only: {"name":"...","why":"..."}`;
     emma:{name:'엠마 (해외 팬)', pp:{g:'f', age:'adult', sk:'#F9E0CC', hc:'#E8C15A', st:'pony', sh:'#2BB673', bg:'#DDF1FF', t:'tourist'}},
     chat:{name:'💬 실시간 채팅', icon:'💬'},
     me:{name:'나', me:true},
+    detective:{name:'반 형사', pp:{g:'m', age:'adult', sk:'#EDC2A0', hc:'#2B1B12', st:'short', sh:'#5A4636', bg:'#E3E8F0', t:'busy'}},
+    x:{name:'가면 먹방러 X', pp:{g:'m', age:'adult', sk:'#2B2B2B', hc:'#111111', st:'short', sh:'#111111', bg:'#3A2A4A', t:'nightowl'}},
+    nox:{name:'다크 셰프 녹스', pp:{g:'m', age:'adult', sk:'#D9B08C', hc:'#3A0A3A', st:'part', sh:'#2A0A2A', bg:'#2A1A3A', t:'rival'}},
+    master:{name:'원조 면장님', pp:{g:'m', age:'old', sk:'#EDC2A0', hc:'#E8E8E8', st:'buzz', sh:'#F2E6D0', bg:'#FFF3D6', t:'gourmet'}},
     lumi:{name:'아이돌 루미', pp:{g:'f', age:'adult', sk:'#F9DDC5', hc:'#F27BA6', st:'long', sh:'#FF8FAB', bg:'#FFE8F0', t:'couple'}},
     king:{name:'면치기왕 쭈욱', pp:{g:'m', age:'adult', sk:'#EFC39E', hc:'#F2C14E', st:'short', sh:'#E2231A', bg:'#FFE2A8', t:'creator'}}
   });
@@ -8217,6 +8406,27 @@ Reply as JSON only: {"name":"...","why":"..."}`;
     {intro:[["king", "미러볼 아래에서 다시 붙자. 이번엔 퍼펙트로만 승부한다."], ["pd", "PERFECT 70% 이상! 쭈욱도 진심이에요."]], win:[["king", "…완벽하다. 이번엔 깨끗하게 졌다."], ["pd", "두 사람 다 최고예요!"]]},
     {intro:[["pd", "재즈 거장의 마지막 시험이래요. 안 보이고, 거꾸로예요."], ["grandma", "할미가 손뼉으로 박자 맞춰 줄게!"], ["me", "할머니 박수 소리만 믿고 갈게요!"]], win:[["pd", "재즈 거장이 \"진짜 음악가\"라고 인정했어요!"], ["grandma", "눈물 난다, 우리 손주…"]]},
     {intro:[["pd", "시즌 2 최종 무대, 전설의 면치기 페스티벌이에요!"], ["king", "오늘은 라이벌이 아니라 동료로 함께 무대에 선다."], ["lumi", "저도 왔어요! 엠마랑 할머니도 맨 앞줄이에요!"], ["pd", "빠른 템포에 콤보 50! 모두의 응원을 받아 가요!"]], win:[["king", "…전설 완성이다."], ["pd", "시즌 2 완주! 우리 정말 대단해요."]]});
+  MK_STORY.push({intro:[["pd", "면치기 왕님, 이상한 편지가 왔어요. 봉투에 검은 냄비 그림만 있어요."], ["me", "\"전설의 첫 레시피를 지켜라. 먹방이 열쇠다.\" …이게 무슨 뜻이죠?"], ["chat", "뭐야 미스터리 콘텐츠?? 무섭다 ㄷㄷ"], ["pd", "일단 오늘 방송에서 편지에 적힌 노래로 먹방을 해 봐요."]], win:[["me", "먹방이 끝나자 편지 뒷면에 글자가 떠올랐어요… \"면\"."], ["pd", "첫 번째 단서예요! 이건 진짜 사건이에요."]]},
+    {intro:[["detective", "강력계 반 형사입니다. 30년 전 문 닫은 라면 공장에서 이상한 소리가 난다는 신고가 있었어요."], ["detective", "먹방 소리가 들린다더군요. 혹시 짚이는 거 있습니까?"], ["me", "편지랑 관련 있을지도 몰라요. 같이 가 봐요!"]], win:[["detective", "컨베이어 벨트 위에 국수 가락으로 쓴 글자가… \"의\"."], ["chat", "소름… 진짜 누가 있었던 거야?"]]},
+    {intro:[["detective", "야시장 포장마차 주인이 가면 쓴 손님을 봤답니다."], ["x", "…후루룩. 맛있군. 하지만 아직 부족해."], ["me", "방금 그 사람! 가면을 쓴 먹방러예요!"], ["pd", "쫓아가기 전에 포장마차 주인이 먹방부터 보여 달래요!"]], win:[["me", "주인아저씨가 건넨 영수증 뒤에… \"비\"."], ["x", "(멀리서) 첫 레시피를 노리는 자가 있다. 서둘러라."]]},
+    {intro:[["chat", "여기 유튜브에서 유명한 흉가 국숫집이잖아;;"], ["pd", "불이 자꾸 꺼져요… 면발이 잘 안 보일 거예요."], ["me", "무서워도 후루룩 소리는 거짓말 안 해요. 박자만 믿고 갈게요!"]], win:[["me", "주방 벽에 낡은 사진이… 가면 쓴 사람과 젊은 쭈욱?!"], ["detective", "이 사진, 30년 전 거네요. 그리고 또 한 글자. \"법\"."]]},
+    {intro:[["king", "사진 얘기 들었다. …그 가면 쓴 사람, 내 스승님일지도 몰라."], ["king", "스승님은 \"첫 레시피\"를 찾다 사라지셨지. 단서는 이 도서관에 있을 거다."], ["pd", "사서님이 조용히 먹방하면 들여보내 준대요. 실수 8번까지!"]], win:[["king", "이 책… 스승님 글씨다. \"다섯 글자를 모으면 길이 열린다.\""], ["me", "지금까지 모은 건 \"면, 의, 비, 법\"… 하나 남았어요!"]]},
+    {intro:[["detective", "마지막 글자는 \"라면 마을\"에 있다는 제보입니다. 밤기차로 가죠."], ["nox", "(기차 안 방송) 첫 레시피는 내가 먼저 찾는다. 다크 셰프 녹스가."], ["pd", "누군가 우리를 쫓고 있어요! 기차가 빨라요, 집중!"]], win:[["me", "마을 역 간판에 새겨진 마지막 글자… \"칙\"."], ["king", "면의 비법… 아니, \"면의 비법칙\"? 다섯 글자가 모였다!"]]},
+    {intro:[["me", "\"면의 비법칙\"을 외치자 마을 우물 밑 동굴 문이 열렸어요!"], ["x", "잘 왔다. 하지만 동굴 안은 모든 게 거꾸로 울린다."], ["detective", "가면 먹방러… 당신 정체가 뭡니까?"], ["x", "먹방으로 증명해라. 그러면 알려 주지."]], win:[["x", "…좋다. 너라면 맡길 수 있겠어."], ["me", "동굴 끝에 지도가 있어요. 바다 위 등대를 가리켜요!"]]},
+    {intro:[["pd", "폭풍우가 치는데 등대에 불빛이 깜빡여요. 모스 부호 같아요!"], ["nox", "등대는 이미 내 손에 있다. 레시피 상자를 내놓아라!"], ["me", "상자는 아직 없어요! 그리고 있어도 안 줘요!"], ["king", "녹스… 스승님을 배신하고 떠난 수제자다. 조심해!"]], win:[["detective", "녹스는 도망쳤지만 등대 불빛이 다음 장소를 알려 줬어요. \"가장 오래된 부엌\"."], ["chat", "이거 드라마 아님?? 다음 화 빨리"]]},
+    {intro:[["grandma", "어머, 여긴 우리 영감이랑 처음 라면 먹던 집인데!"], ["grandma", "주인 할아버지가 늘 가면을 쓰고 음식을 하셨지. 얼굴을 아무도 몰랐어."], ["me", "가면…! 할머니, 그분이 혹시 원조 면장님?"]], win:[["grandma", "부뚜막 밑에 이런 상자가 있더구나. 열쇠 구멍이 냄비 모양이야."], ["detective", "검은 냄비… 편지의 그림이랑 같아요!"]]},
+    {intro:[["x", "가면무도회에 온 걸 환영한다. 오늘 내 정체를 밝히지."], ["nox", "그 전에 상자는 내가 가져간다!"], ["lumi", "잠깐! 저도 가면 쓰고 잠입했어요. 우리 편이에요!"], ["pd", "완벽한 먹방으로 녹스를 무대에서 밀어내요! PERFECT 55%!"]], win:[["x", "(가면을 벗으며) …나는 원조 면장. 첫 라면 레시피를 만든 사람이다."], ["king", "스승님…! 살아 계셨군요."], ["master", "녹스가 레시피를 독차지하려 해서 숨어 지냈다. 이제 너희에게 맡기마."]]},
+    {intro:[["master", "상자를 열 열쇠는 다섯 곳에 나뉘어 있다. 첫째는 눈 덮인 산사에."], ["master", "스님께 눈보라 속 먹방을 보여 드려라. 눈이 많아 면발이 가려질 거다."], ["me", "5장, 마지막 모험 시작이네요!"]], win:[["master", "스님이 첫 번째 열쇠 조각을 주셨다. \"평온한 마음\"."], ["chat", "명상 먹방 ㄹㅇ 힐링이었음"]]},
+    {intro:[["emma", "사막 캐러밴 축제에 오신 걸 환영해요! 여기 향신료가 두 번째 열쇠래요."], ["nox", "향신료는 이미 다 사들였다. 하하하!"], ["me", "그럼 먹방으로 상인들 마음을 사면 되죠!"]], win:[["emma", "상인들이 숨겨 둔 마지막 향신료를 줬어요! 두 번째 열쇠 \"뜨거운 열정\"!"], ["nox", "…두고 보자."]]},
+    {intro:[["master", "세 번째 열쇠는 깊은 바다의 맛. 해물 육수의 비밀이 심해 수족관에 있다."], ["pd", "물속이라 모든 게 거꾸로 비쳐요. 정신 바짝!"]], win:[["me", "문어 사육사님이 세 번째 열쇠를 주셨어요. \"깊은 기다림\"."], ["king", "좋은 육수는 기다림이지. 스승님 말씀 그대로다."]]},
+    {intro:[["nox", "시계탑을 멈췄다. 정해진 시간 안에 못 끝내면 네 번째 열쇠는 사라진다!"], ["detective", "녹스가 시계를 조작했어요. 콤보 60을 끊기지 말고 이어 가세요!"]], win:[["me", "시계가 다시 움직였어요! 네 번째 열쇠 \"정확한 타이밍\"."], ["master", "라면은 30초가 맛을 가른다. 잘했다."]]},
+    {intro:[["pd", "큰일이에요! 녹스가 우리 채널을 해킹했어요!"], ["chat", "화면 깨짐 ㄷㄷ 해킹당한 거임??"], ["lumi", "팬들한테 SOS 쳤어요! 다 같이 응원 채팅으로 버티는 중!"], ["me", "방송은 안 멈춰요. 먹방으로 서버를 되찾을게요!"]], win:[["pd", "채널 복구! 시청자들이 끝까지 지켜 줬어요!"], ["detective", "해킹 흔적에서 녹스의 은신처 위치가 나왔어요."]]},
+    {intro:[["master", "마지막 열쇠는 옛 궁궐 연회의 국수 의식에 있다. 실수는 용납되지 않는다."], ["grandma", "손주야, 궁중 국수는 정성이야. 하나도 흘리지 말거라."]], win:[["master", "다섯 번째 열쇠 \"나누는 마음\". 이제 상자를 열 수 있다."], ["me", "평온, 열정, 기다림, 타이밍, 나눔… 전부 모였어요!"]]},
+    {intro:[["nox", "상자는 내가 가져간다! 비행선은 이미 이륙했다!"], ["king", "녹스가 상자를 훔쳐 비행선에 탔어! 쫓아가자!"], ["emma", "제 친구 비행선 띄웠어요! 올라타요!"]], win:[["me", "상자를 되찾았어요! 녹스는 낙하산으로…"], ["detective", "화산 쪽으로 도망쳤군요. 마지막 결전이 될 거예요."]]},
+    {intro:[["nox", "화산 부엌에 온 걸 환영한다. 여긴 내 영역이지!"], ["nox", "첫 레시피를 걸고 먹방 대결이다. 지면 상자를 내놓아라!"], ["me", "좋아요. 라면은 독차지하는 게 아니라 나누는 거라는 걸 보여 줄게요!"]], win:[["nox", "…말도 안 돼. 내가 졌다고?"], ["master", "녹스, 이제 그만하자. 함께 가자꾸나."]]},
+    {intro:[["nox", "…정말 미안하다. 하지만 성의 함정은 내가 멈출 수 없다."], ["nox", "상자를 열 제단은 성 꼭대기에 있다. 어둠 속을 지나가야 해."], ["king", "스승님, 녹스, 그리고 우리. 다 같이 간다!"]], win:[["nox", "고맙다… 너 덕분에 라면을 처음 좋아했던 마음이 생각났어."], ["master", "이제 마지막 무대다. 첫 레시피의 진실을 보러 가자."]]},
+    {intro:[["master", "다섯 마음을 모아 상자를 열어라. 그리고 마지막 먹방을 보여 다오."], ["pd", "모두 모였어요. 쭈욱, 루미, 엠마, 할머니, 반 형사님, 그리고 녹스까지!"], ["chat", "최종화 실시간 1000만 명 시청 중!!!"], ["me", "지금까지의 모든 후루룩을 담아서… 갑니다!"]], win:[["me", "상자 안에는… 종이 한 장. \"라면은 함께 먹을 때 가장 맛있다.\""], ["master", "그게 첫 레시피다. 처음부터 비밀 같은 건 없었지. 다들 함께라서 맛있었던 거야."], ["nox", "…그래서 혼자서는 그 맛이 안 났던 거군."]]});
+  const MK_END3 = [["master", "이제 첫 레시피는 모두의 것이다. 너희가 증명했지."], ["nox", "나도… 다시 처음부터 라면을 배워 보려 한다. 함께라면."], ["king", "다음 시즌은 우리 셋이 합동 방송이다!"], ["detective", "사건 종결. 덕분에 저도 라면 먹방 구독했습니다."], ["lumi", "이 이야기 뮤직비디오로 만들래요!"], ["grandma", "다들 배고프지? 라면 끓여 줄게~"], ["pd", "미스터리까지 풀어 버린 먹방러라니… 우리 진짜 전설이에요."], ["chat", "완결 축하!!! 시즌 3 기다립니다!!!"], ["me", "모두 고마워요. 라면은 함께 먹을 때 제일 맛있으니까! 후루룩!"]];
   const MK_END2 = [["pd", "시즌 2까지 모두 클리어! 이제 진짜 전설의 먹방러예요."], ["king", "다음엔 내가 도전자다. 기다려라."], ["lumi", "다음 컴백도 꼭 같이 해요!"], ["emma", "전 세계 투어 기다릴게요!"], ["grandma", "밥은 꼭 챙겨 먹고 방송해라~"], ["chat", "전설!!! 전설!!! 전설!!!"], ["me", "모두 고마워요. 앞으로도 맛있게, 신나게!"]];
   const MK_END = [["king", "왕관은 네 거다. 대신 다음 대회 때 나랑 합동 먹방 한 번 하자."], ["lumi", "저도 끼워 주세요! 셋이서 면치기 콘서트!"], ["grandma", "할미는 김치 한 통 들고 갈게~"], ["emma", "전 세계 팬들도 기다릴 거예요!"], ["chat", "면치기 왕 등극 축하!!! 레전드 탄생"], ["pd", "신인 먹방러에서 면치기 왕까지… 우리 진짜 해냈어요."], ["me", "시작이 반이었죠. 앞으로도 맛있게, 신나게!"]];
   const mkSeen = () => { PROFILE.mkSeen = PROFILE.mkSeen || {}; return PROFILE.mkSeen; };
@@ -8228,33 +8438,41 @@ Reply as JSON only: {"name":"...","why":"..."}`;
   let pickStage = 0;
   function renderStages(){
     while(pickStage > 0 && !mkOpen(pickStage)) pickStage--;
-    const D = {easy:'쉬움', normal:'보통', hard:'어려움'};
-    $('mkStages').innerHTML = MK_STAGES.map(([song, diff], i) => {
-      const S = MK_SONGS[song], open = mkOpen(i), st = mkBest(i);
-      return `<button class="mkst ${diff} ${pickStage === i ? 'on' : ''} ${open ? '' : 'locked'}" data-i="${i}" style="--sc1:${(MK_BG[MK_SCENE[i]] || {}).top || '#FFF'};--sc2:${(MK_BG[MK_SCENE[i]] || {}).bot || '#FFF'}">
-        <b>${i + 1}</b><span class="mke">${open ? S.e : '🔒'}</span><small>${open ? esc(tr(MK_QUEST[i])) : '???'}</small>
-        <em>${esc(tr(D[diff]))}</em>${MK_RULE[i] && open ? `<u class="rule notr">${esc(ruleBadge(MK_RULE[i]))}</u>` : ''}<i class="notr">${'★'.repeat(st)}<u>${'★'.repeat(3 - st)}</u></i></button>`; }).join('');
+    let h = '';
+    for(let c=0;c<5;c++){
+      h += `<div class="mkpage"><b class="mkch notr">${esc(tr(MK_CHN[c]))}</b><div class="mkgrid">`;
+      for(let i=c*10;i<c*10 + 10;i++){
+        const [song, diff] = MK_STAGES[i], S = MK_SONGS[song], open = mkOpen(i), st = mkBest(i), bg = MK_BG[MK_SCENE[i]] || {};
+        h += `<button class="mkst ${diff} ${pickStage === i ? 'on' : ''} ${open ? '' : 'locked'}" data-i="${i}" style="--sc1:${bg.top || '#FFF'};--sc2:${bg.bot || '#FFF'}">
+          <b>${i + 1}</b><span class="mke">${open ? S.e : '🔒'}</span><i class="notr">${'★'.repeat(st)}<u>${'★'.repeat(3 - st)}</u></i>${MK_RULE[i] && open ? '<span class="rdot"></span>' : ''}</button>`;
+      }
+      h += '</div></div>';
+    }
+    $('mkStages').innerHTML = h;
     const total = MK_STAGES.reduce((a, _, i) => a + mkBest(i), 0);
-    const R = MK_RULE[pickStage];
-    $('mkGoal').textContent = '🎯 ' + tr('목표') + ': ' + tr('정확도 70% 이상') + (R ? ' + ' + ruleBadge(R) : '') + (pickStage >= 15 ? ' · ' + tr('시즌 2') : '');
     $('mkStarTot').textContent = '📺 ' + tr('구독자') + ' ' + fmtSubs(mkSubs()) + ' · ⭐ ' + total + '/' + MK_STAGES.length*3;
+    mkPick(pickStage);
   }
-  let mkScrollT = 0;
-  function mkCenter(i, smooth){ const el = document.querySelector(`.mkst[data-i="${i}"]`), box = $('mkStages'); if(!el) return; box.scrollTo({left:el.offsetLeft - (box.clientWidth - el.offsetWidth)/2, behavior:smooth ? 'smooth' : 'auto'}); }
+
+  let mkScrollT = 0, mkPage = 0;
+  function mkCenter(i, smooth){ const box = $('mkStages'); mkPage = MK_CH(i); box.scrollTo({left:mkPage*box.clientWidth, behavior:smooth ? 'smooth' : 'auto'}); mkDots(); }
+  function mkDots(){ $('mkDots').innerHTML = [0, 1, 2, 3, 4].map(c => `<span class="${c === mkPage ? 'on' : ''}"></span>`).join(''); }
   function mkPick(i){ if(i < 0 || i >= MK_STAGES.length) return; pickStage = i; pickSong = MK_STAGES[i][0]; pickDiff = MK_STAGES[i][1];
     document.querySelectorAll('.mkst').forEach(b => b.classList.toggle('on', +b.dataset.i === i));
-    const R = MK_RULE[i]; $('mkGoal').textContent = mkOpen(i) ? '🎯 ' + tr('목표') + ': ' + tr('정확도 70% 이상') + (R ? ' + ' + ruleBadge(R) : '') + (i >= 15 ? ' · ' + tr('시즌 2') : '') : '🔒 ' + tr('앞 퀘스트를 깨면 열려요');
-    $('mkGoSolo').disabled = !mkOpen(i); $('mkReplay').disabled = !mkOpen(i); }
-  $('mkStages').addEventListener('scroll', () => { clearTimeout(mkScrollT); mkScrollT = setTimeout(() => {
-    const box = $('mkStages'), mid = box.scrollLeft + box.clientWidth/2; let best = 0, bd = 1e9;
-    document.querySelectorAll('.mkst').forEach(b => { const d = Math.abs(b.offsetLeft + b.offsetWidth/2 - mid); if(d < bd){ bd = d; best = +b.dataset.i; } });
-    if(best !== pickStage) mkPick(best); }, 90); });
-  $('mkPrev').onclick = () => { mkPick(Math.max(0, pickStage - 1)); mkCenter(pickStage, true); };
-  $('mkNext').onclick = () => { mkPick(Math.min(MK_STAGES.length - 1, pickStage + 1)); mkCenter(pickStage, true); };
-  $('mkStages').addEventListener('click', e => { const b = e.target.closest('.mkst'); if(!b || b.classList.contains('locked')) { if(b){ mkPick(+b.dataset.i); mkCenter(+b.dataset.i, true); } return; } const i = +b.dataset.i; mkPick(i); mkCenter(i, true); previewSong(MK_STAGES[i][0]); });
+    const open = mkOpen(i), R = MK_RULE[i], D = {easy:'쉬움', normal:'보통', upper:'중상', hard:'어려움'}, S = MK_SONGS[MK_STAGES[i][0]];
+    $('mkSel').innerHTML = open
+      ? `<span class="mke">${S.e}</span><div><b>${i + 1}. ${esc(tr(MK_QUEST[i]))}</b><small><em class="${pickDiff}">${esc(tr(D[pickDiff]))}</em>${R ? ' ' + esc(ruleBadge(R)) : ''} · ${'★'.repeat(mkBest(i))}${'☆'.repeat(3 - mkBest(i))}</small></div>`
+      : `<span class="mke">🔒</span><div><b>${i + 1}. ???</b><small>${esc(tr('앞 퀘스트를 깨면 열려요'))}</small></div>`;
+    $('mkGoal').textContent = open ? '🎯 ' + tr('목표') + ': ' + tr('정확도 70% 이상') + (R ? ' + ' + ruleBadge(R) : '') : '';
+    $('mkGoal').hidden = !open;
+    $('mkGoSolo').disabled = !open; $('mkReplay').disabled = !open; }
+  $('mkStages').addEventListener('scroll', () => { clearTimeout(mkScrollT); mkScrollT = setTimeout(() => { const box = $('mkStages'); mkPage = Math.round(box.scrollLeft/Math.max(1, box.clientWidth)); mkDots(); }, 80); });
+  $('mkPrev').onclick = () => { const box = $('mkStages'); mkPage = Math.max(0, mkPage - 1); box.scrollTo({left:mkPage*box.clientWidth, behavior:'smooth'}); mkDots(); };
+  $('mkNext').onclick = () => { const box = $('mkStages'); mkPage = Math.min(4, mkPage + 1); box.scrollTo({left:mkPage*box.clientWidth, behavior:'smooth'}); mkDots(); };
+  $('mkStages').addEventListener('click', e => { const b = e.target.closest('.mkst'); if(!b) return; const i = +b.dataset.i; mkPick(i); if(!b.classList.contains('locked')) previewSong(MK_STAGES[i][0]); });
   function startStageMk(i){
     pickStage = i; const [song, diff] = MK_STAGES[i]; pickSong = song; pickDiff = diff; $('mkSetOv').hidden = true;
-    const go = () => startMk({song, diff, seed:Math.floor(Math.random()*1e9), stage:i, rule:MK_RULE[i] || null, ramp:(i % 10)/9});
+    const go = () => startMk({song, diff, seed:Math.floor(Math.random()*1e9), stage:i, rule:MK_RULE[i] || null, ramp:i < 10 ? i/9 : i < 30 ? (i - 10)/19*.75 : (i % 10)/9});
     const seen = mkSeen();
     const B = MK_BG[MK_SCENE[i]] || MK_BG[song] || MK_BG.lofi, bg = `radial-gradient(circle at 50% 25%, ${B.n1}55 0%, transparent 45%), linear-gradient(${B.top}, ${B.bot})`;
     if(!seen[i] && MK_STORY[i]){ seen[i] = 1; saveProfile(); playScene(MK_STORY[i].intro, go, '🎬 ' + tr('방송 시작!'), bg); }
@@ -8267,6 +8485,7 @@ Reply as JSON only: {"name":"...","why":"..."}`;
     renderStages();
     $('startOv').hidden = true; $('mkSetOv').hidden = false;
     requestAnimationFrame(() => { mkPick(pickStage); mkCenter(pickStage, false); });
+    setTimeout(() => mkCenter(pickStage, false), 60);
   }
   $('mkSongSeg').addEventListener('click', e => { const b = e.target.closest('button'); if(b){ pickSong = b.dataset.v; openMkSetup(); previewSong(pickSong); } });
   // a two-bar taste of the song when you pick it
@@ -8427,7 +8646,8 @@ Reply as JSON only: {"name":"...","why":"..."}`;
   // ---------- every quest has its own stage (30 different backdrops) ----------
   const MK_SCENE = ['lofi','hiphop','blues','samba','funk','march','kpop','trot','edm','chip',
     'contest','stadium','tvshow','fireworks','boss','radio','subway','rainjazz','parade','blackout',
-    'trackfinal','award','banquet','strobe','space','store','carnival','mirrorhall','moonlake','festival'];
+    'trackfinal','award','banquet','strobe','space','store','carnival','mirrorhall','moonlake','festival',
+    'letter','factory','nightmarket','ghostshop','library','train','tunnel','lighthouse','oldkitchen','masquerade','mountain','desert','aquarium','clocktower','cyber','palace','airship','volcano','hideout','finale'];
   Object.assign(MK_BG, {
     contest:{top:'#2A0F0F', bot:'#6B1A1A', dots:['#FFD23F','#FFF3C4'], n1:'#FFD23F', n2:'#FF5A4E', ring:'#FFD23F', motif:'none'},
     stadium:{top:'#0B1030', bot:'#2A1A5E', dots:['#FFB3E6','#7AD3FF'], n1:'#FF6FB5', n2:'#7AD3FF', ring:'#FFFFFF', motif:'none'},
@@ -8449,6 +8669,28 @@ Reply as JSON only: {"name":"...","why":"..."}`;
     mirrorhall:{top:'#1A0A2A', bot:'#3A1A5A', dots:['#FFFFFF','#FF6FB5'], n1:'#FFFFFF', n2:'#FF6FB5', ring:'#FFFFFF', motif:'none'},
     moonlake:{top:'#06102A', bot:'#14305A', dots:['#FFF3C4','#B3FFB3'], n1:'#B3E5FF', n2:'#FFF3C4', ring:'#FFF3C4', motif:'none'},
     festival:{top:'#0A0418', bot:'#3A0A4A', dots:['#FFD23F','#36E0FF'], n1:'#36E0FF', n2:'#FF6FB5', ring:'#FFD23F', motif:'none'}
+  });
+  Object.assign(MK_BG, {
+    letter:{top:'#0A0A12', bot:'#2A1E14', dots:["#F2C14E", "#8C7A5A"], n1:'#F2C14E', n2:'#8C7A5A', ring:'#F2C14E', motif:'none'},
+    factory:{top:'#1A1A1A', bot:'#3A2E22', dots:["#FF8A3D", "#8C8C8C"], n1:'#FF8A3D', n2:'#8C8C8C', ring:'#FF8A3D', motif:'none'},
+    nightmarket:{top:'#140A1E', bot:'#4A1A1A', dots:["#FF5A4E", "#FFD23F"], n1:'#FF5A4E', n2:'#FFD23F', ring:'#FFD23F', motif:'none'},
+    ghostshop:{top:'#06120E', bot:'#1A2A22', dots:["#9AFFD0", "#FFFFFF"], n1:'#9AFFD0', n2:'#FFFFFF', ring:'#9AFFD0', motif:'none'},
+    library:{top:'#2A1A0E', bot:'#5A3E2B', dots:["#F2C14E", "#FFF3C4"], n1:'#F2C14E', n2:'#FFF3C4', ring:'#F2C14E', motif:'none'},
+    train:{top:'#0A1430', bot:'#2A3A6B', dots:["#FFF3C4", "#7AB8FF"], n1:'#FFF3C4', n2:'#7AB8FF', ring:'#FFF3C4', motif:'none'},
+    tunnel:{top:'#05080A', bot:'#1A2A2E', dots:["#36E0C0", "#7AB8FF"], n1:'#36E0C0', n2:'#7AB8FF', ring:'#36E0C0', motif:'none'},
+    lighthouse:{top:'#0A1420', bot:'#1A3A4A', dots:["#FFF3C4", "#7AB8FF"], n1:'#FFF3C4', n2:'#7AB8FF', ring:'#FFF3C4', motif:'none'},
+    oldkitchen:{top:'#2A1A0A', bot:'#6B4A2A', dots:["#FFD9A0", "#FFF3C4"], n1:'#FFD9A0', n2:'#FFF3C4', ring:'#FFD9A0', motif:'none'},
+    masquerade:{top:'#1A0A1E', bot:'#4A0A2A', dots:["#FFD23F", "#B04CFF"], n1:'#FFD23F', n2:'#B04CFF', ring:'#FFD23F', motif:'none'},
+    mountain:{top:'#C9D6E8', bot:'#6B7A94', dots:["#FFFFFF", "#B3D4FF"], n1:'#FFFFFF', n2:'#B3D4FF', ring:'#FFFFFF', motif:'none'},
+    desert:{top:'#F2A33D', bot:'#C25A1E', dots:["#FFE45C", "#FFF3C4"], n1:'#FFE45C', n2:'#FF5A1E', ring:'#FFE45C', motif:'none'},
+    aquarium:{top:'#021A2A', bot:'#0A4A6B', dots:["#7AD3FF", "#B3FFE0"], n1:'#7AD3FF', n2:'#B3FFE0', ring:'#7AD3FF', motif:'none'},
+    clocktower:{top:'#1A1420', bot:'#3A2A4A', dots:["#F2C14E", "#FFFFFF"], n1:'#F2C14E', n2:'#FFFFFF', ring:'#F2C14E', motif:'none'},
+    cyber:{top:'#020A0A', bot:'#0A2A1A', dots:["#36FF7A", "#36E0FF"], n1:'#36FF7A', n2:'#36E0FF', ring:'#36FF7A', motif:'none'},
+    palace:{top:'#3A0A0A', bot:'#8C2A14', dots:["#FFD23F", "#2BB673"], n1:'#FFD23F', n2:'#2BB673', ring:'#FFD23F', motif:'none'},
+    airship:{top:'#7FC3FF', bot:'#E3F2FF', dots:["#FFFFFF", "#FFE45C"], n1:'#FFFFFF', n2:'#FFE45C', ring:'#FFFFFF', motif:'none'},
+    volcano:{top:'#1A0505', bot:'#8C1E05', dots:["#FF5A1E", "#FFD23F"], n1:'#FF5A1E', n2:'#FFD23F', ring:'#FF5A1E', motif:'none'},
+    hideout:{top:'#05020A', bot:'#2A0A2A', dots:["#B04CFF", "#FF5A4E"], n1:'#B04CFF', n2:'#FF5A4E', ring:'#B04CFF', motif:'none'},
+    finale:{top:'#1A0A2A', bot:'#FFD23F', dots:["#FFFFFF", "#FFD23F"], n1:'#FFFFFF', n2:'#FFD23F', ring:'#FFD23F', motif:'none'}
   });
   function mkBuildScene(key){
     const T = window.THREE, W = MK3.W, g = new T.Group(), ticks = [];
@@ -8568,6 +8810,113 @@ Reply as JSON only: {"name":"...","why":"..."}`;
         const arch = []; for(let i=0;i<14;i++){ const a = Math.PI*(i/13); arch.push(add(new T.BoxGeometry(18, 18, 6), new T.MeshBasicMaterial({color:'#36E0FF'}), 200 + Math.cos(a)*170, 330 - Math.sin(a)*200, -260)); }
         fireworks(2, ['#FFD23F','#FF6FB5','#36E0FF']); const c = crowd(520, ['#140820','#1E0C2E'], ['#36E0FF','#FF6FB5','#FFD23F']); floor('#0A0418', 40);
         ticks.push((t, beat) => { arch.forEach((b, i) => b.material.color.set(['#36E0FF','#FF6FB5','#FFD23F'][(i + Math.floor(t*4)) % 3])); c.forEach((m, i) => { if(i % 2) m.rotation.z = Math.sin(t*5 + i)*.6; }); }); break; }
+      case 'letter': {  // a dark office: desk lamp, the black-pot letter on the desk, rain on the window
+        add(new T.BoxGeometry(170, 140, 4), B('#141C2A'), 290, 200, -330); for(let i=0;i<20;i++) add(new T.BoxGeometry(1, 10, 1), BT('#7AB8FF', .4), 215 + (i*37) % 150, 140 + (i*23) % 120, -326);
+        add(new T.BoxGeometry(300, 20, 120), M('#3A2A1A'), 200, 470, -100);
+        add(new T.BoxGeometry(70, 4, 50), M('#F2E6D0'), 170, 458, -95); add(new T.CylinderGeometry(12, 16, 14, 16), M('#111'), 170, 452, -94);
+        const glow = add(new T.ConeGeometry(60, 120, 20, 1, true), BT('#FFE7A3', .14), 300, 400, -90); add(new T.CylinderGeometry(3, 3, 80, 8), M('#2B2B2B'), 300, 420, -92);
+        floor('#1A120A', 50); ticks.push(t => glow.material.opacity = .12 + Math.sin(t*7)*.02*(Math.random() < .05 ? 4 : 1)); break; }
+      case 'factory': { // abandoned noodle factory: rusty pipes, conveyor, gears
+        for(let i=0;i<4;i++) add(new T.CylinderGeometry(8, 8, 440, 10), M('#7A4A2A', {metalness:.5, roughness:.8}), 200, 90 + i*40, -300, m => m.rotation.z = Math.PI/2);
+        const gears = [[90, 260, 40], [300, 300, 30]].map(([x, y, r]) => add(new T.TorusGeometry(r, 8, 6, 12), M('#6B6B6B', {metalness:.7}), x, y, -250));
+        add(new T.BoxGeometry(440, 24, 60), M('#3A3A3A'), 200, 470, -100); const belt = []; for(let i=0;i<12;i++) belt.push(add(new T.BoxGeometry(14, 6, 40), M('#F3C64F'), i*40, 456, -95));
+        floor('#2A2420', 50); ticks.push(t => { gears.forEach((gg, k) => gg.rotation.z = t*(k ? -1.2 : .8)); belt.forEach((b, i) => b.position.x = W(((i*40 + t*40) % 480) - 20, 0, 0).x); }); break; }
+      case 'nightmarket': { // night market: red lanterns on strings, stalls
+        const lan = []; for(let r=0;r<2;r++) for(let i=0;i<8;i++) lan.push(add(new T.SphereGeometry(11, 12, 10), B(i % 2 ? '#FF5A4E' : '#FFB347'), 20 + i*52 + r*20, 90 + r*50 + Math.sin(i/7*Math.PI)*16, -260 + r*20, m => m.scale.y = 1.3));
+        [70, 330].forEach((x, k) => { add(new T.BoxGeometry(120, 80, 50), M(k ? '#2F6FD1' : '#E2231A'), x, 440, -120); add(new T.ConeGeometry(80, 30, 4), M('#FFE7A3'), x, 390, -120, m => m.rotation.y = Math.PI/4); });
+        add(new T.SphereGeometry(30, 16, 12), BT('#FFFFFF', .12), 200, 380, -150);
+        floor('#2A1A1A', 50); ticks.push(t => lan.forEach((l, i) => l.rotation.z = Math.sin(t*2 + i)*.12)); break; }
+      case 'ghostshop': { // haunted noodle shop: crooked shelves, a floating ghost, flickering bulb
+        for(let i=0;i<3;i++) add(new T.BoxGeometry(160, 6, 30), M('#3A2A1A'), 110, 160 + i*60, -300, m => m.rotation.z = (i - 1)*.06);
+        const ghost = add(new T.SphereGeometry(30, 16, 12), BT('#E8FFF4', .55), 300, 200, -200, m => m.scale.y = 1.4);
+        const bulb = add(new T.SphereGeometry(10, 10, 8), B('#FFF3C4'), 200, 70, -200); add(new T.CylinderGeometry(1, 1, 60, 6), M('#222'), 200, 36, -200);
+        floor('#14201A', 50); ticks.push(t => { ghost.position.copy(W(300 + Math.sin(t*.7)*40, 200 + Math.sin(t*1.3)*16, -200)); ghost.material.opacity = .35 + Math.sin(t*2)*.2; bulb.visible = Math.random() > .06; }); break; }
+      case 'library': { // secret recipe library: tall shelves of colourful books, ladder
+        for(let c=0;c<3;c++) for(let r=0;r<5;r++){ add(new T.BoxGeometry(110, 6, 30), M('#4A2E1A'), 70 + c*130, 110 + r*70, -300);
+          for(let k=0;k<8;k++) add(new T.BoxGeometry(10, 44 - (k % 3)*6, 22), M(['#8E1B1B','#2F6FD1','#2BB673','#F2C14E','#7B3FA0'][(k + r + c) % 5]), 30 + c*130 + k*12, 88 + r*70 + (k % 3)*3, -296); }
+        floor('#3A2414', 50); break; }
+      case 'train': { // night train: windows with passing lights, swaying seats
+        add(new T.BoxGeometry(440, 340, 10), M('#2A2A3A'), 200, 260, -320);
+        const win = []; for(let i=0;i<3;i++){ add(new T.BoxGeometry(110, 90, 2), B('#0A1430'), 70 + i*130, 220, -314); }
+        for(let i=0;i<8;i++) win.push(add(new T.SphereGeometry(3, 6, 4), B('#FFE7A3'), 20 + i*50, 210 + (i % 3)*14, -312));
+        [80, 320].forEach(x => add(new T.BoxGeometry(150, 50, 40), M('#8E1B1B'), x, 470, -100));
+        floor('#3A2A2A', 50); ticks.push(t => { win.forEach((w, i) => w.position.x = W((((i*50 - t*260) % 440) + 440) % 440, 0, 0).x); g.rotation.z = Math.sin(t*6)*.003; }); break; }
+      case 'tunnel': {  // underground noodle cave: stalactites, glowing crystals
+        for(let i=0;i<12;i++) add(new T.ConeGeometry(10 + (i % 3)*4, 40 + (i*13 % 40), 6), M('#2A3A3E', {roughness:.9}), 15 + i*35, 40 + (i*13 % 40)/2, -250, m => m.rotation.z = Math.PI);
+        const cr = []; for(let i=0;i<9;i++) cr.push(add(new T.OctahedronGeometry ? new T.OctahedronGeometry(12) : new T.SphereGeometry(10, 4, 2), B(['#36E0C0','#7AB8FF','#B04CFF'][i % 3]), 20 + (i*47) % 360, 300 + (i*31) % 150, -200));
+        floor('#141E20', 60); ticks.push(t => cr.forEach((c, i) => { c.rotation.y = t + i; c.scale.setScalar(.9 + Math.sin(t*2 + i)*.15); })); break; }
+      case 'lighthouse': { // stormy sea, lighthouse beam sweeping, lightning
+        add(new T.CylinderGeometry(20, 30, 220, 12), M('#FFFFFF'), 320, 300, -300); for(let i=0;i<3;i++) add(new T.CylinderGeometry(21 + i*3, 22 + i*3, 20, 12), M('#E2231A'), 320, 220 + i*60, -298);
+        const beam = add(new T.ConeGeometry(40, 400, 16, 1, true), BT('#FFF3C4', .15), 320, 190, -280);
+        const wave = []; for(let i=0;i<8;i++) wave.push(add(new T.SphereGeometry(40, 10, 6), M('#1A4A6B'), 20 + i*55, 470, -200, m => m.scale.set(1, .4, .6)));
+        const flash = add(new T.PlaneGeometry(440, 640), BT('#FFFFFF', 0), 200, 300, -395);
+        floor('#0A1A2A', 50); ticks.push(t => { beam.rotation.z = Math.PI/2 + Math.sin(t*.8)*1.2; wave.forEach((w, i) => w.position.y = W(0, 470 + Math.sin(t*2 + i)*8, 0).y); flash.material.opacity = Math.random() < .01 ? .5 : Math.max(0, flash.material.opacity - .06); }); break; }
+      case 'oldkitchen': { // 30-year-old kitchen: big pot steaming, tiled wall, hanging ladles
+        for(let i=0;i<10;i++) for(let j=0;j<5;j++) add(new T.BoxGeometry(38, 38, 2), B((i + j) % 2 ? '#E8DCC0' : '#DCCFB0'), 20 + i*40, 100 + j*40, -330);
+        add(new T.CylinderGeometry(60, 50, 70, 24), M('#9AA2AA', {metalness:.7}), 200, 420, -120);
+        const steam = []; for(let i=0;i<6;i++) steam.push(add(new T.SphereGeometry(18, 10, 8), BT('#FFFFFF', .2), 200, 360, -120));
+        for(let i=0;i<5;i++) add(new T.CylinderGeometry(2, 2, 60, 6), M('#8C8C8C', {metalness:.6}), 60 + i*70, 110, -250);
+        floor('#4A3420', 50); ticks.push(t => steam.forEach((sm, i) => { const k = (t*.3 + i/6) % 1; sm.position.copy(W(200 + Math.sin(i + t)*20, 370 - k*200, -120)); sm.material.opacity = .25*(1 - k); })); break; }
+      case 'masquerade': { // masquerade ballroom: masks on the wall, chandelier, purple curtains
+        for(let i=0;i<5;i++){ const mk = add(new T.SphereGeometry(20, 14, 10, 0, Math.PI*2, 0, Math.PI/2), M(['#FFD23F','#B04CFF','#FFFFFF','#E2231A','#36E0C0'][i], {metalness:.5}), 40 + i*80, 160, -300); mk.rotation.x = Math.PI/2; mk.scale.set(1.4, .5, 1); }
+        const ch = new T.Group(); ch.position.copy(W(200, 80, -200)); g.add(ch); ch.add(new T.Mesh(new T.TorusGeometry(50, 3, 8, 24), M('#FFD23F', {metalness:.8})));
+        for(let i=0;i<10;i++){ const b = new T.Mesh(new T.SphereGeometry(5, 8, 6), B('#FFF3C4')); b.position.set(Math.cos(i/10*Math.PI*2)*50, -6, Math.sin(i/10*Math.PI*2)*15); ch.add(b); }
+        [20, 380].forEach(x => { for(let i=0;i<3;i++) add(new T.CylinderGeometry(10, 13, 480, 10), M('#4A0A5A', {roughness:.8}), x + (x < 200 ? i*16 : -i*16), 290, -200 + i); });
+        floor('#2A0A2A', 50); ticks.push(t => ch.rotation.y = t*.3); break; }
+      case 'mountain': { // snowy mountain temple: peaks, temple roof, falling snow
+        [[80, 260, 140], [260, 220, 180], [370, 280, 110]].forEach(([x, y, h]) => add(new T.ConeGeometry(h*.7, h, 4), M('#E8EEF5'), x, y, -340));
+        add(new T.BoxGeometry(180, 60, 60), M('#8E1B1B'), 200, 420, -150); add(new T.ConeGeometry(130, 40, 4), M('#2B2B2B'), 200, 375, -150, m => m.rotation.y = Math.PI/4);
+        const snow = []; for(let i=0;i<45;i++) snow.push(add(new T.SphereGeometry(2, 5, 4), B('#FFFFFF'), (i*53) % 400, (i*41) % 600, -40));
+        floor('#E8EEF5', 60); ticks.push(t => snow.forEach((f, i) => f.position.copy(W(((i*53 + Math.sin(t + i)*20) % 400), ((i*41 + t*70) % 620) - 10, -40)))); break; }
+      case 'desert': {  // desert caravan: dunes, sun, camel shapes, spice pots
+        add(new T.CircleGeometry(50, 32), B('#FFF3C4'), 290, 150, -390);
+        [[80, 420, 160], [300, 440, 200]].forEach(([x, y, r]) => add(new T.SphereGeometry(r, 20, 10, 0, Math.PI*2, 0, Math.PI/2), M('#E8A85A', {roughness:.95}), x, y, -260, m => m.scale.y = .35));
+        for(let i=0;i<3;i++){ const cm = new T.Group(); cm.position.copy(W(60 + i*50, 360, -230)); g.add(cm); [[0, 0, 26, 14], [12, 10, 10, 8], [-8, 10, 10, 8]].forEach(([x, y, w, h]) => { const p = new T.Mesh(new T.BoxGeometry(w, h, 8), B('#5A3A1A')); p.position.set(x, y, 0); cm.add(p); }); }
+        for(let i=0;i<5;i++) add(new T.CylinderGeometry(12, 9, 20, 12), M(['#E2231A','#F2C14E','#C25A1E','#7A4A2A','#2BB673'][i]), 120 + i*40, 480, -80);
+        floor('#E8C08A', 60); break; }
+      case 'aquarium': { // deep-sea aquarium: glass tunnel ribs, fish swimming, bubbles
+        for(let i=0;i<5;i++) add(new T.TorusGeometry(180, 4, 6, 24, Math.PI), M('#7AB8C8', {metalness:.4}), 200, 380, -320 + i*40);
+        const fish = []; for(let i=0;i<8;i++){ const f = add(new T.SphereGeometry(10, 10, 8), M(['#FF8A3D','#FFE45C','#36E0C0','#FF6FB5'][i % 4]), 0, 150 + (i*37) % 220, -260); f.scale.set(1.6, .8, .6); fish.push(f); }
+        const bub = []; for(let i=0;i<14;i++) bub.push(add(new T.SphereGeometry(3, 6, 4), BT('#E0FFFF', .5), (i*29) % 400, 500, -150));
+        floor('#0A2A3A', 50); ticks.push(t => { fish.forEach((f, i) => f.position.x = W((((i*90 + t*(30 + i*6)) % 520) - 60), 0, 0).x); bub.forEach((b, i) => b.position.y = W(0, 520 - ((t*60 + i*45) % 480), 0).y); }); break; }
+      case 'clocktower': { // clock tower: giant clock face with moving hands, gears
+        add(new T.CylinderGeometry(110, 110, 10, 40), M('#F2E6D0'), 200, 220, -320, m => m.rotation.x = Math.PI/2);
+        add(new T.TorusGeometry(110, 8, 8, 40), M('#8C6A2A', {metalness:.6}), 200, 220, -314);
+        for(let i=0;i<12;i++) add(new T.BoxGeometry(4, 14, 2), B('#2B2B2B'), 200 + Math.sin(i/12*Math.PI*2)*95, 220 - Math.cos(i/12*Math.PI*2)*95, -312);
+        const hm = new T.Group(); hm.position.copy(W(200, 220, -310)); g.add(hm); const h1 = new T.Mesh(new T.BoxGeometry(6, 60, 2), B('#111')); h1.position.y = 30; const h2 = new T.Mesh(new T.BoxGeometry(4, 90, 2), B('#8E1B1B')); h2.position.y = 45; const p1 = new T.Group(), p2 = new T.Group(); p1.add(h1); p2.add(h2); hm.add(p1, p2);
+        floor('#2A1E2E', 50); ticks.push(t => { p1.rotation.z = -t*.2; p2.rotation.z = -t*2.4; }); break; }
+      case 'cyber': {   // hacked studio: green code rain, glitching screens
+        const code = []; for(let i=0;i<30;i++) code.push(add(new T.BoxGeometry(3, 24, 1), new T.MeshBasicMaterial({color:'#36FF7A', transparent:true, opacity:.7}), (i*13) % 400, (i*47) % 600, -300));
+        const scr = [70, 200, 330].map(x => add(new T.BoxGeometry(100, 70, 6), B('#0A2A1A'), x, 380, -150));
+        floor('#020A05', 50); ticks.push((t, beat) => { code.forEach((c, i) => c.position.y = W(0, ((i*47 + t*200*(1 + i % 3)) % 620) - 10, 0).y); scr.forEach((sc, i) => { sc.material.color.set(Math.random() < .08 ? '#36FF7A' : '#0A2A1A'); sc.position.x = W([70, 200, 330][i] + (Math.random() < .05 ? 6 : 0), 0, 0).x; }); }); break; }
+      case 'palace': {  // old palace banquet hall: red pillars, tiled roof edge, lanterns
+        [40, 140, 260, 360].forEach(x => add(new T.CylinderGeometry(12, 12, 360, 12), M('#8E1B1B'), x, 300, -250));
+        add(new T.BoxGeometry(440, 30, 60), M('#2B6B4A'), 200, 110, -260); add(new T.BoxGeometry(440, 10, 70), M('#2B2B2B'), 200, 92, -255);
+        for(let i=0;i<5;i++) add(new T.BoxGeometry(70, 30, 4), B(['#2BB673','#E2231A','#2F6FD1','#FFD23F','#FFFFFF'][i]), 20 + i*90, 140, -255);
+        add(new T.BoxGeometry(260, 20, 80), M('#5A2A0A'), 200, 480, -100); floor('#C8A06A', 50); break; }
+      case 'airship': { // sky airship: balloon, clouds drifting by, propeller
+        add(new T.SphereGeometry(110, 20, 14), M('#E2231A'), 200, 110, -320, m => m.scale.set(1.6, .7, .8));
+        add(new T.BoxGeometry(300, 50, 80), M('#8C5A2B'), 200, 470, -100);
+        const prop = add(new T.BoxGeometry(80, 8, 4), M('#4A4A4A', {metalness:.6}), 360, 440, -90);
+        const cl = []; for(let i=0;i<6;i++){ const c = new T.Group(); [-1, 0, 1].forEach(k => { const p = new T.Mesh(new T.SphereGeometry(22 - Math.abs(k)*6, 10, 8), B('#FFFFFF')); p.position.x = k*24; c.add(p); }); c.position.copy(W(i*80, 220 + (i*37) % 140, -260)); g.add(c); cl.push(c); }
+        floor('#C9E4FF', 30); ticks.push(t => { prop.rotation.z = t*14; cl.forEach((c, i) => c.position.x = W((((i*80 - t*50) % 520) + 520) % 520 - 60, 0, 0).x); }); break; }
+      case 'volcano': { // volcano kitchen: erupting cone, lava rivers, embers
+        add(new T.ConeGeometry(140, 220, 8, 1, true), M('#3A1A0A', {roughness:.9, side:T.DoubleSide}), 200, 260, -330);
+        const top = add(new T.CircleGeometry(30, 16), B('#FF5A1E'), 200, 150, -320);
+        const emb = []; for(let i=0;i<18;i++) emb.push(add(new T.SphereGeometry(3, 6, 4), B(i % 2 ? '#FFD23F' : '#FF5A1E'), 200, 150, -300));
+        const lava = add(new T.BoxGeometry(440, 60, 160), new T.MeshBasicMaterial({color:'#FF5A1E'}), 200, 575, -80);
+        ticks.push((t, beat) => { emb.forEach((e, i) => { const k = (t*.6 + i/18) % 1, a = i*1.7; e.position.copy(W(200 + Math.cos(a)*k*160, 150 - k*120 + k*k*200, -300)); }); lava.material.color.setHSL(.04, 1, .45 + beat*.1); }); break; }
+      case 'hideout': { // villain's castle: dark towers, purple moon, bats
+        add(new T.CircleGeometry(50, 32), B('#C9A0FF'), 120, 120, -390);
+        [[60, 260, 260], [200, 230, 320], [340, 270, 240]].forEach(([x, y, h]) => { add(new T.BoxGeometry(70, h, 50), M('#140A1E'), x, y + h/2 - 100, -300); add(new T.ConeGeometry(45, 70, 4), M('#2A0A2A'), x, y - 135, -300, m => m.rotation.y = Math.PI/4); });
+        const bats = []; for(let i=0;i<6;i++) bats.push(add(new T.BoxGeometry(18, 4, 2), B('#05020A'), 100 + i*40, 160, -200));
+        floor('#0A050F', 50); ticks.push(t => bats.forEach((b, i) => { b.position.copy(W(200 + Math.cos(t*.8 + i)*140, 170 + Math.sin(t*1.6 + i)*40, -200)); b.scale.x = 1 + Math.abs(Math.sin(t*10 + i))*.6; })); break; }
+      case 'finale': {  // the first recipe: golden temple of light, everyone's lanterns rising
+        add(new T.CylinderGeometry(150, 150, 8, 40), M('#FFD23F', {metalness:.8, roughness:.2}), 200, 260, -330, m => m.rotation.x = Math.PI/2);
+        for(let i=0;i<12;i++) add(new T.BoxGeometry(6, 300, 2), BT('#FFF3C4', .25), 200, 260, -325, m => m.rotation.z = i/12*Math.PI);
+        const lan = []; for(let i=0;i<16;i++) lan.push(add(new T.SphereGeometry(8, 10, 8), B(['#FFD23F','#FF8A3D','#FFF3C4'][i % 3]), (i*29) % 400, 600, -150, m => m.scale.y = 1.3));
+        const c = crowd(530, ['#2A1A0A','#3A2A1A'], ['#FFD23F','#FFFFFF']); floor('#3A2A1A', 40);
+        ticks.push(t => { lan.forEach((l, i) => l.position.copy(W((i*29 + Math.sin(t + i)*14) % 400, 600 - ((t*30 + i*40) % 560), -150))); c.forEach((m, i) => { if(i % 2) m.rotation.z = Math.sin(t*3 + i)*.4; }); }); break; }
       default: return mkBuildSet(key);
     }
     return {g, ticks};
@@ -8693,7 +9042,7 @@ Reply as JSON only: {"name":"...","why":"..."}`;
   function startMk(cfg){
     SFX.unlock();
     const mir = !!(cfg.rule && cfg.rule.mirror);
-    MK = {cfg, chart:mkChart(cfg.song, cfg.diff, cfg.seed, cfg.ramp), music:mkMusic(cfg.song), mi:0, running:false, audio:false, t0:0, p0:0, lead:MK_DIFF[cfg.diff].lead*(1 - .16*(cfg.ramp || 0))*(cfg.rule && cfg.rule.fast ? .72 : 1), hidden:!!(cfg.rule && cfg.rule.hidden),
+    MK = {cfg, chart:mkChart(cfg.song, cfg.diff, cfg.seed, cfg.ramp), music:mkMusic(cfg.song), mi:0, running:false, audio:false, t0:0, p0:0, lead:MK_DIFF[cfg.diff].lead*(1 - .16*(cfg.ramp || 0))*(cfg.rule && cfg.rule.fast ? ({easy:.86, normal:.84, upper:.8, hard:.75}[cfg.diff] || .8) : 1), hidden:!!(cfg.rule && cfg.rule.hidden),
       score:0, combo:0, maxCombo:0, cnt:{p:0, g:0, o:0, m:0}, judgeT:-9, judge:'', px:200, ptrs:{}, bend:null, lastCatch:null,
       ai: cfg.ai ? {lv:cfg.ai, score:0, combo:0, idx:0, last:''} : null, net:!!cfg.net, mid:cfg.mid, lastPush:0, beatI:-1, slurpT:-9};
     if(mir) MK.chart.notes.forEach(n => { n.x = 400 - n.x; if(n.x2 != null) n.x2 = 400 - n.x2; });
@@ -8966,7 +9315,7 @@ Reply as JSON only: {"name":"...","why":"..."}`;
       const i = MK.cfg.stage, fail = ruleCheck(MK.cfg.rule), st = fail ? 0 : mkStars(acc), had = mkBest(i), opened = st > 0 && had === 0 && i + 1 < MK_STAGES.length;
       MK.ruleFail = fail;
       PROFILE.mkst = PROFILE.mkst || {}; if(st > had) PROFILE.mkst[i] = st; saveProfile();
-      MK.stageRes = {i, st, next: st > 0 && i + 1 < MK_STAGES.length, ending: st > 0 && had === 0 && (i === 14 || i === MK_STAGES.length - 1)};
+      MK.stageRes = {i, st, next: st > 0 && i + 1 < MK_STAGES.length, ending: st > 0 && had === 0 && (i === 14 || i === 29 || i === MK_STAGES.length - 1)};
       if(st > 0 && had === 0 && MK_STORY[i]){ MK.storyWin = '🎬 ' + tr('이야기가 이어져요!') + ' (📺 ' + tr('구독자') + ' ' + fmtSubs(mkSubs()) + ')'; MK.stageRes.winScene = true; }
       else MK.storyWin = '';
       $('mkEndRows').innerHTML = `<div class="mkres ${st ? 'ok' : 'no'}"><b>${esc(tr('스테이지'))} ${i + 1} ${st ? esc(tr('클리어!')) : esc(tr('다시 도전!'))}</b><span class="notr">${'★'.repeat(st)}<u>${'★'.repeat(3 - st)}</u></span>${MK.storyWin ? `<small class="mkstory">${esc(MK.storyWin)}</small>` : ''}${opened ? `<small>🔓 ${esc(tr('다음 스테이지가 열렸어요!'))}</small>` : !st ? `<small>${esc(MK.ruleFail ? '🎯 ' + tr('목표 실패') + ': ' + MK.ruleFail : tr('정확도 70% 이상이면 클리어예요'))}</small>` : ''}</div>` + $('mkEndRows').innerHTML;
@@ -9017,7 +9366,7 @@ Reply as JSON only: {"name":"...","why":"..."}`;
   function closeMk(){ mk3Leave(); if(MK){ MK.running = false; cancelAnimationFrame(mkraf); } const net = MK && MK.net; MK = null; $('mk').hidden = true; $('mkEndOv').hidden = true; return net; }
   $('mkEndAgain').onclick = () => { const res = MK && MK.stageRes; const net = closeMk(); if(net){ onlineRematch(); return; }
     if(res && res.winScene && MK_STORY[res.i]){ const B0 = MK_BG[MK_SCENE[res.i]] || MK_BG[MK_STAGES[res.i][0]] || MK_BG.lofi; const nxt = res.ending ? null : res;
-      playScene(MK_STORY[res.i].win, () => { if(res.ending) playScene(res.i === 14 ? MK_END : MK_END2, () => openMkSetup(), '👑 ' + tr('면치기 왕!'), `radial-gradient(circle at 50% 25%, #FFD23F66 0%, transparent 50%), linear-gradient(#3A1240, #C2186B)`); else startStageMk(res.next ? res.i + 1 : res.i); },
+      playScene(MK_STORY[res.i].win, () => { if(res.ending) playScene(res.i === 14 ? MK_END : res.i === 29 ? MK_END2 : MK_END3, () => openMkSetup(), '👑 ' + tr('면치기 왕!'), `radial-gradient(circle at 50% 25%, #FFD23F66 0%, transparent 50%), linear-gradient(#3A1240, #C2186B)`); else startStageMk(res.next ? res.i + 1 : res.i); },
         res.ending ? '👑 ' + tr('엔딩 보기') : '▶ ' + tr('다음 무대로'), `radial-gradient(circle at 50% 25%, ${B0.n1}55 0%, transparent 45%), linear-gradient(${B0.top}, ${B0.bot})`); return; }
     if(res && res.ending){ const B = MK_BG.chip; playScene(MK_END, () => openMkSetup(), '👑 ' + tr('면치기 왕!'), `radial-gradient(circle at 50% 25%, #FFD23F66 0%, transparent 50%), linear-gradient(#3A1240, #C2186B)`); return; }
     if(res) startStageMk(res.next ? res.i + 1 : res.i); else openMkSetup(); };
