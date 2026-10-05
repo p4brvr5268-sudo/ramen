@@ -23,6 +23,7 @@ html,body{height:100%;margin:0}
 body{background:var(--bg);color:var(--ink);font-family:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
   -webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;overscroll-behavior:none;overflow:hidden}
 .app{height:100%;max-width:520px;margin:0 auto;display:flex;flex-direction:column;padding:8px 10px 6px;gap:6px}
+body.healfull .app{padding:6px 8px calc(env(safe-area-inset-bottom,0px) + 4px);gap:5px}
 header{display:flex;align-items:center;justify-content:space-between;gap:8px}
 h1{font-family:"Black Han Sans",sans-serif;font-weight:400;font-size:1.45rem;margin:0;line-height:1;color:var(--red);
   -webkit-text-stroke:1px var(--line);text-shadow:2px 2px 0 var(--yellow);white-space:nowrap}
@@ -117,6 +118,8 @@ h1{font-family:"Black Han Sans",sans-serif;font-weight:400;font-size:1.45rem;mar
 .gain .big{display:block;font-family:"Black Han Sans",sans-serif;font-size:2rem;color:var(--red);line-height:1.1;font-variant-numeric:tabular-nums}
 .gain small{display:block;color:var(--muted);font-size:.8rem;font-weight:400}
 .scene{flex:1;min-height:0;border:3px solid var(--line);border-radius:16px;overflow:hidden;background:#F4E9D3}
+body.healfull .scene{border:0;margin:0 -4px}
+body:not(.healfull) #svg .ext{display:none}
 .scene svg{display:block;width:100%;height:100%;touch-action:none}
 .drag{cursor:grab}
 .drag.held{cursor:grabbing}
@@ -286,7 +289,7 @@ h1{font-family:"Black Han Sans",sans-serif;font-weight:400;font-size:1.45rem;mar
 .p2prow .btn{margin-top:6px}
 #lobbyA.noroom #bCreate,#lobbyA.noroom .joinrow{opacity:.45}
 #svg.g3d .g2d{visibility:hidden}
-#svg.g3d #eggs ellipse, #svg.g3d #cheeses .ch > g{opacity:0}
+#svg.g3d #eggs ellipse, #svg.g3d #cheeses .ch > g:not(.tapme){opacity:0}
 #g3d{display:block}
 #svg.k3d .k2d, #svg.k3d #cStream{visibility:hidden}
 #svg.b3d .b2d{visibility:hidden}
@@ -685,11 +688,41 @@ body.lg .welcome{background:rgba(234,247,238,.7);border:1px solid rgba(255,255,2
 .napfx{position:fixed;inset:0;z-index:70;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:rgba(10,15,40,.82);color:#FFF;animation:napIn 1.6s ease both}
 .napfx b{font-size:2.2rem}.napfx[hidden]{display:none}
 @keyframes napIn{0%{opacity:0}20%{opacity:1}80%{opacity:1}100%{opacity:0}}
+#hut3d{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
+#hutLabels{position:absolute;inset:0;pointer-events:none}
+#hutLabels[hidden]{display:none}
+.h3tag{position:absolute;left:0;top:0;pointer-events:auto;padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.7);background:rgba(255,255,255,.82);font:inherit;font-weight:800;font-size:.9rem;color:#1C1C1E;white-space:nowrap;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:inset 0 1px 0 #FFF,0 6px 16px rgba(0,0,0,.25)}
+.huttools{position:absolute;right:14px;top:calc(env(safe-area-inset-top,0px) + 14px);display:flex;flex-direction:column;gap:8px}
+.huttools[hidden]{display:none}
+.huttools button,.huteditbar button{padding:9px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.6);background:rgba(255,255,255,.28);color:#FFF;font:inherit;font-weight:800;font-size:.85rem;-webkit-backdrop-filter:blur(18px) saturate(180%);backdrop-filter:blur(18px) saturate(180%);box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 6px 18px rgba(0,0,0,.3);text-shadow:0 1px 2px rgba(0,0,0,.4)}
+.huteditbar{position:absolute;left:10px;right:10px;bottom:calc(env(safe-area-inset-bottom,0px) + 12px);display:flex;flex-wrap:wrap;align-items:center;gap:8px;justify-content:center;padding:12px;border-radius:24px;background:rgba(30,20,10,.55);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+.huteditbar b{width:100%;text-align:center;color:#FFF;font-size:.95rem}
+.huteditbar button:disabled{opacity:.4}
+.huteditbar[hidden]{display:none}
+.hgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:6px 0 10px}
+.hsi{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 4px;border-radius:14px;background:rgba(255,255,255,.6);border:1px solid rgba(0,0,0,.08);text-align:center}
+.hsi.on{outline:2.5px solid #34C759}
+.hsi b{font-size:.78rem;line-height:1.2;word-break:keep-all}
+.hsw{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:1.6rem;border:1px solid rgba(0,0,0,.12);background:#FFF8E7}
+.hsi .sbuy{font-size:.72rem;padding:4px 8px}
+#hutShopTabs button.on{background:#FFD23F}
+.st.askme{animation:askPulse .6s ease 2}
+@keyframes askPulse{50%{transform:scale(1.06);box-shadow:0 0 0 3px #FFD23F}}
+.pal{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0 12px}
+.pal i,.hwallpick i{width:28px;height:28px;border-radius:50%;border:2px solid rgba(0,0,0,.15);cursor:pointer;display:grid;place-items:center;font-style:normal;font-size:.7rem}
+.pal i.on,.hwallpick i.on{outline:3px solid #34C759;outline-offset:1px}
+.hwallpick{width:100%;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.hwallpick[hidden]{display:none}
+.hwallpick i.lock{opacity:.6}
+.hutcam[hidden]{display:none}
+.hutcam{position:absolute;right:14px;bottom:calc(env(safe-area-inset-bottom,0px) + 150px);display:flex;flex-direction:column;gap:8px}
+.hutcam button{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.6);background:rgba(255,255,255,.28);color:#FFF;font:inherit;font-weight:800;font-size:1.2rem;-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 6px 18px rgba(0,0,0,.3)}
+.huteditbar button{font-size:.8rem;padding:8px 11px}
 </style>
 </head>
 
 <body>
-<script>(function(){ var ui = 'glass'; try{ ui = localStorage.getItem('ramen-ui') || 'glass'; }catch(e){} if(ui === 'glass') document.body.classList.add('lg'); })();</script>
+<script>document.body.classList.add('lg');   // Liquid Glass look is always on</script>
 <script>(function(){
   // no accidental zooming while playing: block pinch (iOS gesture events + two-finger moves) and double-tap zoom
   ['gesturestart', 'gesturechange', 'gestureend'].forEach(function(n){ document.addEventListener(n, function(e){ e.preventDefault(); }, {passive:false}); });
@@ -744,6 +777,7 @@ body.lg .welcome{background:rgba(234,247,238,.7);border:1px solid rgba(255,255,2
 
       <!-- ===== Stage 0: garden ===== -->
       <g id="s0">
+        <rect class="ext" x="-1000" y="-1200" width="2400" height="1210" fill="#9ED8FF"/><rect class="ext" x="-1000" y="150" width="1000" height="1200" fill="#8BC34A"/><rect class="ext" x="400" y="150" width="1000" height="1200" fill="#8BC34A"/>
         <rect class="g2d" width="400" height="165" fill="url(#sky)"/>
         <circle class="g2d" cx="200" cy="44" r="22" fill="#FFD23F" stroke="#E8A800" stroke-width="3"/>
         <g class="g2d" fill="#FFFFFF" opacity=".9"><ellipse cx="90" cy="50" rx="34" ry="11"/><ellipse cx="112" cy="43" rx="20" ry="10"/><ellipse cx="290" cy="70" rx="28" ry="9"/></g>
@@ -761,18 +795,18 @@ body.lg .welcome{background:rgba(234,247,238,.7);border:1px solid rgba(255,255,2
           <ellipse cx="72" cy="190" rx="66" ry="30" fill="transparent"/>
         </g>
         <!-- coop + hen -->
-        <g id="hut" class="tap"><g class="g2d"><path d="M322 118 L357 92 L392 118 Z" fill="#8E2A1E" stroke="#1A1410" stroke-width="3" stroke-linejoin="round"/>
+        <g id="hut" class="tap"><rect x="282" y="40" width="118" height="132" fill="transparent"/><g class="g2d" transform="translate(344 166) scale(1.5) translate(-357 -166)"><path d="M322 118 L357 92 L392 118 Z" fill="#8E2A1E" stroke="#1A1410" stroke-width="3" stroke-linejoin="round"/>
         <rect x="328" y="118" width="58" height="46" fill="#C0392B" stroke="#1A1410" stroke-width="3"/>
         <rect x="348" y="134" width="18" height="30" rx="9" fill="#5A1E14"/></g>
-        <g id="hutTag" class="tapme"><rect x="327" y="70" width="60" height="18" rx="9" fill="#FFD23F" stroke="#1A1410" stroke-width="1.5"/><text x="357" y="83" font-size="10.5" font-weight="800" text-anchor="middle" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">🏠 농막 톡!</text></g></g>
-        <g class="bobbing g2d">
+        <g id="hutTag" class="tapme"><rect x="314" y="34" width="60" height="18" rx="9" fill="#FFD23F" stroke="#1A1410" stroke-width="1.5"/><text x="344" y="47" font-size="10.5" font-weight="800" text-anchor="middle" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">🏠 농막 톡!</text></g></g>
+        <g transform="translate(-50 4)"><g class="bobbing g2d">
           <ellipse cx="300" cy="166" rx="17" ry="13" fill="#FFFFFF" stroke="#1A1410" stroke-width="2.5"/>
           <circle cx="313" cy="152" r="8" fill="#FFFFFF" stroke="#1A1410" stroke-width="2.5"/>
           <path d="M310 144 q3 -6 6 0 q3 -5 5 1" fill="#E2231A" stroke="#1A1410" stroke-width="1.5"/>
           <path d="M320 153 l7 2 l-7 3 z" fill="#F5A623" stroke="#1A1410" stroke-width="1.2"/>
           <circle cx="315" cy="151" r="1.8" fill="#1A1410"/>
           <path d="M286 162 q-8 -6 -6 6" fill="#FFFFFF" stroke="#1A1410" stroke-width="2"/>
-        </g>
+        </g></g>
         <g id="field" style="transition:transform .35s cubic-bezier(.3,1.2,.5,1)"><g id="plots"></g></g>
         <g id="wild"></g>
         <g id="pgL" class="tap" role="button" aria-label="왼쪽 밭"><circle cx="22" cy="378" r="16" fill="#FFFFFF" stroke="#1A1410" stroke-width="2.5"/><path d="M26 370 L17 378 L26 386" fill="none" stroke="#1A1410" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></g>
@@ -812,6 +846,7 @@ body.lg .welcome{background:rgba(234,247,238,.7);border:1px solid rgba(255,255,2
 
       <!-- ===== Stage 1: noodle workshop ===== -->
       <g id="s1" style="display:none">
+        <rect class="ext" x="-1000" y="-1200" width="2400" height="1210" fill="url(#tiles)"/><rect class="ext" x="-1000" y="0" width="1000" height="1400" fill="url(#tiles)"/><rect class="ext" x="400" y="0" width="1000" height="1400" fill="url(#tiles)"/>
         <rect class="b2d" width="400" height="340" fill="url(#tiles)"/>
         <rect class="b2d" y="330" width="400" height="230" fill="url(#wood)"/>
         <rect class="b2d" y="328" width="400" height="6" fill="#B07C42"/>
@@ -886,6 +921,7 @@ body.lg .welcome{background:rgba(234,247,238,.7);border:1px solid rgba(255,255,2
 
       <!-- ===== Stage 2: soup ===== -->
       <g id="s2" style="display:none">
+        <rect class="ext" x="-1000" y="-1200" width="2400" height="1210" fill="url(#tiles)"/><rect class="ext" x="-1000" y="0" width="1000" height="1400" fill="url(#tiles)"/><rect class="ext" x="400" y="0" width="1000" height="1400" fill="url(#tiles)"/>
         <rect class="b2d" width="400" height="360" fill="url(#tiles)"/>
         <rect class="b2d" y="350" width="400" height="210" fill="url(#wood)"/>
         <rect class="b2d" y="348" width="400" height="6" fill="#B07C42"/>
@@ -916,6 +952,7 @@ body.lg .welcome{background:rgba(234,247,238,.7);border:1px solid rgba(255,255,2
 
       <!-- ===== Stage 3: cook ===== -->
       <g id="s3" style="display:none">
+        <rect class="ext" x="-1000" y="-1200" width="2400" height="1210" fill="url(#tiles)"/><rect class="ext" x="-1000" y="0" width="1000" height="1400" fill="url(#wood)"/><rect class="ext" x="400" y="0" width="1000" height="1400" fill="url(#wood)"/>
         <text id="k3err" x="6" y="420" font-size="9" fill="#E2231A" style="display:none"></text>
         <rect class="k2d" width="400" height="160" fill="url(#tiles)"/>
         <rect class="k2d" y="150" width="400" height="278" fill="url(#wood)"/>
@@ -1078,8 +1115,24 @@ body.lg .welcome{background:rgba(234,247,238,.7);border:1px solid rgba(255,255,2
 </div>
 <div class="hutroom" id="hutRoom" hidden>
   <svg id="hutSvg" viewBox="0 0 420 760" preserveAspectRatio="xMidYMid slice"></svg>
+  <canvas id="hut3d"></canvas>
+  <div id="hutLabels"></div>
   <button class="hutexit" id="hutExit">🚪 밖으로 나가기</button>
+  <div class="huttools" id="hutTools"><button id="hutDeco">🛍️ 꾸미기 상점</button><button id="hutMove">🛠️ 꾸미기 모드</button><button id="hutYard">🏡 마당 꾸미기</button></div>
+  <div class="hutcam"><button id="hutZoomIn" aria-label="확대">＋</button><button id="hutZoomOut" aria-label="축소">－</button><button id="hutView" aria-label="시점">👁️</button></div>
+  <div class="huteditbar notr" id="hutEditBar" hidden><b id="hutSelName"></b>
+    <div class="hwallpick" id="hutWallPick" hidden></div>
+    <button id="hutRot">🔄 돌리기</button><button id="hutColor">🎨 색</button><button id="hutStore">📦 보관</button><button id="hutSell">💰 팔기</button><button id="hutUndo">↩ 되돌리기</button><button id="hutDone">✅ 완료</button></div>
   <div class="hutsheet notr" id="hutSheet" hidden></div>
+</div>
+<div class="overlay" id="hutShopOv" hidden style="z-index:45">
+  <div class="card">
+    <h2>🛍️ 농막 꾸미기</h2>
+    <p class="shopc notr" id="hutShopCoins"></p>
+    <div class="seg" id="hutShopTabs" style="grid-template-columns:repeat(4,1fr)"><button data-t="furn">🛋️ 가구</button><button data-t="room">🧱 방</button><button data-t="ext">🏠 외관</button><button data-t="yard">🌳 마당</button></div>
+    <div id="hutShopBody"></div>
+    <button class="btn" id="hutShopX">닫기</button>
+  </div>
 </div>
 <div class="napfx" id="napFx" hidden><b>💤 Zzz…</b><small>낮잠 자는 중</small></div>
 <div class="overlay" id="cheeseOv" hidden>
@@ -1092,15 +1145,13 @@ body.lg .welcome{background:rgba(234,247,238,.7);border:1px solid rgba(255,255,2
     <p class="chzmsg notr" id="chzMsg"></p>
     <div class="chzctl" id="chzCtl"></div>
     <p class="chzfact notr" id="chzFact"></p>
+    <button class="btn alt" id="chzLater">↩ 나중에 만들기 (우유통은 그대로)</button>
   </div>
 </div>
 <div class="overlay" id="setOv" hidden>
   <div class="card setcard">
     <h2>⚙️ 설정</h2>
-    <div class="setgroup">
-      <button class="setrow" id="bUI"><span>✨ Liquid Glass 화면</span><span class="sw"></span></button>
-      <button class="setrow" id="b3D"><span>🧊 3D 화면</span><span class="sw"></span></button>
-    </div>
+    <div hidden><button id="bUI"></button><button id="b3D"></button></div>
     <div class="setgroup">
       <button class="setrow" id="bLangSet"><span>🌐 언어</span><span class="go">›</span></button>
       <button class="setrow" id="bTut"><span>📖 튜토리얼 다시 하기</span><span class="go">›</span></button>
@@ -1257,9 +1308,9 @@ body.lg .welcome{background:rgba(234,247,238,.7);border:1px solid rgba(255,255,2
   <div class="card">
     <h2>🛒 상점</h2>
     <p class="shopc notr" id="shopCoins"></p>
-    <p class="how">손님이 낸 돈으로 주방을 업그레이드해요. 업그레이드는 혼자·AI 대결에서 적용돼요.</p>
-    <div class="lbl">🔧 주방 업그레이드</div>
-    <div class="shop" id="shopUp"></div>
+    <p class="how">손님이 낸 돈으로 그릇과 농막을 꾸며요.</p>
+    <div class="shop" id="shopUp" hidden></div>
+    <button class="btn" id="bHutShop" style="background:#8C5A35">🏠 농막 꾸미기 상점</button>
     <div class="lbl">🥣 그릇 꾸미기</div>
     <div class="shop" id="shopSkin"></div>
     <button class="btn" id="bShopClose">닫기</button>
@@ -1403,8 +1454,8 @@ body.lg .welcome{background:rgba(234,247,238,.7);border:1px solid rgba(255,255,2
     </svg>
   </div>
   <div class="bmain">
-    <button class="bbig steal" id="bSteal"><span class="e">🥢</span><span>뺏어먹기<small id="bStealS">누르면 자동으로 집어 와요</small></span></button>
-    <button class="bbig def" id="bLid"><span class="e">🛡️</span><span>막기<small id="bLidS">공격 오면 탭 · 꾹=뚜껑</small></span><i class="bar" id="bLidBar"></i></button>
+    <button class="bbig steal" id="bSteal" data-rapid="1"><span class="e">🥢</span><span>뺏어먹기<small id="bStealS">누르면 자동으로 집어 와요</small></span></button>
+    <button class="bbig def" id="bLid" data-rapid="1"><span class="e">🛡️</span><span>막기<small id="bLidS">공격 오면 탭 · 꾹=뚜껑</small></span><i class="bar" id="bLidBar"></i></button>
   </div>
   <div class="bctl" style="grid-template-columns:repeat(3,1fr)">
     <button class="bbtn" id="bSpice"><span class="e">🌶️</span>고춧가루<small id="bSpiceS">느리게</small></button>
@@ -1647,6 +1698,21 @@ body.lg .welcome{background:rgba(234,247,238,.7);border:1px solid rgba(255,255,2
   const nrm = a => { while(a > Math.PI) a -= 2*Math.PI; while(a < -Math.PI) a += 2*Math.PI; return a; };
   // order: en | ja | zh (简) | zt (繁) | es | fr | de | pt | vi | th
   const I18N_RAW = {
+'마당 꾸미기':'Decorate the yard|庭を飾る|装饰院子|裝飾院子|Decorar el patio|Décorer la cour|Garten gestalten|Decorar o quintal|Trang trí sân|ตกแต่งลาน',
+'방으로':'To the room|部屋へ|回房间|回房間|Al cuarto|Vers la pièce|Ins Zimmer|Para o quarto|Vào phòng|เข้าห้อง',
+'꺼내기':'Take out|出す|拿出|拿出|Sacar|Sortir|Herausnehmen|Tirar|Lấy ra|นำออก',
+'보관함에서 꺼내기':'From storage|保管箱から出す|从收纳拿出|從收納拿出|Del almacén|Du stock|Aus dem Lager|Do depósito|Từ kho|จากที่เก็บ',
+'팔았어요':'Sold|売ったよ|卖掉了|賣掉了|Vendido|Vendu|Verkauft|Vendido|Đã bán|ขายแล้ว',
+'게임 안의 ✕ / 돌아가기 버튼으로 나갈 수 있어요':'Use the in-game ✕ / Back buttons to leave|ゲーム内の✕／戻るボタンで出られるよ|请用游戏里的✕/返回按钮离开|請用遊戲裡的✕/返回按鈕離開|Usa los botones ✕ / Volver del juego|Utilise les boutons ✕ / Retour du jeu|Nutze die ✕ / Zurück-Tasten im Spiel|Use os botões ✕ / Voltar do jogo|Dùng nút ✕ / Quay lại trong game|ใช้ปุ่ม ✕ / กลับ ในเกม',
+'다른 앱에 다녀와서 곡을 처음부터 다시 시작해요':'You left the app, so the song restarts|他のアプリから戻ったので曲を最初から|离开过应用，歌曲从头开始|離開過應用，歌曲從頭開始|Saliste de la app: la canción vuelve a empezar|Tu as quitté l’app : la chanson recommence|App verlassen – das Lied startet neu|Você saiu do app: a música recomeça|Bạn rời ứng dụng nên bài hát chơi lại|ออกจากแอป เพลงจึงเริ่มใหม่',
+'한 번 더 누르면':'Tap again to go to|もう一度押すと|再点一次|再點一次|Toca otra vez para ir a|Touche encore pour aller à|Nochmal tippen für|Toque de novo para ir a|Chạm lần nữa để sang|แตะอีกครั้งเพื่อไปที่',
+'(으)로 이동해요':' |へ移動するよ| | | | | | | | ',
+'농막 꾸미기':'Decorate the hut|小屋を飾る|装饰小屋|裝飾小屋|Decorar la cabaña|Décorer la cabane|Hütte gestalten|Decorar a cabana|Trang trí chòi|ตกแต่งกระท่อม',
+'배치하기':'Place|置く|摆放|擺放|Colocar|Placer|Platzieren|Colocar|Đặt|วาง',
+'넣어두기':'Store|しまう|收起|收起|Guardar|Ranger|Einlagern|Guardar|Cất|เก็บ',
+'놓여 있음':'Placed|置いてある|已摆放|已擺放|Colocado|Placé|Platziert|Colocado|Đã đặt|วางแล้ว',
+'달기':'Add|付ける|装上|裝上|Poner|Ajouter|Anbringen|Colocar|Gắn|ติด',
+'떼기':'Remove|外す|拆下|拆下|Quitar|Retirer|Abnehmen|Tirar|Gỡ|ถอด',
 '낮잠':'Nap|昼寝|午睡|午睡|Siesta|Sieste|Nickerchen|Cochilo|Ngủ trưa|งีบ',
 '차 한잔':'Tea|お茶|喝茶|喝茶|Té|Thé|Tee|Chá|Trà|ชา',
 '라면 끓이기':'Cook ramen|ラーメンを作る|煮拉面|煮拉麵|Cocinar ramen|Cuisiner|Kochen|Cozinhar|Nấu mì|ทำราเมง',
@@ -3420,6 +3486,21 @@ ${JSON.stringify(part)}`;
       coins: num(d && d.coins), own: (() => { const o = {}; Object.entries(obj(d && d.own)).forEach(([k, v]) => { if(/^[a-z0-9_]{1,20}$/.test(k) && typeof v === 'number') o[k] = Math.min(5, Math.max(0, Math.floor(v))); }); return o; })(),
       skin: d && typeof d.skin === 'string' && /^(basic|blue|pink|black|gold)$/.test(d.skin) ? d.skin : 'basic',
       tutDone: !!(d && d.tutDone),
+      upRefund: d && d.upRefund ? 1 : 0,
+      hut: (() => { const h = obj(d && d.hut), o = {own:{}, inv:{}, ext:{}, int:{}, yard:[]};
+        const id = v => typeof v === 'string' && /^[a-z]{1,10}$/.test(v) ? v : undefined, hex = v => typeof v === 'string' && /^#[0-9A-Fa-f]{6}$/.test(v) ? v : undefined;
+        Object.entries(obj(h.own)).forEach(([k, v]) => { if(/^[a-zA-Z]{3,10}_[a-z]{1,10}$/.test(k) && v) o.own[k] = 1; });
+        Object.entries(obj(h.inv)).forEach(([k, v]) => { if(id(k)) o.inv[k] = Math.max(0, Math.min(99, Math.floor(+v || 0))); });
+        const e = obj(h.ext), c = obj(e.col);
+        o.ext = {wall:id(e.wall), roof:id(e.roof), door:id(e.door), win:id(e.win), deco:Array.isArray(e.deco) ? e.deco.filter(id).slice(0, 12) : [], col:{wall:hex(c.wall), roof:hex(c.roof), door:hex(c.door), trim:hex(c.trim)}};
+        Object.keys(o.ext.col).forEach(k => o.ext.col[k] === undefined && delete o.ext.col[k]);
+        const i = obj(h.int), w = obj(i.walls);
+        const item = x => ({u:String(x.u || '').slice(0, 16), k:x.k, x:clamp(+x.x || 0, -12, 12), z:clamp(+x.z || 0, -12, 12), r:+x.r || 0, ...(x.w && /^(back|left|right)$/.test(x.w) ? {w:x.w, y:clamp(+x.y || 3.2, 1, 5)} : {}), ...(Number.isInteger(x.c) && x.c >= 0 && x.c < 14 ? {c:x.c} : {})});
+        o.int = {size:id(i.size), wall:id(i.wall), walls:i.walls ? {back:id(w.back) || 'wood', left:id(w.left) || 'wood', right:id(w.right) || 'wood'} : undefined, floor:id(i.floor),
+          items:Array.isArray(i.items) ? i.items.slice(0, 60).filter(x => x && id(x.k)).map(item) : undefined};
+        o.yard = Array.isArray(h.yard) ? h.yard.slice(0, 60).filter(x => x && id(x.k)).map(item) : [];
+        ['ext', 'int'].forEach(g => Object.keys(o[g]).forEach(k => o[g][k] === undefined && delete o[g][k]));
+        return o; })(),
       mkSeen: (() => { const o = {}; Object.entries(obj(d && d.mkSeen)).forEach(([k, v]) => { if(/^\d{1,2}$/.test(k) && v) o[k] = 1; }); return o; })(),
       shop: (() => { const h = d && d.shop; if(!h || typeof h !== 'object') return undefined;
         const arr = (a, n) => Array.isArray(a) ? a.slice(-n) : [];
@@ -3786,6 +3867,7 @@ ${JSON.stringify(part)}`;
     if(G){ G.paused = mode === 'solo' || mode === 'heal'; }
     $('cheeseOv').hidden = false; chzStep(); CHZ.last = performance.now(); cancelAnimationFrame(CHZ.raf); CHZ.raf = requestAnimationFrame(chzLoop); SFX.pick();
   }
+  $('chzLater').onclick = () => { chzClose(); say('🥛 ' + tr('우유통은 그대로 있어요. 언제든 다시 눌러 치즈를 만들어요')); };
   function chzClose(){
     CHZ.on = false; cancelAnimationFrame(CHZ.raf); $('cheeseOv').hidden = true; if(G) G.paused = false;
   }
@@ -3796,7 +3878,7 @@ ${JSON.stringify(part)}`;
     $('chzHow').textContent = S ? tr(S.how) : '';
     $('chzDots').innerHTML = CHZ_STEPS.map((_, i) => `<i class="${i < CHZ.step ? 'done' : i === CHZ.step ? 'cur' : ''}"></i>`).join('');
     const c = $('chzCtl'); c.innerHTML = '';
-    const btn = (id, txt) => { const b = document.createElement('button'); b.className = 'btn'; b.id = id; b.textContent = txt; c.appendChild(b); return b; };
+    const btn = (id, txt) => { const b = document.createElement('button'); b.className = 'btn'; b.id = id; b.textContent = txt; if(id === 'chzDrop' || id === 'chzPress') b.dataset.rapid = 1; c.appendChild(b); return b; };
     if(CHZ.step === 0){ const b = btn('chzHeat', '🔥 ' + tr('꾹 눌러 데우기'));
       const on = e => { e.preventDefault(); CHZ.heat = true; b.classList.add('held'); }, off = () => { CHZ.heat = false; b.classList.remove('held'); };
       b.addEventListener('pointerdown', on); ['pointerup', 'pointerleave', 'pointercancel'].forEach(n => b.addEventListener(n, off)); }
@@ -3871,6 +3953,76 @@ ${JSON.stringify(part)}`;
     document.addEventListener('pointerup', e => { if(!CHZ.on || !CHZ.p0) return; const p = pt(e), a = CHZ.p0; CHZ.p0 = null; CHZ.lastP = null;
       if(CHZ.step === 3 && Math.hypot(p[0] - a[0], p[1] - a[1]) > 70){ CHZ.cuts.push([a[0], a[1], p[0], p[1]]); SFX.pick(); chzDraw(); if(CHZ.cuts.length >= 2) setTimeout(() => chzNext('바둑판처럼 잘 잘렸어요!'), 250); } });
   })();
+  // =================================================================
+  // 🛡️ TAP GUARD — the main cause of "I tapped once and ended up on another page":
+  // a quick second tap (or the phone's delayed ghost-click) lands on the NEXT screen's button,
+  // which appears exactly where your finger is. For a short moment after any screen changes,
+  // real taps on buttons are ignored. (Programmatic clicks from the game itself still work.)
+  // =================================================================
+  let swapAt = 0;
+  const SWAP_MS = 300;
+  const swapMO = new MutationObserver(muts => { for(const m of muts) if(m.attributeName === 'hidden'){ swapAt = performance.now(); return; } });
+  document.querySelectorAll('.overlay, #mk, #hutRoom, #napFx, #setOv').forEach(el => swapMO.observe(el, {attributes:true, attributeFilter:['hidden']}));
+  const TAPPABLE = 'button, .tap, .tab, .mtile, .mkst, .hspot, .hutTag, [data-a], .shopsign, .opendoor, .seg button';
+  const guardEvt = e => {
+    if(!e.isTrusted) return;
+    if(performance.now() - swapAt < SWAP_MS && e.target.closest && e.target.closest(TAPPABLE)){ e.stopImmediatePropagation(); e.preventDefault(); }
+  };
+  document.addEventListener('click', guardEvt, true);
+  // the same button can't fire twice in a row by a frantic double-tap
+  let lastBtn = null, lastBtnAt = 0;
+  document.addEventListener('click', e => {
+    if(!e.isTrusted) return;
+    const b = e.target.closest && e.target.closest('button'); if(!b) return;
+    const now = performance.now();
+    if(b === lastBtn && now - lastBtnAt < 450 && !b.dataset.rapid){ e.stopImmediatePropagation(); e.preventDefault(); return; }
+    lastBtn = b; lastBtnAt = now;
+  }, true);
+  // a crash in one frame shouldn't freeze the game silently: log it and keep going
+  window.addEventListener('error', e => { try{ console.warn('[라면 공방] ' + (e.message || e)); }catch(err){} });
+  window.addEventListener('unhandledrejection', e => { try{ e.preventDefault(); }catch(err){} });
+  // =================================================================
+  // 🧯 ROBUSTNESS for real phones
+  // 1) iPhone Safari's edge-swipe "back" used to leave the game: we keep a history step and stay in the game.
+  // 2) Coming back after switching apps mid-rhythm: the music clock has drifted, so the song restarts cleanly.
+  // 3) A lost 3D context (phone low on memory / app in background) no longer freezes the screen.
+  // =================================================================
+  try{ history.replaceState({rw:1}, ''); history.pushState({rw:2}, ''); }catch(e){}
+  window.addEventListener('popstate', () => {
+    try{ history.pushState({rw:2}, ''); }catch(e){}
+    // treat the back gesture like the on-screen "back": close what's on top
+    if(!$('hutShopOv').hidden){ $('hutShopOv').hidden = true; return; }
+    if(!$('hutRoom').hidden){ hutClose(); return; }
+    if(!$('cheeseOv').hidden){ chzClose(); return; }
+    if(!$('setOv').hidden){ $('setOv').hidden = true; return; }
+    toast('↩ ' + tr('게임 안의 ✕ / 돌아가기 버튼으로 나갈 수 있어요'));
+  });
+  let mkBg = false;
+  document.addEventListener('visibilitychange', () => {
+    if(document.hidden){ if(MK && MK.running && !MK.net) mkBg = true; return; }
+    if(mkBg && MK && MK.running && !MK.net){ mkBg = false; const cfg = MK.cfg; closeMk(); setTimeout(() => { startMk(cfg); toast('🎵 ' + tr('다른 앱에 다녀와서 곡을 처음부터 다시 시작해요')); }, 200); }
+    mkBg = false;
+  });
+  (function wrap3(){
+    const patch = () => { const T = window.THREE; if(!T || T.__rwSafe) return; const R = T.WebGLRenderer;
+      T.WebGLRenderer = function(p){ const r = new R(p); try{ r.domElement.addEventListener('webglcontextlost', e => { e.preventDefault(); }, false); }catch(e){} return r; };
+      T.WebGLRenderer.prototype = R.prototype; T.__rwSafe = true; };
+    patch(); const t = setInterval(() => { if(window.THREE){ patch(); clearInterval(t); } }, 500);
+  })();
+  // the game picture fills the whole play area: the drawing area grows to the screen's shape
+  function fitScene(){
+    const sc = $('scene'), sv = $('svg'); if(!sc || !sv) return;
+    const heal = typeof mode !== 'undefined' && mode === 'heal';
+    document.body.classList.toggle('healfull', heal);
+    if(!heal){ if(sv.getAttribute('viewBox') !== '0 0 400 560'){ sv.setAttribute('viewBox', '0 0 400 560'); sv.setAttribute('preserveAspectRatio', 'xMidYMax meet'); try{ g3Size(); }catch(e){} try{ k3Size(); }catch(e){} try{ b3Size(); }catch(e){} } return; }
+    sv.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+    const w = sc.clientWidth, h = sc.clientHeight; if(w < 50 || h < 50) return;
+    const need = 400*h/w;
+    const vb = need >= 560 ? `0 ${(560 - need).toFixed(1)} 400 ${need.toFixed(1)}` : (() => { const W = 560*w/h; return `${((400 - W)/2).toFixed(1)} 0 ${W.toFixed(1)} 560`; })();
+    if(sv.getAttribute('viewBox') !== vb){ sv.setAttribute('viewBox', vb); try{ g3Size(); }catch(e){} try{ k3Size(); }catch(e){} try{ b3Size(); }catch(e){} }
+  }
+  try{ new ResizeObserver(fitScene).observe($('scene')); }catch(e){ window.addEventListener('resize', fitScene); }
+  setTimeout(fitScene, 50); setInterval(fitScene, 400);
   setInterval(nowDoTick, 300);
   // =================================================================
   // 👆 SHOW-ME HAND: when a beginner stops for a moment, a ghost finger acts out the next move
@@ -3890,7 +4042,7 @@ ${JSON.stringify(part)}`;
     if(S === 0){
       if(!(SG.plots && SG.plots.some(p => p.crop))) return {k:'plant', a:ghItem('seed_'), b:ghPlot(false), kind:'drag'};
       if(SG.cheeses && SG.cheeses.length) return {k:'milk', a:[SG.cheeses[0].x, 194], kind:'tap'};
-      if(SG.eggs && SG.eggs.length) return {k:'egg', a:[SG.eggs[0].x, 176], kind:'tap'};
+      if(SG.eggs && SG.eggs.length) return {k:'egg', a:[SG.eggs[0].x, 194], kind:'tap'};
       if(!(SG.harvested > 0)) return {k:'water', a:ghItem('can'), b:ghPlot(true), kind:'drag'};
       return null;
     }
@@ -4041,14 +4193,14 @@ ${JSON.stringify(part)}`;
     const body = new T.Mesh(new T.BoxGeometry(58, 46, 40), M('#C0392B')); body.position.y = 23; coop.add(body);
     const roof = new T.Mesh(new T.ConeGeometry(44, 26, 4), M('#8E2A1E')); roof.rotation.y = Math.PI/4; roof.position.y = 59; coop.add(roof);
     const door = new T.Mesh(new T.BoxGeometry(18, 28, 2), M('#5A1E14')); door.position.set(0, 14, 20.5); coop.add(door);
-    coop.scale.setScalar(cu); coop.position.set(cp.x, 0, cp.z - 20*cu); sc.add(coop); G3.coop = coop;
+    coop.scale.setScalar(cu); coop.position.set(cp.x, 0, cp.z - 20*cu); sc.add(coop); G3.coop = coop; try{ hutExt3D(); }catch(e){}
     const hen = G3.hen = new T.Group();
     const hb = new T.Mesh(new T.SphereGeometry(14, 14, 10), M('#FFFFFF')); hb.scale.set(1.2, 1, 1); hb.position.y = 13; hen.add(hb);
     const hh = new T.Mesh(new T.SphereGeometry(7, 12, 10), M('#FFFFFF')); hh.position.set(12, 26, 0); hen.add(hh);
     const comb = new T.Mesh(new T.SphereGeometry(3.5, 8, 6), M('#E2231A')); comb.scale.set(1.2, 1, .5); comb.position.set(12, 33, 0); hen.add(comb);
     const beak = new T.Mesh(new T.ConeGeometry(2, 5, 6), M('#F5A623')); beak.rotation.z = -Math.PI/2; beak.position.set(20, 26, 0); hen.add(beak);
     [[-3, 2.5],[3, -2.5]].forEach(([z]) => { const l = new T.Mesh(new T.CylinderGeometry(.8, .8, 6, 5), M('#F5A623')); l.position.set(0, 2, z*1.5); hen.add(l); });
-    const hp = toG(300, 172), hu = G3.unit(300, 172); hen.scale.setScalar(hu); hen.position.set(hp.x, 0, hp.z); hen.rotation.y = -.5; sc.add(hen);
+    const hp = toG(250, 176), hu = G3.unit(250, 176); hen.scale.setScalar(hu); hen.position.set(hp.x, 0, hp.z); hen.rotation.y = -.5; sc.add(hen);
     // cow
     const cow = G3.cow = new T.Group();
     const cb = new T.Mesh(new T.BoxGeometry(48, 24, 22), M('#FFFFFF')); cb.position.y = 22; cow.add(cb);
@@ -4080,7 +4232,7 @@ ${JSON.stringify(part)}`;
     const s = $('svg'), sc = $('scene').getBoundingClientRect(), m = s.getScreenCTM(); if(!m) return;
     const p = s.createSVGPoint(); p.x = 0; p.y = 0; const a = p.matrixTransform(m); p.x = 400; p.y = 400; const b = p.matrixTransform(m);
     const w = Math.max(10, b.x - a.x), h = Math.max(10, b.y - a.y);
-    const cv = $('g3d'); cv.style.left = (a.x - sc.left - 3) + 'px'; cv.style.top = (a.y - sc.top - 3) + 'px';
+    const cv = $('g3d'); cv.style.left = (a.x - sc.left - $('scene').clientLeft) + 'px'; cv.style.top = (a.y - sc.top - $('scene').clientTop) + 'px';
     G3.r.setSize(w, h, true);
   }
   // ---- plants, built from simple shapes (1 unit = 1 unit of the old 2D drawing) ----
@@ -4167,7 +4319,7 @@ ${JSON.stringify(part)}`;
     G3.on = false; $('svg').classList.remove('g3d');
     if($('g3d')) $('g3d').style.display = 'none';
   }
-  const G3_OFF = () => { try{ return localStorage.getItem('ramen-3d') === 'off'; }catch(e){ return false; } };
+  const G3_OFF = () => false;   // 3D is always on (it still falls back to 2D by itself if the phone can't do 3D)
   // =================================================================
   // 3D KITCHEN for the cooking stage (three.js, under the transparent game layer).
   // Orthographic camera tilted down, so every 3D thing lands exactly where the
@@ -4319,7 +4471,7 @@ ${JSON.stringify(part)}`;
     if(!K3.ready) return;
     const s = $('svg'), sc = $('scene').getBoundingClientRect(), m = s.getScreenCTM(); if(!m) return;
     const p = s.createSVGPoint(); p.x = 0; p.y = 0; const a = p.matrixTransform(m); p.x = 400; p.y = K3_H; const b = p.matrixTransform(m);
-    const cv = $('k3d'); cv.style.left = (a.x - sc.left - 3) + 'px'; cv.style.top = (a.y - sc.top - 3) + 'px';
+    const cv = $('k3d'); cv.style.left = (a.x - sc.left - $('scene').clientLeft) + 'px'; cv.style.top = (a.y - sc.top - $('scene').clientTop) + 'px';
     K3.r.setSize(Math.max(10, b.x - a.x), Math.max(10, b.y - a.y), true);
   }
   const TOPCOL = {pa:'#3FA34D', chili:'#E2231A', cabbage:'#A6D66A', onion:'#B57CC9', mushroom:'#8C5A2B', corn:'#FFD43B', sprout:'#F6F2DE', perilla:'#2E7D32', zucchini:'#9CCB5A', carrot:'#F08A24', egg:'#FFFDF5', cheese:'#FFC83A', shrimp:'#FF8A57', squid:'#F7E7E0', chashu:'#C9763E', pheasant:'#E3A86B', rabbit:'#D98C7A'};
@@ -4442,7 +4594,7 @@ ${JSON.stringify(part)}`;
     if(!B3.r) return;
     const s = $('svg'), sc = $('scene').getBoundingClientRect(), m = s.getScreenCTM(); if(!m) return;
     const p = s.createSVGPoint(); p.x = 0; p.y = 0; const a = p.matrixTransform(m); p.x = 400; p.y = B3_H; const b = p.matrixTransform(m);
-    const cv = $('b3d'); cv.style.left = (a.x - sc.left - 3) + 'px'; cv.style.top = (a.y - sc.top - 3) + 'px';
+    const cv = $('b3d'); cv.style.left = (a.x - sc.left - $('scene').clientLeft) + 'px'; cv.style.top = (a.y - sc.top - $('scene').clientTop) + 'px';
     B3.r.setSize(Math.max(10, b.x - a.x), Math.max(10, b.y - a.y), true);
   }
   // wall + counter whose back edge meets the wall at screen height `edgeY`
@@ -4710,7 +4862,7 @@ ${JSON.stringify(part)}`;
     SG.plots.forEach((p, i) => { const s = (f.plots || [])[i]; if(s && CROPS[s.c]){ p.crop = s.c; p.g = clamp(+s.g || 0, 0, 1); p.m = clamp(+s.m || 0, 0, 115); p.key = ''; } });
     // the pantry IS the basket while you're on the farm
     [...ALLTOP, 'rice'].forEach(k => { G.basket[k] = Array(Math.max(0, Math.min(99, (f.pantry || {})[k] | 0))).fill(false); });
-    SG.eggs = []; for(let i=0;i<(f.eggs || 0);i++) SG.eggs.push({id:++SG.eggId, x:256 + i*16});
+    SG.eggs = []; for(let i=0;i<(f.eggs || 0);i++) SG.eggs.push({id:++SG.eggId, x:240 + i*16});
     SG.cheeses = []; for(let i=0;i<(f.cheese || 0);i++) SG.cheeses.push({id:++SG.eggId, x:i ? 170 : 150});
     SG.henT = 60 + rng()*30; SG.cheeseT = 75 + rng()*40;
     Garden.drawEggs && Garden.drawEggs(); Garden.drawCheese && Garden.drawCheese();
@@ -5108,7 +5260,444 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
   // 🏠 THE FARM HUT — step inside: a warm room you can look around in (swipe left/right),
   // with a bed, a window onto your farm, a tea table and an earthen stove (아궁이).
   // =================================================================
+  // =================================================================
+  // 🏠 HUT BUILD & BUY — a little "Sims" for your farm hut.
+  // Inside: room size, a wallpaper for every wall, floors, any number of furniture pieces,
+  // each one movable / turnable / recolourable / sellable, wall decor on any wall.
+  // Outside: wall / roof / door styles and free colours, windows, and a yard you can fill
+  // with trees, flower beds, benches, a well… placed anywhere. Everything costs coins.
+  // =================================================================
   const HUT_NAP_MS = 120000;
+  const HPAL = ['#FFFFFF', '#F4EFE6', '#F6C9D0', '#FFD23F', '#F28C28', '#C0392B', '#8FD3C1', '#7FA0DD', '#2F3E5C', '#7B3FA0', '#2E7D32', '#8C5A35', '#5E3A20', '#2B2B2B'];
+  const HUTC = {
+    extWall:[{id:'plank', n:'판자벽', p:0}, {id:'log', n:'통나무벽', p:90}, {id:'plaster', n:'회벽', p:60}, {id:'stone', n:'돌벽', p:120}, {id:'brick', n:'벽돌벽', p:140}],
+    extRoof:[{id:'gable', n:'박공지붕', p:0}, {id:'thatch', n:'초가지붕', p:150}, {id:'tile', n:'기와지붕', p:180}, {id:'flat', n:'평지붕', p:80}],
+    extDoor:[{id:'wood', n:'나무 문', p:0}, {id:'arch', n:'아치 문', p:60}, {id:'glass', n:'유리 문', p:90}],
+    extWin:[{id:'none', n:'창문 없음', p:0}, {id:'one', n:'창문 하나', p:50}, {id:'two', n:'창문 둘', p:90}, {id:'round', n:'동그란 창', p:70}],
+    extDeco:[{id:'chimney', n:'굴뚝', e:'🏭', p:70}, {id:'lantern', n:'처마 등불', e:'🏮', p:60}, {id:'flower', n:'창가 꽃상자', e:'🌷', p:80}, {id:'sign', n:'이름 간판', e:'🪧', p:50}],
+    intWall:[{id:'wood', n:'원목', c:'#D2A66E', p:0}, {id:'plaster', n:'하얀 회벽', c:'#F4EFE6', p:60}, {id:'pink', n:'분홍 벽지', c:'#F6C9D0', p:70}, {id:'mint', n:'민트 벽지', c:'#BFE6D8', p:70}, {id:'sky', n:'하늘 벽지', c:'#CDE6FF', p:70}, {id:'brick', n:'벽돌', c:'#B5603E', p:110}, {id:'hanji', n:'한지', c:'#F3E7C8', p:120}, {id:'stripe', n:'줄무늬 벽지', c:'#FFF3D6', p:90}],
+    intFloor:[{id:'wood', n:'원목 마루', c:'#9A6B40', p:0}, {id:'dark', n:'짙은 마루', c:'#5E3A20', p:60}, {id:'jangpan', n:'노란 장판', c:'#E8C26A', p:80}, {id:'tile', n:'타일', c:'#DADDE0', p:90}, {id:'check', n:'체크 타일', c:'#F4EFE6', p:110}, {id:'carpet', n:'카펫', c:'#7A5A9A', p:100}],
+    size:[{id:'s', n:'아담한 방', w:10, d:9, p:0}, {id:'m', n:'넓은 방', w:13, d:11, p:300}, {id:'l', n:'아주 넓은 방', w:16, d:13, p:700}],
+    furn:[
+      {id:'bed', n:'침대', e:'🛏️', p:0, act:'nap', base:1}, {id:'stove', n:'아궁이', e:'🔥', p:0, act:'cook', base:1}, {id:'shelf', n:'창고 선반', e:'🧺', p:0, act:'pantry', base:1}, {id:'table', n:'찻상', e:'☕', p:0, act:'tea', base:1},
+      {id:'rug', n:'동그란 러그', e:'🟠', p:50}, {id:'plant', n:'화분', e:'🪴', p:40}, {id:'bigplant', n:'큰 화분', e:'🌿', p:60}, {id:'lamp', n:'스탠드', e:'💡', p:60},
+      {id:'bookshelf', n:'책장', e:'📚', p:90}, {id:'sofa', n:'소파', e:'🛋️', p:130}, {id:'armchair', n:'안락의자', e:'🪑', p:80}, {id:'cushion', n:'방석', e:'🟥', p:30},
+      {id:'cat', n:'고양이와 쿠션', e:'🐈', p:150}, {id:'radio', n:'라디오', e:'📻', p:70}, {id:'tv', n:'텔레비전', e:'📺', p:140}, {id:'aquarium', n:'어항', e:'🐠', p:160},
+      {id:'piano', n:'피아노', e:'🎹', p:220}, {id:'wardrobe', n:'옷장', e:'🚪', p:110}, {id:'desk', n:'책상', e:'🗄️', p:90}, {id:'chair', n:'의자', e:'🪑', p:35},
+      {id:'frame', n:'벽 액자', e:'🖼️', p:40, wall:1}, {id:'clock', n:'벽시계', e:'🕰️', p:50, wall:1}, {id:'shelfw', n:'벽 선반', e:'🪵', p:45, wall:1}, {id:'garland', n:'고추 걸이', e:'🌶️', p:30, wall:1}
+    ],
+    yard:[
+      {id:'tree', n:'나무', e:'🌳', p:60}, {id:'pine', n:'소나무', e:'🌲', p:70}, {id:'bush', n:'덤불', e:'🌿', p:25}, {id:'bed', n:'꽃밭', e:'🌸', p:45}, {id:'bench', n:'벤치', e:'🪑', p:55},
+      {id:'post', n:'가로등', e:'🏮', p:60}, {id:'mailbox', n:'우체통', e:'📮', p:40}, {id:'well', n:'우물', e:'🪣', p:120}, {id:'scare', n:'허수아비', e:'🧑‍🌾', p:70}, {id:'doghouse', n:'개집과 강아지', e:'🐕', p:160},
+      {id:'stone', n:'디딤돌', e:'🪨', p:10}, {id:'fence', n:'울타리 한 칸', e:'🪵', p:15}, {id:'pumpkin', n:'호박', e:'🎃', p:30}, {id:'fire', n:'모닥불', e:'🔥', p:80}, {id:'picnic', n:'피크닉 테이블', e:'🧺', p:90}
+    ]
+  };
+  const hutCat = (cat, id) => HUTC[cat].find(x => x.id === id) || HUTC[cat][0];
+  const fdef = k => HUTC.furn.find(f => f.id === k) || {};
+  function hutCfg(){
+    if(!PROFILE) return null;
+    const h = PROFILE.hut = PROFILE.hut || {};
+    h.own = h.own || {}; h.inv = h.inv || {};
+    // older saves (one colour / one wall) become the new richer layout
+    const e = h.ext = h.ext || {};
+    if(!HUTC.extWall.some(x => x.id === e.wall)) e.wall = e.wall === 'log' ? 'log' : e.wall === 'stone' ? 'stone' : 'plank';
+    if(!HUTC.extRoof.some(x => x.id === e.roof)) e.roof = e.roof === 'thatch' ? 'thatch' : e.roof === 'tile' ? 'tile' : 'gable';
+    if(!HUTC.extDoor.some(x => x.id === e.door)) e.door = 'wood';
+    e.win = e.win || 'none'; e.deco = Array.isArray(e.deco) ? e.deco.filter(x => HUTC.extDeco.some(d => d.id === x)) : [];
+    e.col = Object.assign({wall:'#C0392B', roof:'#8E2A1E', door:'#5A1E14', trim:'#F4EFE6'}, e.col || {});
+    h.yard = Array.isArray(h.yard) ? h.yard : [];
+    const i = h.int = h.int || {};
+    i.size = i.size || 's';
+    if(!i.walls){ const w = HUTC.intWall.some(x => x.id === i.wall) ? i.wall : 'wood'; i.walls = {back:w, left:w, right:w}; }
+    if(!HUTC.intFloor.some(x => x.id === i.floor)) i.floor = 'wood';
+    if(!Array.isArray(i.items)) i.items = [{u:'b0', k:'bed', x:-3.3, z:-1.6, r:0}, {u:'b1', k:'stove', x:3.2, z:-2.6, r:0}, {u:'b2', k:'shelf', x:3.7, z:.6, r:-Math.PI/2}, {u:'b3', k:'table', x:0, z:1.6, r:0}];
+    i.items.forEach(it => { if(fdef(it.k).wall && !it.w){ it.w = 'back'; it.y = it.y || 3.2; } });
+    ['extWall_plank', 'extRoof_gable', 'extDoor_wood', 'extWin_none', 'intWall_wood', 'intFloor_wood', 'size_s'].forEach(k => h.own[k] = 1);
+    return h;
+  }
+  const hutOwns = (cat, id) => { const h = hutCfg(); return !!(h && h.own[cat + '_' + id]); };
+  function hutPay(p){ if((PROFILE.coins || 0) < p){ SFX.nope(); toast('🪙 ' + tr('코인이 부족해요. 영업으로 더 벌어 와요!')); return false; } PROFILE.coins -= p; SFX.ding(); return true; }
+  function hutBuy(cat, id){ const h = hutCfg(); if(hutOwns(cat, id)) return true; if(!hutPay(hutCat(cat, id).p)) return false; h.own[cat + '_' + id] = 1; saveProfile(); return true; }
+  const roomWD = () => { const z = hutCat('size', hutCfg().int.size); return [z.w, z.d]; };
+  // ---------- undo ----------
+  const HUNDO = [];
+  function hutSnap(){ const h = hutCfg(); HUNDO.push(JSON.stringify({int:h.int, yard:h.yard})); if(HUNDO.length > 30) HUNDO.shift(); }
+  function hutUndo(){ const s = HUNDO.pop(); if(!s) return; const h = hutCfg(), o = JSON.parse(s); h.int = o.int; h.yard = o.yard; saveProfile(); H3.sel = null; h3Build(); hutEditBar(); SFX.back(); }
+  // ---------- the hut as seen on the farm (2D picture + 3D model, with a few yard pieces) ----------
+  function hutExt2D(){
+    const g = $('hut'); if(!g) return; const h = hutCfg(); if(!h) return; const C = h.ext.col, e = h.ext;
+    const roof = e.roof === 'thatch' ? `<path d="M318 120 Q357 84 396 120 Q357 112 318 120 Z" fill="${C.roof}" stroke="#1A1410" stroke-width="3"/>`
+      : e.roof === 'tile' ? `<path d="M306 112 Q314 120 330 119 L384 119 Q400 120 408 112 Q402 121 392 124 L322 124 Q312 121 306 112 Z" fill="${C.roof}" stroke="#1A1410" stroke-width="2.5"/>
+          <path d="M314 118 Q326 104 340 98 L374 98 Q388 104 400 118 Z" fill="${C.roof}" stroke="#1A1410" stroke-width="2.5"/>
+          ${Array.from({length:12}, (_, k) => { const x = 318 + k*7.4; return `<path d="M${x} 118 Q${x + 2} ${108 - Math.abs(k - 5.5)*.6} ${357 + (x - 357)*.45} 99" stroke="rgba(255,255,255,.28)" stroke-width="1.6" fill="none"/>`; }).join('')}
+          <path d="M336 99 Q338 92 344 94 L370 94 Q376 92 378 99" fill="${C.roof}" stroke="#1A1410" stroke-width="2.5"/><path d="M334 96 q-4 -6 -2 -10 M380 96 q4 -6 2 -10" stroke="#1A1410" stroke-width="2.5" fill="none" stroke-linecap="round"/>`
+      : e.roof === 'flat' ? `<rect x="322" y="110" width="70" height="10" fill="${C.roof}" stroke="#1A1410" stroke-width="3"/>`
+      : `<path d="M322 118 L357 92 L392 118 Z" fill="${C.roof}" stroke="#1A1410" stroke-width="3" stroke-linejoin="round"/>`;
+    const tex = e.wall === 'log' ? [124, 132, 140, 148, 156].map(y => `<line x1="328" y1="${y}" x2="386" y2="${y}" stroke="rgba(0,0,0,.3)" stroke-width="1.5"/>`).join('')
+      : e.wall === 'stone' || e.wall === 'brick' ? [[333, 124], [350, 130], [368, 124], [338, 145], [360, 150], [375, 140]].map(([x, y]) => `<rect x="${x}" y="${y}" width="10" height="6" rx="${e.wall === 'stone' ? 2 : 0}" fill="rgba(0,0,0,.18)"/>`).join('') : '';
+    const win = e.win === 'one' ? `<rect x="333" y="128" width="12" height="12" fill="#BFE6FF" stroke="${C.trim}" stroke-width="2"/>`
+      : e.win === 'two' ? `<rect x="331" y="128" width="11" height="11" fill="#BFE6FF" stroke="${C.trim}" stroke-width="2"/><rect x="372" y="128" width="11" height="11" fill="#BFE6FF" stroke="${C.trim}" stroke-width="2"/>`
+      : e.win === 'round' ? `<circle cx="339" cy="133" r="6" fill="#BFE6FF" stroke="${C.trim}" stroke-width="2"/>` : '';
+    const door = e.door === 'arch' ? `<path d="M348 164 V142 Q357 130 366 142 V164 Z" fill="${C.door}" stroke="#1A1410" stroke-width="1.5"/>`
+      : e.door === 'glass' ? `<rect x="348" y="134" width="18" height="30" fill="${C.door}" stroke="#1A1410" stroke-width="1.5"/><rect x="351" y="137" width="12" height="14" fill="#BFE6FF"/>`
+      : `<rect x="348" y="134" width="18" height="30" rx="9" fill="${C.door}" stroke="#1A1410" stroke-width="1.5"/>`;
+    let deco = '';
+    if(e.deco.includes('chimney')) deco += `<rect x="372" y="94" width="10" height="18" fill="#7A4A3A" stroke="#1A1410" stroke-width="2"/><circle cx="377" cy="88" r="4" fill="#DDD" opacity=".7"/>`;
+    if(e.deco.includes('flower')) deco += `<rect x="330" y="142" width="16" height="6" fill="#8C5A35"/><circle cx="334" cy="140" r="3" fill="#FF6FB5"/><circle cx="341" cy="139" r="3" fill="#FFD23F"/>`;
+    if(e.deco.includes('lantern')) deco += `<line x1="388" y1="118" x2="388" y2="126" stroke="#1A1410"/><ellipse cx="388" cy="131" rx="5" ry="6" fill="#E2231A" stroke="#1A1410" stroke-width="1.5"/>`;
+    if(e.deco.includes('sign')) deco += `<rect x="334" y="100" width="46" height="12" rx="3" fill="#F2E6CF" stroke="#5A3A20" stroke-width="1.5"/><text x="357" y="109.5" font-size="7" font-weight="800" text-anchor="middle" font-family="Noto Sans KR, sans-serif">${esc((PROFILE.name || '').slice(0, 5))}네</text>`;
+    const yd = h.yard.slice(0, 10).map(y => { const d = HUTC.yard.find(q => q.id === y.k); if(!d) return ''; const px = 357 + y.x*4.2, py = 166 + (y.z + 2)*2.4; return py < 176 && px > 300 && px < 400 ? `<text x="${px}" y="${py}" font-size="11" text-anchor="middle">${d.e}</text>` : ''; }).join('');
+    const g2 = g.querySelector('.g2d'); if(g2) g2.innerHTML = roof + `<rect x="328" y="118" width="58" height="46" fill="${C.wall}" stroke="#1A1410" stroke-width="3"/>` + tex + win + door + deco + yd;
+    hutExt3D();
+  }
+  function hutExt3D(){
+    if(!G3.coop || !window.THREE) return; const T = window.THREE, h = hutCfg(); if(!h) return;
+    const g = G3.coop; while(g.children.length) g.remove(g.children[0]);
+    const m = hutModel(T, h, 9.6); m.scale.setScalar(1.5); m.position.x = -8; g.add(m);
+  }
+  // one builder for the hut shell, used on the farm and in the yard editor (s = units per metre)
+  function hutModel(T, h, s){
+    const g = new T.Group(), C = h.ext.col, e = h.ext, M = (c, o) => new T.MeshStandardMaterial(Object.assign({color:c, roughness:.75}, o || {}));
+    const add = (geo, mat, x, y, z) => { const o = new T.Mesh(geo, mat); o.position.set(x*s, y*s, z*s); g.add(o); return o; };
+    const W = 6, H = 4.6, D = 4.2;
+    add(new T.BoxGeometry(W*s, H*s, D*s), M(C.wall, {roughness:e.wall === 'stone' || e.wall === 'brick' ? .95 : .75}), 0, H/2, 0);
+    if(e.wall === 'log') for(let i=0;i<6;i++) add(new T.CylinderGeometry(.18*s, .18*s, W*s + .2*s, 10), M(C.wall), 0, .4 + i*.75, D/2 + .05).rotation.z = Math.PI/2;
+    if(e.roof === 'thatch'){ const r = add(new T.SphereGeometry(4.3*s, 20, 10, 0, Math.PI*2, 0, Math.PI/2), M(C.roof, {roughness:1}), 0, H, 0); r.scale.set(1, .55, .85); }
+    else if(e.roof === 'flat') add(new T.BoxGeometry((W + .6)*s, .5*s, (D + .6)*s), M(C.roof), 0, H + .25, 0);
+    else if(e.roof === 'tile') g.add(giwaRoof(T, C.roof, W, H, D, s));
+    else { const r = add(new T.CylinderGeometry(0, 1, 1, 4, 1), M(C.roof), 0, H + 1.35, 0); r.scale.set((W*.78)*s, 2.7*s, (D*.78)*s); r.rotation.y = Math.PI/4; }
+    const doorGeo = e.door === 'arch' ? new T.CylinderGeometry(.95*s, .95*s, .12*s, 20, 1, false, 0, Math.PI) : null;
+    add(new T.BoxGeometry(1.8*s, 2.6*s, .12*s), M(C.door), 0, 1.3, D/2 + .07);
+    if(doorGeo){ const a = add(doorGeo, M(C.door), 0, 2.6, D/2 + .07); a.rotation.x = Math.PI/2; a.rotation.z = Math.PI/2 + Math.PI/2; }
+    if(e.door === 'glass') add(new T.BoxGeometry(1.2*s, 1.2*s, .05*s), M('#BFE6FF', {roughness:.1}), 0, 1.9, D/2 + .14);
+    const win = (x) => { add(new T.BoxGeometry(1.3*s, 1.3*s, .1*s), M(C.trim), x, 2.8, D/2 + .06); add(new T.BoxGeometry(1.05*s, 1.05*s, .06*s), M('#BFE6FF', {roughness:.1, emissive:'#334455', emissiveIntensity:.2}), x, 2.8, D/2 + .12); };
+    if(e.win === 'one') win(-1.9); if(e.win === 'two'){ win(-1.9); win(1.9); }
+    if(e.win === 'round'){ const r = add(new T.CylinderGeometry(.6*s, .6*s, .1*s, 24), M('#BFE6FF', {roughness:.1}), -1.9, 2.9, D/2 + .08); r.rotation.x = Math.PI/2; }
+    if(e.deco.includes('chimney')) add(new T.BoxGeometry(.8*s, 2*s, .8*s), M('#7A4A3A'), 1.6, H + 1.6, -.6);
+    if(e.deco.includes('lantern')) add(new T.SphereGeometry(.4*s, 12, 10), M('#E2231A', {emissive:'#7A1010', emissiveIntensity:.4}), 2.6, H - .6, D/2 + .5);
+    if(e.deco.includes('flower')){ add(new T.BoxGeometry(1.6*s, .4*s, .5*s), M('#8C5A35'), -1.9, 2.0, D/2 + .3); [-.5, 0, .5].forEach((dx, k) => add(new T.SphereGeometry(.22*s, 10, 8), M(['#FF6FB5', '#FFD23F', '#7FA0DD'][k]), -1.9 + dx, 2.35, D/2 + .3)); }
+    if(e.deco.includes('sign')) add(new T.BoxGeometry(2.6*s, .7*s, .1*s), M('#F2E6CF'), 0, 3.3, D/2 + .1);
+    h.yard.forEach(y => { const o = yardMesh(T, y.k, s); if(!o) return; o.position.set(y.x*s, 0, y.z*s); o.rotation.y = y.r || 0; if(y.c != null) tintMain(o, HPAL[y.c]); g.add(o); });
+    g.position.y = 0; return g;
+  }
+  // 기와지붕: a curved hanok roof — the eaves sweep up at both ends, round tiles run down the slope, a ridge on top
+  function giwaRoof(T, col, W, H, D, s){
+    const g = new T.Group(), M = new T.MeshStandardMaterial({color:col, roughness:.55, side:T.DoubleSide});
+    const tex = canvasTex(T, 128, 64, c => { c.fillStyle = col; c.fillRect(0, 0, 128, 64); for(let i=0;i<16;i++){ const x = i*8; const gr = c.createLinearGradient(x, 0, x + 8, 0); gr.addColorStop(0, 'rgba(0,0,0,.35)'); gr.addColorStop(.5, 'rgba(255,255,255,.25)'); gr.addColorStop(1, 'rgba(0,0,0,.35)'); c.fillStyle = gr; c.fillRect(x, 0, 8, 64); } });
+    tex.wrapS = tex.wrapT = T.RepeatWrapping; tex.repeat.set(4, 1); M.map = tex;
+    // cross-section: a soft concave sweep from each eave up to the ridge
+    const ov = 1.3, half = D/2 + ov, rise = 2.3, sh = new T.Shape();
+    sh.moveTo(-half, .45); sh.quadraticCurveTo(-half*.55, -.05, 0, rise); sh.quadraticCurveTo(half*.55, -.05, half, .45);
+    sh.lineTo(half - .25, .25); sh.quadraticCurveTo(half*.5, -.3, 0, rise - .35); sh.quadraticCurveTo(-half*.5, -.3, -half + .25, .25); sh.lineTo(-half, .45);
+    const len = W + 2*ov, geo = new T.ExtrudeGeometry(sh, {depth:len, bevelEnabled:false, steps:1, curveSegments:16});
+    // bend the long edges upward at both ends (the 처마 tips)
+    const p = geo.attributes.position;
+    for(let i=0;i<p.count;i++){ const z = p.getZ(i), t = Math.abs(z/len - .5)*2; p.setY(i, p.getY(i) + Math.pow(t, 3)*.75); }
+    p.needsUpdate = true; geo.computeVertexNormals();
+    const roof = new T.Mesh(geo, M); roof.rotation.y = Math.PI/2; roof.position.set(-len/2*s, H*s, 0); roof.scale.set(s, s, s); g.add(roof);
+    // ridge (용마루) with turned-up ends
+    const rm = new T.MeshStandardMaterial({color:new T.Color(col).multiplyScalar(.75), roughness:.5});
+    const ridge = new T.Mesh(new T.BoxGeometry((W + .4)*s, .35*s, .45*s), rm); ridge.position.set(0, (H + rise + .05)*s, 0); g.add(ridge);
+    [-1, 1].forEach(d => { const t = new T.Mesh(new T.BoxGeometry(.5*s, .3*s, .45*s), rm); t.position.set(d*(W/2 + .35)*s, (H + rise + .22)*s, 0); t.rotation.z = d*.55; g.add(t); });
+    // white mortar line under the ridge
+    const mort = new T.Mesh(new T.BoxGeometry((W + .3)*s, .12*s, .5*s), new T.MeshStandardMaterial({color:'#EDE7DA'})); mort.position.set(0, (H + rise - .14)*s, 0); g.add(mort);
+    return g;
+  }
+  function yardMesh(T, k, s){
+    const g = new T.Group(), M = (c, o) => new T.MeshStandardMaterial(Object.assign({color:c, roughness:.8}, o || {}));
+    const a = (geo, c, x, y, z, o) => { const m = new T.Mesh(geo, M(c, o)); m.position.set(x*s, y*s, z*s); g.add(m); return m; };
+    switch(k){
+      case 'tree': a(new T.CylinderGeometry(.25*s, .35*s, 2.2*s, 10), '#7A4A2A', 0, 1.1, 0); a(new T.SphereGeometry(1.4*s, 14, 10), '#3E8E3A', 0, 3, 0); a(new T.SphereGeometry(1*s, 12, 8), '#4CAF50', .6, 3.6, .3); break;
+      case 'pine': a(new T.CylinderGeometry(.2*s, .3*s, 1.2*s, 8), '#6B3A1A', 0, .6, 0); [0, 1, 2].forEach(i => a(new T.ConeGeometry((1.4 - i*.35)*s, 1.4*s, 10), '#2E6B3A', 0, 1.6 + i*.9, 0)); break;
+      case 'bush': a(new T.SphereGeometry(.8*s, 12, 8), '#3E8E3A', 0, .55, 0).scale.y = .75; break;
+      case 'bed': a(new T.BoxGeometry(2.2*s, .3*s, 1.2*s), '#7A4A2A', 0, .15, 0); for(let i=0;i<8;i++) a(new T.SphereGeometry(.2*s, 8, 6), ['#FF6FB5', '#FFD23F', '#FFFFFF', '#E2231A'][i % 4], -.8 + (i % 4)*.53, .45, i < 4 ? -.25 : .25); break;
+      case 'bench': a(new T.BoxGeometry(2.2*s, .15*s, .6*s), '#C98B4E', 0, .7, 0); a(new T.BoxGeometry(2.2*s, .6*s, .12*s), '#C98B4E', 0, 1.1, -.28); [-.9, .9].forEach(x => a(new T.BoxGeometry(.15*s, .7*s, .6*s), '#5A3A20', x, .35, 0)); break;
+      case 'post': a(new T.CylinderGeometry(.08*s, .1*s, 3*s, 8), '#2B2B2B', 0, 1.5, 0); a(new T.SphereGeometry(.35*s, 12, 10), '#FFE7A3', 0, 3.1, 0, {emissive:'#FFD27A', emissiveIntensity:.8}); break;
+      case 'mailbox': a(new T.BoxGeometry(.12*s, 1.2*s, .12*s), '#5A3A20', 0, .6, 0); a(new T.BoxGeometry(.7*s, .5*s, .5*s), '#E2231A', 0, 1.35, 0); break;
+      case 'well': a(new T.CylinderGeometry(.9*s, .9*s, .9*s, 16, 1, true), '#9AA0A6', 0, .45, 0, {side:T.DoubleSide}); a(new T.CylinderGeometry(.75*s, .75*s, .1*s, 16), '#2F6FD1', 0, .6, 0); [-.85, .85].forEach(x => a(new T.BoxGeometry(.12*s, 1.6*s, .12*s), '#5A3A20', x, 1.5, 0)); a(new T.ConeGeometry(1.3*s, .6*s, 4), '#8E2A1E', 0, 2.5, 0).rotation.y = Math.PI/4; break;
+      case 'scare': a(new T.BoxGeometry(.12*s, 2.4*s, .12*s), '#7A4A2A', 0, 1.2, 0); a(new T.BoxGeometry(1.8*s, .1*s, .1*s), '#7A4A2A', 0, 1.8, 0); a(new T.BoxGeometry(.9*s, .9*s, .4*s), '#2F6FD1', 0, 1.6, 0); a(new T.SphereGeometry(.35*s, 10, 8), '#F2E6CF', 0, 2.4, 0); a(new T.ConeGeometry(.5*s, .4*s, 10), '#D9B26A', 0, 2.75, 0); break;
+      case 'doghouse': a(new T.BoxGeometry(1.4*s, 1*s, 1.2*s), '#C0562B', 0, .5, 0); a(new T.ConeGeometry(1.1*s, .7*s, 4), '#5A1E14', 0, 1.35, 0).rotation.y = Math.PI/4; a(new T.SphereGeometry(.3*s, 10, 8), '#F2E6CF', .9, .35, .5); a(new T.SphereGeometry(.2*s, 10, 8), '#F2E6CF', 1.1, .6, .6); break;
+      case 'stone': a(new T.CylinderGeometry(.5*s, .5*s, .1*s, 10), '#A3A8AE', 0, .05, 0); break;
+      case 'fence': [-.6, .6].forEach(x => a(new T.BoxGeometry(.15*s, 1*s, .15*s), '#C98B4E', x, .5, 0)); a(new T.BoxGeometry(1.5*s, .12*s, .08*s), '#C98B4E', 0, .7, 0); a(new T.BoxGeometry(1.5*s, .12*s, .08*s), '#C98B4E', 0, .35, 0); break;
+      case 'pumpkin': a(new T.SphereGeometry(.45*s, 12, 10), '#F28C28', 0, .35, 0).scale.y = .75; a(new T.CylinderGeometry(.05*s, .05*s, .2*s, 6), '#3E8E3A', 0, .75, 0); break;
+      case 'fire': for(let i=0;i<6;i++) a(new T.SphereGeometry(.18*s, 8, 6), '#8A9097', Math.cos(i)*.6, .1, Math.sin(i)*.6); a(new T.ConeGeometry(.35*s, .9*s, 8), '#FF8A3D', 0, .45, 0, {emissive:'#FF5A1E', emissiveIntensity:.8}); break;
+      case 'picnic': a(new T.BoxGeometry(2*s, .12*s, 1*s), '#C98B4E', 0, .9, 0); [-.8, .8].forEach(x => a(new T.BoxGeometry(.1*s, .9*s, .9*s), '#5A3A20', x, .45, 0)); [-.75, .75].forEach(z => a(new T.BoxGeometry(2*s, .1*s, .35*s), '#C98B4E', 0, .5, z)); a(new T.BoxGeometry(.6*s, .3*s, .4*s), '#E2231A', .3, 1.1, 0); break;
+      default: return null;
+    }
+    return g;
+  }
+  // recolour: tint the biggest part of a piece
+  function tintMain(obj, col){
+    const T = window.THREE; let best = null, bv = -1;
+    obj.traverse(o => { if(!o.isMesh || !o.geometry) return; o.geometry.computeBoundingBox && o.geometry.computeBoundingBox(); const b = o.geometry.boundingBox; if(!b) return; const v = (b.max.x - b.min.x)*(b.max.y - b.min.y)*(b.max.z - b.min.z)*o.scale.x*o.scale.y*o.scale.z; if(v > bv){ bv = v; best = o; } });
+    if(best){ best.material = best.material.clone(); best.material.color = new T.Color(col); }
+  }
+  // ---------- interior furniture ----------
+  function furnMesh(T, k){
+    const g = new T.Group(), M = (c, o) => new T.MeshStandardMaterial(Object.assign({color:c, roughness:.7}, o || {}));
+    const box = (w, h, d, c, x, y, z, o) => { const m = new T.Mesh(new T.BoxGeometry(w, h, d), M(c, o)); m.position.set(x, y, z); g.add(m); return m; };
+    const cyl = (r1, r2, h, c, x, y, z, o, seg) => { const m = new T.Mesh(new T.CylinderGeometry(r1, r2, h, seg || 20), M(c, o)); m.position.set(x, y, z); g.add(m); return m; };
+    const sph = (r, c, x, y, z, o) => { const m = new T.Mesh(new T.SphereGeometry(r, 16, 12), M(c, o)); m.position.set(x, y, z); g.add(m); return m; };
+    switch(k){
+      case 'bed': box(2.4, .5, 3.6, '#8C5A35', 0, .35, 0); box(2.3, .4, 3.4, '#F6F1E6', 0, .78, 0); box(2.32, .2, 2.4, '#5B7FC7', 0, 1.02, .5); box(1.6, .35, .7, '#FFFFFF', 0, 1.05, -1.25); box(2.4, 1.6, .2, '#6E4628', 0, 1.0, -1.8); break;
+      case 'stove': { box(2.6, 2.0, 2.0, '#B4876A', 0, 1, 0, {roughness:.95}); box(1.0, .9, .2, '#2A140A', 0, .55, 1.0);
+        cyl(1.0, .75, .7, '#2E2E2E', 0, 2.3, 0, {metalness:.6, roughness:.4}); cyl(1.05, 1.05, .12, '#3A3A3A', 0, 2.68, 0, {metalness:.6});
+        const fl = new T.Mesh(new T.ConeGeometry(.32, .7, 10), new T.MeshBasicMaterial({color:'#FF8A3D'})); fl.position.set(0, .45, .95); g.add(fl); g.userData.flame = fl;
+        for(let i=0;i<3;i++) cyl(.12, .12, 1.2, '#8C5A35', 1.6 + i*.05, .15 + i*.22, .6, {}, 8).rotation.z = Math.PI/2; break; }
+      case 'shelf': box(2.4, 2.8, .6, '#B07C4A', 0, 1.4, 0); [.5, 1.4, 2.3].forEach(y => box(2.3, .08, .56, '#5A3A20', 0, y, 0));
+        [['#FBF3E4', -.7, .75], ['#FFC83A', 0, .75], ['#E2231A', .7, .75], ['#C9763E', -.6, 1.65], ['#F08A24', .2, 1.65], ['#3FA34D', .8, 1.65], ['#E8D7B0', -.4, 2.55], ['#8B5A2B', .5, 2.55]].forEach(([c, x, y]) => sph(.22, c, x, y, .1)); break;
+      case 'table': box(2.2, .14, 1.4, '#9A6B40', 0, .8, 0); [[-.9, -.5], [.9, -.5], [-.9, .5], [.9, .5]].forEach(([x, z]) => box(.14, .8, .14, '#5A3A20', x, .4, z));
+        sph(.28, '#E7E3D8', 0, 1.05, 0); cyl(.12, .12, .2, '#FFFFFF', .55, .97, .2); cyl(.12, .12, .2, '#FFFFFF', -.55, .97, -.2); break;
+      case 'rug': cyl(1.6, 1.6, .04, '#E07A3A', 0, .02, 0, {roughness:1}, 32); cyl(1.1, 1.1, .05, '#F2C14E', 0, .03, 0, {roughness:1}, 32); break;
+      case 'plant': cyl(.35, .28, .55, '#C9763E', 0, .28, 0); sph(.5, '#3E8E3A', 0, .95, 0); sph(.32, '#4CAF50', .25, 1.2, .1); break;
+      case 'bigplant': cyl(.5, .4, .8, '#F2E6CF', 0, .4, 0); [0, 1, 2, 3, 4].forEach(i => { const l = sph(.45, i % 2 ? '#2E7D32' : '#43A047', Math.cos(i*1.3)*.4, 1.3 + i*.25, Math.sin(i*1.3)*.4); l.scale.set(1, .5, .6); }); break;
+      case 'lamp': cyl(.3, .35, .08, '#3A3A3A', 0, .04, 0); cyl(.04, .04, 2.2, '#3A3A3A', 0, 1.1, 0); cyl(.3, .5, .5, '#F2E6CF', 0, 2.3, 0, {emissive:'#FFE7A3', emissiveIntensity:.6}); break;
+      case 'bookshelf': box(2.0, 3.0, .6, '#6E4628', 0, 1.5, 0); [.6, 1.4, 2.2].forEach((y, r) => { box(1.9, .07, .56, '#4A2E1A', 0, y - .35, 0); for(let i=0;i<7;i++) box(.18, .55 + (i*7 % 3)*.08, .4, ['#8E1B1B','#2F6FD1','#2E7D32','#F2C14E','#7B3FA0'][(i + r) % 5], -.75 + i*.24, y, 0); }); break;
+      case 'sofa': box(2.8, .5, 1.2, '#7FA0DD', 0, .55, 0); box(2.8, .9, .3, '#5B7FC7', 0, 1.1, -.45); box(.3, .7, 1.2, '#5B7FC7', -1.4, .8, 0); box(.3, .7, 1.2, '#5B7FC7', 1.4, .8, 0); box(.8, .4, .2, '#FFD23F', -.6, 1.05, -.25); break;
+      case 'armchair': box(1.3, .5, 1.2, '#C0562B', 0, .5, 0); box(1.3, .9, .25, '#A0461F', 0, 1.05, -.48); box(.22, .6, 1.2, '#A0461F', -.6, .75, 0); box(.22, .6, 1.2, '#A0461F', .6, .75, 0); break;
+      case 'cushion': box(1.0, .2, 1.0, '#E2231A', 0, .1, 0, {roughness:.9}); sph(.08, '#FFD23F', 0, .22, 0); break;
+      case 'cat': cyl(.8, .8, .25, '#F6C9D0', 0, .13, 0, {roughness:.9}); { const b = sph(.42, '#F2A33D', 0, .5, 0); b.scale.set(1.2, .8, 1); sph(.28, '#F2A33D', .45, .7, .1); const e1 = new T.Mesh(new T.ConeGeometry(.1, .2, 6), M('#F2A33D')); e1.position.set(.38, .98, .15); g.add(e1); const e2 = e1.clone(); e2.position.set(.55, .98, .05); g.add(e2); g.userData.cat = b; } break;
+      case 'radio': box(.9, .55, .4, '#8C5A35', 0, .28, 0); cyl(.16, .16, .05, '#2B2B2B', -.2, .3, .21).rotation.x = Math.PI/2; box(.3, .15, .05, '#F2E6CF', .22, .35, .21); break;
+      case 'tv': box(1.6, .5, .6, '#6E4628', 0, .25, 0); box(1.4, .9, .12, '#1A1A1A', 0, .98, 0); box(1.25, .75, .02, '#2F6FD1', 0, .98, .07, {emissive:'#1A3A6B', emissiveIntensity:.6}); break;
+      case 'aquarium': box(1.4, .8, .6, '#6E4628', 0, .4, 0); box(1.3, .8, .55, '#9FD8FF', 0, 1.2, 0, {transparent:true, opacity:.55}); sph(.1, '#FF8A3D', -.2, 1.2, 0); sph(.08, '#FFD23F', .3, 1.35, .05); break;
+      case 'piano': box(2.2, 1.6, .7, '#1A1410', 0, .8, 0, {roughness:.3}); box(2.0, .08, .4, '#FFFFFF', 0, 1.0, .5); box(2.0, .3, .2, '#1A1410', 0, 1.25, .7); break;
+      case 'wardrobe': box(1.8, 3.0, .8, '#A0703F', 0, 1.5, 0); box(.04, 2.8, .02, '#5A3A20', 0, 1.5, .41); sph(.06, '#F2C14E', -.15, 1.5, .42); sph(.06, '#F2C14E', .15, 1.5, .42); break;
+      case 'desk': box(2.0, .12, 1.0, '#A0703F', 0, 1.1, 0); box(.6, 1.1, .9, '#8C5A35', .65, .55, 0); box(.1, 1.1, .9, '#8C5A35', -.95, .55, 0); box(.5, .35, .05, '#2B2B2B', -.2, 1.35, -.3); break;
+      case 'chair': box(.9, .1, .9, '#C98B4E', 0, .7, 0); box(.9, .9, .1, '#C98B4E', 0, 1.15, -.4); [[-.38, -.38], [.38, -.38], [-.38, .38], [.38, .38]].forEach(([x, z]) => box(.08, .7, .08, '#5A3A20', x, .35, z)); break;
+      case 'frame': box(1.2, .9, .08, '#8C5A35', 0, 0, 0); box(1.0, .7, .02, '#BFE6FF', 0, 0, .05); sph(.12, '#FFE45C', .25, .15, .07); box(.9, .2, .02, '#5DAA4A', 0, -.2, .06); break;
+      case 'clock': cyl(.45, .45, .1, '#F2E6CF', 0, 0, 0, {}, 28).rotation.x = Math.PI/2; box(.04, .3, .02, '#1A1A1A', 0, .12, .07); box(.22, .04, .02, '#1A1A1A', .1, 0, .07); break;
+      case 'shelfw': box(1.6, .1, .45, '#8C5A35', 0, 0, .22); sph(.15, '#3E8E3A', -.5, .2, .22); box(.3, .35, .25, '#E2231A', .1, .22, .22); box(.25, .3, .25, '#2F6FD1', .5, .2, .22); break;
+      case 'garland': for(let i=0;i<7;i++){ const p = new T.Mesh(new T.ConeGeometry(.09, .4, 8), M('#E2231A')); p.position.set(0, -i*.22, .08); p.rotation.z = Math.PI; g.add(p); } box(.04, 1.6, .02, '#8C5A35', 0, -.7, .03); break;
+    }
+    return g;
+  }
+  // ---------- the 3D stage (room inside, or yard outside) ----------
+  const H3 = {r:null, sc:null, cam:null, on:false, raf:0, yaw:0, pitch:.62, zoom:1, top:false, room:null, items:{}, edit:false, sel:null, selWall:null, t:0, fire:null, lampL:null, view:'in', grid:null};
+  function h3Init(){
+    const T = window.THREE, cv = $('hut3d');
+    try{ H3.r = new T.WebGLRenderer({canvas:cv, antialias:true}); }catch(e){ return false; }
+    H3.r.setPixelRatio(Math.min(2, devicePixelRatio || 1)); H3.r.outputEncoding = T.sRGBEncoding;
+    const sc = H3.sc = new T.Scene();
+    H3.hemi = new T.HemisphereLight('#FFF1DC', '#5A3A20', .72); sc.add(H3.hemi);
+    H3.sun = new T.DirectionalLight('#FFF6E0', .6); H3.sun.position.set(-4, 10, 8); sc.add(H3.sun);
+    H3.lampL = new T.PointLight('#FFD9A0', .9, 16); H3.lampL.position.set(0, 4.6, 0); sc.add(H3.lampL);
+    H3.fire = new T.PointLight('#FF8A3D', 1.1, 8); sc.add(H3.fire);
+    H3.cam = new T.PerspectiveCamera(48, 1, .1, 200);
+    window.addEventListener('resize', h3Size);
+    return true;
+  }
+  function h3Size(){ if(!H3.r) return; const r = $('hutRoom').getBoundingClientRect(); H3.r.setSize(r.width, r.height, false); H3.cam.aspect = r.width/Math.max(1, r.height); H3.cam.updateProjectionMatrix(); }
+  function h3Build(){
+    const T = window.THREE, sc = H3.sc, h = hutCfg(); if(!sc || !h) return;
+    if(H3.room) sc.remove(H3.room); H3.items = {};
+    const room = H3.room = new T.Group(); sc.add(room);
+    if(H3.view === 'out'){ buildYard(T, room, h); hutLabels(); return; }
+    sc.background = new T.Color('#2A140A'); H3.lampL.visible = true;
+    const [RW, RD] = roomWD(), hw = RW/2, back = -RD/2 + .5, front = RD/2 + .5;
+    const floorC = hutCat('intFloor', h.int.floor).c;
+    const plank = (c, dark, stripe) => canvasTex(T, 256, 256, g => { g.fillStyle = c; g.fillRect(0, 0, 256, 256); g.globalAlpha = .18; g.strokeStyle = dark; g.lineWidth = 3; for(let i=0;i<8;i++){ g.beginPath(); g.moveTo(i*32, 0); g.lineTo(i*32, 256); g.stroke(); } if(stripe){ g.globalAlpha = .35; g.fillStyle = '#F2A6B5'; for(let i=0;i<8;i++) g.fillRect(i*32 + 10, 0, 10, 256); } });
+    let ftex;
+    if(h.int.floor === 'tile' || h.int.floor === 'check') ftex = canvasTex(T, 256, 256, g => { for(let r=0;r<4;r++) for(let c=0;c<4;c++){ g.fillStyle = h.int.floor === 'check' ? ((r + c) % 2 ? '#2B2B2B' : '#F4EFE6') : floorC; g.fillRect(c*64, r*64, 64, 64); } g.strokeStyle = '#B8BCC0'; g.lineWidth = 2; for(let i=0;i<=4;i++){ g.beginPath(); g.moveTo(i*64, 0); g.lineTo(i*64, 256); g.stroke(); g.beginPath(); g.moveTo(0, i*64); g.lineTo(256, i*64); g.stroke(); } });
+    else ftex = plank(floorC, '#3A2010');
+    ftex.wrapS = ftex.wrapT = T.RepeatWrapping; ftex.repeat.set(RW/3.3, RD/3.3);
+    const floor = new T.Mesh(new T.PlaneGeometry(RW, RD), new T.MeshStandardMaterial({map:ftex, roughness:.85})); floor.rotation.x = -Math.PI/2; floor.position.z = .5; room.add(floor);
+    const wallMat = id => { const w = hutCat('intWall', id); const tex = id === 'brick' ? canvasTex(T, 256, 256, g => { g.fillStyle = w.c; g.fillRect(0, 0, 256, 256); g.strokeStyle = '#E8D7C8'; g.lineWidth = 3; for(let r=0;r<8;r++){ g.beginPath(); g.moveTo(0, r*32); g.lineTo(256, r*32); g.stroke(); for(let x=(r % 2)*32;x<256;x+=64){ g.beginPath(); g.moveTo(x, r*32); g.lineTo(x, r*32 + 32); g.stroke(); } } }) : plank(w.c, '#6B4A2A', id === 'stripe');
+      tex.wrapS = tex.wrapT = T.RepeatWrapping; tex.repeat.set(2, 1); return new T.MeshStandardMaterial({map:tex, roughness:.9}); };
+    const mkWall = (side, geoW, pos, rotY) => { const m = new T.Mesh(new T.PlaneGeometry(geoW, 5.2), wallMat(h.int.walls[side])); m.position.copy(pos); m.rotation.y = rotY; m.userData.wall = side; room.add(m);
+      if(H3.edit && H3.selWall === side){ const o = new T.Mesh(new T.PlaneGeometry(geoW, 5.2), new T.MeshBasicMaterial({color:'#FFD23F', transparent:true, opacity:.25})); o.position.copy(pos); o.rotation.y = rotY; o.position.add(new T.Vector3(Math.sin(rotY)*.02, 0, Math.cos(rotY)*.02)); room.add(o); } };
+    mkWall('back', RW, new T.Vector3(0, 2.6, back), 0);
+    mkWall('left', RD, new T.Vector3(-hw, 2.6, .5), Math.PI/2);
+    mkWall('right', RD, new T.Vector3(hw, 2.6, .5), -Math.PI/2);
+    for(let i=0;i<Math.ceil(RD/3);i++){ const b = new T.Mesh(new T.BoxGeometry(RW, .35, .4), new T.MeshStandardMaterial({color:'#5A3A20'})); b.position.set(0, 5.1, back + 1 + i*3); room.add(b); }
+    const [s1, s2] = hutSky();
+    const sky = canvasTex(T, 64, 64, g => { const gr = g.createLinearGradient(0, 0, 0, 64); gr.addColorStop(0, s1); gr.addColorStop(1, s2); g.fillStyle = gr; g.fillRect(0, 0, 64, 64); g.fillStyle = '#5DAA4A'; g.fillRect(0, 44, 64, 20); });
+    const win = new T.Mesh(new T.PlaneGeometry(2.6, 1.8), new T.MeshBasicMaterial({map:sky})); win.position.set(-.6, 3.0, back + .02); win.userData.item = {k:'window'}; room.add(win);
+    const frameM = new T.MeshStandardMaterial({color:'#5A3A20'});
+    [[0, .95, 2.8, .14], [0, -.95, 2.8, .14], [-1.35, 0, .14, 2.0], [1.35, 0, .14, 2.0], [0, 0, .08, 1.9], [0, 0, 2.7, .08]].forEach(([x, y, w, hh]) => { const f = new T.Mesh(new T.BoxGeometry(w, hh, .1), frameM); f.position.set(-.6 + x, 3.0 + y, back + .06); room.add(f); });
+    // floor grid while decorating
+    if(H3.edit) try{ const gh = new T.GridHelper(Math.max(RW, RD), Math.max(RW, RD)*2, 0xFFFFFF, 0xFFFFFF); gh.material.transparent = true; gh.material.opacity = .18; gh.position.set(0, .02, .5); room.add(gh); }catch(e){}
+    h.int.items.forEach(it => { const m = furnMesh(T, it.k), def = fdef(it.k);
+      if(def.wall) placeWall(m, it); else { m.position.set(it.x, 0, it.z); m.rotation.y = it.r || 0; }
+      if(it.c != null) tintMain(m, HPAL[it.c]);
+      m.userData.item = it; m.traverse(o => { o.userData.root = m; }); room.add(m); H3.items[it.u] = m; });
+    const stove = h.int.items.find(it => it.k === 'stove'); H3.fire.visible = !!stove; if(stove) H3.fire.position.set(stove.x, 1, stove.z + 1.2);
+    hutLabels(); hutCollide();
+  }
+  function placeWall(m, it){ const [RW, RD] = roomWD(), hw = RW/2, back = -RD/2 + .5;
+    if(it.w === 'left'){ m.position.set(-hw + .06, it.y || 3.2, Math.max(back + .8, Math.min(RD/2 - .2, it.x))); m.rotation.y = Math.PI/2; }
+    else if(it.w === 'right'){ m.position.set(hw - .06, it.y || 3.2, Math.max(back + .8, Math.min(RD/2 - .2, it.x))); m.rotation.y = -Math.PI/2; }
+    else { m.position.set(Math.max(-hw + .8, Math.min(hw - .8, it.x)), it.y || 3.2, back + .08); m.rotation.y = 0; } }
+  function buildYard(T, room, h){
+    const [s1, s2] = hutSky(); H3.sc.background = new T.Color(s1); H3.lampL.visible = false; H3.fire.visible = false;
+    const grass = canvasTex(T, 128, 128, g => { g.fillStyle = '#6FBF5A'; g.fillRect(0, 0, 128, 128); for(let i=0;i<300;i++){ g.fillStyle = Math.random() < .5 ? '#5DAA4A' : '#82CC6A'; g.fillRect(Math.random()*128, Math.random()*128, 2, 3); } });
+    grass.wrapS = grass.wrapT = T.RepeatWrapping; grass.repeat.set(6, 6);
+    const ground = new T.Mesh(new T.PlaneGeometry(26, 22), new T.MeshStandardMaterial({map:grass, roughness:1})); ground.rotation.x = -Math.PI/2; ground.position.z = 2; room.add(ground);
+    const path = new T.Mesh(new T.PlaneGeometry(2, 9), new T.MeshStandardMaterial({color:'#C9A26A', roughness:1})); path.rotation.x = -Math.PI/2; path.position.set(0, .01, 6.5); room.add(path);
+    const hut = hutModel(T, Object.assign({}, h, {yard:[]}), 1); hut.position.set(0, 0, -2.5); hut.userData.hutShell = true; hut.traverse(o => { o.userData.hutShell = true; }); room.add(hut);
+    h.yard.forEach(y => { const o = yardMesh(T, y.k, 1); if(!o) return; o.position.set(y.x, 0, y.z); o.rotation.y = y.r || 0; if(y.c != null) tintMain(o, HPAL[y.c]); o.userData.item = y; o.userData.yard = 1; o.traverse(q => { q.userData.root = o; }); room.add(o); H3.items[y.u] = o; });
+    if(H3.edit) try{ const gh = new T.GridHelper(24, 24, 0xFFFFFF, 0xFFFFFF); gh.material.transparent = true; gh.material.opacity = .2; gh.position.set(0, .02, 2); room.add(gh); }catch(e){}
+    hutCollide();
+  }
+  function h3Cam(){
+    const T = window.THREE, vf = H3.cam.fov*Math.PI/360, [RW] = H3.view === 'out' ? [18] : roomWD();
+    const base = Math.max((RW/2 + .6)/(Math.tan(vf)*H3.cam.aspect), 4.6/Math.tan(vf))/H3.zoom;
+    const pitch = H3.top ? 1.35 : H3.pitch, d = base;
+    const cx = 0, cz = H3.view === 'out' ? 1 : .2;
+    H3.cam.position.set(cx + Math.sin(H3.yaw)*Math.cos(pitch)*d, Math.sin(pitch)*d + 1, cz + Math.cos(H3.yaw)*Math.cos(pitch)*d);
+    H3.cam.lookAt(cx, H3.view === 'out' ? 1.2 : 1.4, cz - .4); H3.cam.far = d*4; H3.cam.updateProjectionMatrix();
+  }
+  function h3Loop(){
+    if(!H3.on) return; H3.raf = requestAnimationFrame(h3Loop);
+    const t = (H3.t += 1/60);
+    if(H3.fire && H3.fire.visible) H3.fire.intensity = 1 + Math.sin(t*11)*.15 + Math.sin(t*23)*.08;
+    Object.values(H3.items).forEach(m => { if(m.userData.flame) m.userData.flame.scale.set(1 + Math.sin(t*13)*.1, 1 + Math.sin(t*9)*.18, 1); if(m.userData.cat) m.userData.cat.scale.y = .8 + Math.sin(t*2)*.03; });
+    if(H3.sel && H3.items[H3.sel]){ const m = H3.items[H3.sel], it = m.userData.item, base = fdef(it.k).wall && H3.view === 'in' ? (it.y || 3.2) : 0; m.position.y = base + Math.abs(Math.sin(t*6))*.1; }
+    h3Cam(); H3.r.render(H3.sc, H3.cam); hutLabelsPos();
+  }
+  // overlapping pieces glow red while you arrange (like the Sims)
+  function hutCollide(){ try{ hutCollide0(); }catch(e){} }
+  function hutCollide0(){
+    const T = window.THREE; if(!T || !T.Box3) return; const list = Object.values(H3.items).filter(m => !(m.userData.item && fdef(m.userData.item.k).wall) && !(m.userData.item && ['rug', 'stone'].includes(m.userData.item.k)));
+    const boxes = list.map(m => new T.Box3().setFromObject(m));
+    list.forEach((m, i) => { let hit = false; if(H3.edit) boxes.forEach((b, j) => { if(i !== j && boxes[i].intersectsBox(b)){ const ov = boxes[i].clone().intersect(b); if((ov.max.x - ov.min.x) > .25 && (ov.max.z - ov.min.z) > .25) hit = true; } });
+      m.traverse(o => { if(o.isMesh && o.material && o.material.emissive){ if(!o.userData.em0) o.userData.em0 = o.material.emissive.getHex(); o.material.emissive.setHex(hit ? 0x661010 : o.userData.em0); } }); });
+  }
+  function hutLabels(){
+    const box = $('hutLabels'); box.innerHTML = ''; if(H3.edit || H3.view !== 'in') return;
+    Object.values(H3.items).forEach(m => { const it = m.userData.item, def = fdef(it.k); if(!def.act) return;
+      const napLeft = def.act === 'nap' ? Math.max(0, (farmData().napT || 0) + HUT_NAP_MS - Date.now()) : 0;
+      const el = document.createElement('button'); el.className = 'h3tag'; el.dataset.a = def.act; el.dataset.u = it.u;
+      el.textContent = def.e + ' ' + tr({nap:'낮잠', cook:'라면 끓이기', pantry:'창고', tea:'차 한잔'}[def.act]) + (napLeft ? ' ' + Math.ceil(napLeft/1000) + tr('초') : '');
+      box.appendChild(el); });
+  }
+  function hutLabelsPos(){
+    const T = window.THREE, r = $('hutRoom').getBoundingClientRect();
+    $('hutLabels').querySelectorAll('.h3tag').forEach(el => { const m = H3.items[el.dataset.u]; if(!m) return;
+      const v = new T.Vector3(); m.getWorldPosition(v); v.y += m.userData.item.k === 'stove' ? 3.3 : m.userData.item.k === 'shelf' ? 3.2 : 1.9; v.project(H3.cam);
+      el.style.transform = `translate(${((v.x + 1)/2*r.width).toFixed(0)}px, ${((1 - v.y)/2*r.height).toFixed(0)}px) translate(-50%, -50%)`; el.style.display = v.z < 1 ? '' : 'none'; });
+  }
+  // ---------- touch: one finger orbits (360°), two fingers zoom; while decorating, drag pieces ----------
+  (function(){
+    const ray = () => new window.THREE.Raycaster();
+    const ndc = e => { const r = $('hut3d').getBoundingClientRect(); return {x:(e.clientX - r.left)/r.width*2 - 1, y:-(e.clientY - r.top)/r.height*2 + 1}; };
+    const pick = e => { const R = ray(); R.setFromCamera(ndc(e), H3.cam); const hits = R.intersectObjects(H3.room.children, true);
+      const h = hits.find(x => x.object.userData.root || (x.object.userData.item && !x.object.userData.hutShell) || x.object.userData.wall); return h ? (h.object.userData.root || h.object) : null; };
+    const plane = (e, n, c) => { const T = window.THREE, R = ray(); R.setFromCamera(ndc(e), H3.cam); const p = new T.Vector3(); return R.ray.intersectPlane(new T.Plane(n, c), p) ? p : null; };
+    const pts = new Map(); let P = null, pinch = null;
+    $('hut3d').addEventListener('pointerdown', e => { if(!H3.on) return; pts.set(e.pointerId, {x:e.clientX, y:e.clientY});
+      if(pts.size === 2){ const [a, b] = [...pts.values()]; pinch = {d:Math.hypot(a.x - b.x, a.y - b.y), z:H3.zoom}; P = null; return; }
+      P = {x:e.clientX, y:e.clientY, yaw:H3.yaw, pitch:H3.pitch, moved:false, obj:null, id:e.pointerId};
+      if(H3.edit){ const o = pick(e); if(o && o.userData.item && o.userData.item.u){ hutSnap(); P.obj = o; H3.sel = o.userData.item.u; H3.selWall = null; hutEditBar(); } } });
+    window.addEventListener('pointermove', e => { if(!H3.on) return; if(pts.has(e.pointerId)) pts.set(e.pointerId, {x:e.clientX, y:e.clientY});
+      if(pinch && pts.size === 2){ const [a, b] = [...pts.values()]; H3.zoom = Math.max(.6, Math.min(2.4, pinch.z*Math.hypot(a.x - b.x, a.y - b.y)/pinch.d)); return; }
+      if(!P || e.pointerId !== P.id) return; const dx = e.clientX - P.x, dy = e.clientY - P.y; if(Math.abs(dx) + Math.abs(dy) > 6) P.moved = true;
+      if(P.obj){ const it = P.obj.userData.item, T = window.THREE;
+        if(H3.view === 'out'){ const p = plane(e, new T.Vector3(0, 1, 0), 0); if(p){ it.x = Math.max(-11, Math.min(11, Math.round(p.x*4)/4)); it.z = Math.max(-1, Math.min(11, Math.round(p.z*4)/4)); if(it.z < 0 && Math.abs(it.x) < 3.6) it.z = 0; P.obj.position.set(it.x, 0, it.z); } return; }
+        const [RW, RD] = roomWD(), hw = RW/2, back = -RD/2 + .5;
+        if(fdef(it.k).wall){ // slide along the wall you point at; hop to another wall near the corners
+          const pb = plane(e, new T.Vector3(0, 0, 1), -back), pl = plane(e, new T.Vector3(1, 0, 0), hw), pr = plane(e, new T.Vector3(-1, 0, 0), hw);
+          if(pl && pl.z > back + .6 && it.w !== 'back' || (pb && pb.x < -hw + .4 && pl)){ it.w = 'left'; it.x = Math.round(pl.z*4)/4; it.y = Math.max(1.4, Math.min(4.4, Math.round(pl.y*4)/4)); }
+          else if(pr && pr.z > back + .6 && it.w !== 'back' || (pb && pb.x > hw - .4 && pr)){ it.w = 'right'; it.x = Math.round(pr.z*4)/4; it.y = Math.max(1.4, Math.min(4.4, Math.round(pr.y*4)/4)); }
+          else if(pb){ it.w = 'back'; it.x = Math.round(pb.x*4)/4; it.y = Math.max(1.4, Math.min(4.4, Math.round(pb.y*4)/4)); }
+          placeWall(P.obj, it); return; }
+        const p = plane(e, new T.Vector3(0, 1, 0), 0); if(p){ it.x = Math.max(-hw + .6, Math.min(hw - .6, Math.round(p.x*4)/4)); it.z = Math.max(back + .5, Math.min(RD/2 + .2, Math.round(p.z*4)/4)); P.obj.position.set(it.x, 0, it.z); hutCollide(); } return; }
+      H3.yaw = P.yaw - dx*.006; H3.pitch = Math.max(.25, Math.min(1.25, P.pitch + dy*.004)); });
+    const up = e => { pts.delete(e.pointerId); if(pts.size < 2) pinch = null; const p = P; if(!p || e.pointerId !== p.id) return; P = null; if(!H3.on) return;
+      if(p.obj){ if(!p.moved) HUNDO.pop(); saveProfile(); hutCollide(); if(H3.view === 'out') hutExt2D(); return; }
+      if(p.moved) return;
+      const o = e.target === $('hut3d') ? pick(e) : null;
+      if(H3.edit){ if(o && o.userData.wall && H3.view === 'in'){ H3.selWall = o.userData.wall; H3.sel = null; h3Build(); hutEditBar(); } else if(!o){ H3.sel = null; H3.selWall = null; hutEditBar(); } return; }
+      if(!o || !o.userData.item) return; const it = o.userData.item;
+      if(it.k === 'window'){ hutAct('window'); return; }
+      if(o.userData.yard){ const d = HUTC.yard.find(y => y.id === it.k); say('🌿 ' + tr(d ? d.n : ''), 'good'); return; }
+      const def = fdef(it.k); if(def.act) hutAct(def.act); else { say('✨ ' + tr(def.n || '') + ' — ' + tr('마음에 쏙 드는 물건이에요'), 'good'); SFX.pick(); } };
+    window.addEventListener('pointerup', up); window.addEventListener('pointercancel', up);
+    $('hut3d').addEventListener('wheel', e => { e.preventDefault(); H3.zoom = Math.max(.6, Math.min(2.4, H3.zoom*(e.deltaY > 0 ? .92 : 1.08))); }, {passive:false});
+    $('hutLabels').addEventListener('click', e => { const b = e.target.closest('.h3tag'); if(b) hutAct(b.dataset.a); });
+  })();
+  // ---------- build/buy catalogue ----------
+  let hutTab = 'furn';
+  function hutShopOpen(tab){ hutTab = tab || hutTab; renderHutShop(); $('hutShopOv').hidden = false; }
+  function renderHutShop(){
+    const h = hutCfg(); if(!h) return;
+    $('hutShopCoins').textContent = coinTxt(PROFILE.coins);
+    document.querySelectorAll('#hutShopTabs button').forEach(b => b.classList.toggle('on', b.dataset.t === hutTab));
+    const swatch = c => c ? `background:${c}` : '';
+    const styleRow = (cat, cur, lbl, colKey) => `<div class="lbl">${esc(tr(lbl))}</div><div class="hgrid">` + HUTC[cat].map(it => { const on = cur === it.id, own = hutOwns(cat, it.id);
+        return `<div class="hsi ${on ? 'on' : ''}"><span class="hsw" style="${swatch(it.c)}">${it.e || ''}</span><b>${esc(tr(it.n))}</b><button class="sbuy" data-cat="${cat}" data-id="${it.id}" ${on ? 'disabled' : ''}>${on ? '✅' : own ? esc(tr('쓰기')) : coinTxt(it.p)}</button></div>`; }).join('') + '</div>'
+      + (colKey ? `<div class="pal" data-col="${colKey}">${HPAL.map((c, i) => `<i style="background:${c}" data-c="${i}" class="${h.ext.col[colKey] === c ? 'on' : ''}"></i>`).join('')}</div>` : '');
+    let html = '';
+    if(hutTab === 'ext'){
+      html += styleRow('extWall', h.ext.wall, '🧱 외벽 (색은 공짜!)', 'wall') + styleRow('extRoof', h.ext.roof, '🏠 지붕', 'roof') + styleRow('extDoor', h.ext.door, '🚪 문', 'door') + styleRow('extWin', h.ext.win, '🪟 창문 (테두리 색)', 'trim');
+      html += `<div class="lbl">${esc(tr('🌷 장식 (여러 개 가능)'))}</div><div class="hgrid">` + HUTC.extDeco.map(it => { const on = h.ext.deco.includes(it.id); return `<div class="hsi ${on ? 'on' : ''}"><span class="hsw">${it.e}</span><b>${esc(tr(it.n))}</b><button class="sbuy" data-cat="extDeco" data-id="${it.id}">${on ? esc(tr('떼기')) : hutOwns('extDeco', it.id) ? esc(tr('달기')) : coinTxt(it.p)}</button></div>`; }).join('') + '</div>';
+    } else if(hutTab === 'room'){
+      html += `<div class="lbl">${esc(tr('📐 방 크기'))}</div><div class="hgrid">` + HUTC.size.map(it => { const on = h.int.size === it.id; return `<div class="hsi ${on ? 'on' : ''}"><span class="hsw">${it.id.toUpperCase()}</span><b>${esc(tr(it.n))}</b><button class="sbuy" data-cat="size" data-id="${it.id}" ${on ? 'disabled' : ''}>${on ? '✅' : hutOwns('size', it.id) ? esc(tr('쓰기')) : coinTxt(it.p)}</button></div>`; }).join('') + '</div>';
+      html += `<p class="how">${esc(tr('벽지는 벽마다 따로! 꾸미기 모드에서 벽을 톡 누르면 그 벽만 바꿀 수 있어요'))}</p>`;
+      html += `<div class="lbl">${esc(tr('🧱 벽지 (모든 벽에)'))}</div><div class="hgrid">` + HUTC.intWall.map(it => { const all = ['back', 'left', 'right'].every(k => h.int.walls[k] === it.id); return `<div class="hsi ${all ? 'on' : ''}"><span class="hsw" style="background:${it.c}"></span><b>${esc(tr(it.n))}</b><button class="sbuy" data-cat="intWall" data-id="${it.id}" ${all ? 'disabled' : ''}>${all ? '✅' : hutOwns('intWall', it.id) ? esc(tr('쓰기')) : coinTxt(it.p)}</button></div>`; }).join('') + '</div>';
+      html += styleRow('intFloor', h.int.floor, '🟫 바닥');
+    } else if(hutTab === 'yard'){
+      html += `<p class="how">${esc(tr('산 소품은 마당에 놓여요. 🏡 마당 꾸미기에서 끌어서 옮겨요 (같은 것 여러 개 OK)'))}</p><div class="hgrid">` + HUTC.yard.map(it => { const n = h.yard.filter(y => y.k === it.id).length;
+        return `<div class="hsi"><span class="hsw">${it.e}</span><b>${esc(tr(it.n))}${n ? ' ×' + n : ''}</b><button class="sbuy" data-cat="yard" data-id="${it.id}">${coinTxt(it.p)}</button></div>`; }).join('') + '</div>';
+    } else {
+      html += `<p class="how">${esc(tr('같은 가구 여러 개 OK! 산 가구는 방에 놓이고, 🛠️ 꾸미기 모드에서 옮기고·돌리고·색을 바꿔요'))}</p><div class="hgrid">` + HUTC.furn.map(it => { const n = h.int.items.filter(x => x.k === it.id).length, st = (h.inv[it.id] || 0);
+        const btn = it.base ? (n ? '✅' : esc(tr('꺼내기'))) : st ? esc(tr('보관함에서 꺼내기')) + ` (${st})` : coinTxt(it.p);
+        return `<div class="hsi ${n ? 'on' : ''}"><span class="hsw">${it.e}</span><b>${esc(tr(it.n))}${n ? ' ×' + n : ''}</b><button class="sbuy" data-cat="furn" data-id="${it.id}" ${it.base && n ? 'disabled' : ''}>${btn}</button></div>`; }).join('') + '</div>';
+    }
+    $('hutShopBody').innerHTML = html;
+  }
+  $('hutShopTabs').addEventListener('click', e => { const b = e.target.closest('button'); if(b){ hutTab = b.dataset.t; renderHutShop(); SFX.pick(); } });
+  $('hutShopBody').addEventListener('click', e => {
+    const h = hutCfg();
+    const pc = e.target.closest('.pal i'); if(pc){ h.ext.col[pc.parentNode.dataset.col] = HPAL[+pc.dataset.c]; saveProfile(); renderHutShop(); hutExt2D(); if(H3.on) h3Build(); SFX.pick(); return; }
+    const b = e.target.closest('.sbuy'); if(!b || b.disabled) return; const cat = b.dataset.cat, id = b.dataset.id;
+    if(cat === 'furn'){
+      const def = fdef(id), stored = h.inv[id] || 0;
+      if(!def.base && !stored){ if(!hutPay(def.p)) return; }
+      if(stored) h.inv[id] = stored - 1;
+      hutSnap();
+      h.int.items.push(def.wall ? {u:'f' + Date.now().toString(36), k:id, x:0, w:'back', y:3.2, r:0} : {u:'f' + Date.now().toString(36), k:id, x:0, z:1.2, r:0});
+      toast('🛋️ ' + tr(def.n) + ' ' + tr('을(를) 방에 놓았어요'));
+    } else if(cat === 'yard'){
+      const d = HUTC.yard.find(y => y.id === id); if(!hutPay(d.p)) return; hutSnap(); h.yard.push({u:'y' + Date.now().toString(36), k:id, x:(Math.random() - .5)*6, z:3 + Math.random()*3, r:0}); toast('🌿 ' + tr(d.n) + ' ' + tr('을(를) 마당에 놓았어요'));
+    } else if(cat === 'extDeco'){
+      const i = h.ext.deco.indexOf(id); if(i >= 0) h.ext.deco.splice(i, 1); else { if(!hutBuy(cat, id)) return; h.ext.deco.push(id); }
+    } else if(cat === 'intWall'){ if(!hutBuy(cat, id)) return; ['back', 'left', 'right'].forEach(k => h.int.walls[k] = id); }
+    else if(cat === 'size'){ if(!hutBuy(cat, id)) return; h.int.size = id; }
+    else { if(!hutBuy(cat, id)) return; const key = {extWall:'wall', extRoof:'roof', extDoor:'door', extWin:'win', intFloor:'floor'}[cat]; if(cat === 'intFloor') h.int.floor = id; else h.ext[key] = id; }
+    saveProfile(); renderHutShop(); hutExt2D(); if(H3.on) h3Build();
+  });
+  $('hutShopX').onclick = () => { $('hutShopOv').hidden = true; };
+  // ---------- decorate mode ----------
+  function hutEdit(on){ H3.edit = on; H3.sel = null; H3.selWall = null; $('hutEditBar').hidden = !on; $('hutTools').hidden = on; h3Build(); hutEditBar();
+    if(on) toast('🛠️ ' + tr(H3.view === 'out' ? '소품을 끌어서 옮겨요' : '가구를 끌어서 옮기고, 벽을 누르면 벽지를 바꿔요')); }
+  function hutEditBar(){
+    const m = H3.sel && H3.items[H3.sel], it = m && m.userData.item, def = it ? (H3.view === 'out' ? HUTC.yard.find(y => y.id === it.k) : fdef(it.k)) : null;
+    const wallSel = H3.selWall && H3.view === 'in';
+    $('hutSelName').textContent = def ? def.e + ' ' + tr(def.n) : wallSel ? '🧱 ' + tr({back:'뒷벽', left:'왼쪽 벽', right:'오른쪽 벽'}[H3.selWall]) + ' — ' + tr('아래에서 벽지를 골라요') : tr('옮길 물건이나 벽을 톡 골라요');
+    $('hutRot').disabled = !def || (def.wall && H3.view === 'in'); $('hutStore').disabled = !def || !!def.base; $('hutSell').disabled = !def || !!def.base; $('hutColor').disabled = !def; $('hutUndo').disabled = !HUNDO.length;
+    const wp = $('hutWallPick'); wp.hidden = !wallSel;
+    if(wallSel){ const h = hutCfg(); wp.innerHTML = HUTC.intWall.map(w => `<i style="background:${w.c}" data-w="${w.id}" class="${h.int.walls[H3.selWall] === w.id ? 'on' : ''} ${hutOwns('intWall', w.id) ? '' : 'lock'}">${hutOwns('intWall', w.id) ? '' : '🔒'}</i>`).join(''); }
+  }
+  $('hutWallPick').addEventListener('click', e => { const i = e.target.closest('i'); if(!i || !H3.selWall) return; const id = i.dataset.w, h = hutCfg();
+    if(!hutOwns('intWall', id)){ if(!hutBuy('intWall', id)) return; }
+    hutSnap(); h.int.walls[H3.selWall] = id; saveProfile(); h3Build(); hutEditBar(); SFX.pick(); });
+  $('hutRot').onclick = () => { const m = H3.items[H3.sel]; if(!m) return; hutSnap(); const it = m.userData.item; it.r = ((it.r || 0) + Math.PI/4) % (Math.PI*2); m.rotation.y = it.r; saveProfile(); hutCollide(); SFX.pick(); hutEditBar(); };
+  $('hutColor').onclick = () => { const m = H3.items[H3.sel]; if(!m) return; hutSnap(); const it = m.userData.item; it.c = it.c == null ? 0 : (it.c + 1) % HPAL.length; saveProfile(); const u = H3.sel; h3Build(); H3.sel = u; hutEditBar(); SFX.pick(); };
+  $('hutStore').onclick = () => { const h = hutCfg(); if(H3.view === 'out') return; const i = h.int.items.findIndex(x => x.u === H3.sel); if(i < 0) return; hutSnap(); const k = h.int.items[i].k; h.int.items.splice(i, 1); h.inv[k] = (h.inv[k] || 0) + 1; saveProfile(); H3.sel = null; h3Build(); hutEditBar(); toast('📦 ' + tr('보관함에 넣었어요. 상점의 가구 탭에서 다시 꺼내요')); };
+  $('hutSell').onclick = () => { const h = hutCfg(), list = H3.view === 'out' ? h.yard : h.int.items, i = list.findIndex(x => x.u === H3.sel); if(i < 0) return;
+    const k = list[i].k, def = H3.view === 'out' ? HUTC.yard.find(y => y.id === k) : fdef(k); if(!def || def.base) return; hutSnap();
+    list.splice(i, 1); const back = Math.floor(def.p/2); PROFILE.coins = (PROFILE.coins || 0) + back; saveProfile(); H3.sel = null; h3Build(); hutEditBar(); hutExt2D(); toast('💰 ' + tr('팔았어요') + ' +' + back); };
+  $('hutUndo').onclick = hutUndo;
+  $('hutDone').onclick = () => { saveProfile(); hutEdit(false); SFX.ding(); };
+  $('hutDeco').onclick = () => hutShopOpen(H3.view === 'out' ? 'yard' : 'furn');
+  $('hutMove').onclick = () => hutEdit(true);
+  $('hutView').onclick = () => { H3.top = !H3.top; SFX.pick(); };
+  $('hutZoomIn').onclick = () => { H3.zoom = Math.min(2.4, H3.zoom*1.2); };
+  $('hutZoomOut').onclick = () => { H3.zoom = Math.max(.6, H3.zoom/1.2); };
+  $('hutYard').onclick = () => { H3.view = H3.view === 'out' ? 'in' : 'out'; H3.sel = null; H3.selWall = null; H3.yaw = 0; H3.zoom = 1; $('hutYard').textContent = H3.view === 'out' ? '🏠 ' + tr('방으로') : '🏡 ' + tr('마당 꾸미기'); h3Build(); SFX.soft();
+    toast(H3.view === 'out' ? '🏡 ' + tr('마당이에요. 소품을 사서 마음대로 꾸며요') : '🏠 ' + tr('방으로 돌아왔어요')); };
+
+
   const HUTR = {x:-150, drag:null, raf:0, t:0};
   function hutSky(){
     const h = new Date().getHours();
@@ -5199,16 +5788,24 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
       </g>
       <rect width="420" height="760" fill="url(#hVig)" pointer-events="none"/>`;
   }
-  function hutOpen(){
+  async function hutOpen(){
     if(!G || !G.farm) return;
     if(G.running) G.paused = true;
-    const r = $('hutRoom'); $('hutSvg').innerHTML = hutRoomSVG(); $('hutSheet').hidden = true;
+    const r = $('hutRoom'); $('hutSheet').hidden = true; $('hutEditBar').hidden = true; $('hutTools').hidden = false; H3.edit = false; H3.sel = null;
     r.hidden = false; r.classList.remove('enter'); void r.offsetWidth; r.classList.add('enter');
+    let ok3 = false;
+    try{ await load3(); ok3 = !!(H3.r || h3Init()); }catch(e){ ok3 = false; }
+    $('hut3d').style.display = ok3 ? '' : 'none'; $('hutSvg').style.display = ok3 ? 'none' : ''; $('hutLabels').hidden = !ok3; $('hutTools').hidden = !ok3;
+    if(ok3){ try{ H3.yaw = 0; H3.zoom = 1; H3.top = false; H3.view = 'in'; $('hutYard').textContent = '🏡 ' + tr('마당 꾸미기'); h3Size(); h3Build(); }catch(e){ ok3 = false; console.warn('hut3d', e); } }
+    $('hut3d').style.display = ok3 ? '' : 'none'; $('hutSvg').style.display = ok3 ? 'none' : ''; $('hutLabels').hidden = !ok3; $('hutTools').hidden = !ok3; document.querySelector('.hutcam').hidden = !ok3;
+    if(ok3){ H3.on = true; cancelAnimationFrame(H3.raf); H3.raf = requestAnimationFrame(h3Loop);
+      say('🏠 ' + tr('농막에 들어왔어요. 옆으로 밀어 둘러보고, 가구를 톡 눌러 봐요'), 'good'); SFX.soft(); return; }
+    $('hutSvg').innerHTML = hutRoomSVG();
     HUTR.x = 0; hutPan(); SFX.soft();
     cancelAnimationFrame(HUTR.raf); HUTR.last = performance.now(); HUTR.raf = requestAnimationFrame(hutLoop);
     say('🏠 ' + tr('농막에 들어왔어요. 침대·아궁이·선반·찻상을 톡 눌러 봐요'), 'good');
   }
-  function hutClose(){ $('hutRoom').hidden = true; cancelAnimationFrame(HUTR.raf); if(G) G.paused = false; }
+  function hutClose(){ $('hutRoom').hidden = true; cancelAnimationFrame(HUTR.raf); H3.on = false; cancelAnimationFrame(H3.raf); $('hutShopOv').hidden = true; if(G) G.paused = false; }
   function hutPan(){ const g = $('hutPan'); if(g) g.setAttribute('transform', `translate(${HUTR.x.toFixed(1)} 0)`); }
   function hutLoop(now){
     if($('hutRoom').hidden) return;
@@ -5243,7 +5840,7 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
       if((f.napT || 0) + HUT_NAP_MS > Date.now()){ say('😊 ' + tr('아직 졸리지 않아요. 조금 있다가 다시 자요'), 'bad'); SFX.nope(); return; }
       farmSave(); f.napT = Date.now(); f.t = (f.t || Date.now()) - 180000; farmLoad(); saveProfile();
       $('napFx').hidden = false; SFX.soft();
-      setTimeout(() => { $('napFx').hidden = true; $('hutSvg').innerHTML = hutRoomSVG(); hutPan(); say('😴 ' + tr('푹 잤다! 그새 작물이 자랐고 닭과 젖소도 일했어요'), 'good'); }, 1600);
+      setTimeout(() => { $('napFx').hidden = true; if(H3.on) hutLabels(); else { $('hutSvg').innerHTML = hutRoomSVG(); hutPan(); } say('😴 ' + tr('푹 잤다! 그새 작물이 자랐고 닭과 젖소도 일했어요'), 'good'); }, 1600);
       return;
     }
     if(a === 'cook'){ hutClose(); leaveFarm(); setTimeout(() => $('bHealCook').click(), 60); return; }
@@ -5253,7 +5850,9 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
   $('hut').addEventListener('click', () => { if(G && G.farm && G.stage === 0) hutOpen(); });
 
   // the hut only stands on the healing farm
-  function hutShow(){ const on = !!(G && (G.farm || mode === 'heal')); const h = $('hut'); if(h) h.style.display = on ? '' : 'none'; const t = $('hutTag'); if(t) t.style.display = G && G.farm ? '' : 'none'; if(G3.coop) G3.coop.visible = on; }
+  let hutExtKey = '';
+  function hutShow(){ const on = !!(G && (G.farm || mode === 'heal'));
+    if(on && PROFILE){ const k = JSON.stringify(hutCfg().ext); if(k !== hutExtKey){ hutExtKey = k; try{ hutExt2D(); }catch(e){} } } const h = $('hut'); if(h) h.style.display = on ? '' : 'none'; const t = $('hutTag'); if(t) t.style.display = G && G.farm ? '' : 'none'; if(G3.coop) G3.coop.visible = on; }
   setInterval(hutShow, 400);
   function startFarm(){
     mode = 'heal'; SFX.unlock();
@@ -5316,7 +5915,14 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
     ['stageOv','finalOv'].forEach(id => $(id).hidden = true);
     healPrep(i); startStage(i); SFX.pick();
   }
-  $('steps').addEventListener('click', e => { if(mode !== 'heal') return; const st = e.target.closest('.st'); if(!st) return; healJump([...$('steps').children].indexOf(st)); });
+  let stepAsk = {i:-1, t:0};
+  $('steps').addEventListener('click', e => { if(mode !== 'heal') return; const st = e.target.closest('.st'); if(!st) return;
+    const i = [...$('steps').children].indexOf(st); if(!G || i === G.stage) return;
+    const now = performance.now();
+    if(stepAsk.i === i && now - stepAsk.t < 2500){ stepAsk.i = -1; healJump(i); return; }
+    stepAsk = {i, t:now}; st.classList.remove('askme'); void st.offsetWidth; st.classList.add('askme');
+    const nm = STAGES[i] ? STAGES[i].name : '', c = nm.charCodeAt(nm.length - 1) - 0xAC00, jong = c >= 0 && c < 11172 ? c % 28 : 0;
+    say('👉 ' + (LANG === 'ko' ? `한 번 더 누르면 ${nm}${jong && jong !== 8 ? '으로' : '로'} 이동해요` : tr('한 번 더 누르면') + ' ' + tr(nm)), 'good'); });
   document.addEventListener('visibilitychange', () => { if(document.hidden && farmOn()) farmSave(); });
   window.addEventListener('pagehide', () => { if(farmOn()) farmSave(); });
   function healFinal(){
@@ -5541,8 +6147,8 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
     drawCheese(){
       // a pail of fresh milk waits by the cow — tap it to make cheese
       $('cheeses').innerHTML = SG.cheeses.map(e => `<g class="tap ch" data-id="${e.id}" transform="translate(${e.x} 198)"><circle r="20" fill="transparent"/>
-        <path d="M-11 -12 h22 l-3 20 h-16 z" fill="#DCE3EA" stroke="#5B6670" stroke-width="2"/><ellipse cx="0" cy="-12" rx="11" ry="3.5" fill="#FFFFFF" stroke="#5B6670" stroke-width="1.5"/>
-        <path d="M-11 -12 Q0 -26 11 -12" fill="none" stroke="#5B6670" stroke-width="1.5"/>
+        <g class="pail2d"><path d="M-11 -12 h22 l-3 20 h-16 z" fill="#DCE3EA" stroke="#5B6670" stroke-width="2"/><ellipse cx="0" cy="-12" rx="11" ry="3.5" fill="#FFFFFF" stroke="#5B6670" stroke-width="1.5"/>
+        <path d="M-11 -12 Q0 -26 11 -12" fill="none" stroke="#5B6670" stroke-width="1.5"/></g>
         <g class="tapme"><rect x="-16" y="-44" width="32" height="16" rx="8" fill="#FFD23F" stroke="#1A1410" stroke-width="1.5"/><text y="-32" font-size="10" font-weight="800" text-anchor="middle">${tr('톡!')}</text></g></g>`).join('');
     },
     tapPond(){
@@ -5557,7 +6163,7 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
       } else { SFX.plop(); say('아직 입질이 없어요… 찌가 흔들리고 ❗가 뜨면 탭!'); }
     },
     drawEggs(){
-      $('eggs').innerHTML = SG.eggs.map(e => `<g class="tap egg" data-id="${e.id}" transform="translate(${e.x} 176)"><circle r="18" fill="transparent"/><ellipse rx="7" ry="9" fill="#FBF3E4" stroke="#1A1410" stroke-width="1.6"/><g class="tapme"><rect x="-16" y="-36" width="32" height="16" rx="8" fill="#FFD23F" stroke="#1A1410" stroke-width="1.5"/><text y="-24" font-size="10" font-weight="800" text-anchor="middle">${tr('톡!')}</text></g></g>`).join('');
+      $('eggs').innerHTML = SG.eggs.map(e => `<g class="tap egg" data-id="${e.id}" transform="translate(${e.x} 194)"><circle r="18" fill="transparent"/><ellipse rx="7" ry="9" fill="#FBF3E4" stroke="#1A1410" stroke-width="1.6"/><g class="tapme"><rect x="-16" y="12" width="32" height="16" rx="8" fill="#FFD23F" stroke="#1A1410" stroke-width="1.5"/><text y="24" font-size="10" font-weight="800" text-anchor="middle">${tr('톡!')}</text></g></g>`).join('');
     },
     tick(dt){
       SG.plots.forEach((p, i) => {
@@ -5585,7 +6191,7 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
       SG.henT -= dt;
       if(SG.henT <= 0){
         SG.henT = (farmOn() ? 60 + rng()*30 : 7 + rng()*4)*(1 - .25*UP('hen'));
-        if(SG.eggs.length < (UP('hen') >= 2 ? 3 : 2)){ SG.eggs.push({id:++SG.eggId, x:SG.eggs.some(e => e.x < 262) ? 272 : 256}); SFX.cluck(); Garden.drawEggs(); say('🐔 꼬꼬댁! 달걀을 낳았어요. 탭해서 주워요'); }
+        if(SG.eggs.length < (UP('hen') >= 2 ? 3 : 2)){ SG.eggs.push({id:++SG.eggId, x:SG.eggs.some(e => e.x < 246) ? 256 : 240}); SFX.cluck(); Garden.drawEggs(); say('🐔 꼬꼬댁! 달걀을 낳았어요. 탭해서 주워요'); }
       }
       const f = SG.fish;
       if(f.bite > 0){ f.bite -= dt; if(f.bite <= 0){ f.t = (4 + rng()*4)*(1 - .2*UP('rod')); say('물고기가 도망갔어요… 다음 입질을 노려요'); } }
@@ -6595,7 +7201,7 @@ Reply as JSON only: {"score": <number ${j.lo}-${j.hi}>, "comment": "..."}`;
   };
   const myLevel = id => (PROFILE && PROFILE.own && PROFILE.own[id]) || 0;
   // upgrades don't count in online duels, so both cooks play on equal terms
-  const UP = id => (typeof mode !== 'undefined' && mode === 'online') ? 0 : myLevel(id);
+  const UP = id => 0;   // kitchen upgrades were removed from the shop
   const skin = () => SKINS[(PROFILE && SKINS[PROFILE.skin]) ? PROFILE.skin : 'basic'];
   const coinTxt = n => '🪙 ' + Math.max(0, Math.floor(n)).toLocaleString('ko-KR');
   function skinBowlSVG(k, w){
@@ -6603,6 +7209,9 @@ Reply as JSON only: {"score": <number ${j.lo}-${j.hi}>, "comment": "..."}`;
     return `<svg viewBox="-46 -16 92 46" width="${w}" height="${w*.5}" aria-hidden="true"><path d="M-40 -6 H40 Q38 24 0 26 Q-38 24 -40 -6 Z" fill="${s.body}" stroke="#1A1410" stroke-width="3"/><path d="M-37 5 H37" stroke="${s.stripe}" stroke-width="3"/><ellipse cy="-6" rx="40" ry="7" fill="${s.rim}" stroke="#1A1410" stroke-width="3"/></svg>`;
   }
   function openShop(){
+    // kitchen upgrades are gone: give back what was spent on them, once
+    if(PROFILE && PROFILE.own && !PROFILE.upRefund){ let back = 0; SHOP.forEach(it => { const lv = myLevel(it.id); for(let i=0;i<lv;i++) back += it.price[i]; });
+      PROFILE.upRefund = 1; if(back){ PROFILE.coins = (PROFILE.coins || 0) + back; saveProfile(); setTimeout(() => say('🪙 ' + tr('주방 업그레이드가 없어져서 쓴 코인을 돌려드렸어요') + ' +' + back, 'good'), 300); } else saveProfile(); }
     renderShop();
     $('startOv').hidden = true; $('shopOv').hidden = false; $('bShopClose').focus();
   }
@@ -6635,6 +7244,7 @@ Reply as JSON only: {"score": <number ${j.lo}-${j.hi}>, "comment": "..."}`;
     }
     saveProfile(); renderShop();
   });
+  $('bHutShop').onclick = () => { if(!PROFILE) return; hutShopOpen('furn'); };
   $('bShopClose').onclick = () => { $('shopOv').hidden = true; $('startOv').hidden = false; renderWho(); };
   // ---------- the finished bowl, drawn like a real bowl of ramen ----------
   if(POTTOP.chashu){ POTTOP.pheasant = POTTOP.chashu.split('#C9763E').join('#E3A86B'); POTTOP.rabbit = POTTOP.chashu.split('#C9763E').join('#D98C7A'); }
@@ -7258,7 +7868,7 @@ Reply as JSON only: {"name":"...","why":"..."}`;
   $('bShop').onclick = openShop;
   const r3D = () => { $('b3D').classList.toggle('on', !G3_OFF()); };
   const rUI = () => { $('bUI').classList.toggle('on', document.body.classList.contains('lg')); };
-  $('bUI').onclick = () => { const on = !document.body.classList.contains('lg'); document.body.classList.toggle('lg', on); try{ localStorage.setItem('ramen-ui', on ? 'glass' : 'classic'); }catch(e){} rUI(); SFX.pick(); };
+  $('bUI').onclick = () => { return; const on = !document.body.classList.contains('lg'); document.body.classList.toggle('lg', on); try{ localStorage.setItem('ramen-ui', on ? 'glass' : 'classic'); }catch(e){} rUI(); SFX.pick(); };
   setTimeout(rUI, 0);
   $('bSet').onclick = () => { rUI(); r3D(); $('setOv').hidden = false; SFX.pick(); };
   $('bSetClose').onclick = () => { $('setOv').hidden = true; };
@@ -7303,7 +7913,8 @@ Reply as JSON only: {"name":"...","why":"..."}`;
     window.addEventListener('pointermove', e => { if(!drag || drag.skip || e.pointerId !== drag.id) return; const x = e.clientX - caps.getBoundingClientRect().left;
       if(Math.abs(x - drag.x0) > 6) drag.moved = true; follow(x); });
     const release = e => { if(!drag) return; if(drag.skip){ drag = null; return; } const k = nearest(e.clientX - caps.getBoundingClientRect().left), moved = drag.moved; drag = null;
-      LGS.drag = false; d.classList.remove('drag'); bar.classList.remove('press'); lgSel(k); if(moved){ const t = lgTabs()[k]; t && t.click(); } };
+      LGS.drag = false; d.classList.remove('drag'); bar.classList.remove('press'); lgSel(k);
+      if(moved){ const t = lgTabs()[k]; t && t.dispatchEvent(new MouseEvent('click', {bubbles:true})); caps.dataset.eat = 1; setTimeout(() => { delete caps.dataset.eat; }, 400); } };
     window.addEventListener('pointerup', release);
     caps.addEventListener('pointercancel', () => { drag = null; LGS.drag = false; d.classList.remove('drag'); bar.classList.remove('press'); lgSel(lgCur); });
     caps.addEventListener('click', e => { if(caps.dataset.eat){ e.stopPropagation(); e.preventDefault(); delete caps.dataset.eat; } }, true);
@@ -7319,7 +7930,7 @@ Reply as JSON only: {"name":"...","why":"..."}`;
   window.addEventListener('resize', () => { if(!$('startOv').hidden) lgSel(lgCur, true); });
   // rows that open something else close the settings sheet first
   ['bTut', 'bInstall'].forEach(id => $(id).addEventListener('click', () => { $('setOv').hidden = true; }, true));
-  $('b3D').onclick = () => { try{ localStorage.setItem('ramen-3d', G3_OFF() ? 'on' : 'off'); }catch(e){} r3D(); SFX.pick(); };
+  $('b3D').onclick = () => { return; try{ localStorage.setItem('ramen-3d', G3_OFF() ? 'on' : 'off'); }catch(e){} r3D(); SFX.pick(); };
   r3D();
 
   $('bBattle').onclick = () => openBattleAI();
