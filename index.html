@@ -721,12 +721,14 @@ body.lg .welcome{background:rgba(234,247,238,.7);border:1px solid rgba(255,255,2
 .huteditbar button{font-size:.8rem;padding:8px 11px}
 /* ===== healing mode: the game fills the whole screen, nothing above it ===== */
 body.healfull .scene{position:fixed;left:0;right:0;top:0;bottom:env(safe-area-inset-bottom,0px);z-index:5;margin:0;border:0;border-radius:0}
-body.healfull .steps,body.healfull #nowDo,body.healfull header > div:first-child,body.healfull #opp{display:none !important}
+body.healfull .steps,body.healfull header > div:first-child,body.healfull #opp{display:none !important}
+body.healfull #nowDo{position:fixed;left:50%;transform:translateX(-50%);top:calc(env(safe-area-inset-top,0px) + 54px);z-index:8;width:min(92vw,440px);pointer-events:none;box-shadow:0 6px 18px rgba(0,0,0,.18)}
+body.healfull #nowDo.idle{display:none}
 body.healfull header{position:fixed;top:calc(env(safe-area-inset-top,0px) + 8px);right:8px;z-index:8;pointer-events:none}
 body.healfull header .hdr-r{pointer-events:auto;gap:6px}
 body.healfull header .tog,body.healfull header .clock{transform:scale(.9);transform-origin:top right}
 /* messages float over the game for a moment, then fade away */
-body.healfull .msg{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 62px);transform:translateX(-50%);z-index:8;max-width:88vw;pointer-events:none;
+body.healfull .msg{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 108px);transform:translateX(-50%);z-index:8;max-width:88vw;pointer-events:none;
   font-size:.88rem;min-height:0;padding:7px 14px;border-radius:999px;opacity:1;transition:opacity .5s ease;box-shadow:0 6px 18px rgba(0,0,0,.2)}
 body.healfull .msg.fade{opacity:0}
 /* veterans (5+ business days): the obvious helper labels are gone — the gauges and lines stay */
@@ -738,6 +740,38 @@ body.vet .hint{animation:none !important}
 .cover3 i{width:42px;height:42px;border-radius:50%;border:4px solid rgba(0,0,0,.12);border-top-color:#E2231A;animation:spin .8s linear infinite}
 .cover3 b{font-size:.95rem;color:#3A2A1A}
 @keyframes spin{to{transform:rotate(360deg)}}
+/* phones turned sideways: ask to rotate back (iPhone Safari can't lock orientation), except inside the hut */
+.rotateov{display:none;position:fixed;inset:0;z-index:200;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:20px;
+  background:linear-gradient(160deg,#FFE3C2,#F6C6E6 55%,#BFE2FF);color:#3A2A1A}
+.rotateov b{font-size:3rem;animation:rotHint 1.6s ease-in-out infinite}
+.rotateov p{margin:0;font-size:1.2rem;font-weight:800}
+.rotateov small{font-size:.85rem;opacity:.8}
+@keyframes rotHint{0%,30%{transform:rotate(90deg)}60%,100%{transform:rotate(0)}}
+/* the rotate prompt is no longer used: the page counter-rotates instead (see body.rotL / body.rotR) */
+body.rotL, body.rotR{position:fixed;top:0;left:0;width:100vh;height:100vw;overflow:hidden;transform-origin:top left}
+body.rotL{transform:translateY(100vh) rotate(-90deg)}
+body.rotR{transform:translateX(100vw) rotate(90deg)}
+/* the hut in portrait: exit at the top, a tool dock along the bottom, camera buttons on the right edge */
+@media (orientation: portrait){
+  .huttools{top:auto;left:12px;right:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 12px);flex-direction:row;justify-content:center;gap:8px}
+  .huttools button{flex:1;min-width:0;padding:11px 6px;font-size:.8rem;white-space:nowrap}
+  .hutcam{right:10px;top:50%;bottom:auto;transform:translateY(-50%)}
+  .hutcam button{width:40px;height:40px;font-size:1.05rem}
+  .huteditbar{bottom:calc(env(safe-area-inset-bottom,0px) + 10px)}
+  .hutsheet{bottom:calc(env(safe-area-inset-bottom,0px) + 74px)}
+}
+/* the hut in landscape: tools in a row along the top, camera buttons on the right, slim edit bar */
+@media (orientation: landscape) and (max-height: 520px){
+  .huttools{flex-direction:row;top:calc(env(safe-area-inset-top,0px) + 10px);right:calc(env(safe-area-inset-right,0px) + 10px)}
+  .huttools button{padding:7px 11px;font-size:.78rem}
+  .hutexit{top:calc(env(safe-area-inset-top,0px) + 10px);left:calc(env(safe-area-inset-left,0px) + 10px);padding:7px 12px;font-size:.8rem}
+  .hutcam{right:calc(env(safe-area-inset-right,0px) + 10px);top:50%;bottom:auto;transform:translateY(-50%)}
+  .hutcam button{width:38px;height:38px;font-size:1rem}
+  .huteditbar{left:auto;right:calc(env(safe-area-inset-right,0px) + 60px);bottom:10px;max-width:62vw;padding:8px;gap:6px}
+  .huteditbar b{font-size:.82rem}
+  .hutsheet{max-height:70%;left:auto;width:min(420px,60vw)}
+  .h3tag{padding:6px 11px;font-size:.8rem}
+}
 </style>
 </head>
 
@@ -1139,7 +1173,7 @@ body.vet .hint{animation:none !important}
   <div id="hutLabels"></div>
   <button class="hutexit" id="hutExit">🚪 밖으로 나가기</button>
   <div class="huttools" id="hutTools"><button id="hutDeco">🛍️ 꾸미기 상점</button><button id="hutMove">🛠️ 꾸미기 모드</button><button id="hutYard">🏡 마당 꾸미기</button></div>
-  <div class="hutcam"><button id="hutZoomIn" aria-label="확대">＋</button><button id="hutZoomOut" aria-label="축소">－</button><button id="hutView" aria-label="시점">👁️</button></div>
+  <div class="hutcam"><button id="hutZoomIn" aria-label="확대">＋</button><button id="hutZoomOut" aria-label="축소">－</button><button id="hutView" aria-label="시점" hidden>👁️</button></div>
   <div class="huteditbar notr" id="hutEditBar" hidden><b id="hutSelName"></b>
     <div class="hwallpick" id="hutWallPick" hidden></div>
     <button id="hutRot">🔄 돌리기</button><button id="hutColor">🎨 색</button><button id="hutStore">📦 보관</button><button id="hutSell">💰 팔기</button><button id="hutUndo">↩ 되돌리기</button><button id="hutDone">✅ 완료</button></div>
@@ -1154,6 +1188,7 @@ body.vet .hint{animation:none !important}
     <button class="btn" id="hutShopX">닫기</button>
   </div>
 </div>
+<div class="rotateov" id="rotateOv"><b>📱↻</b><p>세로로 돌려 주세요</p><small>라면 공방은 세로 화면으로 즐겨요 (농막 안에서는 가로도 돼요)</small></div>
 <div class="napfx" id="napFx" hidden><b>💤 Zzz…</b><small>낮잠 자는 중</small></div>
 <div class="overlay" id="cheeseOv" hidden>
   <div class="card chzcard">
@@ -1718,6 +1753,7 @@ body.vet .hint{animation:none !important}
   const nrm = a => { while(a > Math.PI) a -= 2*Math.PI; while(a < -Math.PI) a += 2*Math.PI; return a; };
   // order: en | ja | zh (简) | zt (繁) | es | fr | de | pt | vi | th
   const I18N_RAW = {
+'🔍 유리 색 (투명)':'🔍 Glass tint (see-through)|🔍 ガラスの色（透明）|🔍 玻璃颜色（透明）|🔍 玻璃顏色（透明）|🔍 Tono del vidrio|🔍 Teinte du verre|🔍 Glasfarbe|🔍 Cor do vidro|🔍 Màu kính|🔍 สีกระจก',
 '마당 꾸미기':'Decorate the yard|庭を飾る|装饰院子|裝飾院子|Decorar el patio|Décorer la cour|Garten gestalten|Decorar o quintal|Trang trí sân|ตกแต่งลาน',
 '방으로':'To the room|部屋へ|回房间|回房間|Al cuarto|Vers la pièce|Ins Zimmer|Para o quarto|Vào phòng|เข้าห้อง',
 '꺼내기':'Take out|出す|拿出|拿出|Sacar|Sortir|Herausnehmen|Tirar|Lấy ra|นำออก',
@@ -3514,10 +3550,10 @@ ${JSON.stringify(part)}`;
         Object.entries(obj(h.own)).forEach(([k, v]) => { if(/^[a-zA-Z]{3,10}_[a-z]{1,10}$/.test(k) && v) o.own[k] = 1; });
         Object.entries(obj(h.inv)).forEach(([k, v]) => { if(id(k)) o.inv[k] = Math.max(0, Math.min(99, Math.floor(+v || 0))); });
         const e = obj(h.ext), c = obj(e.col);
-        o.ext = {wall:id(e.wall), roof:id(e.roof), door:id(e.door), win:id(e.win), deco:Array.isArray(e.deco) ? e.deco.filter(id).slice(0, 12) : [], col:{wall:hex(c.wall), roof:hex(c.roof), door:hex(c.door), trim:hex(c.trim)}};
+        o.ext = {wall:id(e.wall), roof:id(e.roof), door:id(e.door), win:id(e.win), deco:Array.isArray(e.deco) ? e.deco.filter(id).slice(0, 12) : [], col:{wall:hex(c.wall), roof:hex(c.roof), door:hex(c.door), trim:hex(c.trim), glass:hex(c.glass)}};
         Object.keys(o.ext.col).forEach(k => o.ext.col[k] === undefined && delete o.ext.col[k]);
         const i = obj(h.int), w = obj(i.walls);
-        const item = x => ({u:String(x.u || '').slice(0, 16), k:x.k, x:clamp(+x.x || 0, -12, 12), z:clamp(+x.z || 0, -12, 12), r:+x.r || 0, ...(x.w && /^(back|left|right)$/.test(x.w) ? {w:x.w, y:clamp(+x.y || 3.2, 1, 5)} : {}), ...(Number.isInteger(x.c) && x.c >= 0 && x.c < 14 ? {c:x.c} : {})});
+        const item = x => ({u:String(x.u || '').slice(0, 16), k:x.k, x:clamp(+x.x || 0, -14, 14), z:clamp(+x.z || 0, -14, 14), r:+x.r || 0, ...(x.w && /^(back|left|right)$/.test(x.w) ? {w:x.w, y:clamp(+x.y || 3.2, 1, 5)} : {}), ...(Number.isInteger(x.c) && x.c >= 0 && x.c < 14 ? {c:x.c} : {})});
         o.int = {size:id(i.size), wall:id(i.wall), walls:i.walls ? {back:id(w.back) || 'wood', left:id(w.left) || 'wood', right:id(w.right) || 'wood'} : undefined, floor:id(i.floor),
           items:Array.isArray(i.items) ? i.items.slice(0, 60).filter(x => x && id(x.k)).map(item) : undefined};
         o.yard = Array.isArray(h.yard) ? h.yard.slice(0, 60).filter(x => x && id(x.k)).map(item) : [];
@@ -3829,7 +3865,7 @@ ${JSON.stringify(part)}`;
     const beginner = G && (G.lesson > 0 || (mode === 'solo' && PROFILE && shopData().day < 5) || mode === 'heal');
     const show = G && G.running && $('stageOv').hidden && $('custOv').hidden && !(TUT && TUT.on) && !(G.farm);
     if(!beginner || (TUT && TUT.on)){ el.hidden = true; return; }
-    if(mode === 'heal'){ el.hidden = !show; el.classList.remove('idle'); }
+    if(mode === 'heal' || document.body.classList.contains('healfull')){ el.hidden = !show; el.classList.remove('idle'); }
     else { el.hidden = false; el.classList.toggle('idle', !show); }
     if(!show) return;
     const list = [NOWDO, NOWDO1, NOWDO2, NOWDO3][G.stage] || [];
@@ -3984,13 +4020,19 @@ ${JSON.stringify(part)}`;
   // real taps on buttons are ignored. (Programmatic clicks from the game itself still work.)
   // =================================================================
   let swapAt = 0;
-  const SWAP_MS = 300;
-  const swapMO = new MutationObserver(muts => { for(const m of muts) if(m.attributeName === 'hidden'){ swapAt = performance.now(); return; } });
-  document.querySelectorAll('.overlay, #mk, #hutRoom, #napFx, #setOv').forEach(el => swapMO.observe(el, {attributes:true, attributeFilter:['hidden']}));
+  const SWAP_MS = 260;
+  let showEl = null, showAt = 0, hideAt = 0;
+  const swapMO = new MutationObserver(muts => { for(const m of muts){ if(m.attributeName !== 'hidden') continue;
+      const was = m.oldValue !== null, now = m.target.hasAttribute('hidden'); if(was === now) continue;   // only a REAL show/hide counts
+      if(!now){ showEl = m.target; showAt = performance.now(); } else hideAt = performance.now(); } });
+  document.querySelectorAll('.overlay, #mk, #hutRoom, #napFx, #setOv').forEach(el => swapMO.observe(el, {attributes:true, attributeFilter:['hidden'], attributeOldValue:true}));
   const TAPPABLE = 'button, .tap, .tab, .mtile, .mkst, .hspot, .hutTag, [data-a], .shopsign, .opendoor, .seg button';
+  // block only the tap that "falls through": a tap on the screen that JUST appeared (inside it), or right after one closed
   const guardEvt = e => {
-    if(!e.isTrusted) return;
-    if(performance.now() - swapAt < SWAP_MS && e.target.closest && e.target.closest(TAPPABLE)){ e.stopImmediatePropagation(); e.preventDefault(); }
+    if(!e.isTrusted || !e.target.closest || !e.target.closest(TAPPABLE)) return;
+    const now = performance.now();
+    const onNew = showEl && now - showAt < SWAP_MS && showEl.contains(e.target), afterClose = now - hideAt < 160;
+    if(onNew || afterClose){ e.stopImmediatePropagation(); e.preventDefault(); }
   };
   document.addEventListener('click', guardEvt, true);
   // the same button can't fire twice in a row by a frantic double-tap
@@ -3999,7 +4041,7 @@ ${JSON.stringify(part)}`;
     if(!e.isTrusted) return;
     const b = e.target.closest && e.target.closest('button'); if(!b) return;
     const now = performance.now();
-    if(b === lastBtn && now - lastBtnAt < 450 && !b.dataset.rapid){ e.stopImmediatePropagation(); e.preventDefault(); return; }
+    if(b === lastBtn && now - lastBtnAt < 320 && !b.dataset.rapid){ e.stopImmediatePropagation(); e.preventDefault(); return; }
     lastBtn = b; lastBtnAt = now;
   }, true);
   // a crash in one frame shouldn't freeze the game silently: log it and keep going
@@ -4038,7 +4080,7 @@ ${JSON.stringify(part)}`;
   function fitScene(){
     document.body.classList.toggle('vet', isVet());
     const sc = $('scene'), sv = $('svg'); if(!sc || !sv) return;
-    const heal = typeof mode !== 'undefined' && mode === 'heal';
+    const heal = typeof mode !== 'undefined' && (mode === 'heal' || mode === 'solo') && G && $('startOv').hidden;
     document.body.classList.toggle('healfull', heal);
     if(!heal){ if(sv.getAttribute('viewBox') !== '0 0 400 560'){ sv.setAttribute('viewBox', '0 0 400 560'); sv.setAttribute('preserveAspectRatio', 'xMidYMax meet'); try{ g3Size(); }catch(e){} try{ k3Size(); }catch(e){} try{ b3Size(); }catch(e){} } return; }
     sv.setAttribute('preserveAspectRatio', 'xMidYMid meet');
@@ -4058,6 +4100,17 @@ ${JSON.stringify(part)}`;
     if(typeof G !== 'undefined' && G && G.running && !G.paused && now - loopAt > 1200){ last = now; cancelAnimationFrame(raf); raf = requestAnimationFrame(loop); }
     if(G3.on && G3.r && now - (G3.loopAt || now) > 1200){ G3.last = now; cancelAnimationFrame(G3.raf); G3.raf = requestAnimationFrame(g3Loop); }
   }, 1000);
+  // keep the game upright when a phone is turned sideways (iPhone can't lock orientation for web pages);
+  // inside the hut, sideways is allowed and gets its own layout
+  function orientFix(){
+    const land = innerWidth > innerHeight && Math.min(innerWidth, innerHeight) <= 520, hut = document.body.classList.contains('hutopen');
+    let ang = 0; try{ ang = screen.orientation && typeof screen.orientation.angle === 'number' ? screen.orientation.angle : (window.orientation || 0); }catch(e){}
+    const want = land && !hut ? (ang === 270 || ang === -90 ? 'rotR' : 'rotL') : '';
+    ['rotL', 'rotR'].forEach(c => { const on = c === want; if(document.body.classList.contains(c) !== on) document.body.classList.toggle(c, on); });
+  }
+  window.addEventListener('resize', () => setTimeout(orientFix, 60)); window.addEventListener('orientationchange', () => setTimeout(orientFix, 120));
+  try{ new MutationObserver(orientFix).observe(document.body, {attributes:true, attributeFilter:['class']}); }catch(e){}
+  setTimeout(orientFix, 100);
   setInterval(nowDoTick, 300);
   // =================================================================
   // 👆 SHOW-ME HAND: when a beginner stops for a moment, a ghost finger acts out the next move
@@ -5320,7 +5373,7 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
     extDeco:[{id:'chimney', n:'굴뚝', e:'🏭', p:70}, {id:'lantern', n:'처마 등불', e:'🏮', p:60}, {id:'flower', n:'창가 꽃상자', e:'🌷', p:80}, {id:'sign', n:'이름 간판', e:'🪧', p:50}],
     intWall:[{id:'wood', n:'원목', c:'#D2A66E', p:0}, {id:'plaster', n:'하얀 회벽', c:'#F4EFE6', p:60}, {id:'pink', n:'분홍 벽지', c:'#F6C9D0', p:70}, {id:'mint', n:'민트 벽지', c:'#BFE6D8', p:70}, {id:'sky', n:'하늘 벽지', c:'#CDE6FF', p:70}, {id:'brick', n:'벽돌', c:'#B5603E', p:110}, {id:'hanji', n:'한지', c:'#F3E7C8', p:120}, {id:'stripe', n:'줄무늬 벽지', c:'#FFF3D6', p:90}],
     intFloor:[{id:'wood', n:'원목 마루', c:'#9A6B40', p:0}, {id:'dark', n:'짙은 마루', c:'#5E3A20', p:60}, {id:'jangpan', n:'노란 장판', c:'#E8C26A', p:80}, {id:'tile', n:'타일', c:'#DADDE0', p:90}, {id:'check', n:'체크 타일', c:'#F4EFE6', p:110}, {id:'carpet', n:'카펫', c:'#7A5A9A', p:100}],
-    size:[{id:'s', n:'아담한 방', w:10, d:9, p:0}, {id:'m', n:'넓은 방', w:13, d:11, p:300}, {id:'l', n:'아주 넓은 방', w:16, d:13, p:700}],
+    size:[{id:'s', n:'아담한 방', w:10, d:9, p:0}, {id:'m', n:'넓은 방', w:15, d:12, p:300}, {id:'l', n:'아주 넓은 방', w:21, d:16, p:700}],
     furn:[
       {id:'bed', n:'침대', e:'🛏️', p:0, act:'nap', base:1}, {id:'stove', n:'아궁이', e:'🔥', p:0, act:'cook', base:1}, {id:'shelf', n:'창고 선반', e:'🧺', p:0, act:'pantry', base:1}, {id:'table', n:'찻상', e:'☕', p:0, act:'tea', base:1},
       {id:'rug', n:'동그란 러그', e:'🟠', p:50}, {id:'plant', n:'화분', e:'🪴', p:40}, {id:'bigplant', n:'큰 화분', e:'🌿', p:60}, {id:'lamp', n:'스탠드', e:'💡', p:60},
@@ -5335,6 +5388,7 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
       {id:'stone', n:'디딤돌', e:'🪨', p:10}, {id:'fence', n:'울타리 한 칸', e:'🪵', p:15}, {id:'pumpkin', n:'호박', e:'🎃', p:30}, {id:'fire', n:'모닥불', e:'🔥', p:80}, {id:'picnic', n:'피크닉 테이블', e:'🧺', p:90}
     ]
   };
+  const GLASS_PAL = [['#FFFFFF', '맑은 유리'], ['#CFEAFF', '하늘빛'], ['#C8F2DC', '연두빛'], ['#FFE0A8', '호박빛'], ['#FFCADB', '분홍빛'], ['#D9C8FF', '보랏빛'], ['#9AA4AE', '스모크']];
   const hutCat = (cat, id) => HUTC[cat].find(x => x.id === id) || HUTC[cat][0];
   const fdef = k => HUTC.furn.find(f => f.id === k) || {};
   function hutCfg(){
@@ -5347,7 +5401,7 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
     if(!HUTC.extRoof.some(x => x.id === e.roof)) e.roof = e.roof === 'thatch' ? 'thatch' : e.roof === 'tile' ? 'tile' : 'gable';
     if(!HUTC.extDoor.some(x => x.id === e.door)) e.door = 'wood';
     e.win = e.win || 'none'; e.deco = Array.isArray(e.deco) ? e.deco.filter(x => HUTC.extDeco.some(d => d.id === x)) : [];
-    e.col = Object.assign({wall:'#C0392B', roof:'#8E2A1E', door:'#5A1E14', trim:'#F4EFE6'}, e.col || {});
+    e.col = Object.assign({wall:'#C0392B', roof:'#8E2A1E', door:'#5A1E14', trim:'#F4EFE6', glass:'#CFEAFF'}, e.col || {});
     h.yard = Array.isArray(h.yard) ? h.yard : [];
     const i = h.int = h.int || {};
     i.size = i.size || 's';
@@ -5396,7 +5450,7 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
   function hutExt3D(){
     if(!G3.coop || !window.THREE) return; const T = window.THREE, h = hutCfg(); if(!h) return;
     const g = G3.coop; while(g.children.length) g.remove(g.children[0]);
-    const m = hutModel(T, h, 9.6); m.scale.setScalar(1.75); m.position.set(-70, 0, -40); g.add(m);
+    const m = hutModel(T, h, 9.6), wf = hutCat('size', h.int.size).w/10; m.scale.setScalar(1.75/Math.sqrt(wf)); m.position.set(-70, 0, -40); g.add(m);
   }
   // one builder for the hut shell, used on the farm and in the yard editor (s = units per metre)
   // ---------- surface textures (painted on small canvases, cached) ----------
@@ -5437,11 +5491,15 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
     const c = t.clone ? t.clone() : t; c.needsUpdate = true; if(c.repeat) c.repeat.set(rx || 1, ry || 1); return c;
   }
   // ---------- the hut, outside (detailed) ----------
+  // where the windows go on the front wall (outside width W) — the inside view uses the same layout scaled to the room
+  function hutWinX(W){ return W*.317; }
+  function hutWinList(e){ return e.win === 'two' ? [-1, 1] : e.win === 'one' || e.win === 'round' ? [-1] : []; }
   function hutModel(T, h, s){
     const g = new T.Group(), C = h.ext.col, e = h.ext, M = (c, o) => new T.MeshStandardMaterial(Object.assign({color:c, roughness:.75}, o || {}));
     const add = (geo, mat, x, y, z) => { const o = new T.Mesh(geo, mat); o.position.set(x*s, y*s, z*s); g.add(o); return o; };
-    const W = 6, H = 4.6, D = 4.2, FB = .45;   // FB: stone foundation height
-    const dark = hexShade(C.wall, .55), timber = '#5A3A20';
+    const RS = hutCat('size', (h.int && h.int.size) || 's'), W = RS.w*.6, H = 4.6, D = RS.d*.47, FB = .45;   // the outside matches the room inside; FB: stone foundation
+    const WX = hutWinX(W);   // window positions shared with the inside view
+    const dark = hexShade(C.wall, .55), timber = '#5A3A20', gTint = C.glass || '#CFEAFF';
     // stone foundation (기단) and a step at the door
     add(new T.BoxGeometry((W + .7)*s, FB*s, (D + .7)*s), new T.MeshStandardMaterial({map:hutTex(T, 'stone', '#A3A8AE', 3, .5), roughness:.95}), 0, FB/2, 0);
     add(new T.BoxGeometry(2.2*s, .22*s, .8*s), M('#B8BCC0', {roughness:.95}), 0, .11, D/2 + .75);
@@ -5471,28 +5529,35 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
         const m = new T.Mesh(new T.ShapeGeometry(sh), wallMat); m.rotation.y = Math.PI/2; m.position.set(sx*(W/2 + .001)*s, H*s, 0); m.scale.set(s, s, s); g.add(m);
         [1, -1].forEach(d => { const f = add(new T.BoxGeometry(.12*s, .3*s, (slopeL + .1)*s), M('#F4EFE6'), sx*(len/2), H + pitch/2 - .05, d*half/2); f.rotation.x = d*ang; }); });
     }
-    // door with a frame, panels and a handle
+    // door with a frame, panels and a handle (flat shapes laid on the wall — arch doors get a rounded top)
     const DZ = D/2 + .02;
-    add(new T.BoxGeometry(2.1*s, 2.95*s, .16*s), M(timber), 0, FB + 1.45, DZ);
-    if(e.door === 'arch'){ add(new T.BoxGeometry(1.8*s, 2.0*s, .12*s), M(C.door), 0, FB + 1.0, DZ + .06); const a = add(new T.CylinderGeometry(.9*s, .9*s, .12*s, 24, 1, false, 0, Math.PI), M(C.door), 0, FB + 2.0, DZ + .06); a.rotation.x = Math.PI/2; a.rotation.y = Math.PI/2; a.rotation.z = Math.PI/2; }
-    else add(new T.BoxGeometry(1.8*s, 2.7*s, .12*s), M(C.door), 0, FB + 1.35, DZ + .06);
-    if(e.door === 'glass'){ [[-.42, 1.9], [.42, 1.9], [-.42, .9], [.42, .9]].forEach(([x, y]) => add(new T.BoxGeometry(.66*s, .78*s, .05*s), M('#BFE6FF', {roughness:.08, metalness:.2}), x, FB + y, DZ + .13)); }
-    else [[-.42, 1.95], [.42, 1.95], [-.42, .75], [.42, .75]].forEach(([x, y]) => add(new T.BoxGeometry(.62*s, .85*s, .04*s), M(hexShade(C.door, .82)), x, FB + y, DZ + .14));
-    add(new T.SphereGeometry(.09*s, 10, 8), M('#F2C14E', {metalness:.8, roughness:.3}), .66, FB + 1.3, DZ + .18);
+    const doorShape = (w, hgt, arch) => { const sh = new T.Shape(); sh.moveTo(-w/2, 0); sh.lineTo(w/2, 0);
+      if(arch){ sh.lineTo(w/2, hgt - w/2); sh.absarc(0, hgt - w/2, w/2, 0, Math.PI, false); } else sh.lineTo(w/2, hgt), sh.lineTo(-w/2, hgt);
+      sh.lineTo(-w/2, 0); return sh; };
+    const flat = (shape, mat, z) => { const m = new T.Mesh(new T.ShapeGeometry(shape, 24), mat); m.position.set(0, FB*s, z*s); m.scale.set(s, s, s); g.add(m); return m; };
+    const arch = e.door === 'arch';
+    flat(doorShape(2.15, 2.95, arch), M(timber), DZ + .01);
+    flat(doorShape(1.8, 2.75, arch), M(C.door, {side:T.DoubleSide}), DZ + .04);
+    if(e.door === 'glass'){ [[-.42, 1.9], [.42, 1.9], [-.42, .9], [.42, .9]].forEach(([x, y]) => add(new T.BoxGeometry(.66*s, .78*s, .03*s), new T.MeshStandardMaterial({color:gTint, transparent:true, opacity:.4, roughness:.05, metalness:.1}), x, FB + y, DZ + .07)); }
+    else { const pc = hexShade(C.door, .82); [[-.42, .7], [.42, .7]].concat(arch ? [[-.42, 1.75], [.42, 1.75]] : [[-.42, 1.9], [.42, 1.9]]).forEach(([x, y]) => add(new T.BoxGeometry(.6*s, .8*s, .04*s), M(pc), x, FB + y, DZ + .07)); }
+    add(new T.SphereGeometry(.09*s, 10, 8), M('#F2C14E', {metalness:.8, roughness:.3}), .62, FB + 1.3, DZ + .12);
     // windows: frame, cross mullions, sill, a warm glow at night
     const night = new Date().getHours() >= 19 || new Date().getHours() < 6;
-    const glass = M('#BFE6FF', {roughness:.08, metalness:.25, emissive:night ? '#FFC870' : '#223344', emissiveIntensity:night ? .8 : .15});
-    const win = x => { add(new T.BoxGeometry(1.4*s, 1.4*s, .14*s), M(C.trim), x, FB + 2.3, DZ); add(new T.BoxGeometry(1.15*s, 1.15*s, .06*s), glass, x, FB + 2.3, DZ + .06);
+    const glass = new T.MeshStandardMaterial({color:gTint, transparent:true, opacity:.32, roughness:.04, metalness:.1, depthWrite:false});
+    const inside = M(night ? '#7A5A30' : '#2E241C', {emissive:night ? '#FFB060' : '#000000', emissiveIntensity:night ? .6 : 0, roughness:1});
+    const win = x => { add(new T.BoxGeometry(1.4*s, 1.4*s, .14*s), M(C.trim), x, FB + 2.3, DZ); add(new T.BoxGeometry(1.15*s, 1.15*s, .02*s), inside, x, FB + 2.3, DZ + .075);
+      add(new T.BoxGeometry(1.15*s, 1.15*s, .02*s), glass, x, FB + 2.3, DZ + .12);
+      const hl = add(new T.PlaneGeometry(.12*s, 1.0*s), new T.MeshBasicMaterial({color:'#FFFFFF', transparent:true, opacity:.35, depthWrite:false}), x - .25, FB + 2.35, DZ + .135); hl.rotation.z = .5;
       add(new T.BoxGeometry(.08*s, 1.15*s, .08*s), M(C.trim), x, FB + 2.3, DZ + .1); add(new T.BoxGeometry(1.15*s, .08*s, .08*s), M(C.trim), x, FB + 2.3, DZ + .1);
       add(new T.BoxGeometry(1.6*s, .12*s, .3*s), M(C.trim), x, FB + 1.55, DZ + .12); };
-    if(e.win === 'one') win(-1.9); if(e.win === 'two'){ win(-1.9); win(1.9); }
-    if(e.win === 'round'){ const fr = add(new T.TorusGeometry(.62*s, .1*s, 8, 28), M(C.trim), -1.9, FB + 2.4, DZ + .06); const gl = add(new T.CylinderGeometry(.6*s, .6*s, .06*s, 28), glass, -1.9, FB + 2.4, DZ + .04); gl.rotation.x = Math.PI/2;
-      add(new T.BoxGeometry(.07*s, 1.2*s, .07*s), M(C.trim), -1.9, FB + 2.4, DZ + .1); add(new T.BoxGeometry(1.2*s, .07*s, .07*s), M(C.trim), -1.9, FB + 2.4, DZ + .1); }
+    if(e.win === 'one') win(-WX); if(e.win === 'two'){ win(-WX); win(WX); }
+    if(e.win === 'round'){ const fr = add(new T.TorusGeometry(.62*s, .1*s, 8, 28), M(C.trim), -WX, FB + 2.4, DZ + .06); const bk = add(new T.CylinderGeometry(.6*s, .6*s, .02*s, 28), inside, -WX, FB + 2.4, DZ + .05); bk.rotation.x = Math.PI/2; const gl = add(new T.CylinderGeometry(.6*s, .6*s, .02*s, 28), glass, -WX, FB + 2.4, DZ + .1); gl.rotation.x = Math.PI/2;
+      add(new T.BoxGeometry(.07*s, 1.2*s, .07*s), M(C.trim), -WX, FB + 2.4, DZ + .1); add(new T.BoxGeometry(1.2*s, .07*s, .07*s), M(C.trim), -WX, FB + 2.4, DZ + .1); }
     // decorations
-    if(e.deco.includes('chimney')){ add(new T.BoxGeometry(.8*s, 2.2*s, .8*s), new T.MeshStandardMaterial({map:hutTex(T, 'brick', '#9A4A3A', 1, 2), roughness:.95}), 1.7, H + 1.6, -.6); add(new T.BoxGeometry(1*s, .2*s, 1*s), M('#5A3A2A'), 1.7, H + 2.75, -.6);
-      for(let k=0;k<3;k++) add(new T.SphereGeometry((.3 + k*.12)*s, 10, 8), M('#E8E8E8', {transparent:true, opacity:.55 - k*.13}), 1.7 + k*.25, H + 3.1 + k*.55, -.6); }
-    if(e.deco.includes('lantern')){ add(new T.CylinderGeometry(.03*s, .03*s, .5*s, 6), M('#2B2B2B'), 2.4, H - .5, DZ + .5); add(new T.SphereGeometry(.38*s, 14, 12), M('#E2231A', {emissive:'#FF5A2A', emissiveIntensity:night ? .9 : .35}), 2.4, H - .95, DZ + .5).scale.y = 1.25; }
-    if(e.deco.includes('flower')){ const bx = e.win === 'none' ? 1.9 : -1.9; add(new T.BoxGeometry(1.6*s, .38*s, .45*s), M('#8C5A35'), bx, FB + 1.3, DZ + .3);
+    if(e.deco.includes('chimney')){ add(new T.BoxGeometry(.8*s, 2.2*s, .8*s), new T.MeshStandardMaterial({map:hutTex(T, 'brick', '#9A4A3A', 1, 2), roughness:.95}), W*.28, H + 1.6, -.6); add(new T.BoxGeometry(1*s, .2*s, 1*s), M('#5A3A2A'), W*.28, H + 2.75, -.6);
+      for(let k=0;k<3;k++) add(new T.SphereGeometry((.3 + k*.12)*s, 10, 8), M('#E8E8E8', {transparent:true, opacity:.55 - k*.13}), W*.28 + k*.25, H + 3.1 + k*.55, -.6); }
+    if(e.deco.includes('lantern')){ add(new T.CylinderGeometry(.03*s, .03*s, .5*s, 6), M('#2B2B2B'), W*.4, H - .5, DZ + .5); add(new T.SphereGeometry(.38*s, 14, 12), M('#E2231A', {emissive:'#FF5A2A', emissiveIntensity:night ? .9 : .35}), W*.4, H - .95, DZ + .5).scale.y = 1.25; }
+    if(e.deco.includes('flower')){ const bx = e.win === 'none' ? WX : -WX; add(new T.BoxGeometry(1.6*s, .38*s, .45*s), M('#8C5A35'), bx, FB + 1.3, DZ + .3);
       for(let k=0;k<6;k++){ add(new T.SphereGeometry(.17*s, 10, 8), M(['#FF6FB5', '#FFD23F', '#7FA0DD', '#FFFFFF'][k % 4]), bx - .6 + k*.24, FB + 1.62, DZ + .3 + (k % 2)*.08); add(new T.SphereGeometry(.13*s, 8, 6), M('#3E8E3A'), bx - .5 + k*.2, FB + 1.5, DZ + .2); } }
     if(e.deco.includes('sign')){ add(new T.BoxGeometry(2.6*s, .7*s, .1*s), M('#F2E6CF'), 0, H - .55, DZ + .12); add(new T.BoxGeometry(2.75*s, .82*s, .06*s), M(timber), 0, H - .55, DZ + .07); }
     h.yard.forEach(y => { const o = yardMesh(T, y.k, s); if(!o) return; o.position.set(y.x*s, 0, y.z*s); o.rotation.y = y.r || 0; if(y.c != null) tintMain(o, HPAL[y.c]); g.add(o); });
@@ -5500,43 +5565,45 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
     g.position.y = 0; return g;
   }
   // 기와지붕: two curved roof slopes built vertex by vertex — the slope is concave (steep near the ridge,
-  // flattening toward the eaves) and the eaves lift up toward the four corners, like a hanok roof.
+  // 기와지붕 (hanok hip roof): one curved surface over the whole house — steep near the ridge, sweeping out
+  // to deep eaves that lift up toward every corner; hip ridges run down to the corners, a ridge on top,
+  // a dark underside for thickness, and round tile ends along the eaves.
   function giwaRoof(T, col, W, H, D, s){
     const g = new T.Group();
-    const tex = canvasTex(T, 128, 64, c => { c.fillStyle = col; c.fillRect(0, 0, 128, 64); for(let i=0;i<16;i++){ const x = i*8, gr = c.createLinearGradient(x, 0, x + 8, 0); gr.addColorStop(0, 'rgba(0,0,0,.4)'); gr.addColorStop(.5, 'rgba(255,255,255,.28)'); gr.addColorStop(1, 'rgba(0,0,0,.4)'); c.fillStyle = gr; c.fillRect(x, 0, 8, 64); } c.fillStyle = 'rgba(0,0,0,.25)'; c.fillRect(0, 60, 128, 4); });
-    tex.wrapS = tex.wrapT = T.RepeatWrapping; tex.repeat.set(2, 1);
-    const mat = new T.MeshStandardMaterial({color:'#FFFFFF', map:tex, roughness:.55, side:T.DoubleSide});
-    const L = W + 2.4, half = D/2 + 1.25, rise = 2.2, eaveY = H - .45, lift = .75, NX = 24, NT = 10;
-    const slope = dir => {   // dir = +1 front, -1 back
+    const hx = W/2 + 1.3, hz = D/2 + 1.3, rx = W/2*.48, rise = 3.2, eaveY = H - .5, P = 1.35, lift = 1.0, TH = .24;
+    const Y = (x, z) => { const ax = Math.abs(x), az = Math.abs(z), m = Math.min(1, Math.max(az/hz, Math.max(0, ax - rx)/(hx - rx)));
+      return eaveY + rise*Math.pow(1 - m, P) + lift*((Math.pow(ax/hx, 3) + Math.pow(az/hz, 3))/2)*m*m; };
+    const front = (x, z) => Math.abs(z)/hz >= Math.max(0, Math.abs(x) - rx)/(hx - rx);
+    const tex = canvasTex(T, 128, 64, c => { c.fillStyle = col; c.fillRect(0, 0, 128, 64);
+      for(let i=0;i<8;i++){ const x = i*16, gr = c.createLinearGradient(x, 0, x + 16, 0); gr.addColorStop(0, 'rgba(0,0,0,.45)'); gr.addColorStop(.45, 'rgba(255,255,255,.22)'); gr.addColorStop(1, 'rgba(0,0,0,.45)'); c.fillStyle = gr; c.fillRect(x, 0, 16, 64); } });
+    tex.wrapS = tex.wrapT = T.RepeatWrapping;
+    const N = 36, grid = (dy, flip) => {
       const pos = [], uv = [], idx = [];
-      for(let j=0;j<=NT;j++) for(let i=0;i<=NX;i++){
-        const u = i/NX, t = j/NT, x = (u - .5)*L, edge = Math.pow(Math.abs(u - .5)*2, 3);
-        const z = dir*(1 - t)*half, y = eaveY + rise*Math.pow(t, 1.7) + lift*edge*(1 - t)*(1 - t);
-        pos.push(x*s, y*s, z*s); uv.push(u, t);
-      }
-      for(let j=0;j<NT;j++) for(let i=0;i<NX;i++){ const a = j*(NX + 1) + i, b = a + 1, c = a + NX + 1, d = c + 1; idx.push(a, c, b, b, c, d); }
-      const geo = new T.BufferGeometry(); geo.setAttribute('position', new T.Float32BufferAttribute(pos, 3)); geo.setAttribute('uv', new T.Float32BufferAttribute(uv, 2)); geo.setIndex(idx); geo.computeVertexNormals();
-      return new T.Mesh(geo, mat);
-    };
-    g.add(slope(1)); g.add(slope(-1));
-    // round tile ends (수막새) along both eaves, following the upturned eave line
-    const endM = new T.MeshStandardMaterial({color:new T.Color(col).multiplyScalar(.6), roughness:.5});
-    [1, -1].forEach(dir => { for(let i=0;i<=22;i++){ const u = i/22, x = (u - .5)*L, edge = Math.pow(Math.abs(u - .5)*2, 3);
-      const disc = new T.Mesh(new T.CylinderGeometry(.16*s, .16*s, .12*s, 12), endM); disc.rotation.x = Math.PI/2; disc.position.set(x*s, (eaveY + lift*edge - .05)*s, dir*(half + .02)*s); g.add(disc); } });
-    // a dark under-eave so the roof reads as thick, not paper-thin
-    const soffit = new T.MeshStandardMaterial({color:'#3A2A1A', roughness:.9, side:T.DoubleSide});
-    [1, -1].forEach(dir => { const sg = new T.PlaneGeometry(L*s, 1.3*s); const so = new T.Mesh(sg, soffit); so.rotation.x = -Math.PI/2 + dir*.18; so.position.set(0, (eaveY - .02)*s, dir*(half - .62)*s); g.add(so); });
-    // gable ends filled in under the roof (so you can't see inside)
-    const gm = new T.MeshStandardMaterial({color:'#EDE7DA', roughness:.9, side:T.DoubleSide});
-    // the gable follows the roof's own curve, a little below it, so nothing pokes through
-    const under = z => Math.max(0, (eaveY - H) + rise*Math.pow(1 - Math.abs(z)/half, 1.7) - .12);
-    [-1, 1].forEach(sd => { const sh = new T.Shape(); sh.moveTo(-D/2, 0); for(let k=0;k<=16;k++){ const z = -D/2 + D*k/16; sh.lineTo(z, under(z)); } sh.lineTo(D/2, 0); sh.lineTo(-D/2, 0);
-      const m = new T.Mesh(new T.ShapeGeometry(sh), gm); m.rotation.y = Math.PI/2; m.position.set(sd*(W/2)*s, (H - .02)*s, 0); m.scale.set(s, s, s); g.add(m); });
-    // ridge (용마루) with a white mortar line and turned-up ends (치미)
-    const rm = new T.MeshStandardMaterial({color:new T.Color(col).multiplyScalar(.7), roughness:.45});
-    const ridge = new T.Mesh(new T.BoxGeometry(L*.86*s, .4*s, .5*s), rm); ridge.position.set(0, (eaveY + rise + .15)*s, 0); g.add(ridge);
-    const mort = new T.Mesh(new T.BoxGeometry(L*.86*s, .14*s, .56*s), new T.MeshStandardMaterial({color:'#F2EEE4'})); mort.position.set(0, (eaveY + rise - .08)*s, 0); g.add(mort);
-    [-1, 1].forEach(d => { const t = new T.Mesh(new T.BoxGeometry(.55*s, .32*s, .5*s), rm); t.position.set(d*(L*.43 + .12)*s, (eaveY + rise + .42)*s, 0); t.rotation.z = d*.6; g.add(t); });
+      for(let j=0;j<=N;j++) for(let i=0;i<=N;i++){ const x = -hx + 2*hx*i/N, z = -hz + 2*hz*j/N; pos.push(x*s, (Y(x, z) + dy)*s, z*s); uv.push((front(x, z) ? x : z)/.9, 0); }
+      for(let j=0;j<N;j++) for(let i=0;i<N;i++){ const a = j*(N + 1) + i, b = a + 1, c = a + N + 1, d = c + 1; if(flip) idx.push(a, b, c, b, d, c); else idx.push(a, c, b, b, c, d); }
+      const geo = new T.BufferGeometry(); geo.setAttribute('position', new T.Float32BufferAttribute(pos, 3)); geo.setAttribute('uv', new T.Float32BufferAttribute(uv, 2)); geo.setIndex(idx); geo.computeVertexNormals(); return geo; };
+    g.add(new T.Mesh(grid(0, false), new T.MeshStandardMaterial({color:'#FFFFFF', map:tex, roughness:.5})));
+    g.add(new T.Mesh(grid(-TH, true), new T.MeshStandardMaterial({color:'#3A2E26', roughness:.9})));
+    // eave edge band all the way round (gives the roof its thickness)
+    { const pts = []; const K = 60;
+      for(let k=0;k<=K;k++) pts.push([-hx + 2*hx*k/K, hz]); for(let k=1;k<=K;k++) pts.push([hx, hz - 2*hz*k/K]);
+      for(let k=1;k<=K;k++) pts.push([hx - 2*hx*k/K, -hz]); for(let k=1;k<=K;k++) pts.push([-hx, -hz + 2*hz*k/K]);
+      const pos = [], idx = []; pts.forEach(([x, z]) => { const y = Y(x, z); pos.push(x*s, y*s, z*s, x*s, (y - TH)*s, z*s); });
+      for(let k=0;k<pts.length - 1;k++){ const a = k*2, b = a + 1, c = a + 2, d = a + 3; idx.push(a, b, c, b, d, c); }
+      const geo = new T.BufferGeometry(); geo.setAttribute('position', new T.Float32BufferAttribute(pos, 3)); geo.setIndex(idx); geo.computeVertexNormals();
+      g.add(new T.Mesh(geo, new T.MeshStandardMaterial({color:hexShade(col, .55), roughness:.6, side:T.DoubleSide}))); }
+    // ridges: the main ridge (용마루) and four hip ridges (추녀마루) running to the corners
+    const ridgeM = new T.MeshStandardMaterial({color:hexShade(col, .62), roughness:.45});
+    const tube = (pts, r) => { const curve = new T.CatmullRomCurve3(pts.map(([x, y, z]) => new T.Vector3(x*s, y*s, z*s))); g.add(new T.Mesh(new T.TubeGeometry(curve, 28, r*s, 8, false), ridgeM)); };
+    const top = Y(0, 0);
+    tube([[-rx - .1, top + .16, 0], [0, top + .16, 0], [rx + .1, top + .16, 0]], .2);
+    const mort = new T.Mesh(new T.BoxGeometry((2*rx + .2)*s, .1*s, .44*s), new T.MeshStandardMaterial({color:'#F2EEE4'})); mort.position.set(0, (top + .0)*s, 0); g.add(mort);
+    [[1, 1], [1, -1], [-1, 1], [-1, -1]].forEach(([sx, sz]) => { const pts = []; for(let k=0;k<=10;k++){ const t = k/10, x = sx*(rx + (hx - rx)*t), z = sz*hz*t; pts.push([x, Y(x, z) + .12, z]); } tube(pts, .12); });
+    // ornaments at the ridge ends, sweeping upward (치미)
+    [-1, 1].forEach(d => { const o = new T.Mesh(new T.ConeGeometry(.22*s, .7*s, 10), ridgeM); o.position.set(d*(rx + .15)*s, (top + .45)*s, 0); o.rotation.z = -d*.5; g.add(o); });
+    // round tile ends (수막새) along the front and back eaves
+    const endM = new T.MeshStandardMaterial({color:hexShade(col, .7), roughness:.5});
+    [1, -1].forEach(dz => { for(let x = -hx + .45; x <= hx - .45; x += .45){ const d = new T.Mesh(new T.CylinderGeometry(.1*s, .1*s, .08*s, 10), endM); d.rotation.x = Math.PI/2; d.position.set(x*s, (Y(x, dz*hz) - TH/2)*s, dz*(hz + .03)*s); g.add(d); } });
     return g;
   }
   function yardMesh(T, k, s){
@@ -5546,7 +5613,20 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
       case 'tree': a(new T.CylinderGeometry(.25*s, .35*s, 2.2*s, 10), '#7A4A2A', 0, 1.1, 0); a(new T.SphereGeometry(1.4*s, 14, 10), '#3E8E3A', 0, 3, 0); a(new T.SphereGeometry(1*s, 12, 8), '#4CAF50', .6, 3.6, .3); break;
       case 'pine': a(new T.CylinderGeometry(.2*s, .3*s, 1.2*s, 8), '#6B3A1A', 0, .6, 0); [0, 1, 2].forEach(i => a(new T.ConeGeometry((1.4 - i*.35)*s, 1.4*s, 10), '#2E6B3A', 0, 1.6 + i*.9, 0)); break;
       case 'bush': a(new T.SphereGeometry(.8*s, 12, 8), '#3E8E3A', 0, .55, 0).scale.y = .75; break;
-      case 'bed': a(new T.BoxGeometry(2.2*s, .3*s, 1.2*s), '#7A4A2A', 0, .15, 0); for(let i=0;i<8;i++) a(new T.SphereGeometry(.2*s, 8, 6), ['#FF6FB5', '#FFD23F', '#FFFFFF', '#E2231A'][i % 4], -.8 + (i % 4)*.53, .45, i < 4 ? -.25 : .25); break;
+      case 'bed': {
+        // raised wooden planter with soil
+        [[0, .6], [0, -.6]].forEach(([x, z]) => a(new T.BoxGeometry(2.4*s, .45*s, .12*s), '#8C5A35', x, .22, z)); [[-1.15, 0], [1.15, 0]].forEach(([x, z]) => a(new T.BoxGeometry(.12*s, .45*s, 1.3*s), '#8C5A35', x, .22, z));
+        a(new T.BoxGeometry(2.2*s, .3*s, 1.1*s), '#4A3326', 0, .3, 0, {roughness:1});
+        const cols = ['#FF6FB5', '#FFD23F', '#FFFFFF', '#E2231A', '#B48ACF', '#FF8A3D'];
+        for(let i=0;i<10;i++){
+          const fx = -.85 + (i % 5)*.42 + (i > 4 ? .2 : 0), fz = i < 5 ? -.25 : .25, hgt = .55 + ((i*37) % 5)*.08, top = .45 + hgt;
+          a(new T.CylinderGeometry(.025*s, .03*s, hgt*s, 5), '#3E8E3A', fx, .45 + hgt/2, fz);
+          const lf = a(new T.SphereGeometry(.09*s, 8, 6), '#4CAF50', fx + .08, .5 + hgt*.4, fz); lf.scale.set(1.6, .4, .8);
+          const c = cols[i % cols.length];
+          for(let k=0;k<5;k++){ const ang = k/5*Math.PI*2, pt = a(new T.SphereGeometry(.09*s, 8, 6), c, fx + Math.cos(ang)*.1, top, fz + Math.sin(ang)*.1); pt.scale.set(1, .45, 1); }
+          a(new T.SphereGeometry(.06*s, 8, 6), '#F5B700', fx, top + .03, fz);
+        }
+        break; }
       case 'bench': a(new T.BoxGeometry(2.2*s, .15*s, .6*s), '#C98B4E', 0, .7, 0); a(new T.BoxGeometry(2.2*s, .6*s, .12*s), '#C98B4E', 0, 1.1, -.28); [-.9, .9].forEach(x => a(new T.BoxGeometry(.15*s, .7*s, .6*s), '#5A3A20', x, .35, 0)); break;
       case 'post': a(new T.CylinderGeometry(.08*s, .1*s, 3*s, 8), '#2B2B2B', 0, 1.5, 0); a(new T.SphereGeometry(.35*s, 12, 10), '#FFE7A3', 0, 3.1, 0, {emissive:'#FFD27A', emissiveIntensity:.8}); break;
       case 'mailbox': a(new T.BoxGeometry(.12*s, 1.2*s, .12*s), '#5A3A20', 0, .6, 0); a(new T.BoxGeometry(.7*s, .5*s, .5*s), '#E2231A', 0, 1.35, 0); break;
@@ -5624,13 +5704,14 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
     window.addEventListener('resize', h3Size);
     return true;
   }
-  function h3Size(){ if(!H3.r) return; const r = $('hutRoom').getBoundingClientRect(); H3.r.setSize(r.width, r.height, false); H3.cam.aspect = r.width/Math.max(1, r.height); H3.cam.updateProjectionMatrix(); }
+  function h3Size(){ if(!H3.r) return; const r = $('hutRoom').getBoundingClientRect(); const wasIn = h3Inside(); H3.r.setSize(r.width, r.height, false); H3.cam.aspect = r.width/Math.max(1, r.height); H3.cam.updateProjectionMatrix();
+    if(H3.on && wasIn !== h3Inside()){ H3.yaw = 0; H3.zoom = 1; try{ h3Build(); }catch(e){} } }
   function h3Build(){
     const T = window.THREE, sc = H3.sc, h = hutCfg(); if(!sc || !h) return;
     if(H3.room) sc.remove(H3.room); H3.items = {};
     const room = H3.room = new T.Group(); sc.add(room);
     if(H3.view === 'out'){ buildYard(T, room, h); hutLabels(); return; }
-    sc.background = new T.Color('#2A140A'); H3.lampL.visible = true;
+    sc.background = new T.Color('#2A140A'); H3.lampL.visible = true; sc.fog = null;
     const [RW, RD] = roomWD(), hw = RW/2, back = -RD/2 + .5, front = RD/2 + .5;
     const floorC = hutCat('intFloor', h.int.floor).c;
     // floor: staggered boards, tiles, a checker or a soft carpet
@@ -5643,6 +5724,11 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
     // walls: real wallpapers / plaster / bricks / boards
     const WK = {wood:'plank', plaster:'plaster', pink:'wall-pink', mint:'wall-mint', sky:'wall-sky', brick:'brick', hanji:'hanji', stripe:'stripe'};
     const wallMat = id => { const w = hutCat('intWall', id); return new T.MeshStandardMaterial({map:hutTex(T, WK[id] || 'plaster', w.c, 2.4, 1.3), roughness:.9}); };
+    const [s1, s2] = hutSky();
+    const sky = canvasTex(T, 128, 96, g => { const gr = g.createLinearGradient(0, 0, 0, 96); gr.addColorStop(0, s1); gr.addColorStop(1, s2); g.fillStyle = gr; g.fillRect(0, 0, 128, 96);
+      g.fillStyle = 'rgba(255,255,255,.8)'; [[30, 22], [90, 30]].forEach(([x, y]) => { g.beginPath(); g.ellipse(x, y, 16, 6, 0, 0, Math.PI*2); g.fill(); });
+      g.fillStyle = '#7CC36A'; g.beginPath(); g.moveTo(0, 70); g.quadraticCurveTo(40, 52, 80, 66); g.quadraticCurveTo(110, 74, 128, 62); g.lineTo(128, 96); g.lineTo(0, 96); g.fill(); g.fillStyle = '#5DAA4A'; g.fillRect(0, 80, 128, 16); });
+    H3.skyTex = sky;
     const mkWall = (side, geoW, pos, rotY) => { const m = new T.Mesh(new T.PlaneGeometry(geoW, 5.2), wallMat(h.int.walls[side])); m.position.copy(pos); m.rotation.y = rotY; m.userData.wall = side; m.receiveShadow = true; room.add(m);
       // a baseboard and a top rail along every wall
       const base = new T.Mesh(new T.BoxGeometry(geoW, .32, .08), new T.MeshStandardMaterial({color:'#6E4628', roughness:.6})); base.position.copy(pos); base.position.y = .16; base.rotation.y = rotY; base.position.add(new T.Vector3(Math.sin(rotY)*.04, 0, Math.cos(rotY)*.04)); room.add(base);
@@ -5651,23 +5737,28 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
     mkWall('back', RW, new T.Vector3(0, 2.6, back), 0);
     mkWall('left', RD, new T.Vector3(-hw, 2.6, .5), Math.PI/2);
     mkWall('right', RD, new T.Vector3(hw, 2.6, .5), -Math.PI/2);
+    if(h3Inside()){
+      const front = RD/2 + .5;
+      mkWall('back', RW, new T.Vector3(0, 2.6, front), Math.PI);   // the front wall uses the back wall's paper
+      const ex = h.ext, dcol = ex.col.door || '#7A4A2A', tint = ex.col.glass || '#CFEAFF', trim = ex.col.trim || '#5A3A20';
+      const door = new T.Mesh(new T.BoxGeometry(1.9, 3.2, .12), new T.MeshStandardMaterial({color:dcol, roughness:.6})); door.position.set(0, 1.6, front - .07); room.add(door);
+      const dfr = new T.Mesh(new T.BoxGeometry(2.25, 3.45, .08), new T.MeshStandardMaterial({color:'#5A3A20'})); dfr.position.set(0, 1.72, front - .03); room.add(dfr);
+      const knob = new T.Mesh(new T.SphereGeometry(.08, 10, 8), new T.MeshStandardMaterial({color:'#F2C14E', metalness:.8, roughness:.3})); knob.position.set(.68, 1.6, front - .15); room.add(knob);
+      const Wout = hutCat('size', h.int.size).w*.6, wx = hutWinX(Wout)*(RW/Wout);
+      hutWinList(ex).forEach(side => { const x = side*wx;   // seen from inside, left and right are the same world positions as outside
+        const sk = new T.Mesh(new T.PlaneGeometry(1.9, 1.9), new T.MeshBasicMaterial({map:sky})); sk.position.set(x, 3.0, front - .03); sk.rotation.y = Math.PI; room.add(sk);
+        const gl = new T.Mesh(new T.PlaneGeometry(1.9, 1.9), new T.MeshStandardMaterial({color:tint, transparent:true, opacity:.3, roughness:.05, depthWrite:false})); gl.position.set(x, 3.0, front - .05); gl.rotation.y = Math.PI; room.add(gl);
+        [[0, 1.02, 2.2, .16], [0, -1.02, 2.2, .16], [-1.02, 0, .16, 2.2], [1.02, 0, .16, 2.2], [0, 0, .08, 2], [0, 0, 2, .08]].forEach(([fx, fy, w, hh]) => { const f = new T.Mesh(new T.BoxGeometry(w, hh, .12), new T.MeshStandardMaterial({color:trim})); f.position.set(x - fx, 3.0 + fy, front - .08); room.add(f); });
+        const sl = new T.Mesh(new T.BoxGeometry(2.4, .14, .4), new T.MeshStandardMaterial({color:trim})); sl.position.set(x, 1.95, front - .2); room.add(sl); });
+      const cTex = hutTex(T, 'floor', '#B98552', RW/3.3, RD/3.3); cTex.wrapS = cTex.wrapT = T.RepeatWrapping;
+      const ceil = new T.Mesh(new T.PlaneGeometry(RW, RD + 1), new T.MeshStandardMaterial({map:cTex, roughness:.9})); ceil.rotation.x = Math.PI/2; ceil.position.set(0, 5.45, .5); room.add(ceil);
+    }
     // corner posts, ceiling beams and rafters
     const wood = new T.MeshStandardMaterial({color:'#5A3A20', roughness:.65});
     [[-hw + .12, back + .12], [hw - .12, back + .12]].forEach(([x, z]) => { const p = new T.Mesh(new T.BoxGeometry(.34, 5.2, .34), wood); p.position.set(x, 2.6, z); room.add(p); });
     for(let i=0;i<Math.ceil(RD/3);i++){ const b = new T.Mesh(new T.BoxGeometry(RW, .38, .42), wood); b.position.set(0, 5.1, back + 1 + i*3); room.add(b); }
     for(let i=0;i<Math.ceil(RW/1.6);i++){ const r = new T.Mesh(new T.BoxGeometry(.18, .16, RD), wood); r.position.set(-hw + .8 + i*1.6, 5.3, .5); room.add(r); }
     // window with today's sky, frame, sill and curtains
-    const [s1, s2] = hutSky();
-    const sky = canvasTex(T, 128, 96, g => { const gr = g.createLinearGradient(0, 0, 0, 96); gr.addColorStop(0, s1); gr.addColorStop(1, s2); g.fillStyle = gr; g.fillRect(0, 0, 128, 96);
-      g.fillStyle = 'rgba(255,255,255,.8)'; [[30, 22], [90, 30]].forEach(([x, y]) => { g.beginPath(); g.ellipse(x, y, 16, 6, 0, 0, Math.PI*2); g.fill(); });
-      g.fillStyle = '#7CC36A'; g.beginPath(); g.moveTo(0, 70); g.quadraticCurveTo(40, 52, 80, 66); g.quadraticCurveTo(110, 74, 128, 62); g.lineTo(128, 96); g.lineTo(0, 96); g.fill(); g.fillStyle = '#5DAA4A'; g.fillRect(0, 80, 128, 16); });
-    const win = new T.Mesh(new T.PlaneGeometry(2.6, 1.8), new T.MeshBasicMaterial({map:sky})); win.position.set(-.6, 3.0, back + .02); win.userData.item = {k:'window'}; room.add(win);
-    [[0, .95, 2.9, .16], [0, -.95, 2.9, .16], [-1.37, 0, .16, 2.06], [1.37, 0, .16, 2.06], [0, 0, .08, 1.9], [0, 0, 2.7, .08]].forEach(([x, y, w, hh]) => { const f = new T.Mesh(new T.BoxGeometry(w, hh, .12), wood); f.position.set(-.6 + x, 3.0 + y, back + .07); room.add(f); });
-    const sill = new T.Mesh(new T.BoxGeometry(3.1, .14, .45), wood); sill.position.set(-.6, 2.0, back + .2); room.add(sill);
-    const cm = new T.MeshStandardMaterial({color:'#F6E7C8', roughness:.95, side:T.DoubleSide});
-    [-1, 1].forEach(d => { try{ const cg = new T.PlaneGeometry(.9, 2.5, 8, 1), p = cg.attributes.position; for(let k=0;k<p.count;k++) p.setZ(k, Math.sin(p.getX(k)*9)*.07); p.needsUpdate = true; cg.computeVertexNormals();
-      const c = new T.Mesh(cg, cm); c.position.set(-.6 + d*1.75, 2.95, back + .16); room.add(c); }catch(e){} });
-    const rod = new T.Mesh(new T.CylinderGeometry(.03, .03, 4.4, 8), new T.MeshStandardMaterial({color:'#3A2A1A', metalness:.5})); rod.rotation.z = Math.PI/2; rod.position.set(-.6, 4.25, back + .16); room.add(rod);
     // a hanging lamp over the middle of the room
     const cord = new T.Mesh(new T.CylinderGeometry(.02, .02, .9, 6), new T.MeshStandardMaterial({color:'#2B2B2B'})); cord.position.set(0, 4.85, .3); room.add(cord);
     const shade = new T.Mesh(new T.ConeGeometry(.55, .45, 20, 1, true), new T.MeshStandardMaterial({color:'#E8B04A', roughness:.6, side:T.DoubleSide})); shade.position.set(0, 4.25, .3); room.add(shade);
@@ -5690,21 +5781,38 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
     const [s1, s2] = hutSky(); H3.sc.background = new T.Color(s1); H3.lampL.visible = false; H3.fire.visible = false;
     const grass = canvasTex(T, 128, 128, g => { g.fillStyle = '#6FBF5A'; g.fillRect(0, 0, 128, 128); for(let i=0;i<300;i++){ g.fillStyle = Math.random() < .5 ? '#5DAA4A' : '#82CC6A'; g.fillRect(Math.random()*128, Math.random()*128, 2, 3); } });
     grass.wrapS = grass.wrapT = T.RepeatWrapping; grass.repeat.set(6, 6);
-    const ground = new T.Mesh(new T.PlaneGeometry(26, 22), new T.MeshStandardMaterial({map:grass, roughness:1})); ground.rotation.x = -Math.PI/2; ground.position.z = 2; ground.receiveShadow = true; room.add(ground);
+    grass.repeat.set(26, 26);
+    const ground = new T.Mesh(new T.PlaneGeometry(120, 120), new T.MeshStandardMaterial({map:grass, roughness:1})); ground.rotation.x = -Math.PI/2; ground.position.z = 2; ground.receiveShadow = true; room.add(ground);
+    try{ H3.sc.fog = new T.Fog(s1, 22, 55); }catch(e){}
     const path = new T.Mesh(new T.PlaneGeometry(2, 9), new T.MeshStandardMaterial({color:'#C9A26A', roughness:1})); path.rotation.x = -Math.PI/2; path.position.set(0, .01, 6.5); room.add(path);
-    const hut = hutModel(T, Object.assign({}, h, {yard:[]}), 1); hut.position.set(0, 0, -2.5); hut.userData.hutShell = true; hut.traverse(o => { o.userData.hutShell = true; }); room.add(hut);
+    const hut = hutModel(T, Object.assign({}, h, {yard:[]}), 1); hut.position.set(0, 0, -hutCat('size', h.int.size).d*.235 - .4); hut.userData.hutShell = true; hut.traverse(o => { o.userData.hutShell = true; }); room.add(hut);
     h.yard.forEach(y => { const o = yardMesh(T, y.k, 1); if(!o) return; o.position.set(y.x, 0, y.z); o.rotation.y = y.r || 0; if(y.c != null) tintMain(o, HPAL[y.c]); o.userData.item = y; o.userData.yard = 1; o.traverse(q => { q.userData.root = o; if(q.isMesh){ q.castShadow = true; q.receiveShadow = true; } }); room.add(o); H3.items[y.u] = o; });
     if(H3.edit) try{ const gh = new T.GridHelper(24, 24, 0xFFFFFF, 0xFFFFFF); gh.material.transparent = true; gh.material.opacity = .2; gh.position.set(0, .02, 2); room.add(gh); }catch(e){}
     hutCollide();
   }
+  const h3Inside = () => H3.view === 'in' && H3.cam && H3.cam.aspect < .9;
   function h3Cam(){
-    const T = window.THREE, vf = H3.cam.fov*Math.PI/360, [RW] = H3.view === 'out' ? [18] : roomWD();
-    const base = Math.max((RW/2 + .6)/(Math.tan(vf)*H3.cam.aspect), 4.6/Math.tan(vf))/H3.zoom;
+    const T = window.THREE, vf = H3.cam.fov*Math.PI/360, [RW, RD] = H3.view === 'out' ? [18, 14] : roomWD();
+    const tall = H3.cam.aspect < .9;
+    if(h3Inside()){
+      // stand near the front of the room and look across it; turning walks the view round the room
+      const r = Math.max(1, Math.min(RD/2, RW/2) - .5), cz = .5, y = 3.0;
+      H3.cam.fov = Math.max(40, Math.min(80, 66/H3.zoom));
+      H3.cam.position.set(Math.sin(H3.yaw)*r, y, cz + Math.cos(H3.yaw)*r);
+      const look = 4, ty = 2.0 - (H3.pitch - .82)*3;
+      H3.cam.lookAt(-Math.sin(H3.yaw)*look, ty, cz - Math.cos(H3.yaw)*look);
+      H3.cam.far = 80; H3.cam.updateProjectionMatrix(); return;
+    }
+    if(H3.cam.fov !== 48){ H3.cam.fov = 48; }
+    const fitW = H3.view === 'out' ? (tall ? Math.min(RW, 12) : RW) : Math.min(RW, 11.5);   // big rooms extend past the view: turn and zoom to see more
+    if(H3.view === 'out') H3.zoom = Math.max(.6, Math.min(1.3, H3.zoom));   // in the yard you can't zoom past the hut
+    const base = Math.max((fitW/2 + .6)/(Math.tan(vf)*H3.cam.aspect), (tall ? 3.4 : 4.6)/Math.tan(vf))/H3.zoom;
     const pitch = H3.top ? 1.35 : H3.pitch, d = base;
     const cx = 0, cz = H3.view === 'out' ? 1 : .2;
     H3.cam.position.set(cx + Math.sin(H3.yaw)*Math.cos(pitch)*d, Math.sin(pitch)*d + 1, cz + Math.cos(H3.yaw)*Math.cos(pitch)*d);
     H3.cam.lookAt(cx, H3.view === 'out' ? 1.2 : 1.4, cz - .4); H3.cam.far = d*4; H3.cam.updateProjectionMatrix();
   }
+
   function h3Loop(){
     if(!H3.on) return; H3.raf = requestAnimationFrame(h3Loop);
     const t = (H3.t += 1/60);
@@ -5748,7 +5856,7 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
       P = {x:e.clientX, y:e.clientY, yaw:H3.yaw, pitch:H3.pitch, moved:false, obj:null, id:e.pointerId};
       if(H3.edit){ const o = pick(e); if(o && o.userData.item && o.userData.item.u){ hutSnap(); P.obj = o; H3.sel = o.userData.item.u; H3.selWall = null; hutEditBar(); } } });
     window.addEventListener('pointermove', e => { if(!H3.on) return; if(pts.has(e.pointerId)) pts.set(e.pointerId, {x:e.clientX, y:e.clientY});
-      if(pinch && pts.size === 2){ const [a, b] = [...pts.values()]; H3.zoom = Math.max(.6, Math.min(2.4, pinch.z*Math.hypot(a.x - b.x, a.y - b.y)/pinch.d)); return; }
+      if(pinch && pts.size === 2){ const [a, b] = [...pts.values()]; H3.zoom = Math.max(.4, Math.min(2.4, pinch.z*Math.hypot(a.x - b.x, a.y - b.y)/pinch.d)); return; }
       if(!P || e.pointerId !== P.id) return; const dx = e.clientX - P.x, dy = e.clientY - P.y; if(Math.abs(dx) + Math.abs(dy) > 6) P.moved = true;
       if(P.obj){ const it = P.obj.userData.item, T = window.THREE;
         if(H3.view === 'out'){ const p = plane(e, new T.Vector3(0, 1, 0), 0); if(p){ it.x = Math.max(-11, Math.min(11, Math.round(p.x*4)/4)); it.z = Math.max(-1, Math.min(11, Math.round(p.z*4)/4)); if(it.z < 0 && Math.abs(it.x) < 3.6) it.z = 0; P.obj.position.set(it.x, 0, it.z); } return; }
@@ -5760,6 +5868,7 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
           else if(pb){ it.w = 'back'; it.x = Math.round(pb.x*4)/4; it.y = Math.max(1.4, Math.min(4.4, Math.round(pb.y*4)/4)); }
           placeWall(P.obj, it); return; }
         const p = plane(e, new T.Vector3(0, 1, 0), 0); if(p){ it.x = Math.max(-hw + .6, Math.min(hw - .6, Math.round(p.x*4)/4)); it.z = Math.max(back + .5, Math.min(RD/2 + .2, Math.round(p.z*4)/4)); P.obj.position.set(it.x, 0, it.z); hutCollide(); } return; }
+      if(h3Inside()){ H3.yaw = P.yaw + dx*.008; H3.pitch = Math.max(.35, Math.min(1.3, P.pitch + dy*.004)); return; }
       H3.yaw = P.yaw - dx*.006; H3.pitch = Math.max(.25, Math.min(1.25, P.pitch + dy*.004)); });
     const up = e => { pts.delete(e.pointerId); if(pts.size < 2) pinch = null; const p = P; if(!p || e.pointerId !== p.id) return; P = null; if(!H3.on) return;
       if(p.obj){ if(!p.moved) HUNDO.pop(); saveProfile(); hutCollide(); if(H3.view === 'out') hutExt2D(); return; }
@@ -5771,12 +5880,12 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
       if(o.userData.yard){ const d = HUTC.yard.find(y => y.id === it.k); say('🌿 ' + tr(d ? d.n : ''), 'good'); return; }
       const def = fdef(it.k); if(def.act) hutAct(def.act); else { say('✨ ' + tr(def.n || '') + ' — ' + tr('마음에 쏙 드는 물건이에요'), 'good'); SFX.pick(); } };
     window.addEventListener('pointerup', up); window.addEventListener('pointercancel', up);
-    $('hut3d').addEventListener('wheel', e => { e.preventDefault(); H3.zoom = Math.max(.6, Math.min(2.4, H3.zoom*(e.deltaY > 0 ? .92 : 1.08))); }, {passive:false});
+    $('hut3d').addEventListener('wheel', e => { e.preventDefault(); H3.zoom = Math.max(.4, Math.min(2.4, H3.zoom*(e.deltaY > 0 ? .92 : 1.08))); }, {passive:false});
     $('hutLabels').addEventListener('click', e => { const b = e.target.closest('.h3tag'); if(b) hutAct(b.dataset.a); });
   })();
   // ---------- build/buy catalogue ----------
   let hutTab = 'furn';
-  function hutShopOpen(tab){ hutTab = tab || hutTab; renderHutShop(); $('hutShopOv').hidden = false; }
+  function hutShopOpen(tab){ hutTab = tab || hutTab; renderHutShop(); $('hutShopOv').hidden = false; if(!$('hutRoom').hidden) document.body.classList.add('hutopen'); }
   function renderHutShop(){
     const h = hutCfg(); if(!h) return;
     $('hutShopCoins').textContent = coinTxt(PROFILE.coins);
@@ -5788,6 +5897,7 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
     let html = '';
     if(hutTab === 'ext'){
       html += styleRow('extWall', h.ext.wall, '🧱 외벽 (색은 공짜!)', 'wall') + styleRow('extRoof', h.ext.roof, '🏠 지붕', 'roof') + styleRow('extDoor', h.ext.door, '🚪 문', 'door') + styleRow('extWin', h.ext.win, '🪟 창문 (테두리 색)', 'trim');
+      html += `<div class="lbl">${esc(tr('🔍 유리 색 (투명)'))}</div><div class="pal" data-col="glass">${GLASS_PAL.map(([c, n]) => `<i style="background:${c}" data-g="${c}" title="${esc(tr(n))}" class="${h.ext.col.glass === c ? 'on' : ''}"></i>`).join('')}</div>`;
       html += `<div class="lbl">${esc(tr('🌷 장식 (여러 개 가능)'))}</div><div class="hgrid">` + HUTC.extDeco.map(it => { const on = h.ext.deco.includes(it.id); return `<div class="hsi ${on ? 'on' : ''}"><span class="hsw">${it.e}</span><b>${esc(tr(it.n))}</b><button class="sbuy" data-cat="extDeco" data-id="${it.id}">${on ? esc(tr('떼기')) : hutOwns('extDeco', it.id) ? esc(tr('달기')) : coinTxt(it.p)}</button></div>`; }).join('') + '</div>';
     } else if(hutTab === 'room'){
       html += `<div class="lbl">${esc(tr('📐 방 크기'))}</div><div class="hgrid">` + HUTC.size.map(it => { const on = h.int.size === it.id; return `<div class="hsi ${on ? 'on' : ''}"><span class="hsw">${it.id.toUpperCase()}</span><b>${esc(tr(it.n))}</b><button class="sbuy" data-cat="size" data-id="${it.id}" ${on ? 'disabled' : ''}>${on ? '✅' : hutOwns('size', it.id) ? esc(tr('쓰기')) : coinTxt(it.p)}</button></div>`; }).join('') + '</div>';
@@ -5807,7 +5917,7 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
   $('hutShopTabs').addEventListener('click', e => { const b = e.target.closest('button'); if(b){ hutTab = b.dataset.t; renderHutShop(); SFX.pick(); } });
   $('hutShopBody').addEventListener('click', e => {
     const h = hutCfg();
-    const pc = e.target.closest('.pal i'); if(pc){ h.ext.col[pc.parentNode.dataset.col] = HPAL[+pc.dataset.c]; saveProfile(); renderHutShop(); hutExt2D(); if(H3.on) h3Build(); SFX.pick(); return; }
+    const pc = e.target.closest('.pal i'); if(pc){ h.ext.col[pc.parentNode.dataset.col] = pc.dataset.g || HPAL[+pc.dataset.c]; saveProfile(); renderHutShop(); hutExt2D(); if(H3.on) h3Build(); SFX.pick(); return; }
     const b = e.target.closest('.sbuy'); if(!b || b.disabled) return; const cat = b.dataset.cat, id = b.dataset.id;
     if(cat === 'furn'){
       const def = fdef(id), stored = h.inv[id] || 0;
@@ -5852,7 +5962,7 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
   $('hutMove').onclick = () => hutEdit(true);
   $('hutView').onclick = () => { H3.top = !H3.top; SFX.pick(); };
   $('hutZoomIn').onclick = () => { H3.zoom = Math.min(2.4, H3.zoom*1.2); };
-  $('hutZoomOut').onclick = () => { H3.zoom = Math.max(.6, H3.zoom/1.2); };
+  $('hutZoomOut').onclick = () => { H3.zoom = Math.max(.4, H3.zoom/1.2); };
   $('hutYard').onclick = () => { H3.view = H3.view === 'out' ? 'in' : 'out'; H3.sel = null; H3.selWall = null; H3.yaw = 0; H3.zoom = 1; $('hutYard').textContent = H3.view === 'out' ? '🏠 ' + tr('방으로') : '🏡 ' + tr('마당 꾸미기'); h3Build(); SFX.soft();
     toast(H3.view === 'out' ? '🏡 ' + tr('마당이에요. 소품을 사서 마음대로 꾸며요') : '🏠 ' + tr('방으로 돌아왔어요')); };
 
@@ -5951,11 +6061,11 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
     if(!G || !G.farm) return;
     if(G.running) G.paused = true;
     const r = $('hutRoom'); $('hutSheet').hidden = true; $('hutEditBar').hidden = true; $('hutTools').hidden = false; H3.edit = false; H3.sel = null;
-    r.hidden = false; r.classList.remove('enter'); void r.offsetWidth; r.classList.add('enter');
+    r.hidden = false; r.classList.remove('enter'); void r.offsetWidth; r.classList.add('enter'); document.body.classList.add('hutopen');
     let ok3 = false;
     try{ await load3(); ok3 = !!(H3.r || h3Init()); }catch(e){ ok3 = false; }
     $('hut3d').style.display = ok3 ? '' : 'none'; $('hutSvg').style.display = ok3 ? 'none' : ''; $('hutLabels').hidden = !ok3; $('hutTools').hidden = !ok3;
-    if(ok3){ try{ H3.yaw = 0; H3.zoom = 1; H3.top = false; H3.view = 'in'; $('hutYard').textContent = '🏡 ' + tr('마당 꾸미기'); h3Size(); h3Build(); }catch(e){ ok3 = false; console.warn('hut3d', e); } }
+    if(ok3){ try{ H3.yaw = 0; H3.zoom = 1; H3.top = false; H3.view = 'in'; H3.pitch = innerWidth < innerHeight ? .82 : .62; $('hutYard').textContent = '🏡 ' + tr('마당 꾸미기'); h3Size(); h3Build(); }catch(e){ ok3 = false; console.warn('hut3d', e); } }
     $('hut3d').style.display = ok3 ? '' : 'none'; $('hutSvg').style.display = ok3 ? 'none' : ''; $('hutLabels').hidden = !ok3; $('hutTools').hidden = !ok3; document.querySelector('.hutcam').hidden = !ok3;
     if(ok3){ H3.on = true; cancelAnimationFrame(H3.raf); H3.raf = requestAnimationFrame(h3Loop);
       say('🏠 ' + tr('농막에 들어왔어요. 옆으로 밀어 둘러보고, 가구를 톡 눌러 봐요'), 'good'); SFX.soft(); return; }
@@ -5964,7 +6074,7 @@ Reply as ${PAL.name} in ${AI_LANG()}, plain text only.`;
     cancelAnimationFrame(HUTR.raf); HUTR.last = performance.now(); HUTR.raf = requestAnimationFrame(hutLoop);
     say('🏠 ' + tr('농막에 들어왔어요. 침대·아궁이·선반·찻상을 톡 눌러 봐요'), 'good');
   }
-  function hutClose(){ $('hutRoom').hidden = true; cancelAnimationFrame(HUTR.raf); H3.on = false; cancelAnimationFrame(H3.raf); $('hutShopOv').hidden = true; if(G) G.paused = false; }
+  function hutClose(){ document.body.classList.remove('hutopen'); $('hutRoom').hidden = true; cancelAnimationFrame(HUTR.raf); H3.on = false; cancelAnimationFrame(H3.raf); $('hutShopOv').hidden = true; if(G) G.paused = false; }
   function hutPan(){ const g = $('hutPan'); if(g) g.setAttribute('transform', `translate(${HUTR.x.toFixed(1)} 0)`); }
   function hutLoop(now){
     if($('hutRoom').hidden) return;
